@@ -23,9 +23,13 @@
     NSMutableDictionary *attributes;
     BOOL insertedRoot;
     int counterCh;
+    
+    
 }
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)errorPointer;
+@property NSString *resourcesPath;
+
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir error:(NSError **)errorPointer;
 + (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)errorPointer;
 
 @end

@@ -12,12 +12,13 @@
 int main(int argc, const char * argv[]) {
     
     NSString *file = [NSString stringWithFormat:@"%s", argv[1]];
+    NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
     NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"xml"];
     NSData *parser = [NSData dataWithContentsOfFile:path];
     
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser error:&parseError];
+    NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser resources:imageDir error:&parseError];
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary

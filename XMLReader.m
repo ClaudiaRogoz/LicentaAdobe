@@ -24,9 +24,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 #pragma mark -
 #pragma mark Public methods
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)error
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir error:(NSError **)error
 {
     XMLReader *reader = [[XMLReader alloc] initWithError:error];
+    [reader setResourcesPath:resourcesDir];
+    
     NSDictionary *rootDictionary = [reader objectWithData:data];
       return rootDictionary;
 }
@@ -34,7 +36,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 + (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)error
 {
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    return [XMLReader dictionaryForXMLData:data error:error];
+    return [XMLReader dictionaryForXMLData:data resources:@"" error:error];
 }
 
 #pragma mark -
@@ -65,7 +67,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     xml2agcDictionary[@"scene"] = @"children1";
     xml2agcDictionary[@"objects"] = @"artboard2";
     xml2agcDictionary[@"viewController"] = @"artboard";
-    //xml2agcDictionary[@"imageView"] = @"imageView";
+    xml2agcDictionary[@"imageView"] = @"imageView";
     xml2agcDictionary[@"view"] = @"children";
     xml2agcDictionary[@"textField"] =@"textField";
     xml2agcDictionary[@"label"] =@"textField";
@@ -77,12 +79,23 @@ NSString *const kXMLReaderTextNodeKey = @"text";
    
     xml2agcDictionary[@"textField."][@"name"] = @"text";
     
+    
     //inverted index for bottom-up inheritance
+    xml2agcDictionary[@"imageView."] = @"style.fill.pattern.href";
     xml2agcDictionary[@"rect."] = [[NSMutableDictionary alloc] init];
     xml2agcDictionary[@"rect."][@"x"] = @"textField.transform.tx"; //TODO Dictionary based on type (textField only) -> make dictionary of {textfield: transform.x; label: ....x}
     xml2agcDictionary[@"rect."][@"y"] = @"textField.transform.ty";
-    xml2agcDictionary[@"rect."][@"width"] = @"rect.shape.width"; //TODO Dictionary based on type (textField only) -> make dictionary of {textfield: transform.x; label: ....x}
-    xml2agcDictionary[@"rect."][@"height"] = @"rect.shape.height";
+    
+    xml2agcDictionary[@"rect."][@"width"] = [[NSMutableDictionary alloc] init];
+    xml2agcDictionary[@"rect."][@"width"][@"rect"] = @"rect.shape.width"; //TODO Dictionary based on type (textField only) -> make dictionary of {textfield: transform.x; label: ....x}
+    xml2agcDictionary[@"rect."][@"width"][@"text"] = @"textField.shape.width";
+    xml2agcDictionary[@"rect."][@"width"][@"shape"] = @"imageView.style.fill.pattern.width";
+    
+    xml2agcDictionary[@"rect."][@"height"] = [[NSMutableDictionary alloc] init];
+    xml2agcDictionary[@"rect."][@"height"][@"text"]= @"textField.shape.height";
+    xml2agcDictionary[@"rect."][@"height"][@"rect"]= @"rect.shape.height";
+    xml2agcDictionary[@"rect."][@"height"][@"shape"] = @"imageView.style.fill.pattern.height";
+    
     xml2agcDictionary[@"color."] = [[NSMutableDictionary alloc] init];
     xml2agcDictionary[@"color."][@"red"] = @"textField.style.fill.color.value.r";
     xml2agcDictionary[@"color."][@"green"] = @"textField.style.fill.color.value.g";
@@ -163,16 +176,27 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     attributes[@"rectangle"][@"shape"][@"height"] = @"$rect.height";
     
     
-   /* attributes[@"imageView"] = [[NSMutableDictionary alloc] init];
+    attributes[@"imageView"] = [[NSMutableDictionary alloc] init];
     attributes[@"imageView"][@"type"] = @"shape";
-    attributes[@"imageView"][@"transform"] = attributes[@"rectangle"][@"transform"];
+    attributes[@"imageView"][@"transform"] = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[@"rectangle"][@"transform"]]];
+    attributes[@"imageView"][@"style"] = [[NSMutableDictionary alloc] init];
     attributes[@"imageView"][@"style"][@"fill"] = [[NSMutableDictionary alloc] init];
     attributes[@"imageView"][@"style"][@"fill"][@"type"] = @"pattern";
     attributes[@"imageView"][@"style"][@"fill"][@"pattern"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"width"] = @"%image.width"; //TODO ???
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"height"] = @"%image.height";
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"href"] = @"";
-    */
+    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"width"] = @"$rect.width";
+    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"height"] = @"$rect.height";
+    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"href"] = @"$image"; // TODO add resourcesPath
+    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"meta"] = [[NSMutableDictionary alloc] init];
+    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"meta"][@"ux"] = [[NSMutableDictionary alloc] init];
+    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"meta"][@"ux"][@"uid"] = @"$rand";
+    
+    attributes[@"imageView"][@"shape"] = [[NSMutableDictionary alloc] init];
+    attributes[@"imageView"][@"shape"][@"type"] = @"rect";
+    attributes[@"imageView"][@"shape"][@"x"] = [NSNumber numberWithInt:0];
+    attributes[@"imageView"][@"shape"][@"y"] = [NSNumber numberWithInt:0];
+    attributes[@"imageView"][@"shape"][@"width"] = [NSNumber numberWithInt:160]; //TODO
+    attributes[@"imageView"][@"shape"][@"height"] = [NSNumber numberWithInt:160];
+    
     attributes[@"textField"][@"text"][@"frame"] = [[NSMutableDictionary alloc] init];
     attributes[@"textField"][@"text"][@"frame"][@"type"] = @"positioned";
     attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
@@ -258,7 +282,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
         }
         
-        // when there is a tag with the key backgroundColor; add new rectangel with the spec colors
+        // when there is a tag with the key backgroundColor; add new rectangle with the spec colors
         if ([elementName isEqualToString: @"color"] && [[attributeDict objectForKey:@"key"] isEqualToString:@"backgroundColor"] && [[inheritanceStack lastObject] intValue]) {
            
             NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[@"rectangle"]]];
@@ -292,8 +316,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             id size = [attributes objectForKey:@"frame"];
             
             for (id key1 in xml2agcDictionary[@"rect."]){
-               
-                    NSArray *strings = [[xml2agcDictionary[@"rect."] objectForKey:key1] componentsSeparatedByString:@"."];
+                NSLog(@"key1 = %@", key1);
+                NSArray *strings;
+                if ([[xml2agcDictionary[@"rect."] objectForKey:key1] isKindOfClass:[NSMutableDictionary class]]) {
+                    NSLog(@"Dict = %@", [[xml2agcDictionary[@"rect."] objectForKey:key1] objectForKey:@"rect"]);
+                    strings = [[[xml2agcDictionary[@"rect."] objectForKey:key1] objectForKey:@"rect" ]componentsSeparatedByString:@"."];
+                    
+                }
+                else
+                    strings = [[xml2agcDictionary[@"rect."] objectForKey:key1] componentsSeparatedByString:@"."];
+                
+                NSLog(@"ElementName = %@ %@", elementName, strings);
                     id value = shapeAttr;
                     for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
                         value = [value objectForKey:key];
@@ -348,21 +381,36 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
         bool ok = false;
         for (id key in xml2agcDictionary[entry]){
-          
-            NSArray *strings = [[xml2agcDictionary[entry] objectForKey:key] componentsSeparatedByString:@"."];
+            NSLog(@"For %@ %@ %@", elementName, key, [xml2agcDictionary[entry] objectForKey:key]);
+            NSArray *strings;
             
-            id value = nil;
-            if ([[parentDict objectForKey:@"type"] isEqualToString:@"text"])
-                value = parentDict;
+            if ([[xml2agcDictionary[entry] objectForKey:key] isKindOfClass:[NSMutableDictionary class]]) {
+                
+                //TODOD change HERE!!!!
+                NSString *parent = [parentDict objectForKey:@"type"];
+                NSLog(@"Parent %@", parent);
+                if (parent)
+                    strings = [[[xml2agcDictionary[entry] objectForKey:key] objectForKey: parent] componentsSeparatedByString:@"."];
+                else {
+                    ok = true;
+                    NSLog(@"I'm Hetre\n");
+                    return;
+                    
+                }
+            }
+            else {
+                strings = [[xml2agcDictionary[entry] objectForKey:key] componentsSeparatedByString:@"."];
+            }
             
-            //check if inverted index corresponds to current value
-            if ([[strings objectAtIndex:0] isEqualToString:[entry substringToIndex:[entry length] - 1]])
-                 continue;
+            id value = parentDict;
             
-            for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
-                value = [value objectForKey: key];
+            NSLog(@"ParentDict = %@", value);
+            for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
+                value = [value objectForKey: key1];
                
             }
+            
+            NSLog(@"%@ %@", elementName, key);
             
             if (![attributeDict objectForKey:key])
                 continue;
@@ -413,8 +461,23 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 [value setObject:tempValue forKey:[strings lastObject]];
                 return;
             }
-            [value setObject:tempValue forKey:[strings lastObject]];
+            if (!ok){
+                if([ [value objectForKey:[strings lastObject]] isKindOfClass:[NSString class] ] &&
+                          [[ [value objectForKey:[strings lastObject]] substringToIndex:1] isEqualToString:@"$"])
+                    [value setObject:tempValue forKey:[strings lastObject]];
+                else if ([value objectForKey:@"href"]) {
+                    //if it is an image -> update width & height
+                    NSLog(@"DD %@", parentDict);
+                
             
+                id value = parentDict;
+                    value = [value objectForKey:@"shape"];
+                    NSLog(@"Set %@ with %@", value, [attributeDict objectForKey:@"width"]);
+               
+                //[value setObject:[attributeDict objectForKey:@"width"] forKey:@"width"];
+                //[value setObject:[attributeDict objectForKey:@"height"] forKey:@"height"];
+                }
+            }
         }
         
         return;
@@ -430,25 +493,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     elementName = [xml2agcDictionary objectForKey:elementName];
     
-    
-    //TODO transform to list!!!
-    if ([xml2agcDictionary objectForKey:elementName] && [[xml2agcDictionary objectForKey:elementName] isEqual:@"list"] ){
-        
-        
-    }else {
-      
-        
         NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
 ;
         
-       
+       //First level attributes
         for (id key in attributes[elementName]){
-            
+            NSLog(@"Got %@ %@", key, elementName);
             id value = [attributes[elementName] objectForKey:key];
-           
+            NSLog(@"Got %@ ", correctAttr);
             if ([value isKindOfClass:[NSString class]]){
                 if ([[value substringToIndex:1] isEqualToString:@"$"]){
-                  
+                    NSLog(@"VAL: %@", value);
                     NSInteger i = [value length] -1;
                     value = [value substringWithRange:NSMakeRange(1, i)];
                     
@@ -467,11 +522,44 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     correctAttr[key] = tempValue;
                     
                 }
+                //TODO transfrom for lower levels; propagate attributes
+            } else if ([elementName isEqualToString:@"imageView"] && [key isEqualToString:@"style"]){
+              
+                NSString *imageName = [NSString stringWithFormat:@"%@/%@",
+                                       [self resourcesPath], [attributeDict objectForKey:@"image"]];
+                NSLog(@"Nume imageine = %@", imageName);
+                NSArray *strings = [[xml2agcDictionary objectForKey:@"imageView."] componentsSeparatedByString:@"."];
+                
+                id value = correctAttr;
+                for (id key in [strings subarrayWithRange:NSMakeRange(0, [strings count] -1)]){
+                    value = [value objectForKey:key];
+                
+                }
+                
+                NSLog(@"%@", value);
+                
+                //generate random values for uid ...
+                int num = arc4random() % 1000000;
+                [value setObject:imageName forKey:[strings lastObject]];
+                
+                NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
+                
+                if (image == nil) {
+                    NSLog(@"[ERROR]Image is nil");
+                }
+                
+                NSLog(@"Set = %@ and %f",value, image.size.height, value);
+                
+                [value setObject:[NSNumber numberWithInt:image.size.width] forKey:@"width"];
+                [value setObject:[NSNumber numberWithInt:image.size.height] forKey:@"height"];
+                
+                value = [[value objectForKey:@"meta"] objectForKey:@"ux"];
+                
+                [value setObject: [NSString stringWithFormat:@"%d", num] forKey:@"uid"];
             }
         }
         
         [childDict addEntriesFromDictionary:correctAttr];
-    }
     
     if ([xml2agcDictionary objectForKey:[inheritanceStack lastObject]] &&
         [[xml2agcDictionary objectForKey:[inheritanceStack lastObject]] isEqual: @"list"]){
@@ -508,8 +596,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    
-   
     
     //TODO replace all $"smth" values with default ones --> see how ?
     
@@ -567,7 +653,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     }
 
     //default Values
-    id def = [defaultValues objectForKey:elementName];
+    id name = elementName;
+    if ([elementName isEqualToString:@"label"])
+        name =xml2agcDictionary[elementName];
+    
+    id def = [defaultValues objectForKey:name];
     for(id key in def){
         
         NSArray *strings = [key componentsSeparatedByString:@"."];
@@ -581,6 +671,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         id tempValue = [value objectForKey:[strings lastObject]];
         
         if (![tempValue isKindOfClass:[NSNumber class]] && [tempValue isKindOfClass:[NSString class]] && [[tempValue substringToIndex:1] isEqualToString:@"$"]){
+            
             [value setObject:[def objectForKey:key] forKey:[strings lastObject]];
         }
 
