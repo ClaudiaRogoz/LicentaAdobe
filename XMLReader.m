@@ -60,6 +60,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     inheritanceStack = [[NSMutableArray alloc] init];
     attributes = [[NSMutableDictionary alloc] init];
     toInsertObjects = [[NSMutableArray alloc] init];
+    lastLoadedAsset = [[NSMutableDictionary alloc] init];
     
     //TODO eventually read from file (XML ??? )
     insertedRoot = false;
@@ -71,7 +72,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     xml2agcDictionary[@"view"] = @"children";
     xml2agcDictionary[@"textField"] =@"textField";
     xml2agcDictionary[@"label"] =@"textField";
-    
+    xml2agcDictionary[@"switch"] = @"Button";
     
     xml2agcDictionary[@"children"] = @"list";
     xml2agcDictionary[@"children1"] = @"list";
@@ -255,6 +256,22 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     // Get the dictionary for the current level in the stack
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
     
+    if ([elementName isEqualToString:@"switch"]){
+        
+        NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:@"agc"];
+        NSError * error=nil;;
+        NSLog(@"Found switch tag TODO %@", buttonPath);
+        NSString *jsonString = [NSString stringWithContentsOfFile:buttonPath encoding:nil error:&error];
+        NSData * jsonData = [jsonString dataUsingEncoding:nil];
+        NSMutableDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+        NSLog(@"parsedData = %@", parsedData);
+        NSLog(@"At parent = %@", parentDict[@"children"]);
+        [parentDict[@"children"] addObject:parsedData];
+        [inheritanceStack addObject:@"switch"];
+        //lastLoadedAsset = parsedData;
+        return;
+    }
+    
     // Create the child dictionary for the new element, and initilaize it with the attributes
     NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
     
@@ -274,10 +291,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             NSArray *keys =[NSArray arrayWithObjects:@"x", @"y", @"width", @"height", nil];
             
             for (id attr in keys){
-               
+                
                 if ([attributeDict[attr] intValue])
                     attributes[@"frame"][attr] = [NSNumber numberWithFloat:[attributeDict[attr] floatValue]];
                  attributes[@"frame"][attr] = attributeDict[attr];
+                NSLog(@"Saved rect for %@", attributeDict[attr]);
             }
             
         }
@@ -467,15 +485,15 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     [value setObject:tempValue forKey:[strings lastObject]];
                 else if ([value objectForKey:@"href"]) {
                     //if it is an image -> update width & height
-                    NSLog(@"DD %@", parentDict);
-                
             
-                id value = parentDict;
+                    id value = parentDict;
                     value = [value objectForKey:@"shape"];
-                    NSLog(@"Set %@ with %@", value, [attributeDict objectForKey:@"width"]);
-               
-                //[value setObject:[attributeDict objectForKey:@"width"] forKey:@"width"];
-                //[value setObject:[attributeDict objectForKey:@"height"] forKey:@"height"];
+                    
+                    float weight = [[attributeDict objectForKey:@"width"] floatValue];
+                    float height = [[attributeDict objectForKey:@"height"] floatValue];
+                    
+                    [value setObject:[NSNumber numberWithFloat:weight] forKey:@"width"];
+                    [value setObject:[NSNumber numberWithFloat:height]  forKey:@"height"];
                 }
             }
         }
@@ -597,7 +615,36 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     
-    //TODO replace all $"smth" values with default ones --> see how ?
+    if ([elementName isEqualToString:@"switch"]){
+        return;
+        
+    }
+    
+    if ([elementName isEqualToString:@"rect"] && [[inheritanceStack lastObject] isEqualToString:@"switch"]){
+       
+        //TODO insert in xml2agcDict
+        id value = [[[dictionaryStack lastObject] objectForKey:@"children"] lastObject];
+        NSArray *strings = [@"switch.transform.tx" componentsSeparatedByString:@"."];
+        
+        for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] -2)]) {
+            value = [value objectForKey:key];
+        }
+       
+        id frame = [attributes objectForKey:@"frame"];
+        [value setObject:[frame objectForKey:@"x"] forKey:[strings lastObject]];
+       
+        strings = [@"switch.transform.ty" componentsSeparatedByString:@"."];
+        frame = [attributes objectForKey:@"frame"];
+        
+        [value setObject:[frame objectForKey:@"y"] forKey:[strings lastObject]];
+        
+        
+        return;
+        
+        
+    }
+        
+    //replace all $"smth" values with default ones
     
     NSString *tempReplace = [NSString stringWithFormat:@"#%@", elementName];
     

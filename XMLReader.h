@@ -21,6 +21,7 @@
     NSMutableDictionary *defaultValues;
     NSMutableDictionary *invertedDictionary;
     NSMutableDictionary *attributes;
+    NSMutableDictionary *lastLoadedAsset;
     BOOL insertedRoot;
     int counterCh;
     
