@@ -23,6 +23,7 @@ in the xml's tags)
  
 -------------------------- Issues ---------------------
 
+TODO: check order for assets
 Background -> only when xcode color type = calibratedRGB 
 		-> TODO: calibratedWhite etc.
 Text -> only textAlignment = center
