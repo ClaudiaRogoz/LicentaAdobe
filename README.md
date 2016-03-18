@@ -34,4 +34,8 @@ Images -> TODO change size info
 
 TODO: switches + several other assets that can be found in ios material in Comet
 TODO: transitions + multiple artboards
+TODO: read templates from file maybe ? 
 
+
+Code issues:
+TODO: change [rect.][x], [y] in Dictionary + change inheritanceStack -> needed for textField + switch !!!
