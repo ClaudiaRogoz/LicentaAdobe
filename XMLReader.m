@@ -60,7 +60,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     inheritanceStack = [[NSMutableArray alloc] init];
     attributes = [[NSMutableDictionary alloc] init];
     toInsertObjects = [[NSMutableArray alloc] init];
-    lastLoadedAsset = [[NSMutableDictionary alloc] init];
+   
     
     //TODO eventually read from file (XML ??? )
     insertedRoot = false;
@@ -86,6 +86,19 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     xml2agcDictionary[@"rect."] = [[NSMutableDictionary alloc] init];
     xml2agcDictionary[@"rect."][@"x"] = @"textField.transform.tx"; //TODO Dictionary based on type (textField only) -> make dictionary of {textfield: transform.x; label: ....x}
     xml2agcDictionary[@"rect."][@"y"] = @"textField.transform.ty";
+    
+    //TODO1 eventually transfer to xml2agcDictionary [@"rect."] !!!
+    xml2agcDictionary[@"switch."] = [[NSMutableDictionary alloc] init];
+    xml2agcDictionary[@"switch."][@"rect"] = [[NSMutableDictionary alloc] init];
+    xml2agcDictionary[@"switch."][@"rect"][@"x"] = @"switch.transform.tx";
+    xml2agcDictionary[@"switch."][@"rect"][@"y"] = @"switch.transform.ty";
+    
+    
+    xml2agcDictionary[@"switch."][@"color"] = [[NSMutableDictionary alloc] init];
+    xml2agcDictionary[@"switch."][@"color"][@"onTintColor"] = [[NSMutableDictionary alloc] init];
+    //xml2agcDictionary[@"switch."][@"color"][@"onTintColor"][@"red"] = @"group.children.shape";
+    //xml2agcDictionary[@"switch."][@"color"][@"onTintColor"][@"green"] = ;
+    //xml2agcDictionary[@"switch."][@"color"][@"onTintColor"][@"blue"] = ;
     
     xml2agcDictionary[@"rect."][@"width"] = [[NSMutableDictionary alloc] init];
     xml2agcDictionary[@"rect."][@"width"][@"rect"] = @"rect.shape.width"; //TODO Dictionary based on type (textField only) -> make dictionary of {textfield: transform.x; label: ....x}
@@ -241,6 +254,19 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     // Return the stack's root dictionary on success
     if (success)
     {
+        //TODO transform for any number of artboards
+        id type = [dictionaryStack objectAtIndex:0];
+        NSLog(@"At 0 = %@", type);
+        [type  setObject:[[NSMutableDictionary alloc] init] forKey:@"artboards"];
+        type = [type objectForKey:@"artboards"];
+        [type  setObject:[[NSMutableDictionary alloc] init] forKey:@"artboard1"];
+        type = [type objectForKey:@"artboard1"];
+        [type setObject:[NSNumber numberWithInt: 375] forKey:@"width"];
+        [type setObject:[NSNumber numberWithInt: 667] forKey:@"height"];
+        [type setObject:[NSNumber numberWithInt: 0] forKey:@"x"];
+        [type setObject:[NSNumber numberWithInt: 0] forKey:@"y"];
+        [type setObject:@"iPhone 6 – 1" forKey:@"name"];
+        NSLog(@"At 0 = %@", type);
         NSDictionary *resultDict = [dictionaryStack objectAtIndex:0];
         return resultDict;
     }
@@ -260,17 +286,29 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:@"agc"];
         NSError * error=nil;;
-        NSLog(@"Found switch tag TODO %@", buttonPath);
+       
         NSString *jsonString = [NSString stringWithContentsOfFile:buttonPath encoding:nil error:&error];
         NSData * jsonData = [jsonString dataUsingEncoding:nil];
         NSMutableDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-        NSLog(@"parsedData = %@", parsedData);
-        NSLog(@"At parent = %@", parentDict[@"children"]);
+       
+        
         [parentDict[@"children"] addObject:parsedData];
         [inheritanceStack addObject:@"switch"];
-        //lastLoadedAsset = parsedData;
+        
         return;
     }
+    
+    
+    //TODO Color
+    /*if ([elementName isEqualToString:@"color"] && [[inheritanceStack lastObject] isEqualToString:@"switch"]){
+        id getType = [attributeDict objectForKey:@"key"];
+        if ([getType isEqualToString:@"onTintColor"]){
+            id value = [[[dictionaryStack lastObject] objectForKey:@"children"] lastObject];
+            
+            NSLog(@"Found Color %@", value);
+            return;
+        }
+    }*/
     
     // Create the child dictionary for the new element, and initilaize it with the attributes
     NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
@@ -334,17 +372,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             id size = [attributes objectForKey:@"frame"];
             
             for (id key1 in xml2agcDictionary[@"rect."]){
-                NSLog(@"key1 = %@", key1);
+              
                 NSArray *strings;
                 if ([[xml2agcDictionary[@"rect."] objectForKey:key1] isKindOfClass:[NSMutableDictionary class]]) {
-                    NSLog(@"Dict = %@", [[xml2agcDictionary[@"rect."] objectForKey:key1] objectForKey:@"rect"]);
+                    
                     strings = [[[xml2agcDictionary[@"rect."] objectForKey:key1] objectForKey:@"rect" ]componentsSeparatedByString:@"."];
                     
                 }
                 else
                     strings = [[xml2agcDictionary[@"rect."] objectForKey:key1] componentsSeparatedByString:@"."];
                 
-                NSLog(@"ElementName = %@ %@", elementName, strings);
+               
                     id value = shapeAttr;
                     for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
                         value = [value objectForKey:key];
@@ -399,19 +437,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
         bool ok = false;
         for (id key in xml2agcDictionary[entry]){
-            NSLog(@"For %@ %@ %@", elementName, key, [xml2agcDictionary[entry] objectForKey:key]);
+           
             NSArray *strings;
             
             if ([[xml2agcDictionary[entry] objectForKey:key] isKindOfClass:[NSMutableDictionary class]]) {
                 
-                //TODOD change HERE!!!!
                 NSString *parent = [parentDict objectForKey:@"type"];
-                NSLog(@"Parent %@", parent);
+               
                 if (parent)
                     strings = [[[xml2agcDictionary[entry] objectForKey:key] objectForKey: parent] componentsSeparatedByString:@"."];
                 else {
                     ok = true;
-                    NSLog(@"I'm Hetre\n");
                     return;
                     
                 }
@@ -422,13 +458,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             id value = parentDict;
             
-            NSLog(@"ParentDict = %@", value);
             for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
                 value = [value objectForKey: key1];
                
             }
-            
-            NSLog(@"%@ %@", elementName, key);
             
             if (![attributeDict objectForKey:key])
                 continue;
@@ -516,12 +549,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
        //First level attributes
         for (id key in attributes[elementName]){
-            NSLog(@"Got %@ %@", key, elementName);
+        
             id value = [attributes[elementName] objectForKey:key];
-            NSLog(@"Got %@ ", correctAttr);
+           
             if ([value isKindOfClass:[NSString class]]){
                 if ([[value substringToIndex:1] isEqualToString:@"$"]){
-                    NSLog(@"VAL: %@", value);
+                   
                     NSInteger i = [value length] -1;
                     value = [value substringWithRange:NSMakeRange(1, i)];
                     
@@ -545,7 +578,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
               
                 NSString *imageName = [NSString stringWithFormat:@"%@/%@",
                                        [self resourcesPath], [attributeDict objectForKey:@"image"]];
-                NSLog(@"Nume imageine = %@", imageName);
                 NSArray *strings = [[xml2agcDictionary objectForKey:@"imageView."] componentsSeparatedByString:@"."];
                 
                 id value = correctAttr;
@@ -553,8 +585,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     value = [value objectForKey:key];
                 
                 }
-                
-                NSLog(@"%@", value);
                 
                 //generate random values for uid ...
                 int num = arc4random() % 1000000;
@@ -565,8 +595,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 if (image == nil) {
                     NSLog(@"[ERROR]Image is nil");
                 }
-                
-                NSLog(@"Set = %@ and %f",value, image.size.height, value);
                 
                 [value setObject:[NSNumber numberWithInt:image.size.width] forKey:@"width"];
                 [value setObject:[NSNumber numberWithInt:image.size.height] forKey:@"height"];
@@ -585,8 +613,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         id lastObject =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [dictionaryStack lastObject]]];
         
         
-        if ([[inheritanceStack lastObject] isEqualToString: @"children1"])
+        if ([[inheritanceStack lastObject] isEqualToString: @"children1"]){
             [childDict setObject:@"artboard" forKey:@"type"];
+            //TODO change number based on artboards!
+        }
         
         NSMutableArray *array = nil;
         if (![lastObject isKindOfClass:[NSMutableArray class]] && [lastObject count] == 0 ){
@@ -620,10 +650,13 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
     }
     
+    //TODO2 remove function after TODO1 (this < didStartElement ?)
     if ([elementName isEqualToString:@"rect"] && [[inheritanceStack lastObject] isEqualToString:@"switch"]){
-       
-        //TODO insert in xml2agcDict
+        
+        //TODO1 insert in xml2agcDict
         id value = [[[dictionaryStack lastObject] objectForKey:@"children"] lastObject];
+        
+        
         NSArray *strings = [@"switch.transform.tx" componentsSeparatedByString:@"."];
         
         for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] -2)]) {
@@ -632,7 +665,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
        
         id frame = [attributes objectForKey:@"frame"];
         [value setObject:[frame objectForKey:@"x"] forKey:[strings lastObject]];
-       
+        //TODO1 change here!!!
         strings = [@"switch.transform.ty" componentsSeparatedByString:@"."];
         frame = [attributes objectForKey:@"frame"];
         
@@ -640,7 +673,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         
         return;
-        
         
     }
         
