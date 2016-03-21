@@ -28,7 +28,7 @@
                                 <rect key="frame" x="88" y="87" width="240" height="128"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background image 2.png" translatesAutoresizingMaskIntoConstraints="NO" id="Iwe-Nf-lxD">
-                                <rect key="frame" x="247" y="147" width="240" height="128"/>
+                                <rect key="frame" x="247" y="152" width="240" height="128"/>
                             </imageView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rAl-I2-CKm">
                                 <rect key="frame" x="299" y="450" width="51" height="31"/>
