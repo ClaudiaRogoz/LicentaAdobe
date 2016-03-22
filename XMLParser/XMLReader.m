@@ -6,7 +6,9 @@
 //  Copyright © 2016 crogoz. All rights reserved.
 //
 
+#include <CommonCrypto/CommonDigest.h>
 #import "XMLReader.h"
+
 
 NSString *const kXMLReaderTextNodeKey = @"text";
 
@@ -23,6 +25,160 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 #pragma mark -
 #pragma mark Public methods
+
++ (int) compare2Artboards:(NSDictionary*) first dict2:(NSDictionary *) second
+{
+    //TODO first only for modified objects
+    
+
+    return 1;
+
+}
+
+
++ (void) monitorXDFile:(NSString*) path
+{
+    const char *pathString = [path cStringUsingEncoding:NSASCIIStringEncoding];
+    int fildes = open(pathString, O_RDONLY);
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE,fildes, DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_ATTRIB | DISPATCH_VNODE_LINK | DISPATCH_VNODE_RENAME | DISPATCH_VNODE_REVOKE,
+                                                              queue);
+    dispatch_source_set_event_handler(source, ^
+                                      {
+                                          unsigned long flags = dispatch_source_get_data(source);
+                                          //Do some stuff
+                                          
+                                          if(flags & DISPATCH_VNODE_DELETE)
+                                          {
+                                              [self monitorXDFile:path];
+                                              
+                                          }
+                                          else {
+                                          
+                                              NSLog(@"File has changed!\n");
+                                              NSString *zipPath = [[NSBundle mainBundle] pathForResource:path ofType:@"xd"];
+                                              
+                                              //TODO change unzip directory -> maybe temp directory ?
+                                              NSString *destinationPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                                              NSTask *task = [[NSTask alloc] init];
+                                              task.launchPath = @"/usr/bin/unzip";
+                                              task.arguments = @[path];
+                                              task.currentDirectoryPath=@"/Users/crogoz/Documents/";
+                                              
+                                              [task launch];
+                                              [task waitUntilExit];
+                                              
+                                              NSFileManager *fileManager = [[ NSFileManager alloc] init];
+                                              
+                                              NSString *pathFinal = @"/Users/crogoz/Documents/temp-artwork";
+                                              NSURL *directoryURLF = [NSURL fileURLWithPath:pathFinal];
+                                              
+                                              NSString *pathInit = @"/Users/crogoz/Documents/artwork";
+                                              NSURL *directoryURLI = [NSURL fileURLWithPath:pathInit];
+                                              
+                                              NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
+                                              
+                                              NSError *perror;
+                                              
+                                              NSDirectoryEnumerator *enumeratorI = [fileManager
+                                                                                   enumeratorAtURL:directoryURLI
+                                                                                   includingPropertiesForKeys:keys
+                                                                                   options:0
+                                                                                   errorHandler:^(NSURL *url, NSError *error) {
+                                                                                       // Handle the error.
+                                                                                       // Return YES if the enumeration should continue after the error.
+                                                                                       return YES;
+                                                                                   }];
+                                              
+                                              NSDirectoryEnumerator *enumeratorF = [fileManager
+                                                                                    enumeratorAtURL:directoryURLF
+                                                                                    includingPropertiesForKeys:keys
+                                                                                    options:0
+                                                                                    errorHandler:^(NSURL *url, NSError *error) {
+                                                                                        // Handle the error.
+                                                                                        // Return YES if the enumeration should continue after the error.
+                                                                                        return YES;
+                                                                                    }];
+                                              
+                                              NSMutableArray *filesInit = [[NSMutableArray alloc] init];
+                                              for (NSURL *urlI in enumeratorI) {
+                                                 
+                                                  NSError *error;
+                                                  NSNumber *isDirectory = nil;
+                                                  if (! [urlI getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
+                                                      // handle error
+                                                  }
+                                                  else if (! [isDirectory boolValue]) {
+                                                     
+                                                      if ([[[[urlI path] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"graphicContent.agc"]) {
+                                                          NSLog(@"URL = %@", [urlI path]);
+                                                          [filesInit addObject:[urlI path]];
+                                                          
+                                                      }
+                                                  }
+                                              
+                                              }
+                                              NSLog(@"Files = %@", filesInit);
+                                              
+                                              int i = 0;
+                                              for (NSURL *urlF in enumeratorF) {
+                                                  NSError *error;
+                                                  NSNumber *isDirectory = nil;
+                                                  if (! [urlF getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
+                                                      // handle error
+                                                  }
+                                                  else if (! [isDirectory boolValue] &&
+                                                                ![[urlF path] isEqualToString:@"/Users/crogoz/Documents/temp-artwork/.DS_Store"]) {
+                                                      [filesInit addObject:[urlF path]];
+                                                      //TODO dictionaries to compare
+                                                      NSLog(@"Check %@ with %@", [urlF path], [filesInit objectAtIndex:0]);
+                                                      
+                                                      NSString *filePath = [urlF path];
+                                                      NSString *jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
+                                                      
+                                                      NSError *jsonError;
+                                                      
+                                                      NSMutableDictionary *jsonDict1 = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
+                                                      
+                                                      filePath = [filesInit objectAtIndex:0];
+                                                      jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
+                                                      
+                                                      NSMutableDictionary *jsonDict2 = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
+
+                                                      NSMutableSet *keysInA = [NSMutableSet setWithArray:[jsonDict1 allKeys]];
+                                                      NSSet *keysInB = [NSSet setWithArray:[jsonDict2 allKeys]];
+                                                      [keysInA minusSet:keysInB];
+                                                      NSLog(@"keys in A that are not in B: %@", keysInA);
+                                                      NSLog(@"%@", [jsonDict2 allKeys]);
+                                                      
+                                                      //TODO eventual in xml2agc
+                                                      NSDictionary *first = [[[jsonDict1 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"];
+                                                      NSDictionary *second = [[[jsonDict2 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"];
+                                                      
+                                                      int countFirst = [first count];
+                                                      int countSecond = [second count];
+                                                      
+                                                      //TODO look at id from xml? -> that's the name
+                                                      
+                                                      //TODO: only for same objects-> different attributes
+                                                      //TODO: objects are added
+                                                      //TODO objects are deleted & added
+                                                      
+                                                  }
+                                              }
+                                                                    
+            
+                                              
+                                          }
+                                      });
+    
+    dispatch_source_set_cancel_handler(source, ^(void)
+                                       {
+                                           close(fildes);
+                                       });
+    dispatch_resume(source);
+
+}
 
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir error:(NSError **)error
 {
@@ -116,6 +272,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     counterArtboards = 1;
     //TODO eventually read from file (XML ??? )
     insertedRoot = false;
+    
     xml2agcDictionary = [[NSMutableDictionary alloc] init];
     xml2agcDictionary[@"scenes"] = @"children";
     xml2agcDictionary[@"scene"] = @"artboard2";
@@ -187,7 +344,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     attributes[@"textField"] = [[NSMutableDictionary alloc] init];
     attributes[@"textField"][@"type"] = @"text";
-    attributes[@"textField"][@"name"] = @"$text";
+    attributes[@"textField"][@"name"] = @"$text"; //TODO update with ID!!!
     attributes[@"textField"][@"transform"] = [[NSMutableDictionary alloc] init];
     attributes[@"textField"][@"transform"][@"a"] = [NSNumber numberWithInt:1];
     attributes[@"textField"][@"transform"][@"b"] = [NSNumber numberWithInt:0];
@@ -211,9 +368,9 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     attributes[@"textField"][@"style"][@"font"][@"style"] = @"Regular";
     attributes[@"textField"][@"style"][@"font"][@"size"] = @"$fontDescription.pointSize";
     attributes[@"textField"][@"text"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"text"][@"rawText"] = @"#text"; // # already saved (an attribute from parent ??? TODO eventually for other cases !!!!!) should I use a stack ??
+    attributes[@"textField"][@"text"][@"rawText"] = @"#text";
     
-    attributes[@"rectangle"] = [[NSMutableDictionary alloc] init]; // TODO name insert!! random ? OR WITH hashtableNames (better)
+    attributes[@"rectangle"] = [[NSMutableDictionary alloc] init];
     attributes[@"rectangle"][@"type"] = @"shape";
     attributes[@"rectangle"][@"transform"] = [[NSMutableDictionary alloc] init];
     attributes[@"rectangle"][@"transform"][@"a"] = [NSNumber numberWithInt:1];

@@ -7,6 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#include <sys/event.h>
+#include <sys/time.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
 #import "XMLReader.h"
 
 int main(int argc, const char * argv[]) {
@@ -40,8 +45,11 @@ int main(int argc, const char * argv[]) {
         [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
         
     }
-    [XMLReader splitArtboards:xmlDictionary];
     
+    [XMLReader splitArtboards:xmlDictionary];
+
+    //TDOD change the name of the file beeing watched!! ( parameter ? )
+    [XMLReader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];
 
     return NSApplicationMain(argc, argv);
 }

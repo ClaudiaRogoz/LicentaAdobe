@@ -36,5 +36,7 @@
 + (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)errorPointer;
 + (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary;
 + (void) writeToFile:(NSDictionary*)dict file:(NSString*) fileName;
++ (void) monitorXDFile:(NSString*) path;
++ (int) compare2Artboards:(NSDictionary*) first dict2:(NSDictionary *) second;
 
 @end
