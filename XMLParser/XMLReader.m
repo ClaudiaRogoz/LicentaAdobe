@@ -26,17 +26,120 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 #pragma mark -
 #pragma mark Public methods
 
-+ (int) compare2Artboards:(NSDictionary*) first dict2:(NSDictionary *) second
+
+
+/* second = prev dictionary; first = current dictionary */
+- (int) compare2Artboards:(NSArray *) first dict2:(NSArray *) second
 {
     //TODO first only for modified objects
+    int counter = MIN([first count], [second count]);
     
+    for (int i = 0; i< counter; i++) {
+        NSDictionary *prev = [second objectAtIndex:i];
+        NSDictionary *newD = [first objectAtIndex:i];
+       
+        id typeP = [prev objectForKey:@"type"];
+        id typeN = [newD objectForKey:@"type"];
+
+        // check if it is the same object (no adding, nor deleting, just modifyingn ops)
+        if ([typeN isEqualToString:typeP]) {
+            id solType = [exportAgc objectForKey:typeN];
+            
+            // only one possibility when type = solType (eg. textfield)
+            if ([solType isKindOfClass:[NSString class]]) {
+                NSDictionary *currAttr = [attributes objectForKey:solType];
+                
+                NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
+                bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true];
+                
+                if (ok == false)
+                    NSLog(@"They are %d %@", ok, trList);
+                return 1;
+            }
+            
+            for (id key in solType){
+                
+                NSString *cond = [solType objectForKey:key];
+                NSArray *array = [cond componentsSeparatedByString:@"."];
+        
+                id value1 = prev;
+                id value2 = newD;
+
+                for (id key1 in [array subarrayWithRange:NSMakeRange(0, [array count] -1)]) {
+                    value1 = [value1 objectForKey:key1];
+                    value2 = [value2 objectForKey:key1];
+                }
+                
+                NSLog(@"Here1\n");
+                if ([value1 isEqualToString: value2] && [value1 isEqualToString:[array lastObject]]){
+                    NSLog(@"value = %@ %@ OF type = %@", value1, value2, key);
+                    NSDictionary *currAttr = [attributes objectForKey:key];
+                    
+                    NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
+                    bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true];
+                    
+                    if (ok == false)
+                        NSLog(@"They are %d %@", ok, trList);
+                    
+                    break;
+                }
+            }
+            
+            }
+                            
+          }
 
     return 1;
+                            
+}
 
+//dictionaries are teh same (same type).. check attributes
+- (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr
+                                                            outList:(NSMutableDictionary**)trList equal:(BOOL) eq
+{
+    if (prev == nil && newD == nil)
+        return eq;
+    //NSLog(@"PREV = %@", prev);
+    //first of all go through each <key, value> pair; see difference -> TODO: eventually use xml2agcDict.. setup needed!!
+    id keys = [prev allKeys];
+    for (id key in keys) {
+        NSLog(@"[%d] Check for %@ --> %@ %@", eq, key, [newD objectForKey:key], [prev objectForKey:key]);
+        id value = [prev objectForKey:key];
+        
+        if ([value isKindOfClass:[NSMutableDictionary class]]) {
+            eq = [self checkAreEqual:[prev objectForKey:key] prevDict:[newD objectForKey:key] attr:[currAttr objectForKey:key] outList:trList equal:eq];
+            
+        } else {
+            //NSLog(@"PREV = %@ %@", [prev objectForKey:key], [newD objectForKey:key]);
+            if ([value isKindOfClass:[NSString class]]) {
+            if (![[prev objectForKey:key] isEqualToString:[newD objectForKey:key]] &&
+                    (![[currAttr objectForKey:key] isEqualToString:@"$rand"] && ![key isEqualToString:@"uid"])) {
+                eq = false;
+                NSLog(@"%@ %@",[prev objectForKey:key], [newD objectForKey:key]);
+                
+                    NSLog(@"List = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
+                    [*trList setObject:[newD objectForKey:key] forKey:[currAttr objectForKey:key]];
+                //return eq;
+            }
+            
+        } else
+            if ([prev objectForKey:key] != [newD objectForKey:key]) {
+                eq = false;
+                NSLog(@"ListX = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
+                [*trList setObject:[newD objectForKey:key] forKey:[currAttr objectForKey:key]];
+                //return eq;
+                
+            }
+        }
+        
+    }
+    
+    return eq;
 }
 
 
-+ (void) monitorXDFile:(NSString*) path
+
+- (void) monitorXDFile:(NSString*) path
 {
     const char *pathString = [path cStringUsingEncoding:NSASCIIStringEncoding];
     int fildes = open(pathString, O_RDONLY);
@@ -78,16 +181,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               
                                               NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
                                               
-                                              NSError *perror;
+                                
                                               
                                               NSDirectoryEnumerator *enumeratorI = [fileManager
                                                                                    enumeratorAtURL:directoryURLI
                                                                                    includingPropertiesForKeys:keys
                                                                                    options:0
                                                                                    errorHandler:^(NSURL *url, NSError *error) {
-                                                                                       // Handle the error.
-                                                                                       // Return YES if the enumeration should continue after the error.
-                                                                                       return YES;
+                                                                                        return YES;
                                                                                    }];
                                               
                                               NSDirectoryEnumerator *enumeratorF = [fileManager
@@ -95,12 +196,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                                                     includingPropertiesForKeys:keys
                                                                                     options:0
                                                                                     errorHandler:^(NSURL *url, NSError *error) {
-                                                                                        // Handle the error.
-                                                                                        // Return YES if the enumeration should continue after the error.
                                                                                         return YES;
                                                                                     }];
                                               
                                               NSMutableArray *filesInit = [[NSMutableArray alloc] init];
+                                              
                                               for (NSURL *urlI in enumeratorI) {
                                                  
                                                   NSError *error;
@@ -148,15 +248,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       NSMutableSet *keysInA = [NSMutableSet setWithArray:[jsonDict1 allKeys]];
                                                       NSSet *keysInB = [NSSet setWithArray:[jsonDict2 allKeys]];
                                                       [keysInA minusSet:keysInB];
-                                                      NSLog(@"keys in A that are not in B: %@", keysInA);
-                                                      NSLog(@"%@", [jsonDict2 allKeys]);
+                                                      
                                                       
                                                       //TODO eventual in xml2agc
-                                                      NSDictionary *first = [[[jsonDict1 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"];
-                                                      NSDictionary *second = [[[jsonDict2 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"];
+                                                      NSArray *first = [[[[jsonDict1 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"] objectForKey:@"children"];
+                                                      NSArray *second = [[[[jsonDict2 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"] objectForKey:@"children"];
                                                       
-                                                      int countFirst = [first count];
-                                                      int countSecond = [second count];
+                                                      
+                                                      [self compare2Artboards:first dict2:second];
                                                       
                                                       //TODO look at id from xml? -> that's the name
                                                       
@@ -180,16 +279,28 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 }
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir error:(NSError **)error
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)error
 {
     XMLReader *reader = [[XMLReader alloc] initWithError:error];
     [reader setResourcesPath:resourcesDir];
     
     NSDictionary *rootDictionary = [reader objectWithData:data];
-      return rootDictionary;
+    [reader writeToFile:rootDictionary file:out_file];
+    
+    [reader splitArtboards:rootDictionary];
+    
+    [reader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];
+    return rootDictionary;
 }
 
-+ (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file {
+//TODO remove this - of no use
++ (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)error
+{
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    return [XMLReader dictionaryForXMLData:data resources:@"" outFile:@"" error:error];
+}
+
+- (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file {
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
@@ -212,14 +323,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     }
 }
 
-
-+ (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)error
-{
-    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    return [XMLReader dictionaryForXMLData:data resources:@"" error:error];
-}
-
-+ (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
+- (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
    
     id artboards = [dictionary objectForKey:@"artboards"];
@@ -249,6 +353,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 #pragma mark -
 #pragma mark Parsing
 
+
 - (id)initWithError:(NSError **)error
 {
     return self;
@@ -268,10 +373,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     attributes = [[NSMutableDictionary alloc] init];
     toInsertObjects = [[NSMutableArray alloc] init];
     artboards = [[NSMutableArray alloc] init];
-   
+    exportAgc = [[NSMutableDictionary alloc] init];
+    
     counterArtboards = 1;
     //TODO eventually read from file (XML ??? )
     insertedRoot = false;
+    
     
     xml2agcDictionary = [[NSMutableDictionary alloc] init];
     xml2agcDictionary[@"scenes"] = @"children";
@@ -287,6 +394,16 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     xml2agcDictionary[@"children1"] = @"list";
     xml2agcDictionary[@"paragraphs"] = @"list";
    
+    //for type = "shape"
+    exportAgc[@"shape"] = [[NSMutableDictionary alloc] init];
+    // an agc is of type rectangle if <=> style fill == solid
+    exportAgc[@"shape"][@"rectangle"] = @"style.fill.type.solid";
+    //an agc is of type imageView if <=> style fill == pattern
+    exportAgc[@"shape"][@"imageView"] = @"style.fill.type.pattern";
+    
+    //for type = "text"
+    exportAgc[@"text"] = @"textField";
+    
     xml2agcDictionary[@"textField."][@"name"] = @"text";
     
     

@@ -21,7 +21,7 @@
     NSMutableDictionary *defaultValues;
     NSMutableDictionary *invertedDictionary;
     NSMutableDictionary *attributes;
-    NSMutableDictionary *header;
+    NSMutableDictionary *exportAgc;
     NSMutableArray* artboards;
     BOOL insertedRoot;
     int counterArtboards;
@@ -32,11 +32,12 @@
 
 @property NSString *resourcesPath;
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir error:(NSError **)errorPointer;
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)errorPointer;
 + (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)errorPointer;
 + (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary;
 + (void) writeToFile:(NSDictionary*)dict file:(NSString*) fileName;
 + (void) monitorXDFile:(NSString*) path;
-+ (int) compare2Artboards:(NSDictionary*) first dict2:(NSDictionary *) second;
+- (int) compare2Artboards:(NSArray *) first dict2:(NSArray *) second;
+- (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq;
 
 @end

@@ -23,10 +23,10 @@ int main(int argc, const char * argv[]) {
     
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser resources:imageDir error:&parseError];
+    NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser resources:imageDir outFile:file error:&parseError];
     
     
-    NSError *error;
+    /*NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
                                                          error:&error];
@@ -49,7 +49,7 @@ int main(int argc, const char * argv[]) {
     [XMLReader splitArtboards:xmlDictionary];
 
     //TDOD change the name of the file beeing watched!! ( parameter ? )
-    [XMLReader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];
+    [XMLReader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];*/
 
     return NSApplicationMain(argc, argv);
 }
