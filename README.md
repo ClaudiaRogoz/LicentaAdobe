@@ -8,7 +8,11 @@ Build & Run App:
 	output: 
 		multiple <file>.agc that correspond to an artboard ( path: ~/Documents)
 -------------------
-IMPORTANT! I use Untitled.xd file to monitor! 
+!!!!!IMPORTANT! I use "Untitled.xd" file to monitor! (this file is the xd file where the agc where dropped)
+		I use absolute path for "myXMLfileScenes.xml" = my project's Main.storyboard
+		When trying to import an xml file -> only viewController works, it could be extended to any type of scene
+		 (tableview, tabbar controller etc. ) -> only add to the xml2agcDictionary the mapping <tabbar controller> to 
+		<artboard>.  		 
  
 ————————————————————
 Importing objects from Xcode: 
