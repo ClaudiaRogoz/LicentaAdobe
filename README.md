@@ -13,7 +13,7 @@ Build & Run App:
 		When trying to import an xml file -> only viewController works, it could be extended to any type of scene
 		 (tableview, tabbar controller etc. ) -> only add to the xml2agcDictionary the mapping <tabbar controller> to 
 		<artboard>.  		 
- 
+		When the file changes, the data is being rewritten to the intial files; just press "A" when prompeted with the question: "override ... ? " 
 ————————————————————
 Importing objects from Xcode: 
 
