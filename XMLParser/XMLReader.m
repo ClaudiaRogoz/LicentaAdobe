@@ -29,12 +29,13 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 
 /* second = prev dictionary; first = current dictionary */
-- (int) compare2Artboards:(NSArray *) first dict2:(NSArray *) second
+- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second
 {
     //TODO first only for modified objects
     int counter = MIN([first count], [second count]);
-    
+    NSMutableDictionary *xmlExport = [[NSMutableDictionary alloc] init];
     for (int i = 0; i< counter; i++) {
+        NSLog(@"Counter = %d", i);
         NSDictionary *prev = [second objectAtIndex:i];
         NSDictionary *newD = [first objectAtIndex:i];
        
@@ -53,8 +54,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true];
                 
                 if (ok == false)
-                    NSLog(@"They are %d %@", ok, trList);
-                return 1;
+                    NSLog(@"They are %d %d %@", counter, ok, trList);
+                
+                NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
+                xmlExport[tagNo] = trList;
+                continue;
+                
             }
             
             for (id key in solType){
@@ -70,9 +75,9 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     value2 = [value2 objectForKey:key1];
                 }
                 
-                NSLog(@"Here1\n");
+                //NSLog(@"Here1\n");
                 if ([value1 isEqualToString: value2] && [value1 isEqualToString:[array lastObject]]){
-                    NSLog(@"value = %@ %@ OF type = %@", value1, value2, key);
+                    //NSLog(@"value = %@ %@ OF type = %@", value1, value2, key);
                     NSDictionary *currAttr = [attributes objectForKey:key];
                     
                     NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
@@ -81,7 +86,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     if (ok == false)
                         NSLog(@"They are %d %@", ok, trList);
                     
-                    break;
+                    continue;
+                    
                 }
             }
             
@@ -89,7 +95,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                             
           }
 
-    return 1;
+    return xmlExport;
                             
 }
 
@@ -103,21 +109,28 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     //first of all go through each <key, value> pair; see difference -> TODO: eventually use xml2agcDict.. setup needed!!
     id keys = [prev allKeys];
     for (id key in keys) {
-        NSLog(@"[%d] Check for %@ --> %@ %@", eq, key, [newD objectForKey:key], [prev objectForKey:key]);
+        //NSLog(@"[%d] Check for %@ --> %@ %@", eq, key, [newD objectForKey:key], [prev objectForKey:key]);
         id value = [prev objectForKey:key];
         
         if ([value isKindOfClass:[NSMutableDictionary class]]) {
             eq = [self checkAreEqual:[prev objectForKey:key] prevDict:[newD objectForKey:key] attr:[currAttr objectForKey:key] outList:trList equal:eq];
             
+        } else if ([value isKindOfClass:[NSMutableArray class]]) {
+            continue;
+        
         } else {
+            if ([prev objectForKey:key] == nil || [newD objectForKey:key] == nil ) {
+                continue;
+            
+            }
             //NSLog(@"PREV = %@ %@", [prev objectForKey:key], [newD objectForKey:key]);
             if ([value isKindOfClass:[NSString class]]) {
             if (![[prev objectForKey:key] isEqualToString:[newD objectForKey:key]] &&
                     (![[currAttr objectForKey:key] isEqualToString:@"$rand"] && ![key isEqualToString:@"uid"])) {
                 eq = false;
-                NSLog(@"%@ %@",[prev objectForKey:key], [newD objectForKey:key]);
+                //NSLog(@"%@ %@",[prev objectForKey:key], [newD objectForKey:key]);
                 
-                    NSLog(@"List = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
+                   // NSLog(@"List = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
                     [*trList setObject:[newD objectForKey:key] forKey:[currAttr objectForKey:key]];
                 //return eq;
             }
@@ -125,7 +138,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         } else
             if ([prev objectForKey:key] != [newD objectForKey:key]) {
                 eq = false;
-                NSLog(@"ListX = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
+                //NSLog(@"ListX = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
                 [*trList setObject:[newD objectForKey:key] forKey:[currAttr objectForKey:key]];
                 //return eq;
                 
@@ -137,12 +150,60 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     return eq;
 }
 
+- (void) updateXMLfile:(NSDictionary *)tags tagNo:(NSNumber *)n
+{
+    
+    NSString *pathToXml = @"myXMLfileScenes.xml";
+   
+    NSMutableArray *offset = [offsetXmlFile objectForKey:n];
+  
+    for  (id key in [tags allKeys]) {
+        // we have the changes that has to be made in the form of a dictioanry
+        NSMutableDictionary *toChange = [tags objectForKey:key];
+        
+        //we have the tag that needs changing (for it or some of it's subtags)
+        id gotoXml = [offset objectAtIndex:[key intValue] -1];
+        
+        for (id key1 in [toChange allKeys]) {
+           
+            NSString *tmp = [key1 substringWithRange:NSMakeRange(1, [key1 length] -1)];
+            NSArray *subTags = [tmp componentsSeparatedByString:@"."];
+            
+            //TODO compute offset for subTag which should be between [gotoXml; [offset objectAtIndex:<++key>]]
+            
+            for (id key2 in [subTags subarrayWithRange:NSMakeRange(0, [subTags count] -1)]) {
+                
+                NSData *find = [key2 dataUsingEncoding:NSUTF8StringEncoding];
+                int nextKey = [key intValue] +1 ;
+                //TODO if e la sfarsitul artboardului!!!! _> insert lastObj
+                int end;
+                int size = [offset count];
+                
+                if (nextKey < [offset count])
+                    end = [[offset objectAtIndex:nextKey] intValue];
+                else end = [xmlData length]; // TODO change to </scene> offset!!!!
+               
+                NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], end - [gotoXml intValue])];
+                NSLog(@"Offset for next %@ %d", key2, range.location);
+                int tagLocation = range.location;
+                NSFileHandle *fHandle;
+                fHandle = [NSFileHandle fileHandleForUpdatingAtPath: pathToXml];
+                [file seekToFileOffset:tagLocation];
+                
+            }
+    
+        }
+        
+    }
+}
 
 
 - (void) monitorXDFile:(NSString*) path
 {
+    NSLog(@"Offset: %@", offsetXmlFile);
     const char *pathString = [path cStringUsingEncoding:NSASCIIStringEncoding];
     int fildes = open(pathString, O_RDONLY);
+    int counter = 0;
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE,fildes, DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_ATTRIB | DISPATCH_VNODE_LINK | DISPATCH_VNODE_RENAME | DISPATCH_VNODE_REVOKE,
                                                               queue);
@@ -255,9 +316,13 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       NSArray *second = [[[[jsonDict2 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"] objectForKey:@"children"];
                                                       
                                                       
-                                                      [self compare2Artboards:first dict2:second];
+                                                      NSMutableDictionary* tagExport = [self compare2Artboards:first dict2:second];
+                                                      NSLog(@"To export = %@ %d", tagExport, i);
                                                       
-                                                      //TODO look at id from xml? -> that's the name
+                                                      //TODO export to XML file: For now: Use myXMLFileScenes.xml !!!
+                                                     
+                                                      [self updateXMLfile:tagExport tagNo:[NSNumber numberWithInt:++i]]; //i++;
+                                                      
                                                       
                                                       //TODO: only for same objects-> different attributes
                                                       //TODO: objects are added
@@ -284,12 +349,15 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     XMLReader *reader = [[XMLReader alloc] initWithError:error];
     [reader setResourcesPath:resourcesDir];
     
-    NSDictionary *rootDictionary = [reader objectWithData:data];
+    NSMutableDictionary *rootDictionary = [reader objectWithData:data];
+    
     [reader writeToFile:rootDictionary file:out_file];
     
     [reader splitArtboards:rootDictionary];
     
     [reader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];
+    
+    
     return rootDictionary;
 }
 
@@ -364,7 +432,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 }
 
-- (NSDictionary *)objectWithData:(NSData *)data
+- (NSMutableDictionary *)objectWithData:(NSData *)data
 {
     
     dictionaryStack = [[NSMutableArray alloc] init];
@@ -374,11 +442,16 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     toInsertObjects = [[NSMutableArray alloc] init];
     artboards = [[NSMutableArray alloc] init];
     exportAgc = [[NSMutableDictionary alloc] init];
+    offsetXmlFile = [[NSMutableDictionary alloc] init];
+    objectOffset = [[NSMutableDictionary alloc] init];
+    sceneNo = 0;
+    
+    xmlData = [data mutableCopy];
+    xmlOffset = 0;
     
     counterArtboards = 1;
     //TODO eventually read from file (XML ??? )
     insertedRoot = false;
-    
     
     xml2agcDictionary = [[NSMutableDictionary alloc] init];
     xml2agcDictionary[@"scenes"] = @"children";
@@ -393,14 +466,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     xml2agcDictionary[@"children"] = @"list";
     xml2agcDictionary[@"children1"] = @"list";
     xml2agcDictionary[@"paragraphs"] = @"list";
-   
+    
     //for type = "shape"
-    exportAgc[@"shape"] = [[NSMutableDictionary alloc] init];
+    /*exportAgc[@"shape"] = [[NSMutableDictionary alloc] init];
     // an agc is of type rectangle if <=> style fill == solid
     exportAgc[@"shape"][@"rectangle"] = @"style.fill.type.solid";
     //an agc is of type imageView if <=> style fill == pattern
     exportAgc[@"shape"][@"imageView"] = @"style.fill.type.pattern";
-    
+    */
     //for type = "text"
     exportAgc[@"text"] = @"textField";
     
@@ -551,6 +624,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     attributes[@"frame"] = [[NSMutableDictionary alloc] init];
     
+    objectOffset[@"imageView"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"label"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"textField"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"switch"] = [NSNumber numberWithInt: 1];
+    
     NSMutableDictionary *lines = [[NSMutableDictionary alloc] init];
     NSMutableArray *line = [[NSMutableArray alloc] init];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -610,10 +688,32 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
+    
+    if (objectOffset[elementName] != nil){
+        
+        NSData *find = [elementName dataUsingEncoding:NSUTF8StringEncoding];
+        int start = xmlOffset + 1;
+        int end = [xmlData length];
+    
+        NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange(start, end -start)];
+        NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
+        NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
+        [arr addObject:[NSNumber numberWithInt: range.location]];
+        xmlOffset = range.location;
+        NSLog(@"Start = %d %d", xmlOffset, start);
+    
+    }
+    
+    if ([elementName isEqualToString:@"scene"]) {
+        sceneNo++;
+        [offsetXmlFile setObject: [[NSMutableArray alloc] init] forKey:[NSNumber numberWithInt:sceneNo]];
+        
+    }
+    
     // Get the dictionary for the current level in the stack
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
     NSString *nameInit = elementName;
- 
+    
     if ([elementName isEqualToString:@"switch"]){
         
         NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:@"agc"];
@@ -623,7 +723,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         NSData * jsonData = [jsonString dataUsingEncoding:nil];
         NSMutableDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
        
-        NSLog(@"Button parent = %@", parentDict);
+        //NSLog(@"Button parent = %@", parentDict);
         [parentDict[@"children"] addObject:parsedData];
         [inheritanceStack addObject:@"switch"];
         
@@ -650,8 +750,9 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             for (id attr in keys){
                 
-                if ([attributeDict[attr] intValue])
+                if ([attributeDict[attr] intValue] || [attributeDict[attr] floatValue])
                     attributes[@"frame"][attr] = [NSNumber numberWithFloat:[attributeDict[attr] floatValue]];
+                
                  attributes[@"frame"][attr] = attributeDict[attr];
                 
             }
@@ -863,7 +964,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     
     elementName = [xml2agcDictionary objectForKey:elementName];
-    NSLog(@"ElementName = %@ for %@", elementName, nameInit);
+    //NSLog(@"ElementName = %@ for %@", elementName, nameInit);
         NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
 ;
        //First level attributes
@@ -885,9 +986,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     else if (!attributeDict[value])
                         tempValue = attributeDict[@"placeholder"];
                     
-                    if ([tempValue intValue])
+                    if ([tempValue intValue] )
                         tempValue = [NSNumber numberWithInt:[tempValue intValue]];
-                    
+                    else if ([tempValue floatValue]){
+                        tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
+                    }
                     attributes[tempSaved] = tempValue;
                     correctAttr[key] = tempValue;
                     
@@ -962,6 +1065,22 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     
+    /*if ([elementName isEqualToString:@"scene"]) {
+        //insert last offset for the current artboard
+        NSMutableArray* arr = [offsetXmlFile objectForKey:[ NSNumber numberWithInt:sceneNo]];
+        int prevOffset = [[arr lastObject] intValue];
+        NSData *find = [@"</scene" dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange(start, end -start)];
+        NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
+        NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
+        [arr addObject:[NSNumber numberWithInt: range.location]];
+        xmlOffset = range.location;
+        NSLog(@"Start = %d %d", xmlOffset, start);
+        [arr addObject:];
+    
+    }*/
+ 
     if ([elementName isEqualToString:@"switch"]) {
         [inheritanceStack removeObject:@"switch"];
         return;
