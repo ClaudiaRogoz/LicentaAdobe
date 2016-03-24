@@ -175,21 +175,32 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 
                 NSData *find = [key2 dataUsingEncoding:NSUTF8StringEncoding];
                 int nextKey = [key intValue] +1 ;
-                //TODO if e la sfarsitul artboardului!!!! _> insert lastObj
+                //TODO if e la sfarsitul artboardului!!!! -> insert lastObj
                 int end;
                 int size = [offset count];
                 
                 if (nextKey < [offset count])
                     end = [[offset objectAtIndex:nextKey] intValue];
-                else end = [xmlData length]; // TODO change to </scene> offset!!!!
+                else {
+                    
+                    end = [xmlData length]; // TODO change to </scene> offset!!!!
                
+                }
                 NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], end - [gotoXml intValue])];
                 NSLog(@"Offset for next %@ %d", key2, range.location);
                 int tagLocation = range.location;
                 NSFileHandle *fHandle;
-                fHandle = [NSFileHandle fileHandleForUpdatingAtPath: pathToXml];
-                [file seekToFileOffset:tagLocation];
+                fHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/XMLParser/myXMLfileScenes.xml"];
+                if (fHandle == nil)
+                    NSLog(@"Failed to open file");
                 
+                [fHandle seekToFileOffset:range.location];
+                NSData *databuffer;
+                databuffer = [fHandle readDataOfLength: 5];
+                NSString *newData;
+                newData = [[NSString alloc] initWithData:databuffer encoding:NSASCIIStringEncoding];
+                NSLog(@"DataBuf: %@", newData);
+                [fHandle closeFile];
             }
     
         }
