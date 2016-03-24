@@ -8,7 +8,7 @@ Build & Run App:
 	output: 
 		multiple <file>.agc that correspond to an artboard ( path: ~/Documents)
 -------------------
-IMPORTANT! I use <Untitled.xd> file to monitor! 
+IMPORTANT! I use Untitled.xd file to monitor! 
  
 ————————————————————
 Importing objects from Xcode: 
