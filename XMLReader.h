@@ -22,7 +22,14 @@
     NSMutableDictionary *invertedDictionary;
     NSMutableDictionary *attributes;
     NSMutableDictionary *exportAgc;
-    NSMutableArray* artboards;
+    NSMutableArray *artboards;
+    NSMutableDictionary *offsetXmlFile;
+    NSMutableDictionary *objectOffset;
+    
+    int sceneNo;
+    NSData *xmlData;
+    int xmlOffset;
+    
     BOOL insertedRoot;
     int counterArtboards;
     int counterCh;
@@ -37,7 +44,8 @@
 + (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary;
 + (void) writeToFile:(NSDictionary*)dict file:(NSString*) fileName;
 + (void) monitorXDFile:(NSString*) path;
-- (int) compare2Artboards:(NSArray *) first dict2:(NSArray *) second;
+- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second;
 - (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq;
+- (void) updateXMLfile:(NSDictionary*)tags tagNo:(NSNumber *)n;
 
 @end
