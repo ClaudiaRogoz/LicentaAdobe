@@ -26,7 +26,52 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 #pragma mark -
 #pragma mark Public methods
 
+/*- (NSRange) getStringRange: (NSString **)initString substr:(NSString *)substring
+{
 
+    NSRange rangeOfString = [*initString rangeOfString:substring];
+    NSString *tmpRange = [*initString substringFromIndex:rangeOfString.location];
+    
+    if (rangeOfString.location == NSNotFound)  {
+        
+        NSLog(@"[ERROR] string was not found");
+    } else {
+        return
+    }
+
+
+}*/
+
+- (NSString *) appendModifiedString:(NSMutableDictionary *)dict
+{
+    NSMutableString *newString = [[NSMutableString alloc] init];
+    //maybe extedn to other subTags ?!
+    NSArray *order = [NSArray arrayWithObjects:@"rect", @"fontDescription", @"color"];
+    
+    for (id key in order) {
+        
+        if (![dict objectForKey:key])
+            continue;
+        //if mu;tiple subTags at the same level are modified -> shift the lower one
+        NSString *tagKey = [NSString stringWithFormat:@"<%@", key];
+        NSRange rangeOfString = [newString rangeOfString:tagKey];
+        NSString *value = [dict objectForKey:key];
+        
+        if (rangeOfString.location == NSNotFound)  {
+            
+            [newString appendString:value];
+        } else {
+            unsigned long start = (unsigned long)rangeOfString.location;
+            unsigned long end = [newString length];
+            
+            newString = [newString stringByReplacingCharactersInRange:NSMakeRange(start, end - start) withString:value];
+        }
+        
+    }
+    
+    return newString;
+
+}
 
 /* second = prev dictionary; first = current dictionary */
 - (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second
@@ -35,7 +80,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     int counter = MIN([first count], [second count]);
     NSMutableDictionary *xmlExport = [[NSMutableDictionary alloc] init];
     for (int i = 0; i< counter; i++) {
-        NSLog(@"Counter = %d", i);
+        //NSLog(@"Counter = %d", i);
         NSDictionary *prev = [second objectAtIndex:i];
         NSDictionary *newD = [first objectAtIndex:i];
        
@@ -54,7 +99,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true];
                 
                 if (ok == false)
-                    NSLog(@"They are %d %d %@", counter, ok, trList);
+                    NSLog(@"They are %@", trList);
                 
                 NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
                 xmlExport[tagNo] = trList;
@@ -84,7 +129,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true];
                     
                     if (ok == false)
-                        NSLog(@"They are %d %@", ok, trList);
+                        NSLog(@"They are %@", trList);
                     
                     continue;
                     
@@ -92,7 +137,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             }
             
             }
-                            
+        
           }
 
     return xmlExport;
@@ -156,54 +201,109 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     NSString *pathToXml = @"myXMLfileScenes.xml";
    
     NSMutableArray *offset = [offsetXmlFile objectForKey:n];
-  
+
     for  (id key in [tags allKeys]) {
-        // we have the changes that has to be made in the form of a dictioanry
+        
+        // we have the changes that have to be made in the form of a dictioanry
         NSMutableDictionary *toChange = [tags objectForKey:key];
+        unsigned long nextXMlTag;
         
         //we have the tag that needs changing (for it or some of it's subtags)
         id gotoXml = [offset objectAtIndex:[key intValue] -1];
+        if ([key intValue] < [offset count])
+            nextXMlTag = [[offset objectAtIndex:[key intValue]] longValue];
+        else {
+            NSString *sceneEnds = @"</scene>";
+            NSData *sceneEnd = [sceneEnds dataUsingEncoding:NSUTF8StringEncoding];
+            NSRange range = [xmlData rangeOfData:sceneEnd options:0 range:NSMakeRange([gotoXml intValue], [xmlData length] - [gotoXml intValue])];
+            //NSLog (@"FInalScene = %d %lu", [gotoXml intValue], (unsigned long)range.location);
+            nextXMlTag = range.location + [sceneEnds length];
+            
+        }
         
+        //NSLog(@"Tag is = %@ %lu", gotoXml, nextXMlTag);
+        NSMutableDictionary *stringChunks = [[NSMutableDictionary alloc] init];
         for (id key1 in [toChange allKeys]) {
            
             NSString *tmp = [key1 substringWithRange:NSMakeRange(1, [key1 length] -1)];
             NSArray *subTags = [tmp componentsSeparatedByString:@"."];
+            NSString *replacedValue = [toChange objectForKey:key1];
+            //NSLog(@"ToChange = %@", [toChange objectForKey:key1]);
+            if ([[toChange objectForKey:key1] isKindOfClass:[NSNumber class]])
+                replacedValue= [[toChange objectForKey:key1] stringValue];
             
+            //NSLog(@"replacedValue = %@", replacedValue);
             //TODO compute offset for subTag which should be between [gotoXml; [offset objectAtIndex:<++key>]]
+            //NSLog(@"Key1 = %@", key1);
             
-            for (id key2 in [subTags subarrayWithRange:NSMakeRange(0, [subTags count] -1)]) {
+            id key2 = [subTags objectAtIndex:0];
+           // for (id key2 in [subTags subarrayWithRange:NSMakeRange(0, [subTags count] -1)]) {
                 
-                NSData *find = [key2 dataUsingEncoding:NSUTF8StringEncoding];
-                int nextKey = [key intValue] +1 ;
-                //TODO if e la sfarsitul artboardului!!!! -> insert lastObj
-                int end;
-                int size = [offset count];
-                
-                if (nextKey < [offset count])
-                    end = [[offset objectAtIndex:nextKey] intValue];
-                else {
+                if ([stringChunks objectForKey:key2]) {
+                    //NSLog(@"Modify for %@", [subTags lastObject]);
+                    NSString *newData = [stringChunks objectForKey:key2];
+                    NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
+                    int shiftAttr = [[subTags lastObject] length] + 3;
+                    NSRange rangeOfString = [newData rangeOfString:attrString];
+                    NSString *tmpRange = [newData substringFromIndex:rangeOfString.location + shiftAttr];
+                    NSRange rangeLastString = [tmpRange rangeOfString:@"\""];
                     
-                    end = [xmlData length]; // TODO change to </scene> offset!!!!
-               
+                    if (rangeOfString.location == NSNotFound || rangeLastString.location == NSNotFound)  {
+                        
+                        NSLog(@"[ERROR] string was not found");
+                    } else {
+                        int st = (unsigned long)rangeOfString.location + shiftAttr;
+                        int en = (unsigned long)rangeLastString.location;
+                        newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
+                        [stringChunks setObject:newData forKey:key2];
+                    }
+                    
+
+                    continue;
                 }
-                NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], end - [gotoXml intValue])];
-                NSLog(@"Offset for next %@ %d", key2, range.location);
-                int tagLocation = range.location;
+            
+                //find subTag's offset
+                NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
+                
+                NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], nextXMlTag - [gotoXml intValue])];
+                
                 NSFileHandle *fHandle;
                 fHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/XMLParser/myXMLfileScenes.xml"];
                 if (fHandle == nil)
                     NSLog(@"Failed to open file");
                 
+                
+                int sizeToRead = nextXMlTag  - (unsigned long)range.location;
+
                 [fHandle seekToFileOffset:range.location];
                 NSData *databuffer;
-                databuffer = [fHandle readDataOfLength: 5];
+                databuffer = [fHandle readDataOfLength: sizeToRead];
                 NSString *newData;
                 newData = [[NSString alloc] initWithData:databuffer encoding:NSASCIIStringEncoding];
-                NSLog(@"DataBuf: %@", newData);
+                //TODO string replace with ...
+            
+            NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
+            int shiftAttr = [[subTags lastObject] length] + 3;
+                NSRange rangeOfString = [newData rangeOfString:attrString];
+                NSString *tmpRange = [newData substringFromIndex:rangeOfString.location + shiftAttr];
+                NSRange rangeLastString = [tmpRange rangeOfString:@"\""];
+            
+                if (rangeOfString.location == NSNotFound || rangeLastString.location == NSNotFound)  {
+                
+                    NSLog(@"[ERROR] string was not found");
+                } else {
+                    int st = (unsigned long)rangeOfString.location + shiftAttr;
+                    int en = (unsigned long)rangeLastString.location;
+                    newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
+                }
+                    
+                
+                [stringChunks setObject:newData forKey:key2];
+                
                 [fHandle closeFile];
-            }
     
         }
+        NSLog(@"[%@] Chunks = %@", key, [self appendModifiedString:stringChunks]);
         
     }
 }
@@ -635,10 +735,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     attributes[@"frame"] = [[NSMutableDictionary alloc] init];
     
-    objectOffset[@"imageView"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"label"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"textField"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"switch"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"<imageView"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"<label"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"<textField"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"<switch"] = [NSNumber numberWithInt: 1];
     
     NSMutableDictionary *lines = [[NSMutableDictionary alloc] init];
     NSMutableArray *line = [[NSMutableArray alloc] init];
@@ -700,9 +800,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
     
-    if (objectOffset[elementName] != nil){
+    NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
+    if (objectOffset[tagName] != nil){
         
-        NSData *find = [elementName dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
         int start = xmlOffset + 1;
         int end = [xmlData length];
     

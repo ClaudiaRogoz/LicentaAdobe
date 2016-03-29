@@ -47,5 +47,7 @@
 - (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second;
 - (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq;
 - (void) updateXMLfile:(NSDictionary*)tags tagNo:(NSNumber *)n;
+- (NSString *) appendModifiedString:(NSMutableDictionary *)dict;
+- (NSRange) getStringRange: (NSString *)initString substr:(NSString *)substring;
 
 @end

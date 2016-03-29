@@ -74,7 +74,7 @@ See < TODO  Basic object Import>
 
 LOG
 
-->TODO: change else end = [xmlData length]; to end = </scene>_offset
+-> TODO recompute offset + copy each chunk in file! 
 ->TODO chunks of files
 -> copy only the tags that have been changed <current_offset with modifications + all data till nextKey> in a new file 
 -> merge them ; while merging inc/dec the offset from xmlOffset; read again xmlData!!
