@@ -48,6 +48,6 @@
 - (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq;
 - (void) updateXMLfile:(NSDictionary*)tags tagNo:(NSNumber *)n;
 - (NSString *) appendModifiedString:(NSMutableDictionary *)dict minTagOffset:(NSNumber **)tagOffset;
-- (NSRange) getStringRange: (NSString *)initString substr:(NSString *)substring;
+- (NSRange) getStringRange: (NSString *)initString substr:(NSString *)substring offsetScene:(NSNumber **) offset_Scene;
 
 @end

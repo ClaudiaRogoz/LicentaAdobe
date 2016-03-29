@@ -197,8 +197,13 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     return eq;
 }
 
-- (void) updateXMLfile:(NSDictionary *)tags tagNo:(NSNumber *)n
+- (void) updateXMLfile:(NSDictionary *)tags tagNo:(NSNumber *)n offsetScene:(NSNumber **) offset_scene
 {
+    
+    if ([tags count] == 0) {
+        //TODO just copy from </scenes start>
+        return;
+    }
     
     NSString *pathToXml = @"myXMLfileScenes.xml";
     NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
@@ -216,12 +221,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     NSMutableArray *offset = [offsetXmlFile objectForKey:n];
     long diffOffset = 0;
     int prevKey = 0;
-    
+    unsigned long nextXMlTag = 0;
     for  (id key in [tags allKeys]) {
         
         // we have the changes that have to be made in the form of a dictioanry
         NSMutableDictionary *toChange = [tags objectForKey:key];
-        unsigned long nextXMlTag;
+        
         
         //we have the tag that needs changing (for it or some of it's subtags)
         id gotoXml = [offset objectAtIndex:[key intValue] -1];
@@ -233,6 +238,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             NSRange range = [xmlData rangeOfData:sceneEnd options:0 range:NSMakeRange([gotoXml intValue], [xmlData length] - [gotoXml intValue])];
             //NSLog (@"FInalScene = %d %lu", [gotoXml intValue], (unsigned long)range.location);
             nextXMlTag = range.location + [sceneEnds length];
+            
             
         }
         
@@ -325,13 +331,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         [offset replaceObjectAtIndex:[key intValue] -1 withObject:[NSNumber numberWithLong:nextOffset]];
         [outputTempXml seekToEndOfFile];
-        
+    
         
         //TODO copy to file + copy intra chunks beteween (key, key +1)
         if (prevKey == 0) {
             //copy all from beginning to the curent offset
             
             //TODO change for any "n" -> only no 1 artboard works
+            [inputXml seekToFileOffset:[*offset_scene longValue]];
             NSData *inputData = [inputXml readDataOfLength:nextOffset];
             NSString* newStr = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
             NSString* newStr1 =[[NSString alloc] initWithData:[cntTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
@@ -344,13 +351,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
         } else if (prevKey == [key intValue] -1) {
             //just copy the string to the file (no other tags are in between)
-            [inputXml seekToFileOffset:nextXMlTag];
+            long tmpOffset = [*offset_scene longValue] + nextXMlTag;
+            [inputXml seekToFileOffset:tmpOffset];
+            [outputTempXml writeData:[cntTag dataUsingEncoding:NSUTF8StringEncoding]];
+            [outputTempXml seekToEndOfFile];
             
         } else {
             //copy all tags from the prevKey to this key
             int skippedTagNo = prevKey +1;
             id gotoTag = [offset objectAtIndex:skippedTagNo -1];
-            [inputXml seekToFileOffset:[gotoTag longValue]];
+            long tmpOffset = [*offset_scene longValue] +[gotoTag longValue];
+            [inputXml seekToFileOffset:tmpOffset];
             unsigned long sizeToRead = minTagOffset - [gotoTag longValue];
             NSData *inputData = [inputXml readDataOfLength:sizeToRead];
             NSLog(@"There is %lu %lu", minTagOffset, prevOffset);
@@ -365,6 +376,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         prevKey = [key intValue];
     }
     [outputTempXml closeFile];
+    *offset_scene = [NSNumber numberWithLong:nextXMlTag];
 }
 
 
@@ -450,8 +462,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               
                                               }
                                               NSLog(@"Files = %@", filesInit);
-                                              
+                                             
                                               int i = 0;
+                                              NSNumber *offset_scene = [NSNumber numberWithInt:0];
+                                              
                                               for (NSURL *urlF in enumeratorF) {
                                                   NSError *error;
                                                   NSNumber *isDirectory = nil;
@@ -460,9 +474,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                   }
                                                   else if (! [isDirectory boolValue] &&
                                                                 ![[urlF path] isEqualToString:@"/Users/crogoz/Documents/temp-artwork/.DS_Store"]) {
-                                                      [filesInit addObject:[urlF path]];
+                                                      //[filesInit addObject:[urlF path]];
                                                       //TODO dictionaries to compare
-                                                      NSLog(@"Check %@ with %@", [urlF path], [filesInit objectAtIndex:0]);
+                                                      NSLog(@"Files = %@ %@", filesInit, urlF);
+                                                      NSLog(@"Check %@ with %@", [urlF path], [filesInit objectAtIndex:i]);
                                                       
                                                       NSString *filePath = [urlF path];
                                                       NSString *jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
@@ -471,7 +486,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       
                                                       NSMutableDictionary *jsonDict1 = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
                                                       
-                                                      filePath = [filesInit objectAtIndex:0];
+                                                      filePath = [filesInit objectAtIndex:i];
                                                       jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
                                                       
                                                       NSMutableDictionary *jsonDict2 = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
@@ -490,8 +505,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       NSLog(@"To export = %@ %d", tagExport, i);
                                                       
                                                       //TODO export to XML file: For now: Use myXMLFileScenes.xml !!!
-                                                     
-                                                      [self updateXMLfile:tagExport tagNo:[NSNumber numberWithInt:++i]]; //i++;
+                                                      
+                                                      [self updateXMLfile:tagExport tagNo:[NSNumber numberWithInt:++i] offsetScene:&offset_scene];
                                                       
                                                       
                                                       //TODO: only for same objects-> different attributes
@@ -1235,28 +1250,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    
-    /*if ([elementName isEqualToString:@"scene"]) {
-        //insert last offset for the current artboard
-        NSMutableArray* arr = [offsetXmlFile objectForKey:[ NSNumber numberWithInt:sceneNo]];
-        int prevOffset = [[arr lastObject] intValue];
-        NSData *find = [@"</scene" dataUsingEncoding:NSUTF8StringEncoding];
-        
-        NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange(start, end -start)];
-        NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
-        NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
-        [arr addObject:[NSNumber numberWithInt: range.location]];
-        xmlOffset = range.location;
-        NSLog(@"Start = %d %d", xmlOffset, start);
-        [arr addObject:];
-    
-    }*/
  
+    
     if ([elementName isEqualToString:@"switch"]) {
         [inheritanceStack removeObject:@"switch"];
         return;
         
     }
+    
     if ([xml2agcDictionary[elementName] isEqualToString:@"artboard"]) {
         //TODO!!! new file -> compute header
         NSString *artboardNo = [NSString stringWithFormat:@"artboard%d", counterArtboards++] ;
@@ -1284,7 +1285,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         frame = [attributes objectForKey:@"frame"];
         
         [value setObject:[frame objectForKey:@"y"] forKey:[strings lastObject]];
-        
         
         return;
         
