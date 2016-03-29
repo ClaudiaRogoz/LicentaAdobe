@@ -42,16 +42,18 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 }*/
 
-- (NSString *) appendModifiedString:(NSMutableDictionary *)dict
+- (NSString *) appendModifiedString:(NSMutableDictionary *)dict minTagOffset:(NSNumber **)tagOffset
 {
     NSMutableString *newString = [[NSMutableString alloc] init];
     //maybe extedn to other subTags ?!
     NSArray *order = [NSArray arrayWithObjects:@"rect", @"fontDescription", @"color"];
     
+    int cnt = 0;
     for (id key in order) {
         
         if (![dict objectForKey:key])
             continue;
+        //tagOffset = min(tagOffset, [NSNumber numberWithInt:cnt])
         //if mu;tiple subTags at the same level are modified -> shift the lower one
         NSString *tagKey = [NSString stringWithFormat:@"<%@", key];
         NSRange rangeOfString = [newString rangeOfString:tagKey];
@@ -199,9 +201,22 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 {
     
     NSString *pathToXml = @"myXMLfileScenes.xml";
-   
+    NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
+    
+    NSFileHandle *outputTempXml = [NSFileHandle fileHandleForWritingAtPath:pathToTempXml];
+    if(outputTempXml == nil) {
+        [[NSFileManager defaultManager] createFileAtPath:pathToTempXml contents:nil attributes:nil];
+        outputTempXml = [NSFileHandle fileHandleForWritingAtPath:pathToTempXml];
+    }
+    
+    NSFileHandle *inputXml = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/XMLParser/myXMLfileScenes.xml"];
+    if (inputXml == nil)
+        NSLog(@"Failed to open file");
+    
     NSMutableArray *offset = [offsetXmlFile objectForKey:n];
-
+    long diffOffset = 0;
+    int prevKey = 0;
+    
     for  (id key in [tags allKeys]) {
         
         // we have the changes that have to be made in the form of a dictioanry
@@ -223,22 +238,19 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         //NSLog(@"Tag is = %@ %lu", gotoXml, nextXMlTag);
         NSMutableDictionary *stringChunks = [[NSMutableDictionary alloc] init];
+        NSRange range;
+        
+        long minTagOffset = INT_MAX -1; // highest subTag --> needed for offset writing
         for (id key1 in [toChange allKeys]) {
            
             NSString *tmp = [key1 substringWithRange:NSMakeRange(1, [key1 length] -1)];
             NSArray *subTags = [tmp componentsSeparatedByString:@"."];
             NSString *replacedValue = [toChange objectForKey:key1];
-            //NSLog(@"ToChange = %@", [toChange objectForKey:key1]);
             if ([[toChange objectForKey:key1] isKindOfClass:[NSNumber class]])
                 replacedValue= [[toChange objectForKey:key1] stringValue];
             
-            //NSLog(@"replacedValue = %@", replacedValue);
-            //TODO compute offset for subTag which should be between [gotoXml; [offset objectAtIndex:<++key>]]
-            //NSLog(@"Key1 = %@", key1);
-            
             id key2 = [subTags objectAtIndex:0];
-           // for (id key2 in [subTags subarrayWithRange:NSMakeRange(0, [subTags count] -1)]) {
-                
+            
                 if ([stringChunks objectForKey:key2]) {
                     //NSLog(@"Modify for %@", [subTags lastObject]);
                     NSString *newData = [stringChunks objectForKey:key2];
@@ -258,21 +270,21 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                         [stringChunks setObject:newData forKey:key2];
                     }
                     
-
                     continue;
                 }
             
                 //find subTag's offset
                 NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
                 
-                NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], nextXMlTag - [gotoXml intValue])];
+                range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], nextXMlTag - [gotoXml intValue])];
                 
                 NSFileHandle *fHandle;
                 fHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/XMLParser/myXMLfileScenes.xml"];
                 if (fHandle == nil)
                     NSLog(@"Failed to open file");
-                
-                
+            
+            minTagOffset = MIN((unsigned long)range.location, minTagOffset);
+            
                 int sizeToRead = nextXMlTag  - (unsigned long)range.location;
 
                 [fHandle seekToFileOffset:range.location];
@@ -303,9 +315,56 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 [fHandle closeFile];
     
         }
-        NSLog(@"[%@] Chunks = %@", key, [self appendModifiedString:stringChunks]);
+        NSNumber *tagOffset = [NSNumber numberWithInt:minTagOffset];
+        NSString *cntTag = [self appendModifiedString:stringChunks minTagOffset:&tagOffset];
         
+        NSLog(@"[%@] Chunks = %@", key, cntTag);
+        //TODO update offset & propagate offset
+        unsigned long prevOffset = (unsigned long)range.location;
+        unsigned long nextOffset = prevOffset + diffOffset;
+        
+        [offset replaceObjectAtIndex:[key intValue] -1 withObject:[NSNumber numberWithLong:nextOffset]];
+        [outputTempXml seekToEndOfFile];
+        
+        
+        //TODO copy to file + copy intra chunks beteween (key, key +1)
+        if (prevKey == 0) {
+            //copy all from beginning to the curent offset
+            
+            //TODO change for any "n" -> only no 1 artboard works
+            NSData *inputData = [inputXml readDataOfLength:nextOffset];
+            NSString* newStr = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
+            NSString* newStr1 =[[NSString alloc] initWithData:[cntTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
+            NSLog(@"At %@ writing to file %@ %@", n, newStr, newStr1);
+            [outputTempXml writeData:inputData];
+            [outputTempXml seekToEndOfFile];
+            //copy current Tag to outputXMlfile
+            [outputTempXml writeData:[cntTag dataUsingEncoding:NSUTF8StringEncoding]];
+            [outputTempXml seekToEndOfFile];
+            
+        } else if (prevKey == [key intValue] -1) {
+            //just copy the string to the file (no other tags are in between)
+            [inputXml seekToFileOffset:nextXMlTag];
+            
+        } else {
+            //copy all tags from the prevKey to this key
+            int skippedTagNo = prevKey +1;
+            id gotoTag = [offset objectAtIndex:skippedTagNo -1];
+            [inputXml seekToFileOffset:[gotoTag longValue]];
+            unsigned long sizeToRead = minTagOffset - [gotoTag longValue];
+            NSData *inputData = [inputXml readDataOfLength:sizeToRead];
+            NSLog(@"There is %lu %lu", minTagOffset, prevOffset);
+            NSString* newStr1 =[[NSString alloc] initWithData:inputData  encoding:NSUTF8StringEncoding];
+            NSLog(@"\n-----------\ndata read = %@", newStr1);
+            [outputTempXml writeData:inputData];
+            [outputTempXml seekToEndOfFile];
+            //copy currentTag to outputXMLfile
+            [outputTempXml writeData:[cntTag dataUsingEncoding:NSUTF8StringEncoding]];
+            [outputTempXml seekToEndOfFile];
+        }
+        prevKey = [key intValue];
     }
+    [outputTempXml closeFile];
 }
 
 
@@ -808,11 +867,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         int end = [xmlData length];
     
         NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange(start, end -start)];
-        NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
+        //NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
         NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
         [arr addObject:[NSNumber numberWithInt: range.location]];
         xmlOffset = range.location;
-        NSLog(@"Start = %d %d", xmlOffset, start);
+        //NSLog(@"Start = %d %d", xmlOffset, start);
     
     }
     
