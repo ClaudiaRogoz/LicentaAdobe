@@ -200,10 +200,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 - (void) updateXMLfile:(NSDictionary *)tags tagNo:(NSNumber *)n offsetScene:(NSNumber **) offset_scene
 {
     
-    if ([tags count] == 0) {
-        //TODO just copy from </scenes start>
-        return;
-    }
     
     NSString *pathToXml = @"myXMLfileScenes.xml";
     NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
@@ -217,6 +213,21 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     NSFileHandle *inputXml = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/XMLParser/myXMLfileScenes.xml"];
     if (inputXml == nil)
         NSLog(@"Failed to open file");
+    
+    
+    if ([tags count] == 0) {
+        //just copy from offset_start
+        NSLog(@"Here we are\n");
+        unsigned long fileSize = [inputXml seekToEndOfFile];
+        [inputXml seekToFileOffset:[*offset_scene longValue]];
+        
+        long sizeToRead = fileSize - [*offset_scene longValue];
+        NSData *inputData = [inputXml readDataOfLength:sizeToRead];
+        [outputTempXml seekToEndOfFile];
+        [outputTempXml writeData:inputData];
+        return;
+    }
+    
     
     NSMutableArray *offset = [offsetXmlFile objectForKey:n];
     long diffOffset = 0;
@@ -321,6 +332,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 [fHandle closeFile];
     
         }
+        
         NSNumber *tagOffset = [NSNumber numberWithInt:minTagOffset];
         NSString *cntTag = [self appendModifiedString:stringChunks minTagOffset:&tagOffset];
         
@@ -516,6 +528,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       
                                                   }
                                               }
+                                              //add footer for xml file
+                                              [self updateXMLfile:[[NSMutableDictionary alloc] init] tagNo:0 offsetScene:&offset_scene];
                                                                     
             
                                               
