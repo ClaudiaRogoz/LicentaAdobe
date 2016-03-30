@@ -339,7 +339,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             //TODO change for any "n" -> only no 1 artboard works
             [inputXml seekToFileOffset:[*offset_scene longValue]];
-            NSData *inputData = [inputXml readDataOfLength:nextOffset];
+            long sizeToRead = minTagOffset - [*offset_scene longValue];
+            NSData *inputData = [inputXml readDataOfLength:sizeToRead];
             NSString* newStr = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
             NSString* newStr1 =[[NSString alloc] initWithData:[cntTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
             NSLog(@"At %@ writing to file %@ %@", n, newStr, newStr1);
