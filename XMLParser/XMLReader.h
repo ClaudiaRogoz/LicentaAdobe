@@ -25,6 +25,7 @@
     NSMutableArray *artboards;
     NSMutableDictionary *offsetXmlFile;
     NSMutableDictionary *objectOffset;
+    NSString *tempText;
     
     int sceneNo;
     NSData *xmlData;

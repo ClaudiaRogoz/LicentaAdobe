@@ -8,7 +8,7 @@
 
 #include <CommonCrypto/CommonDigest.h>
 #import "XMLReader.h"
-
+#define EPS 3 // just an epsilon value for pointSize calc
 
 NSString *const kXMLReaderTextNodeKey = @"text";
 
@@ -78,7 +78,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         NSLog(@"Type is = %@ %@\n", prev, newD);
         // check if it is the same object (no adding, nor deleting, just modifyingn ops)
         if ([typeN isEqualToString:typeP]) {
-            NSLog(@"Same type\n");
+            //NSLog(@"Same type\n");
             id solType = [exportAgc objectForKey:typeN];
             
             // only one possibility when type = solType (eg. textfield)
@@ -92,7 +92,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     NSLog(@"They are %@", trList);
                     
                 
-                NSLog(@"this is where we are\n");
+                //NSLog(@"this is where we are\n");
                 NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
                 xmlExport[tagNo] = trList;
                 continue;
@@ -112,7 +112,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     value2 = [value2 objectForKey:key1];
                 }
                 
-                NSLog(@"Here1\n");
                 if ([value1 isEqualToString: value2] && [value1 isEqualToString:[array lastObject]]){
                     NSLog(@"value = %@ %@ OF type = %@", value1, value2, key);
                     NSDictionary *currAttr = [attributes objectForKey:key];
@@ -120,13 +119,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
                     bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true json_info:jsonArtboards];
                     
-                    if (ok == false)
+                    if (ok == false) {
                         NSLog(@"They are %@", trList);
                     
                     NSLog(@"Just here\n");
-                    //NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
-                    //xmlExport[tagNo] = trList;
+                    NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
+                    xmlExport[tagNo] = trList;
                     continue;
+                    }
                     
                 }
             }
@@ -139,7 +139,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                             
 }
 
--(bool) checkTransformToAbsoluteValue:(NSNumber **)value variable:(NSString *)var scale_dict:(NSDictionary *) scaleDict
+//transform from XD coordinates to Xcode coordinates
+-(bool) checkTransformToAbsoluteValue:(NSNumber **)value variable:(NSString *)var scale_dict:(NSDictionary *) scaleDict other_updates:(NSMutableDictionary **) otherUpdates
 {
     if ([var isEqualToString:@"$rect.x"] || [var isEqualToString:@"$rect.y"]) {
         //transform relative coord to absolute coord
@@ -155,10 +156,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         *value = [NSNumber numberWithFloat:[*value floatValue]/255];
         return true;
     }
+    else if ([var isEqualToString:@"$fontDescription.pointSize"]) {
+    
+        //if fontdescription is changed => change the width & height
+        
+        return true;
+    }
     
     return false;
 
 }
+
 
 //dictionaries are teh same (same type).. check attributes
 //return the diffs through trList dictionary
@@ -172,12 +180,32 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     id keys = [prev allKeys];
     for (id key in keys) {
         NSLog(@"[%d] Check for %@ --> %@ %@", eq, key, [newD objectForKey:key], [prev objectForKey:key]);
+        if ([key isEqualToString:@"rawText"])
+            tempText = [newD objectForKey:key];
+        
         id value = [prev objectForKey:key];
         
         if ([value isKindOfClass:[NSMutableDictionary class]]) {
             eq = [self checkAreEqual:[prev objectForKey:key] prevDict:[newD objectForKey:key] attr:[currAttr objectForKey:key] outList:trList equal:eq json_info:(NSDictionary *) jsonInfo];
             
         } else if ([value isKindOfClass:[NSMutableArray class]]) {
+            id areLines = [[value objectAtIndex:0] objectForKey:@"lines"];
+            if (areLines && [*trList objectForKey:@"$fontDescription.pointSize"]) {
+                //TODO update width & height for textArea when size changes
+                int textSize = [[*trList objectForKey:@"$fontDescription.pointSize"] floatValue];
+                NSFont *font = [NSFont systemFontOfSize:textSize];
+                
+                CGFloat width = [tempText sizeWithAttributes:@{ NSFontAttributeName:font }].width + EPS; //USING SYSTEM'S Font!!!
+                CGFloat height = [tempText sizeWithAttributes:@{ NSFontAttributeName:font }].height;
+                
+                NSLog(@"Changing Size to %f %f", width, height);
+                NSString *widthS = [NSString stringWithFormat:@"$rect.width"];
+                NSString *heightS = [NSString stringWithFormat:@"$rect.height"];
+                [*trList setObject:[NSString stringWithFormat:@"%f", width] forKey:widthS];
+                [*trList setObject:[NSString stringWithFormat:@"%f", height] forKey:heightS];
+            
+            }
+            
             continue;
         
         } else {
@@ -191,7 +219,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     (![[currAttr objectForKey:key] isEqualToString:@"$rand"] && ![key isEqualToString:@"uid"])) {
                 eq = false;
                 NSNumber *nr = [newD objectForKey:key];
-                if ([self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo])
+                NSMutableDictionary * otherUpdates = [[NSMutableDictionary alloc] init];
+                if ([self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo other_updates:&otherUpdates])
                     NSLog(@"Absolute Value is = %@", nr,[prev objectForKey:key], [currAttr objectForKey:key]);
                    NSLog(@"List = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
                 
@@ -202,7 +231,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             if ([prev objectForKey:key] != [newD objectForKey:key]) {
                 eq = false;
                 NSNumber *nr = [newD objectForKey:key];
-                if ([self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo])
+                NSMutableDictionary * otherUpdates = [[NSMutableDictionary alloc] init];
+                if ([self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo other_updates:&otherUpdates])
                     NSLog(@"Absolute Value is = %@", nr,[prev objectForKey:key], [currAttr objectForKey:key]);
                 
                 NSLog(@"ListX = %@ %@ %@", nr, [prev objectForKey:key], [currAttr objectForKey:key]);
@@ -281,36 +311,42 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         long minTagOffset = INT_MAX -1; // highest subTag --> needed for offset writing
         for (id key1 in [toChange allKeys]) {
            
+            NSLog(@"Entry1 = %@", key1);
             NSString *tmp = [key1 substringWithRange:NSMakeRange(1, [key1 length] -1)];
             NSArray *subTags = [tmp componentsSeparatedByString:@"."];
             NSString *replacedValue = [toChange objectForKey:key1];
             if ([[toChange objectForKey:key1] isKindOfClass:[NSNumber class]])
                 replacedValue= [[toChange objectForKey:key1] stringValue];
             
+            NSLog(@"***");
             id key2 = [subTags objectAtIndex:0];
-            
+            NSLog(@"((((((\n");
                 if ([stringChunks objectForKey:key2]) {
-                    //NSLog(@"Modify for %@", [subTags lastObject]);
+                    NSLog(@"Modify for %@", [subTags lastObject]);
                     NSString *newData = [stringChunks objectForKey:key2];
                     NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
+                    NSLog(@"Attr = %@", attrString);
                     int shiftAttr = [[subTags lastObject] length] + 3;
                     NSRange rangeOfString = [newData rangeOfString:attrString];
+                    if (rangeOfString.location == NSNotFound )
+                        NSLog(@"[ERROR] Not found :s");
                     NSString *tmpRange = [newData substringFromIndex:rangeOfString.location + shiftAttr];
                     NSRange rangeLastString = [tmpRange rangeOfString:@"\""];
-                    
+                    NSLog(@"QQQQQ\n\n");
                     if (rangeOfString.location == NSNotFound || rangeLastString.location == NSNotFound)  {
                         
                         NSLog(@"[ERROR] string was not found");
                     } else {
                         int st = (unsigned long)rangeOfString.location + shiftAttr;
                         int en = (unsigned long)rangeLastString.location;
+                        NSLog(@"Start, end = %d %d", en, st);
                         newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
                         [stringChunks setObject:newData forKey:key2];
                     }
                     
                     continue;
                 }
-            
+            NSLog(@"Offset find\n");
                 //find subTag's offset
                 NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
                 
@@ -420,6 +456,9 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             int tags = skippedTagNo;
             NSLog(@"Trying to update %d", tags);
+            NSLog(@"Offsets = %@", offset);
+            
+            //TODO FIXME
             while (tags <= [key intValue]) {
                
                 unsigned long prevTagOffset = [[offset objectAtIndex:tags -1] longValue];
@@ -430,6 +469,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 tags = tags + 1;
                 
             }
+            NSLog(@"----------------------------");
             newNextOffset = totalSize;
             
             }
@@ -582,7 +622,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       
                                                       [self updateXMLfile:tagExport tagNo:[NSNumber numberWithInt:++i] offsetScene:&offset_scene];
                                                       
-                                                      
+                                                      NSLog(@"Update %d is donme", i);
                                                       //TODO: only for same objects-> different attributes
                                                       //TODO: objects are added
                                                       //TODO objects are deleted & added
