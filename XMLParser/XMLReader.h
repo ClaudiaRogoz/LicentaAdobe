@@ -44,8 +44,8 @@
 + (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary;
 + (void) writeToFile:(NSDictionary*)dict file:(NSString*) fileName;
 + (void) monitorXDFile:(NSString*) path;
-- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second;
-- (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq;
+- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)info;
+- (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq json_info:(NSDictionary *) jsonInfo;
 - (void) updateXMLfile:(NSDictionary*)tags tagNo:(NSNumber *)n;
 - (NSString *) appendModifiedString:(NSMutableDictionary *)dict minTagOffset:(NSNumber **)tagOffset;
 - (NSRange) getStringRange: (NSString *)initString substr:(NSString *)substring offsetScene:(NSNumber **) offset_Scene;
