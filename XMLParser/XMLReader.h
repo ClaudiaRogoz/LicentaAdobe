@@ -8,6 +8,8 @@
 
 
 #import <Foundation/Foundation.h>
+
+
 @import AppKit;
 
 
@@ -25,7 +27,12 @@
     NSMutableArray *artboards;
     NSMutableDictionary *offsetXmlFile;
     NSMutableDictionary *objectOffset;
+    NSMutableArray *exportScaleStack;
     NSString *tempText;
+    int widthXMLArtboard;
+    int heightXMLArtboard;
+    int widthAgcArtboard;
+    int heightAgcArtboard;
     
     int sceneNo;
     NSData *xmlData;
