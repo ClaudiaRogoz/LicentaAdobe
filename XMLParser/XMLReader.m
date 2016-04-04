@@ -30,6 +30,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 - (NSString *) appendModifiedString:(NSMutableDictionary *)dict minTagOffset:(NSNumber **)tagOffset
 {
     NSMutableString *newString = [[NSMutableString alloc] init];
+    
     //maybe extedn to other subTags ?!
     NSArray *order = [NSArray arrayWithObjects:@"rect", @"fontDescription", @"color", nil];
     NSLog(@"Dict = %@", dict);
@@ -38,35 +39,33 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         if (![dict objectForKey:key])
             continue;
-        //tagOffset = min(tagOffset, [NSNumber numberWithInt:cnt])
-        //if mu;tiple subTags at the same level are modified -> shift the lower one
-        NSLog(@"Check %@", key);
+        
         NSString *tagKey = [NSString stringWithFormat:@"<%@", key];
         NSRange rangeOfString = [newString rangeOfString:tagKey];
         NSString *value = [dict objectForKey:key];
-        NSLog(@"Value = %lu and range = %@", (unsigned long)rangeOfString.length, value);
+        
         
         if (rangeOfString.location == NSNotFound)  {
-            NSLog(@"Range here %@\n", newString);
+            
             [newString appendString:value];
-            NSLog(@"Range here %@\n", newString);
+            
         } else {
             unsigned long start = (unsigned long)rangeOfString.location;
             unsigned long end = [newString length];
-            NSLog(@"End start\n");
+            
             newString = [newString stringByReplacingCharactersInRange:NSMakeRange(start, end - start) withString:value];
         }
         
     }
-    NSLog(@"End of");
+    
     return newString;
-
+    
 }
 
 /* second = prev dictionary; first = current dictionary */
-- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)jsonArtboards
+- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)jsonArtboards offsetGroup:(NSMutableDictionary *)offsetGroupDict numberGroup:(NSNumber *) nr
 {
-    NSLog(@"JSON= %@", jsonArtboards);
+    
     //TODO first only for modified objects
     int counter = MIN([first count], [second count]);
     NSMutableDictionary *xmlExport = [[NSMutableDictionary alloc] init];
@@ -74,7 +73,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         //NSLog(@"Counter = %d", i);
         NSDictionary *prev = [second objectAtIndex:i];
         NSDictionary *newD = [first objectAtIndex:i];
-       
+        
         id typeP = [prev objectForKey:@"type"];
         id typeN = [newD objectForKey:@"type"];
         
@@ -87,81 +86,141 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             if ([solType isKindOfClass:[NSArray class]]) {
                 NSLog(@"Group thing");
                 id transform = [newD objectForKey:@"transform"];
-                int tx = [[transform objectForKey:@"tx"] intValue];
-                int ty = [[transform objectForKey:@"ty"] intValue];
-               /* Pair  *p = [[Pair alloc] init];
-                [p setTx:tx]; [p setTy:ty];
+                int prevTx = [[offsetGroupDict objectForKey:@"tx"] intValue];
+                int prevTy = [[offsetGroupDict objectForKey:@"ty"] intValue];
+                int tx = [[transform objectForKey:@"tx"] intValue] + prevTx;
+                int ty = [[transform objectForKey:@"ty"] intValue] + prevTy;
+                NSMutableDictionary *dict = @{@"tx" : [NSNumber numberWithInt:tx], @"ty" : [NSNumber numberWithInt:ty]};
                 
-                [exportScaleStack addObject:p];
-                */
-                //id newDictCh = [[newD objectForKey:@"group"] objectForKey:@"children"];
-                //id prevDictCh = [[prev objectForKey:@"group"] objectForKey:@"children"];
-                
-                
-                /*for (id child in newDictCh) {
-                    
+                id newDictCh = [[newD objectForKey:@"group"] objectForKey:@"children"];
+                id prevDictCh = [[prev objectForKey:@"group"] objectForKey:@"children"];
                 
                 
-                }*/
+                NSLog(@"Group check for %@ \n %@", newDictCh, prevDictCh);
+                NSMutableDictionary *newXmlDict  = [self compare2Artboards:newDictCh dict2:prevDictCh artboard_info:jsonArtboards offsetGroup:dict numberGroup:[NSNumber numberWithInt:i + 1]];
+                nr = 0;
+                NSLog(@"------------------------------------Group check DONE %@ %@", xmlExport, newXmlDict);
+                
+                [offsetGroupDict setObject:[NSNumber numberWithInt:prevTx] forKey:@"tx"];
+                [offsetGroupDict setObject:[NSNumber numberWithInt:prevTx] forKey:@"ty"];
                 
                 continue;
-            
+                
             }
             
             // only one possibility when type = solType (eg. textfield)
             if ([solType isKindOfClass:[NSString class]]) {
+                NSLog(@"We are Here\n");
                 NSDictionary *currAttr = [attributes objectForKey:solType];
                 
                 NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
+                NSLog(@"JsonArtboards = %@", jsonArtboards);
                 bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true json_info:jsonArtboards];
                 
                 if (ok == false) {
-                   
-                NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
-                xmlExport[tagNo] = trList;
+                    
+                    NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
+                    if ([nr intValue])
+                        xmlExport[nr] = trList;
+                    else
+                        xmlExport[tagNo] = trList;
                 }
                 continue;
                 
             }
             
+            //type = NSMutableDictionary eg.shape
+            //TODO change each NSMutabelDict into NSMutableDict of NSArray (it's easier)
             for (id key in solType){
                 
                 NSString *cond = [solType objectForKey:key];
-                NSArray *array = [cond componentsSeparatedByString:@"."];
-        
-                id value1 = prev;
-                id value2 = newD;
-
-                for (id key1 in [array subarrayWithRange:NSMakeRange(0, [array count] -1)]) {
-                    value1 = [value1 objectForKey:key1];
-                    value2 = [value2 objectForKey:key1];
+                if ([cond isKindOfClass:[NSArray class]]) {
+                    //is kind of array => multiple rules must be achieved
+                    NSString *condIsOfType = @"";
+                    int isOk = true;
+                    for (id rule in cond) {
+                        NSArray *array = [rule componentsSeparatedByString:@"."];
+                        
+                        id value1 = prev;
+                        id value2 = newD;
+                        NSLog(@"Array = %@", array);
+                        for (id key1 in [array subarrayWithRange:NSMakeRange(0, [array count] -1)]) {
+                            NSLog(@"Value 1 = %@", value1);
+                            if (![value1  objectForKey:key1] || ![value2  objectForKey:key1]) {
+                                condIsOfType  = @"NOT";
+                                break;
+                            }
+                            value1 = [value1 objectForKey:key1];
+                            value2 = [value2 objectForKey:key1];
+                        }
+                        
+                        bool eqValues = [value1 isEqualToString: value2] && [value1 isEqualToString:[array lastObject]];
+                        if ([condIsOfType isEqualToString:@"NOT"] || !eqValues) {
+                            isOk = false;
+                            break;
+                        }
+                    }
+                    
+                    
+                    if (isOk){
+                        NSLog(@"Chack for keyXXX = %@ %@ %d", key, cond, i);
+                        NSDictionary *currAttr = [attributes objectForKey:key];
+                        NSLog(@"currAttr = %@ %@ %@", newD, prev, currAttr);
+                        NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
+                        bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true json_info:jsonArtboards];
+                        
+                        if (ok == false) {
+                            
+                            NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
+                            NSLog(@"RList = %@ %@", trList, tagNo);
+                            if ([nr intValue]) {
+                                xmlExport[nr] = trList;
+                            }
+                            else
+                                xmlExport[tagNo] = trList;
+                            
+                            NSLog(@"RList %@", xmlExport);
+                            
+                        }
+                        break;
+                    }
+                    
                 }
-                
-                if ([value1 isEqualToString: value2] && [value1 isEqualToString:[array lastObject]]){
-                    //NSLog(@"value = %@ %@ OF type = %@", value1, value2, key);
-                    NSDictionary *currAttr = [attributes objectForKey:key];
+                else if ([cond isKindOfClass:[NSString class]]) {
+                    NSArray *array = [cond componentsSeparatedByString:@"."];
                     
-                    NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
-                    bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true json_info:jsonArtboards];
+                    id value1 = prev;
+                    id value2 = newD;
                     
-                    if (ok == false) {
-                       // NSLog(@"They are %@", trList);
+                    for (id key1 in [array subarrayWithRange:NSMakeRange(0, [array count] -1)]) {
+                        value1 = [value1 objectForKey:key1];
+                        value2 = [value2 objectForKey:key1];
+                    }
                     
-                    //NSLog(@"Just here\n");
-                    NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
-                    xmlExport[tagNo] = trList;
-                    continue;
-                   }
-                    
+                    NSLog(@"Chack for key = %@", key);
+                    if ([value1 isEqualToString: value2] && [value1 isEqualToString:[array lastObject]]){
+                        
+                        NSDictionary *currAttr = [attributes objectForKey:key];
+                        
+                        NSMutableDictionary *trList = [[NSMutableDictionary alloc] init];
+                        bool ok = [self checkAreEqual:newD prevDict:prev attr:currAttr outList:&trList equal:true json_info:jsonArtboards];
+                        
+                        if (ok == false) {
+                            NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
+                            xmlExport[tagNo] = trList;
+                            continue;
+                        }
+                        
+                    }
                 }
             }
             
-            }
+        }
         
-          }
-
+    }
+    
     return xmlExport;
-                            
+    
 }
 
 //transform from XD coordinates to Xcode coordinates
@@ -184,7 +243,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         else
             scaledValue = scaledValue * yScaleFactor;
         
-        NSLog(@"From %f (%f %f) we get %f", [*value floatValue] - offsetValue, xScaleFactor, yScaleFactor, scaledValue);
         *value = [NSNumber numberWithFloat: scaledValue];
         
         
@@ -197,88 +255,98 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         *value = [NSNumber numberWithFloat:[*value floatValue]/255];
         return true;
     } else if ([var isEqualToString:@"$fontDescription.pointSize"]) {
-    
+        
         return true;
     }
     
     return false;
-
+    
 }
 
 
 //dictionaries are teh same (same type).. check attributes
 //return the diffs through trList dictionary
 - (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr
-                                                            outList:(NSMutableDictionary**)trList equal:(BOOL) eq json_info:(NSDictionary *) jsonInfo
+               outList:(NSMutableDictionary**)trList equal:(BOOL) eq json_info:(NSDictionary *) jsonInfo
 {
     if (prev == nil && newD == nil)
         return eq;
-    //NSLog(@"PREV = %@", prev);
+    
     //first of all go through each <key, value> pair; see difference -> TODO: eventually use xml2agcDict.. setup needed!!
     id keys = [prev allKeys];
-    for (id key in keys) {
-        //NSLog(@"[%d] Check for %@ --> %@ %@", eq, key, [newD objectForKey:key], [prev objectForKey:key]);
+    NSArray * sortedAllKeys = [prev allKeys];
+    sortedAllKeys = [sortedAllKeys sortedArrayUsingComparator:^(id a, id b) {
+        return [a compare:b];
+    }];
+    for (id key in sortedAllKeys) {
+        
+        //NSLog(@"Checking for %@", key);
         if ([key isEqualToString:@"rawText"])
             tempText = [newD objectForKey:key];
         
         id value = [prev objectForKey:key];
-        
-        if ([value isKindOfClass:[NSMutableDictionary class]]) {
+        //NSLog(@"value %@ for %@", value, key);
+        //NSLog(@"CurrAttr = %@", currAttr);
+        if ([value isKindOfClass:[NSMutableDictionary class]] && [currAttr objectForKey:key]) {
+            
             eq = [self checkAreEqual:[prev objectForKey:key] prevDict:[newD objectForKey:key] attr:[currAttr objectForKey:key] outList:trList equal:eq json_info:(NSDictionary *) jsonInfo];
             
         } else if ([value isKindOfClass:[NSMutableArray class]]) {
             id areLines = [[value objectAtIndex:0] objectForKey:@"lines"];
             if (areLines && [*trList objectForKey:@"$fontDescription.pointSize"]) {
-                //TODO update width & height for textArea when size changes
-                int textSize = [[*trList objectForKey:@"$fontDescription.pointSize"] floatValue];
+                //update width & height for textArea when size changes
+                float textSize = [[*trList objectForKey:@"$fontDescription.pointSize"] floatValue];
+                NSLog(@"FloatValue = %f", textSize);
                 NSFont *font = [NSFont systemFontOfSize:textSize];
-                
+                NSLog(@"TempText = %@", tempText);
                 CGFloat width = [tempText sizeWithAttributes:@{ NSFontAttributeName:font }].width + EPS; //USING SYSTEM'S Font!!!
                 CGFloat height = [tempText sizeWithAttributes:@{ NSFontAttributeName:font }].height;
                 
-                NSLog(@"Changing Size to %f %f", width, height);
+                NSLog(@"Changing Size to %f %f", width , height);
                 NSString *widthS = [NSString stringWithFormat:@"$rect.width"];
                 NSString *heightS = [NSString stringWithFormat:@"$rect.height"];
                 [*trList setObject:[NSString stringWithFormat:@"%f", width] forKey:widthS];
                 [*trList setObject:[NSString stringWithFormat:@"%f", height] forKey:heightS];
-            
+                
             }
             
             continue;
-        
+            
         } else {
             if ([prev objectForKey:key] == nil || [newD objectForKey:key] == nil ) {
                 continue;
-            
+                
             }
-            //NSLog(@"PREV = %@ %@", [prev objectForKey:key], [newD objectForKey:key]);
+            //NSLog(@"key = %@", key);
             if ([value isKindOfClass:[NSString class]]) {
-            if (![[prev objectForKey:key] isEqualToString:[newD objectForKey:key]] &&
+                //NSLog(@"AKey is here\n");
+                if (![[prev objectForKey:key] isEqualToString:[newD objectForKey:key]] &&
                     (![[currAttr objectForKey:key] isEqualToString:@"$rand"] && ![key isEqualToString:@"uid"])) {
-                eq = false;
-                NSNumber *nr = [newD objectForKey:key];
-                NSMutableDictionary * otherUpdates = [[NSMutableDictionary alloc] init];
-                [self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo other_updates:&otherUpdates];
-                   // NSLog(@"Absolute Value is = %@", nr,[prev objectForKey:key], [currAttr objectForKey:key]);
-                   //NSLog(@"List = %@ %@ %@", [newD objectForKey:key], [prev objectForKey:key], [currAttr objectForKey:key]);
-                
+                    eq = false;
+                    NSNumber *nr = [newD objectForKey:key];
+                    NSMutableDictionary * otherUpdates = [[NSMutableDictionary alloc] init];
+                    NSLog(@"Bef transform %@ ", nr);
+                    
+                    [self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo other_updates:&otherUpdates];
+                    NSLog(@"ZZ transform %@ %@", nr, [currAttr objectForKey:key]);
                     [*trList setObject:nr forKey:[currAttr objectForKey:key]];
-            }
-            
-        } else
-            if ([prev objectForKey:key] != [newD objectForKey:key]) {
-                eq = false;
-                NSNumber *nr = [newD objectForKey:key];
-                NSMutableDictionary * otherUpdates = [[NSMutableDictionary alloc] init];
-                NSLog(@"Here changing width/height for %@ %@ %@", key, [newD objectForKey:key], [currAttr objectForKey:key]);
-                if ([[currAttr objectForKey:key] isEqualToString:@"$justAValue"]) //drop value;
-                    continue;
-                [self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo other_updates:&otherUpdates];
-                   // NSLog(@"Absolute Value is = %@", nr,[prev objectForKey:key], [currAttr objectForKey:key]);
+                }
                 
-                NSLog(@"ListX = %@ %@ %@", nr, [prev objectForKey:key], [currAttr objectForKey:key]);
-                [*trList setObject:nr forKey:[currAttr objectForKey:key]];
+            } else {
                 
+                if ([prev objectForKey:key] != [newD objectForKey:key]){
+                    NSLog(@"BKey is here %@ %@\n", [prev objectForKey:key] , [newD objectForKey:key]);
+                    eq = false;
+                    NSNumber *nr = [newD objectForKey:key];
+                    NSLog(@"NR = %@ %@ %@ %@", nr, currAttr, key, [currAttr objectForKey:key]);
+                    NSMutableDictionary * otherUpdates = [[NSMutableDictionary alloc] init];
+                    if ([[currAttr objectForKey:key] isEqualToString:@"$justAValue"]) //drop value;
+                        continue;
+                    [self checkTransformToAbsoluteValue:&nr variable:[currAttr objectForKey:key] scale_dict:jsonInfo other_updates:&otherUpdates];
+                    NSLog(@"To transfom %@ %@", nr, [currAttr objectForKey:key]);
+                    [*trList setObject:nr forKey:[currAttr objectForKey:key]];
+                    
+                }
             }
         }
         
@@ -291,9 +359,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 {
     
     
-    NSString *pathToXml = @"myXMLfileScenes.xml";
+    
     NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
-    NSError *error;
     
     NSFileHandle *outputTempXml = [NSFileHandle fileHandleForWritingAtPath:pathToTempXml];
     if(outputTempXml == nil) {
@@ -301,7 +368,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         outputTempXml = [NSFileHandle fileHandleForWritingAtPath:pathToTempXml];
     }
     
-    NSFileHandle *inputXml = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/XMLParser/myXMLfileScenes.xml"];
+    NSFileHandle *inputXml = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"];
     if (inputXml == nil)
         NSLog(@"Failed to open file");
     
@@ -325,12 +392,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     long diffOffset = 0;
     int prevKey = 0;
     unsigned long nextXMlTag = 0;
-   // int lastIndex = [[tags objectForKey:[[tags allKeys] lastObject]] intValue];
+    // int lastIndex = [[tags objectForKey:[[tags allKeys] lastObject]] intValue];
     NSArray * sortedAllKeys = [tags allKeys];
     sortedAllKeys = [sortedAllKeys sortedArrayUsingComparator:^(id a, id b) {
         return [a compare:b];
     }];
-
+    
     for  (id key in sortedAllKeys) {
         
         // we have the changes that have to be made in the form of a dictioanry
@@ -357,7 +424,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         long minTagOffset = INT_MAX -1; // highest subTag --> needed for offset writing
         for (id key1 in [toChange allKeys]) {
-           
+            
             NSString *tmp = [key1 substringWithRange:NSMakeRange(1, [key1 length] -1)];
             NSArray *subTags = [tmp componentsSeparatedByString:@"."];
             NSString *replacedValue = [toChange objectForKey:key1];
@@ -366,76 +433,76 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             
             id key2 = [subTags objectAtIndex:0];
-           
-                if ([stringChunks objectForKey:key2]) {
-                    
-                    NSString *newData = [stringChunks objectForKey:key2];
-                    NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
-                   
-                    int shiftAttr = [[subTags lastObject] length] + 3;
-                    NSRange rangeOfString = [newData rangeOfString:attrString];
-                    if (rangeOfString.location == NSNotFound )
-                        NSLog(@"[ERROR] Not found :s");
-                    NSString *tmpRange = [newData substringFromIndex:rangeOfString.location + shiftAttr];
-                    NSRange rangeLastString = [tmpRange rangeOfString:@"\""];
-                    
-                    if (rangeOfString.location == NSNotFound || rangeLastString.location == NSNotFound)  {
-                        
-                        NSLog(@"[ERROR] string was not found");
-                    } else {
-                        int st = (unsigned long)rangeOfString.location + shiftAttr;
-                        int en = (unsigned long)rangeLastString.location;
-                        
-                        newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
-                        
-                        [stringChunks setObject:newData forKey:key2];
-                       
-                    }
-                    
-                    continue;
-                }
-            NSLog(@"Offset find\n");
-                //find subTag's offset
-                NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            if ([stringChunks objectForKey:key2]) {
                 
-                range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], nextXMlTag - [gotoXml intValue])];
+                NSString *newData = [stringChunks objectForKey:key2];
+                NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
                 
-                NSFileHandle *fHandle;
-                fHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/XMLParser/myXMLfileScenes.xml"];
-                if (fHandle == nil)
-                    NSLog(@"Failed to open file");
-            
-            minTagOffset = MIN((unsigned long)range.location, minTagOffset);
-            
-                int sizeToRead = nextXMlTag  - (unsigned long)range.location;
-
-                [fHandle seekToFileOffset:range.location];
-                NSData *databuffer;
-                databuffer = [fHandle readDataOfLength: sizeToRead];
-                NSString *newData;
-                newData = [[NSString alloc] initWithData:databuffer encoding:NSASCIIStringEncoding];
-                //TODO string replace with ...
-            
-            NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
-            int shiftAttr = [[subTags lastObject] length] + 3;
+                int shiftAttr = [[subTags lastObject] length] + 3;
                 NSRange rangeOfString = [newData rangeOfString:attrString];
+                if (rangeOfString.location == NSNotFound )
+                    NSLog(@"[ERROR] Not found :s");
                 NSString *tmpRange = [newData substringFromIndex:rangeOfString.location + shiftAttr];
                 NSRange rangeLastString = [tmpRange rangeOfString:@"\""];
-            
-                if (rangeOfString.location == NSNotFound || rangeLastString.location == NSNotFound)  {
                 
+                if (rangeOfString.location == NSNotFound || rangeLastString.location == NSNotFound)  {
+                    
                     NSLog(@"[ERROR] string was not found");
                 } else {
                     int st = (unsigned long)rangeOfString.location + shiftAttr;
                     int en = (unsigned long)rangeLastString.location;
-                    newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
-                }
                     
+                    newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
+                    
+                    [stringChunks setObject:newData forKey:key2];
+                    
+                }
                 
-                [stringChunks setObject:newData forKey:key2];
+                continue;
+            }
+            NSLog(@"Offset find\n");
+            //find subTag's offset
+            NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
+            
+            range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], nextXMlTag - [gotoXml intValue])];
+            
+            NSFileHandle *fHandle;
+            fHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"];
+            if (fHandle == nil)
+                NSLog(@"Failed to open file");
+            
+            minTagOffset = MIN((unsigned long)range.location, minTagOffset);
+            
+            int sizeToRead = nextXMlTag  - (unsigned long)range.location;
+            
+            [fHandle seekToFileOffset:range.location];
+            NSData *databuffer;
+            databuffer = [fHandle readDataOfLength: sizeToRead];
+            NSString *newData;
+            newData = [[NSString alloc] initWithData:databuffer encoding:NSASCIIStringEncoding];
+            //TODO string replace with ...
+            
+            NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
+            int shiftAttr = [[subTags lastObject] length] + 3;
+            NSRange rangeOfString = [newData rangeOfString:attrString];
+            NSString *tmpRange = [newData substringFromIndex:rangeOfString.location + shiftAttr];
+            NSRange rangeLastString = [tmpRange rangeOfString:@"\""];
+            
+            if (rangeOfString.location == NSNotFound || rangeLastString.location == NSNotFound)  {
                 
-                [fHandle closeFile];
-    
+                NSLog(@"[ERROR] string was not found");
+            } else {
+                int st = (unsigned long)rangeOfString.location + shiftAttr;
+                int en = (unsigned long)rangeLastString.location;
+                newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
+            }
+            
+            
+            [stringChunks setObject:newData forKey:key2];
+            
+            [fHandle closeFile];
+            
         }
         
         NSLog(@"Parse here");
@@ -449,7 +516,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         //[offset replaceObjectAtIndex:[key intValue] -1 withObject:[NSNumber numberWithLong:nextOffset]];
         [outputTempXml seekToEndOfFile];
-    
+        
         NSLog(@"xxx");
         //TODO copy to file + copy intra chunks beteween (key, key +1)
         if (prevKey == 0) {
@@ -485,7 +552,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             diffOffset = newNextOffset - prevOffset;
             newNextOffset = totalSize;
             
-             NSLog(@"NextOffset for %d will be = %lu", [key intValue] + 1, newNextOffset);
+            NSLog(@"NextOffset for %d will be = %lu", [key intValue] + 1, newNextOffset);
             
         } else { //if (prevKey != lastIndex){
             NSLog(@"PrevKey3 = %d", prevKey);
@@ -514,7 +581,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             //TODO FIXME
             while (tags <= [key intValue]) {
-               
+                
                 unsigned long prevTagOffset = [[offset objectAtIndex:tags -1] longValue];
                 unsigned long nextOffset = prevTagOffset + diffOffset;
                 NSLog(@"Here update tags = %d %lu %lu", tags, prevTagOffset, nextOffset);
@@ -526,7 +593,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             NSLog(@"----------------------------");
             newNextOffset = totalSize;
             
-            }
+        }
         prevKey = [key intValue];
     }
     [outputTempXml closeFile];
@@ -554,7 +621,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               
                                           }
                                           else {
-                                          
+                                              
                                               NSLog(@"File has changed!\n");
                                               NSError *error;
                                               NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
@@ -591,15 +658,15 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               
                                               NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
                                               
-                                
+                                              
                                               
                                               NSDirectoryEnumerator *enumeratorI = [fileManager
-                                                                                   enumeratorAtURL:directoryURLI
-                                                                                   includingPropertiesForKeys:keys
-                                                                                   options:0
-                                                                                   errorHandler:^(NSURL *url, NSError *error) {
+                                                                                    enumeratorAtURL:directoryURLI
+                                                                                    includingPropertiesForKeys:keys
+                                                                                    options:0
+                                                                                    errorHandler:^(NSURL *url, NSError *error) {
                                                                                         return YES;
-                                                                                   }];
+                                                                                    }];
                                               
                                               NSDirectoryEnumerator *enumeratorF = [fileManager
                                                                                     enumeratorAtURL:directoryURLF
@@ -612,24 +679,24 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               NSMutableArray *filesInit = [[NSMutableArray alloc] init];
                                               
                                               for (NSURL *urlI in enumeratorI) {
-                                                 
+                                                  
                                                   NSError *error;
                                                   NSNumber *isDirectory = nil;
                                                   if (! [urlI getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
                                                       // handle error
                                                   }
                                                   else if (! [isDirectory boolValue]) {
-                                                     
+                                                      
                                                       if ([[[[urlI path] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"graphicContent.agc"]) {
                                                           NSLog(@"URL = %@", [urlI path]);
                                                           [filesInit addObject:[urlI path]];
                                                           
                                                       }
                                                   }
-                                              
+                                                  
                                               }
                                               NSLog(@"Files = %@", filesInit);
-                                             
+                                              
                                               int i = 0;
                                               NSNumber *offset_scene = [NSNumber numberWithInt:0];
                                               
@@ -641,7 +708,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       // handle error
                                                   }
                                                   else if (! [isDirectory boolValue] &&
-                                                                ![[urlF path] isEqualToString:@"/Users/crogoz/Documents/temp-artwork/.DS_Store"]) {
+                                                           ![[urlF path] isEqualToString:@"/Users/crogoz/Documents/temp-artwork/.DS_Store"]) {
                                                       //[filesInit addObject:[urlF path]];
                                                       //TODO dictionaries to compare
                                                       NSLog(@"Files = %@ %@", filesInit, urlF);
@@ -658,7 +725,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
                                                       
                                                       NSMutableDictionary *jsonDict2 = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
-
+                                                      
                                                       NSMutableSet *keysInA = [NSMutableSet setWithArray:[jsonDict1 allKeys]];
                                                       NSSet *keysInB = [NSSet setWithArray:[jsonDict2 allKeys]];
                                                       [keysInA minusSet:keysInB];
@@ -669,10 +736,13 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                                       NSArray *first = [[[[jsonDict1 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"] objectForKey:@"children"];
                                                       NSArray *second = [[[[jsonDict2 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"] objectForKey:@"children"];
                                                       
-                        
+                                                      
                                                       NSString *artboardNoInfo = [NSString stringWithFormat:@"artboard%d", i +1];
                                                       
-                                                      NSMutableDictionary* tagExport = [self compare2Artboards:first dict2:second artboard_info:[jsonArtboards objectForKey:artboardNoInfo]];
+                                                      NSMutableDictionary * offsetGroupDict = [[NSMutableDictionary alloc] init];
+                                                      offsetGroupDict[@"tx"] = [NSNumber numberWithInt: 0];
+                                                      offsetGroupDict[@"ty"] = [NSNumber numberWithInt: 0];
+                                                      NSMutableDictionary* tagExport = [self compare2Artboards:first dict2:second artboard_info:[jsonArtboards objectForKey:artboardNoInfo] offsetGroup:offsetGroupDict numberGroup:[NSNumber numberWithInt:0]];
                                                       NSLog(@"To export = %@ %d", tagExport, i);
                                                       
                                                       //TODO export to XML file: For now: Use myXMLFileScenes.xml !!!
@@ -690,7 +760,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               //add footer for xml file
                                               [self updateXMLfile:[[NSMutableDictionary alloc] init] tagNo:0 offsetScene:&offset_scene];
                                               
-                                            //NSLog(@"Offsets are = %@", )
+                                              //NSLog(@"Offsets are = %@", )
                                               NSLog(@"Offset: %@", offsetXmlFile);
                                           }
                                       });
@@ -700,7 +770,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                            close(fildes);
                                        });
     dispatch_resume(source);
-
+    
 }
 
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)error
@@ -752,7 +822,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 - (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
-   
+    
     id artboards = [dictionary objectForKey:@"artboards"];
     int nr = 1;
     for (id key in artboards) {
@@ -774,7 +844,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     
     return rootArray;
-
+    
 }
 
 #pragma mark -
@@ -788,7 +858,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 - (void)dealloc
 {
-
+    
 }
 
 - (NSMutableDictionary *)objectWithData:(NSData *)data
@@ -830,8 +900,19 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     //for type = "shape"
     exportAgc[@"shape"] = [[NSMutableDictionary alloc] init];
-    // an agc is of type rectangle if <=> style fill == solid
-    exportAgc[@"shape"][@"rectangle"] = @"style.fill.type.solid";
+    
+    // an agc is of type shape if <=> style fill == solid
+    
+    //Rules needed to be achieved
+    exportAgc[@"shape"][@"path"] = [[NSMutableArray alloc] init ];
+    [exportAgc[@"shape"][@"path"] addObject:@"style.fill.type.solid"];
+    [exportAgc[@"shape"][@"path"] addObject:@"shape.type.path"];
+    
+    exportAgc[@"shape"][@"rectangle"] = [[NSMutableArray alloc] init];
+    [exportAgc[@"shape"][@"rectangle"] addObject:@"style.fill.type.solid" ];
+    [exportAgc[@"shape"][@"rectangle"] addObject:@"shape.type.rect"];
+    
+    
     //an agc is of type imageView if <=> style fill == pattern
     exportAgc[@"shape"][@"imageView"] = @"style.fill.type.pattern";
     exportAgc[@"group"] = [[NSArray alloc] init];
@@ -947,6 +1028,41 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     attributes[@"rectangle"][@"shape"][@"width"] = @"$rect.width";
     attributes[@"rectangle"][@"shape"][@"height"] = @"$rect.height";
     
+    attributes[@"path"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"type"] = @"shape";
+    attributes[@"path"][@"transform"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"transform"][@"a"] = [NSNumber numberWithInt:1];
+    attributes[@"path"][@"transform"][@"b"] = [NSNumber numberWithInt:0];
+    attributes[@"path"][@"transform"][@"c"] = [NSNumber numberWithInt:0];
+    attributes[@"path"][@"transform"][@"d"] = [NSNumber numberWithInt:1];
+    attributes[@"path"][@"transform"][@"tx"] = @"$rect.x";
+    attributes[@"path"][@"transform"][@"ty"] = @"$rect.y";
+    attributes[@"path"][@"style"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"style"][@"fill"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"style"][@"fill"][@"type"] = @"solid"; // ?? fontDescription pointsize ???
+    attributes[@"path"][@"style"][@"fill"][@"color"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"style"][@"fill"][@"color"][@"mode"] = @"RGB";
+    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"][@"r"] = @"$color.red";
+    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"][@"g"] = @"$color.green";
+    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"][@"b"] = @"$color.blue";
+    attributes[@"path"][@"shape"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"shape"][@"type"] = @"path";
+    attributes[@"path"][@"shape"][@"path"] = @"";
+    attributes[@"path"][@"style"][@"stroke"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"style"][@"stroke"][@"color"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"style"][@"stroke"][@"color"][@"mode"] = @"RGB";
+    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"][@"r"] = @"$color.red";
+    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"][@"g"] = @"$color.green";
+    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"][@"b"] = @"$color.blue";
+    attributes[@"path"][@"style"][@"stroke"][@"type"] = @"solid";
+    attributes[@"path"][@"style"][@"stroke"][@"width"] = @"$justAValue";
+    attributes[@"path"][@"visualBounds"] = [[NSMutableDictionary alloc] init];
+    attributes[@"path"][@"visualBounds"][@"x"] = @"";
+    attributes[@"path"][@"visualBounds"][@"y"] = @"";
+    attributes[@"path"][@"visualBounds"][@"width"] = @"";
+    attributes[@"path"][@"visualBounds"][@"height"] = @"";
     
     attributes[@"imageView"] = [[NSMutableDictionary alloc] init];
     attributes[@"imageView"][@"type"] = @"shape";
@@ -1002,10 +1118,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     [temp addObject:dict];
     [line addObject:temp];
     [lines setObject:line forKey:@"lines"];
-
+    
     attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
     [attributes[@"textField"][@"text"][@"paragraphs"] addObject: lines];
-   
+    
     
     [dictionaryStack addObject:[NSMutableDictionary dictionary]];
     
@@ -1026,7 +1142,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         int height = 667;
         int offsetX = 400;
         int x = 0;
-       
+        
         for (int i = 1; i< counterArtboards; i++){
             NSMutableString *artboardNo = [NSMutableString stringWithFormat:@"artboard%d", i];
             NSMutableString *iphoneNo = [NSMutableString stringWithFormat:@"iPhone 6 – %d", i];
@@ -1057,14 +1173,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
         int start = xmlOffset + 1;
         int end = [xmlData length];
-    
+        
         NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange(start, end -start)];
         //NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
         NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
         [arr addObject:[NSNumber numberWithInt: range.location]];
         xmlOffset = range.location;
         //NSLog(@"Start = %d %d", xmlOffset, start);
-    
+        
     }
     
     if ([elementName isEqualToString:@"scene"]) {
@@ -1081,11 +1197,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:@"agc"];
         NSError * error=nil;;
-       
+        
         NSString *jsonString = [NSString stringWithContentsOfFile:buttonPath encoding:nil error:&error];
         NSData * jsonData = [jsonString dataUsingEncoding:nil];
         NSMutableDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-       
+        
         //NSLog(@"Button parent = %@", parentDict);
         [parentDict[@"children"] addObject:parsedData];
         [inheritanceStack addObject:@"switch"];
@@ -1124,7 +1240,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 if ([attributeDict[attr] intValue] || [attributeDict[attr] floatValue])
                     attributes[@"frame"][attr] = [NSNumber numberWithFloat:[attributeDict[attr] floatValue]];
                 
-                 attributes[@"frame"][attr] = attributeDict[attr];
+                attributes[@"frame"][attr] = attributeDict[attr];
                 
             }
             
@@ -1132,7 +1248,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         // when there is a tag with the key backgroundColor; add new rectangle with the spec colors
         if ([elementName isEqualToString: @"color"] && [[attributeDict objectForKey:@"key"] isEqualToString:@"backgroundColor"] && [[inheritanceStack lastObject] intValue]) {
-           
+            
             NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[@"rectangle"]]];
             
             NSString *str = [NSString stringWithFormat:@"%@.", elementName];
@@ -1144,9 +1260,9 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 id value = shapeAttr;
                 for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
                     value = [value objectForKey:key];
-                
+                    
                 }
-            
+                
                 id tempValue = [attributeDict objectForKey:key1];
                 
                 if ([tempValue intValue])
@@ -1164,7 +1280,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             id size = [attributes objectForKey:@"frame"];
             
             for (id key1 in xml2agcDictionary[@"rect."]){
-              
+                
                 NSArray *strings;
                 if ([[xml2agcDictionary[@"rect."] objectForKey:key1] isKindOfClass:[NSMutableDictionary class]]) {
                     
@@ -1174,34 +1290,34 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 else
                     strings = [[xml2agcDictionary[@"rect."] objectForKey:key1] componentsSeparatedByString:@"."];
                 
-               
-                    id value = shapeAttr;
-                    for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
-                        value = [value objectForKey:key];
-                        
-                    }
-                    
-                    id tempValue = [size objectForKey:key1];
                 
-                    if ([tempValue intValue])
-                        tempValue = [NSNumber numberWithInt:[tempValue intValue]];
-                    else if ([tempValue floatValue])
-                        tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
-                    else if ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"])
-                        tempValue = [NSNumber numberWithInt:0];
-                
-                    [value setObject:tempValue forKey:[strings lastObject]];
+                id value = shapeAttr;
+                for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
+                    value = [value objectForKey:key];
                     
                 }
+                
+                id tempValue = [size objectForKey:key1];
+                
+                if ([tempValue intValue])
+                    tempValue = [NSNumber numberWithInt:[tempValue intValue]];
+                else if ([tempValue floatValue])
+                    tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
+                else if ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"])
+                    tempValue = [NSNumber numberWithInt:0];
+                
+                [value setObject:tempValue forKey:[strings lastObject]];
+                
+            }
             
             
             [toInsertObjects addObject: shapeAttr];
             
             return;
-        
+            
         } else if ([elementName isEqualToString: @"color"] && [[attributeDict objectForKey:@"key"] isEqualToString:@"backgroundColor"] &&
                    [[attributeDict objectForKey:@"colorSpace" ] isEqualToString:@"calibratedRGB"]){
-           
+            
             NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
             
             NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[@"backgroundColor"]]];
@@ -1209,7 +1325,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             for (id key in xml2agcDictionary[entry]){
                 id value = shapeAttr;
                 NSArray *strings = [[xml2agcDictionary[entry] objectForKey:key] componentsSeparatedByString:@"."];
-    
+                
                 for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
                     value = [value objectForKey:key1];
                     
@@ -1219,23 +1335,23 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 int rgb = tempValue * 255;
                 
                 [value setObject:[NSNumber numberWithInt:rgb] forKey:[strings lastObject]];
-            
+                
             }
             
             [toInsertObjects addObject:shapeAttr];
             
             return;
         }
-
+        
         bool ok = false;
         for (id key in xml2agcDictionary[entry]){
-           
+            
             NSArray *strings;
             
             if ([[xml2agcDictionary[entry] objectForKey:key] isKindOfClass:[NSMutableDictionary class]]) {
                 
                 NSString *parent = [parentDict objectForKey:@"type"];
-               
+                
                 if (parent)
                     strings = [[[xml2agcDictionary[entry] objectForKey:key] objectForKey: parent] componentsSeparatedByString:@"."];
                 else {
@@ -1252,12 +1368,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
                 value = [value objectForKey: key1];
-               
+                
             }
             
             if (![attributeDict objectForKey:key])
                 continue;
-           
+            
             
             id tempValue = [attributeDict objectForKey:key];
             
@@ -1293,11 +1409,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 
                 x_pos = x_pos + x;
                 y_pos = y_pos + y + textSize;
-               
+                
                 id tempDict = parentDict;
                 
                 tempDict = [tempDict objectForKey:@"transform"];
-               
+                
                 [tempDict setObject:[NSNumber numberWithFloat:x_pos] forKey:@"tx"];
                 [tempDict setObject:[NSNumber numberWithFloat:y_pos] forKey:@"ty"];
                 
@@ -1306,11 +1422,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             }
             if (!ok){
                 if([ [value objectForKey:[strings lastObject]] isKindOfClass:[NSString class] ] &&
-                          [[ [value objectForKey:[strings lastObject]] substringToIndex:1] isEqualToString:@"$"])
+                   [[ [value objectForKey:[strings lastObject]] substringToIndex:1] isEqualToString:@"$"])
                     [value setObject:tempValue forKey:[strings lastObject]];
                 else if ([value objectForKey:@"href"]) {
                     //if it is an image -> update width & height
-            
+                    
                     id value = parentDict;
                     value = [value objectForKey:@"shape"];
                     
@@ -1336,69 +1452,69 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     elementName = [xml2agcDictionary objectForKey:elementName];
     //NSLog(@"ElementName = %@ for %@", elementName, nameInit);
-        NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
-;
-       //First level attributes
-        for (id key in attributes[elementName]){
+    NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
+    ;
+    //First level attributes
+    for (id key in attributes[elementName]){
         
-            id value = [attributes[elementName] objectForKey:key];
-           
-            if ([value isKindOfClass:[NSString class]]){
-                if ([[value substringToIndex:1] isEqualToString:@"$"]){
-                   
-                    NSInteger i = [value length] -1;
-                    value = [value substringWithRange:NSMakeRange(1, i)];
-                    
-                    NSString *tempSaved = [NSString stringWithFormat:@"#%@", value];
-                    id tempValue = nil;
-                    if ([value isEqualToString:@"text"] && attributeDict[value])
-                        tempValue = attributeDict[value];
-                    
-                    else if (!attributeDict[value])
-                        tempValue = attributeDict[@"placeholder"];
-                    
-                    if ([tempValue intValue] )
-                        tempValue = [NSNumber numberWithInt:[tempValue intValue]];
-                    else if ([tempValue floatValue]){
-                        tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
-                    }
-                    attributes[tempSaved] = tempValue;
-                    correctAttr[key] = tempValue;
-                    
+        id value = [attributes[elementName] objectForKey:key];
+        
+        if ([value isKindOfClass:[NSString class]]){
+            if ([[value substringToIndex:1] isEqualToString:@"$"]){
+                
+                NSInteger i = [value length] -1;
+                value = [value substringWithRange:NSMakeRange(1, i)];
+                
+                NSString *tempSaved = [NSString stringWithFormat:@"#%@", value];
+                id tempValue = nil;
+                if ([value isEqualToString:@"text"] && attributeDict[value])
+                    tempValue = attributeDict[value];
+                
+                else if (!attributeDict[value])
+                    tempValue = attributeDict[@"placeholder"];
+                
+                if ([tempValue intValue] )
+                    tempValue = [NSNumber numberWithInt:[tempValue intValue]];
+                else if ([tempValue floatValue]){
+                    tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
                 }
-                //TODO transfrom for lower levels; propagate attributes
-            } else if ([elementName isEqualToString:@"imageView"] && [key isEqualToString:@"style"]){
-              
-                NSString *imageName = [NSString stringWithFormat:@"%@/%@",
-                                       [self resourcesPath], [attributeDict objectForKey:@"image"]];
-                NSArray *strings = [[xml2agcDictionary objectForKey:@"imageView."] componentsSeparatedByString:@"."];
+                attributes[tempSaved] = tempValue;
+                correctAttr[key] = tempValue;
                 
-                id value = correctAttr;
-                for (id key in [strings subarrayWithRange:NSMakeRange(0, [strings count] -1)]){
-                    value = [value objectForKey:key];
-                
-                }
-                
-                //generate random values for uid ...
-                int num = arc4random() % 1000000;
-                [value setObject:imageName forKey:[strings lastObject]];
-                
-                NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
-                
-                if (image == nil) {
-                    NSLog(@"[ERROR]Image is nil");
-                }
-                
-                [value setObject:[NSNumber numberWithInt:image.size.width] forKey:@"width"];
-                [value setObject:[NSNumber numberWithInt:image.size.height] forKey:@"height"];
-                
-                value = [[value objectForKey:@"meta"] objectForKey:@"ux"];
-                
-                [value setObject: [NSString stringWithFormat:@"%d", num] forKey:@"uid"];
             }
+            //TODO transfrom for lower levels; propagate attributes
+        } else if ([elementName isEqualToString:@"imageView"] && [key isEqualToString:@"style"]){
+            
+            NSString *imageName = [NSString stringWithFormat:@"%@/%@",
+                                   [self resourcesPath], [attributeDict objectForKey:@"image"]];
+            NSArray *strings = [[xml2agcDictionary objectForKey:@"imageView."] componentsSeparatedByString:@"."];
+            
+            id value = correctAttr;
+            for (id key in [strings subarrayWithRange:NSMakeRange(0, [strings count] -1)]){
+                value = [value objectForKey:key];
+                
+            }
+            
+            //generate random values for uid ...
+            int num = arc4random() % 1000000;
+            [value setObject:imageName forKey:[strings lastObject]];
+            
+            NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
+            
+            if (image == nil) {
+                NSLog(@"[ERROR]Image is nil");
+            }
+            
+            [value setObject:[NSNumber numberWithInt:image.size.width] forKey:@"width"];
+            [value setObject:[NSNumber numberWithInt:image.size.height] forKey:@"height"];
+            
+            value = [[value objectForKey:@"meta"] objectForKey:@"ux"];
+            
+            [value setObject: [NSString stringWithFormat:@"%d", num] forKey:@"uid"];
         }
+    }
     
-        [childDict addEntriesFromDictionary:correctAttr];
+    [childDict addEntriesFromDictionary:correctAttr];
     
     if ([xml2agcDictionary objectForKey:[inheritanceStack lastObject]] &&
         [[xml2agcDictionary objectForKey:[inheritanceStack lastObject]] isEqual: @"list"]){
@@ -1419,7 +1535,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         else {
             
             array = (NSMutableArray *) [lastObject objectForKey:[inheritanceStack lastObject]];
-           
+            
             [array addObject: childDict];
             [parentDict setObject:array forKey:[inheritanceStack lastObject]];
             
@@ -1435,7 +1551,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
- 
+    
     
     if ([elementName isEqualToString:@"switch"]) {
         [inheritanceStack removeObject:@"switch"];
@@ -1462,7 +1578,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] -2)]) {
             value = [value objectForKey:key];
         }
-       
+        
         id frame = [attributes objectForKey:@"frame"];
         [value setObject:[frame objectForKey:@"x"] forKey:[strings lastObject]];
         //TODO1 change here!!!
@@ -1474,7 +1590,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         return;
         
     }
-        
+    
     //replace all $"smth" values with default ones
     
     NSString *tempReplace = [NSString stringWithFormat:@"#%@", elementName];
@@ -1489,14 +1605,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         
         NSArray *strings = [key componentsSeparatedByString:@"."];
-  
+        
         
         id value = parentDict;
-       
+        
         for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
-           
+            
             value = [value objectForKey:key1];
-           
+            
         }
         textValue = [attributes objectForKey:[xml2agcDictionary[tempReplace] objectForKey:key]];
         [value setObject:[attributes objectForKey:[xml2agcDictionary[tempReplace] objectForKey:key]] forKey:[strings lastObject]];
@@ -1513,7 +1629,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     if ([elementName isEqualToString:@"textField"] || [elementName isEqualToString:@"label"]){
         NSInteger length = tempReplace.length;
-       
+        
         NSArray *strings = [[xml2agcDictionary objectForKey:@"length."] componentsSeparatedByString:@"."];
         
         id value = parentDict;
@@ -1524,11 +1640,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 value = value[0][key][0][0]; // For lines only
             
         }
-      
+        
         [value setObject:[NSNumber numberWithInt:textValue.length] forKey:[strings lastObject]];
         
     }
-
+    
     //default Values
     id name = elementName;
     if ([elementName isEqualToString:@"label"])
@@ -1551,7 +1667,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             [value setObject:[def objectForKey:key] forKey:[strings lastObject]];
         }
-
+        
     }
     
     if ([toInsertObjects count] && [elementName isEqualToString:@"view"]) {
@@ -1561,7 +1677,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         [prevParent addEntriesFromDictionary:[toInsertObjects objectAtIndex:0]];
         [toInsertObjects removeLastObject];
-    
+        
     }
     
     //insert Objects from toInsertObjects
@@ -1573,9 +1689,9 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             [[prevParent objectForKey:@"children" ] insertObject:key atIndex:0];
             
         }
-       
+        
         [toInsertObjects removeLastObject];
-
+        
     }
     
     

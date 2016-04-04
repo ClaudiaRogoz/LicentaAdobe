@@ -18,9 +18,10 @@ int main(int argc, const char * argv[]) {
     
     NSString *file = [NSString stringWithFormat:@"%s", argv[1]];
     NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
-    NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"xml"];
-    NSData *parser = [NSData dataWithContentsOfFile:path];
-    
+    NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"storyboard"];
+    NSData *parser = [NSData dataWithContentsOfFile:file];
+    NSString *string = [[NSString alloc] initWithData:parser encoding:NSUTF8StringEncoding] ;
+    NSLog(@"%@", string);
     // Parse the XML into a dictionary
     NSError *parseError = nil;
     NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser resources:imageDir outFile:file error:&parseError];
