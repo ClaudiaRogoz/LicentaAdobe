@@ -70,13 +70,13 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     int counter = MIN([first count], [second count]);
     NSMutableDictionary *xmlExport = [[NSMutableDictionary alloc] init];
     for (int i = 0; i< counter; i++) {
-        //NSLog(@"Counter = %d", i);
+        NSLog(@"Counter = %d", i);
         NSDictionary *prev = [second objectAtIndex:i];
         NSDictionary *newD = [first objectAtIndex:i];
         
         id typeP = [prev objectForKey:@"type"];
         id typeN = [newD objectForKey:@"type"];
-        
+        NSLog(@"NameXOXO %@", [newD objectForKey:@"name"]);
         // check if it is the same object (no adding, nor deleting, just modifyingn ops)
         if ([typeN isEqualToString:typeP]) {
             NSLog(@"Same type = %@\n", typeN);
@@ -100,7 +100,18 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 NSMutableDictionary *newXmlDict  = [self compare2Artboards:newDictCh dict2:prevDictCh artboard_info:jsonArtboards offsetGroup:dict numberGroup:[NSNumber numberWithInt:i + 1]];
                 nr = 0;
                 NSLog(@"------------------------------------Group check DONE %@ %@", xmlExport, newXmlDict);
+                for (id newKey in newXmlDict) {
+                    NSMutableDictionary *dict = [newXmlDict objectForKey:newKey];
+                    
+                    NSMutableDictionary *dictGroup = [xmlExport objectForKey:[NSNumber numberWithInt:i + 1]];// forKey:<#(nonnull id<NSCopying>)#>
+                    if (dictGroup == nil) {
+                        [xmlExport setObject:dict forKey:[NSNumber numberWithInt:i + 1]];
+                    } else {
+                        [dictGroup addEntriesFromDictionary:dict];
+                    }
                 
+                }
+                NSLog(@"Value = %@", xmlExport);
                 [offsetGroupDict setObject:[NSNumber numberWithInt:prevTx] forKey:@"tx"];
                 [offsetGroupDict setObject:[NSNumber numberWithInt:prevTx] forKey:@"ty"];
                 
@@ -121,7 +132,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     
                     NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
                     if ([nr intValue])
-                        xmlExport[nr] = trList;
+                        xmlExport[tagNo] = trList;
                     else
                         xmlExport[tagNo] = trList;
                 }
@@ -174,7 +185,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                             NSNumber *tagNo = [NSNumber numberWithInt:i + 1]; // DON"T FORGET in the nsdictionary counter starts at 1!!!!!
                             NSLog(@"RList = %@ %@", trList, tagNo);
                             if ([nr intValue]) {
-                                xmlExport[nr] = trList;
+                                xmlExport[tagNo] = trList;
                             }
                             else
                                 xmlExport[tagNo] = trList;
@@ -461,12 +472,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 
                 continue;
             }
-            NSLog(@"Offset find\n");
+            NSLog(@"Offset find %@\n", key2);
             //find subTag's offset
             NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
             
             range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], nextXMlTag - [gotoXml intValue])];
-            
+            NSLog(@"Yuppy here %lu", (unsigned long)range.location);
+            if (range.location == NSNotFound) {
+                //TODO11 create label if iot doesn't exist :D
+                NSLog(@"Color can't be here :(");
+                continue;
+            }
             NSFileHandle *fHandle;
             fHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"];
             if (fHandle == nil)
@@ -1059,10 +1075,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     attributes[@"path"][@"style"][@"stroke"][@"type"] = @"solid";
     attributes[@"path"][@"style"][@"stroke"][@"width"] = @"$justAValue";
     attributes[@"path"][@"visualBounds"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"visualBounds"][@"x"] = @"";
-    attributes[@"path"][@"visualBounds"][@"y"] = @"";
-    attributes[@"path"][@"visualBounds"][@"width"] = @"";
-    attributes[@"path"][@"visualBounds"][@"height"] = @"";
+    attributes[@"path"][@"visualBounds"][@"x"] = @"$rect.x";
+    attributes[@"path"][@"visualBounds"][@"y"] = @"$rect.y";
+    attributes[@"path"][@"visualBounds"][@"width"] = @"$rect.width";
+    attributes[@"path"][@"visualBounds"][@"height"] = @"$rect.height";
     
     attributes[@"imageView"] = [[NSMutableDictionary alloc] init];
     attributes[@"imageView"][@"type"] = @"shape";
@@ -1244,6 +1260,15 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 
             }
             
+        }
+        
+        if ([elementName isEqualToString:@"color"] && [[inheritanceStack lastObject] isEqualToString:@"switch"]) {
+            int red = [[attributeDict objectForKey:@"red"] floatValue] * 255;
+            int green = [[attributeDict objectForKey:@"green"] floatValue] * 255;
+            int blue = [[attributeDict objectForKey:@"blue"] floatValue] * 255;
+            NSLog(@"Set color to %d %d %d", red, green, blue);
+            NSLog(@"Switch parent = %@", [dictionaryStack lastObject]);
+            return;
         }
         
         // when there is a tag with the key backgroundColor; add new rectangle with the spec colors
