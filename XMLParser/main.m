@@ -21,12 +21,19 @@ int main(int argc, const char * argv[]) {
     NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"storyboard"];
     NSData *parser = [NSData dataWithContentsOfFile:file];
     NSString *string = [[NSString alloc] initWithData:parser encoding:NSUTF8StringEncoding] ;
-    NSLog(@"%@", string);
+    NSLog(@"String%@", string);
     // Parse the XML into a dictionary
     NSError *parseError = nil;
     NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser resources:imageDir outFile:file error:&parseError];
     
     
+    
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
+    NSString *hello = [NSString stringWithFormat:@"Hello"];
+    [clipboardItem setData:[NSData dataWithContentsOfFile:@"/Users/crogoz/Documents/artboardF.agc"] forType:@"com.adobe.sparkler.design"];
+    [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     /*NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string

@@ -9,6 +9,9 @@
 #include <CommonCrypto/CommonDigest.h>
 #import "XMLReader.h"
 #define EPS 3 // just an epsilon value for pointSize calc
+#define OFFSETBOARD 400 //TODO update for every Iphone artboard type
+#define WIDTHIPH6 375
+#define HEIGHTIPH6 667
 
 NSString *const kXMLReaderTextNodeKey = @"text";
 
@@ -795,9 +798,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     [reader setResourcesPath:resourcesDir];
     
     NSMutableDictionary *rootDictionary = [reader objectWithData:data];
-    
-    [reader writeToFile:rootDictionary file:out_file];
-    
+    NSLog(@"Before splitting the dictionary %@", rootDictionary);
+    NSString *finalArtboardName = [NSString stringWithFormat:@"artboardF.agc"];
+    [reader writeToFile:rootDictionary file:finalArtboardName];
+    //TODO write to clipboard
+    /*NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
+    NSString *hello = [NSString stringWithFormat:@"Hello"];
+    [clipboardItem setData:hello forType:kSparklerDocumentUTI];
+    [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
+   */ NSLog(@"Before splitting the dictionary %@", rootDictionary);
     [reader splitArtboards:rootDictionary];
     
     [reader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];
@@ -1116,6 +1127,20 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     attributes[@"backgroundColor"][@"style"][@"fill"][@"color"][@"value"][@"g"] = @"$color.green";
     attributes[@"backgroundColor"][@"style"][@"fill"][@"color"][@"value"][@"b"] = @"$color.blue";
     
+    attributes[@"meta"] = [[NSMutableDictionary alloc] init];
+    attributes[@"meta"][@"ux"] = [[NSMutableDictionary alloc] init];
+    attributes[@"meta"][@"ux"][@"groupItems"] =  [NSNumber numberWithBool:false];
+    
+    attributes[@"viewSource"] = [[NSMutableDictionary alloc] init];
+    attributes[@"viewSource"][@"x"] = [NSNumber numberWithInt:0];
+    attributes[@"viewSource"][@"y"] = [NSNumber numberWithInt:0];
+    attributes[@"viewSource"][@"width"] = 0;
+    attributes[@"viewSource"][@"height"] = [NSNumber numberWithInt:667]; //TODO change for any Artboard type -> for now Iphone 6
+    
+    attributes[@"resources"] = [[NSMutableDictionary alloc] init];
+    attributes[@"resources"][@"gradients"] = [[NSMutableDictionary alloc] init];
+    attributes[@"resources"][@"clipPaths"] = [[NSMutableDictionary alloc] init];
+    
     attributes[@"frame"] = [[NSMutableDictionary alloc] init];
     
     objectOffset[@"<imageView"] = [NSNumber numberWithInt: 1];
@@ -1152,11 +1177,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         
         id type = [dictionaryStack objectAtIndex:0];
         [type  setObject:[[NSMutableDictionary alloc] init] forKey:@"artboards"];
+        //TODO5.03 added here these 3 -> check if export still works
+        [type  setObject:[attributes objectForKey:@"viewSource"] forKey:@"viewSource"];
+        [type  setObject:[attributes objectForKey:@"meta"] forKey:@"meta"];
+        [type  setObject:[attributes objectForKey:@"resources"] forKey:@"resources"];
+        id sources = [type objectForKey:@"viewSource"];
+        //id viewSource =
         type = [type objectForKey:@"artboards"];
         NSLog(@"Success = %d", counterArtboards);
         int width = 375;
         int height = 667;
-        int offsetX = 400;
+        //int offsetX = 400;
         int x = 0;
         
         for (int i = 1; i< counterArtboards; i++){
@@ -1165,11 +1196,15 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             [type  setObject:[[NSMutableDictionary alloc] init] forKey:artboardNo];
             [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: width] forKey:@"width"];
             [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: height] forKey:@"height"];
-            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: 0] forKey:@"x"];
+            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: x] forKey:@"x"];
             [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: 0] forKey:@"y"];
             [[type objectForKey:artboardNo] setObject:iphoneNo forKey:@"name"];
+            x = x + OFFSETBOARD;
         }
         
+        //TODO add viewSource
+        
+        [sources setObject:[NSNumber numberWithInt:x] forKey:@"width"];
         NSDictionary *resultDict = [dictionaryStack objectAtIndex:0];
         return resultDict;
     }
@@ -1177,13 +1212,53 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     return nil;
 }
 
+// functions that scales & updates x based on artboards and import
+- (void) scaleAttrDict:(NSMutableDictionary **) attrScaleDict attribute:(NSString *)elementName{
+    //don't bother for tags != <rect>
+    if (![elementName isEqualToString:@"rect"])
+        return;
+    
+    if ([[inheritanceStack lastObject] isEqualToString:@"children"]) {
+        // axiom: all artboards must have the same size in a single app
+        widthXMLArtboard = [[*attrScaleDict objectForKey:@"width"] intValue];
+        heightXMLArtboard = [[*attrScaleDict objectForKey:@"height"] intValue];
+        return;
+        
+    }
+    int x = [[*attrScaleDict objectForKey:@"x"] intValue];
+    int y = [[*attrScaleDict objectForKey:@"y"]intValue];
+    int width = [[*attrScaleDict objectForKey:@"width"] intValue];
+    int height = [[*attrScaleDict objectForKey:@"height"]intValue];
+    
+    float xScaleFactor = (float)WIDTHIPH6/widthXMLArtboard;
+    float yScaleFactor = (float)HEIGHTIPH6/heightXMLArtboard;
+    NSLog(@"x = %d ;y  = %d ;width = %d; height = %d", x, y, width, height);
+    NSArray *arrayWithSize = [NSArray arrayWithObjects:@"x", @"width", @"y", @"height", nil];
+    for (id value in arrayWithSize) {
+        float scaledValue = [[*attrScaleDict objectForKey:value] floatValue];
+        if ([value isEqualToString:@"x"] ) {
+            NSLog(@"Scena este = %d %d", sceneNo, (sceneNo -1) * OFFSETBOARD);
+            scaledValue = scaledValue * xScaleFactor+ (sceneNo -1) * OFFSETBOARD;
+        }
+        else if ([value isEqualToString:@"width"])
+            scaledValue = scaledValue * xScaleFactor;
+        else
+            scaledValue = scaledValue * yScaleFactor;
+    
+        NSLog(@"Update %@ with %f", value, scaledValue);
+        [*attrScaleDict setValue:[NSNumber numberWithFloat:scaledValue] forKey:value];
+    }
+}
+
 #pragma mark -
 #pragma mark NSXMLParserDelegate methods
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSMutableDictionary *)attributeDict
 {
-    
+    attributeDict = [attributeDict mutableCopy];
     NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
+    
+    //updates width/height/x/y
     if (objectOffset[tagName] != nil){
         
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
@@ -1204,6 +1279,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         [offsetXmlFile setObject: [[NSMutableArray alloc] init] forKey:[NSNumber numberWithInt:sceneNo]];
         
     }
+    
+    [self scaleAttrDict:&attributeDict attribute:elementName];
     
     // Get the dictionary for the current level in the stack
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
@@ -1330,7 +1407,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
                 else if ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"])
                     tempValue = [NSNumber numberWithInt:0];
-                
+                    
                 [value setObject:tempValue forKey:[strings lastObject]];
                 
             }

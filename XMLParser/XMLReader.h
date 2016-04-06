@@ -9,7 +9,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @import AppKit;
 
 
@@ -28,6 +27,7 @@
     NSMutableDictionary *offsetXmlFile;
     NSMutableDictionary *objectOffset;
     NSMutableArray *exportScaleStack;
+    
     NSString *tempText;
     int widthXMLArtboard;
     int heightXMLArtboard;
