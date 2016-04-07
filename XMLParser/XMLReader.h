@@ -8,6 +8,10 @@
 
 
 #import <Foundation/Foundation.h>
+#define EPS 3 // just an epsilon value for pointSize calc
+#define OFFSETBOARD 400 //TODO update for every Iphone artboard type
+#define WIDTHIPH6 375
+#define HEIGHTIPH6 667
 
 @import AppKit;
 

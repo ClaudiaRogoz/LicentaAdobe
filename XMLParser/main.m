@@ -27,37 +27,20 @@ int main(int argc, const char * argv[]) {
     NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser resources:imageDir outFile:file error:&parseError];
     
     
-    
+    /* copy <agc file> to clipboard */
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
     NSString *hello = [NSString stringWithFormat:@"Hello"];
     [clipboardItem setData:[NSData dataWithContentsOfFile:@"/Users/crogoz/Documents/artboardF.agc"] forType:@"com.adobe.sparkler.design"];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
-    /*NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                         error:&error];
     
-    if (! jsonData) {
-        NSLog(@"Got an error: %@", error);
-    } else {
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        NSArray *paths = NSSearchPathForDirectoriesInDomains
-        (NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *outFile = [NSString stringWithFormat:@"%@/%@_out.agc", documentsDirectory, file];
-        NSLog(@"Writing to file %@", outFile);
-        [[NSFileManager defaultManager] createFileAtPath:outFile contents:nil attributes:nil];
-        [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
-        
-    }
-    
-    [XMLReader splitArtboards:xmlDictionary];
-
-    //TDOD change the name of the file beeing watched!! ( parameter ? )
-    [XMLReader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];*/
+    NSXMLElement *root = [[NSXMLElement alloc] initWithName:@"Request"];
+    [root addAttribute:[NSXMLNode attributeWithName:@"Attribute1" stringValue:@"Value1"]];
+    [root addAttribute:[NSXMLNode attributeWithName:@"Attribute2" stringValue:@"Value2"]];
+    [root addAttribute:[NSXMLNode attributeWithName:@"Attribute3" stringValue:@"Value3"]];
+    NSString *ns = [NSString stringWithFormat:@"%@", root];
+    NSLog(@"NS = %@", ns);
 
     return NSApplicationMain(argc, argv);
 }

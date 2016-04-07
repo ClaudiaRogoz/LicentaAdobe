@@ -8,10 +8,7 @@
 
 #include <CommonCrypto/CommonDigest.h>
 #import "XMLReader.h"
-#define EPS 3 // just an epsilon value for pointSize calc
-#define OFFSETBOARD 400 //TODO update for every Iphone artboard type
-#define WIDTHIPH6 375
-#define HEIGHTIPH6 667
+
 
 NSString *const kXMLReaderTextNodeKey = @"text";
 
@@ -436,15 +433,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         NSMutableDictionary *stringChunks = [[NSMutableDictionary alloc] init];
         NSRange range;
         
-        long minTagOffset = INT_MAX -1; // highest subTag --> needed for offset writing
+        //TODO06.03 changed offset from INT_MAX -1
+        //[gotoXml longValue]; // highest subTag --> needed for offset writing
+        long minTagOffset = INT_MAX -1;//[gotoXml longValue];
+        NSLog(@"keys = %@", [toChange allKeys]);
         for (id key1 in [toChange allKeys]) {
-            
             NSString *tmp = [key1 substringWithRange:NSMakeRange(1, [key1 length] -1)];
             NSArray *subTags = [tmp componentsSeparatedByString:@"."];
             NSString *replacedValue = [toChange objectForKey:key1];
             if ([[toChange objectForKey:key1] isKindOfClass:[NSNumber class]])
                 replacedValue= [[toChange objectForKey:key1] stringValue];
-            
+            NSLog(@"key1 = %@ where minTagOffset = %d", key1, minTagOffset);
             
             id key2 = [subTags objectAtIndex:0];
             
@@ -475,7 +474,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 
                 continue;
             }
-            NSLog(@"Offset find %@\n", key2);
+            
             //find subTag's offset
             NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
             
@@ -501,7 +500,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             NSString *newData;
             newData = [[NSString alloc] initWithData:databuffer encoding:NSASCIIStringEncoding];
             //TODO string replace with ...
-            
+            NSLog(@"DatBuffer = %@", newData);
             NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
             int shiftAttr = [[subTags lastObject] length] + 3;
             NSRange rangeOfString = [newData rangeOfString:attrString];
@@ -517,23 +516,34 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
             }
             
-            
+            NSLog(@"newData + %@", newData);
             [stringChunks setObject:newData forKey:key2];
             
             [fHandle closeFile];
             
         }
         
-        NSLog(@"Parse here");
+        NSLog(@"Parse here %d", minTagOffset);
+        NSLog(@"StringChunks: %@ for key = %@", stringChunks, key);
         NSNumber *tagOffset = [NSNumber numberWithInt:minTagOffset];
-        NSString *cntTag = [self appendModifiedString:stringChunks minTagOffset:&tagOffset];
+        NSString *cntTempTag = [self appendModifiedString:stringChunks minTagOffset:&tagOffset];
+        NSFileHandle *storyboardHandle;
+        storyboardHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"];
+        if (storyboardHandle == nil) {
+            NSLog(@"[ERROR] Failed to open file");
+        }
         
+        int sizeToRead = minTagOffset - [gotoXml longValue];
+        [storyboardHandle seekToFileOffset:[gotoXml longValue]];
+        NSData *databuffer;
+        databuffer = [storyboardHandle readDataOfLength: sizeToRead];
+        NSString *newData;
+        newData = [[NSString alloc] initWithData:databuffer encoding:NSASCIIStringEncoding];
+        NSString *cntTag = [NSString stringWithFormat:@"%@%@", newData, cntTempTag];
         NSLog(@"[%@] Chunks = %@", key, cntTag);
         //TODO update offset & propagate offset
         unsigned long prevOffset = (unsigned long)range.location;
         
-        
-        //[offset replaceObjectAtIndex:[key intValue] -1 withObject:[NSNumber numberWithLong:nextOffset]];
         [outputTempXml seekToEndOfFile];
         
         NSLog(@"xxx");
@@ -546,12 +556,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             long sizeToRead = minTagOffset - [*offset_scene longValue];
             NSData *inputData = [inputXml readDataOfLength:sizeToRead];
             NSString* newStr = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
-            NSString* newStr1 =[[NSString alloc] initWithData:[cntTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
+            NSString* newStr1 =[[NSString alloc] initWithData:[cntTempTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
             NSLog(@"At %@ writing to file %@ %@", n, newStr, newStr1);
             [outputTempXml writeData:inputData];
             [outputTempXml seekToEndOfFile];
             //copy current Tag to outputXMlfile
-            [outputTempXml writeData:[cntTag dataUsingEncoding:NSUTF8StringEncoding]];
+            [outputTempXml writeData:[cntTempTag dataUsingEncoding:NSUTF8StringEncoding]];
             long totalSize = [outputTempXml seekToEndOfFile];
             newNextOffset = totalSize;
             NSLog(@"XXNextOffset for %d will be = %lu %lu", [key intValue] +1, newNextOffset, [newStr length] + [newStr1 length]);
@@ -918,7 +928,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     xml2agcDictionary[@"imageView"] = @"imageView";
     xml2agcDictionary[@"view"] = @"children";
     xml2agcDictionary[@"textField"] =@"textField";
-    xml2agcDictionary[@"label"] =@"textField";
+    xml2agcDictionary[@"label"] = @"textField";
     xml2agcDictionary[@"switch"] = @"Button";
     
     xml2agcDictionary[@"children"] = @"list";
