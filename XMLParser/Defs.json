@@ -1,0 +1,94 @@
+{
+    "content": [
+                {"view" : {
+                "header": {
+                "key" : "view",
+                "contentMode" : "scaleToFill",
+                "id" : "$rand",
+                "toString" : ["key", "contentMode", "id"]
+                
+                },
+                "footer" : "</view>",
+                "toString" : ["header", "rules", "footer"],
+                "rules" : [
+                           {
+                           "$header.id" : "$rand"
+                           },
+                           {"rect" : {
+                           "$artboards.sceneNo" : {
+                           "key" : "frame",
+                           "x" : "$x",
+                           "y" : "$y",
+                           "width" : "$width",
+                           "height" : "$height"
+                           }
+                           }
+                           },
+                           {"autoresizing" : {}},
+                           {
+                           "subviews" : "$children.artboard.$sceneNo.children"
+                           
+                           },
+                           {
+                           "color" : {
+                           "$.sceneNo.style.fill.color.value" : {
+                           "key" : "backgroundColor",
+                           "red" : "$r",
+                           "green" : "$g",
+                           "blue" : "$b",
+                           "alpha" : "$alpha",
+                           "colorSpace" :"calibratedRGB"
+                           }
+                           
+                           }
+                           
+                           }
+                           ]
+                }
+                }
+                ],
+    "subviews":{
+        "rect" :  {
+            "key" : "$frame",
+            "x" : "$x",
+            "y" : "$y",
+            "width" : "$width",
+            "height" : "$height",
+            "toString" : ["key", "x", "y", "width", "height"]
+        },
+        "autoresizing" : {
+            "key" : "autoresizingMask",
+            "widthSizable" : "YES",
+            "heightSizable" :"YES",
+            "toString" : ["key", "widthSizable", "heightSizable"]
+        },
+        "label" : {
+            "header": {
+                "opaque" : "NO",
+                "userInteractionEnabled" :"NO",
+                "contentMode" :"left",
+                "horizontalHuggingPriority" : 251,
+                "verticalHuggingPriority" :251,
+                "fixedFrame" : "YES",
+                "text" : "Label",
+                "textAlignment" : "natural",
+                "lineBreakMode" : "tailTruncation",
+                "baselineAdjustment" : "alignBaselines",
+                "adjustsFontSizeToFit": "NO",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id":"$rand"
+            }
+            
+            
+        },
+        "color" : {
+            "key" : "$key",
+            "red" : "$r",
+            "green" : "$g",
+            "blue" : "$b",
+            "alpha" : "$alpha",
+            "colorSpace" :"calibratedRGB",
+            "toString" : ["key", "red", "green", "blue", "alpha", "colorSpace"]
+        }
+    }
+}
