@@ -479,7 +479,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             NSData *find = [[NSString stringWithFormat:@"<%@", key2] dataUsingEncoding:NSUTF8StringEncoding];
             
             range = [xmlData rangeOfData:find options:0 range:NSMakeRange([gotoXml intValue], nextXMlTag - [gotoXml intValue])];
-            NSLog(@"Yuppy here %lu", (unsigned long)range.location);
             if (range.location == NSNotFound) {
                 //TODO11 create label if iot doesn't exist :D
                 NSLog(@"Color can't be here :(");
@@ -523,57 +522,44 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
         }
         
-        NSLog(@"Parse here %d", minTagOffset);
-        NSLog(@"StringChunks: %@ for key = %@", stringChunks, key);
         NSNumber *tagOffset = [NSNumber numberWithInt:minTagOffset];
-        NSString *cntTempTag = [self appendModifiedString:stringChunks minTagOffset:&tagOffset];
-        NSFileHandle *storyboardHandle;
-        storyboardHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"];
-        if (storyboardHandle == nil) {
-            NSLog(@"[ERROR] Failed to open file");
-        }
+        NSString *cntTag = [self appendModifiedString:stringChunks minTagOffset:&tagOffset];
         
-        int sizeToRead = minTagOffset - [gotoXml longValue];
-        [storyboardHandle seekToFileOffset:[gotoXml longValue]];
-        NSData *databuffer;
-        databuffer = [storyboardHandle readDataOfLength: sizeToRead];
-        NSString *newData;
-        newData = [[NSString alloc] initWithData:databuffer encoding:NSASCIIStringEncoding];
-        NSString *cntTag = [NSString stringWithFormat:@"%@%@", newData, cntTempTag];
-        NSLog(@"[%@] Chunks = %@", key, cntTag);
+        
+        
+        
         //TODO update offset & propagate offset
         unsigned long prevOffset = (unsigned long)range.location;
         
         [outputTempXml seekToEndOfFile];
         
-        NSLog(@"xxx");
         //TODO copy to file + copy intra chunks beteween (key, key +1)
         if (prevKey == 0) {
             //copy all from beginning to the curent offset
-            NSLog(@"PrevKey ");
             //TODO change for any "n" -> only no 1 artboard works
             [inputXml seekToFileOffset:[*offset_scene longValue]];
             long sizeToRead = minTagOffset - [*offset_scene longValue];
             NSData *inputData = [inputXml readDataOfLength:sizeToRead];
             NSString* newStr = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
-            NSString* newStr1 =[[NSString alloc] initWithData:[cntTempTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
+            NSString* newStr1 =[[NSString alloc] initWithData:[cntTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
             NSLog(@"At %@ writing to file %@ %@", n, newStr, newStr1);
             [outputTempXml writeData:inputData];
             [outputTempXml seekToEndOfFile];
             //copy current Tag to outputXMlfile
-            [outputTempXml writeData:[cntTempTag dataUsingEncoding:NSUTF8StringEncoding]];
+            [outputTempXml writeData:[cntTag dataUsingEncoding:NSUTF8StringEncoding]];
             long totalSize = [outputTempXml seekToEndOfFile];
             newNextOffset = totalSize;
-            NSLog(@"XXNextOffset for %d will be = %lu %lu", [key intValue] +1, newNextOffset, [newStr length] + [newStr1 length]);
             
             
         } else if (prevKey == [key intValue] -1) {
-            NSLog(@"Imagine Imagine");
             //just copy the string to the file (no other tags are in between)
             long tmpOffset = [*offset_scene longValue] + [gotoXml longValue];
+            long latest = [inputXml seekToEndOfFile];
             [inputXml seekToFileOffset:tmpOffset];
             unsigned long sizeToRead = minTagOffset - [gotoXml longValue];
             NSData *inputData = [inputXml readDataOfLength:sizeToRead];
+            NSString *dataBuff = [[NSString alloc] initWithData:inputData  encoding:NSUTF8StringEncoding];
+            NSLog(@"To insert string betwee = %@ %d %lu %lu", dataBuff, sizeToRead, tmpOffset, latest);
             [outputTempXml writeData:inputData];
             [outputTempXml seekToEndOfFile];
             [outputTempXml writeData:[cntTag dataUsingEncoding:NSUTF8StringEncoding]];
@@ -605,21 +591,17 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             
             int tags = skippedTagNo;
-            NSLog(@"Trying to update %d", tags);
-            NSLog(@"Offsets = %@", offset);
             
             //TODO FIXME
             while (tags <= [key intValue]) {
                 
                 unsigned long prevTagOffset = [[offset objectAtIndex:tags -1] longValue];
                 unsigned long nextOffset = prevTagOffset + diffOffset;
-                NSLog(@"Here update tags = %d %lu %lu", tags, prevTagOffset, nextOffset);
                 
                 [offset replaceObjectAtIndex:tags -1 withObject:[NSNumber numberWithLong:nextOffset]];
                 tags = tags + 1;
                 
             }
-            NSLog(@"----------------------------");
             newNextOffset = totalSize;
             
         }
@@ -808,17 +790,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     [reader setResourcesPath:resourcesDir];
     
     NSMutableDictionary *rootDictionary = [reader objectWithData:data];
-    NSLog(@"Before splitting the dictionary %@", rootDictionary);
+    
     NSString *finalArtboardName = [NSString stringWithFormat:@"artboardF.agc"];
     [reader writeToFile:rootDictionary file:finalArtboardName];
-    //TODO write to clipboard
-    /*NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    [pasteboard clearContents];
-    NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
-    NSString *hello = [NSString stringWithFormat:@"Hello"];
-    [clipboardItem setData:hello forType:kSparklerDocumentUTI];
-    [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
-   */ NSLog(@"Before splitting the dictionary %@", rootDictionary);
+    
     [reader splitArtboards:rootDictionary];
     
     [reader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];

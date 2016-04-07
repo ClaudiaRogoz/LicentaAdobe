@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #import "XMLReader.h"
+#import "XMLGenerator.h"
 
 int main(int argc, const char * argv[]) {
     
@@ -41,6 +42,8 @@ int main(int argc, const char * argv[]) {
     [root addAttribute:[NSXMLNode attributeWithName:@"Attribute3" stringValue:@"Value3"]];
     NSString *ns = [NSString stringWithFormat:@"%@", root];
     NSLog(@"NS = %@", ns);
-
+    
+    NSDictionary *template = [XMLGenerator readTemplateFromPath:@"/Users/crogoz/Desktop/XMLParser/XMLParser/Defs.json"];
+    NSLog(@"Template = %@", template);
     return NSApplicationMain(argc, argv);
 }
