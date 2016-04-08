@@ -43,7 +43,7 @@ int main(int argc, const char * argv[]) {
     NSString *ns = [NSString stringWithFormat:@"%@", root];
     NSLog(@"NS = %@", ns);
     
-    NSDictionary *template = [XMLGenerator readTemplateFromPath:@"/Users/crogoz/Desktop/XMLParser/XMLParser/Defs.json"];
-    NSLog(@"Template = %@", template);
+    [XMLGenerator readTemplate];
+
     return NSApplicationMain(argc, argv);
 }

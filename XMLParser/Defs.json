@@ -1,52 +1,49 @@
 {
-    "content": [
-                {"view" : {
-                "header": {
-                "key" : "view",
-                "contentMode" : "scaleToFill",
-                "id" : "$rand",
-                "toString" : ["key", "contentMode", "id"]
-                
-                },
-                "footer" : "</view>",
-                "toString" : ["header", "rules", "footer"],
-                "rules" : [
-                           {
-                           "$header.id" : "$rand"
-                           },
-                           {"rect" : {
-                           "$artboards.sceneNo" : {
-                           "key" : "frame",
-                           "x" : "$x",
-                           "y" : "$y",
-                           "width" : "$width",
-                           "height" : "$height"
-                           }
-                           }
-                           },
-                           {"autoresizing" : {}},
-                           {
-                           "subviews" : "$children.artboard.$sceneNo.children"
-                           
-                           },
-                           {
-                           "color" : {
-                           "$.sceneNo.style.fill.color.value" : {
-                           "key" : "backgroundColor",
-                           "red" : "$r",
-                           "green" : "$g",
-                           "blue" : "$b",
-                           "alpha" : "$alpha",
-                           "colorSpace" :"calibratedRGB"
-                           }
-                           
-                           }
-                           
-                           }
-                           ]
+    "content":
+    {"view" : {
+        "header": {
+            "key" : "view",
+            "contentMode" : "scaleToFill",
+            "id" : "$rand",
+            "toString" : ["key", "contentMode", "id"]
+            
+        },
+        "footer" : "</view>",
+        "toString" : ["header", "rules", "footer"],
+        "rules" : {
+            
+            "$header.id" : "$rand"
+            ,
+            "rect" : {
+                "$artboards.sceneNo" : {
+                    "key" : "frame",
+                    "x" : "$x",
+                    "y" : "$y",
+                    "width" : "$width",
+                    "height" : "$height"
                 }
+            }
+            ,
+            "autoresizing" : {},
+            
+            "subviews" : "$children.artboard.$sceneNo.children"
+            
+            ,
+            
+            "color" : {
+                "$.sceneNo.style.fill.color.value" : {
+                    "key" : "backgroundColor",
+                    "red" : "$r",
+                    "green" : "$g",
+                    "blue" : "$b",
+                    "alpha" : "$alpha",
+                    "colorSpace" :"calibratedRGB"
                 }
-                ],
+            }
+        }
+    }
+    }
+    ,
     "subviews":{
         "rect" :  {
             "key" : "$frame",
@@ -68,7 +65,7 @@
                 "userInteractionEnabled" :"NO",
                 "contentMode" :"left",
                 "horizontalHuggingPriority" : 251,
-                "verticalHuggingPriority" :251,
+                "verticalHuggingPriority" : 251,
                 "fixedFrame" : "YES",
                 "text" : "Label",
                 "textAlignment" : "natural",
@@ -78,8 +75,6 @@
                 "translatesAutoresizingMaskIntoConstraints" : "NO",
                 "id":"$rand"
             }
-            
-            
         },
         "color" : {
             "key" : "$key",
@@ -88,7 +83,13 @@
             "blue" : "$b",
             "alpha" : "$alpha",
             "colorSpace" :"calibratedRGB",
-            "toString" : ["key", "red", "green", "blue", "alpha", "colorSpace"]
+            "toString" : ["key", "red", "green", "blue", "alpha", "colorSpace"],
+            "default" : {
+                "red" : 255,
+                "green" : 255,
+                "blue" : 255,
+                "alpha" : 1
+            }
         }
     }
 }
