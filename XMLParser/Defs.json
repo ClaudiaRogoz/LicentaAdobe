@@ -12,10 +12,10 @@
         "toString" : ["header", "rules", "footer"],
         "rules" : {
             
-            "$header.id" : "$rand"
-            ,
+            "$header.id" : "$rand",
+            
             "rect" : {
-                "$artboards.sceneNo" : {
+                "$artboards.$artboardsceneNo" : {
                     "key" : "frame",
                     "x" : "$x",
                     "y" : "$y",
@@ -26,12 +26,12 @@
             ,
             "autoresizing" : {},
             
-            "subviews" : "$children.artboard.$sceneNo.children"
-            
-            ,
+            "subviews" : {
+                "$children.$sceneNo.artboard.children" : {}
+            },
             
             "color" : {
-                "$.sceneNo.style.fill.color.value" : {
+                "$children.$sceneNo.style.fill.color.value" : {
                     "key" : "backgroundColor",
                     "red" : "$r",
                     "green" : "$g",
@@ -39,7 +39,8 @@
                     "alpha" : "$alpha",
                     "colorSpace" :"calibratedRGB"
                 }
-            }
+            },
+            "toString" : ["rect", "autoresizing", "subviews", "color"]
         }
     }
     }
