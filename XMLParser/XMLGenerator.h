@@ -8,6 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define DEF_PATH @"XMLParser/Defs.json"
+#define RULES_PATH @"XMLParser/Rules.json"
+#define TEST_PATH @"XMLParser/TestGenerator.json"
+
+#define RANDOM @"$rand"
+#define SCENENO @"$sceneNo"
+#define SUBVIEWNO @"$subviewNo"
+#define DEFAULT @"default"
+#define ARTBOARDSCENE @"$artboardsceneNo"
+#define RULES       @"rules"
+#define ARTBOARD    @"view"
+#define TOSTRING    @"toString"
+#define HEADER      @"header"
+#define SUBTAGS     @"subtags"
+#define SUBVIEWS    @"subviews"
 /**
  *  Parses AGC code; Generates XML tags for XCODE
  **/

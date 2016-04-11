@@ -1,0 +1,75 @@
+{
+header =     {
+contentMode = scaleToFill;
+id = "DA5DB1BC-44E7-44C5-ADF6-9C0B5775216D";
+key = view;
+toString =         (
+key,
+contentMode,
+id
+);
+};
+rules =     {
+autoresizing =         {
+heightSizable = YES;
+key = autoresizingMask;
+toString =             (
+key,
+widthSizable,
+heightSizable
+);
+widthSizable = YES;
+};
+color =         {
+alpha = 1;
+blue = 255;
+colorSpace = calibratedRGB;
+default =             {
+alpha = 1;
+blue = 255;
+green = 255;
+red = 255;
+};
+green = 255;
+key = backgroundColor;
+red = 255;
+toString =             (
+key,
+red,
+green,
+blue,
+alpha,
+colorSpace
+);
+};
+rect =         {
+height = 667;
+key = frame;
+name = "iPhone 6 \U2013 3";
+toString =             (
+key,
+x,
+y,
+width,
+height
+);
+width = 375;
+x = 800;
+y = 0;
+};
+subviews =         {
+"$children.$sceneNo.artboard.children" =             {
+};
+};
+toString =         (
+rect,
+autoresizing,
+subviews,
+color
+);
+};
+toString =     (
+header,
+rules
+);
+}

@@ -8,14 +8,7 @@
 
 #import "XMLGenerator.h"
 
-#define DEF_PATH @"XMLParser/Defs.json"
-#define RULES_PATH @"XMLParser/Rules.json"
-#define TEST_PATH @"XMLParser/TestGenerator.json"
 
-#define RANDOM @"$rand"
-#define SCENE @"$sceneNo"
-#define DEFAULT @"default"
-#define ARTBOARDSCENE @"$artboardsceneNo"
 
 @implementation XMLGenerator
 
@@ -29,20 +22,23 @@
     NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
  
     NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
+    
     [gen initializeWithDefs:defDictionary rules:ruleDictionary];
+    
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
     NSData *testData = [NSData dataWithContentsOfFile:TEST_PATH];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
-
-    NSDictionary *translation = [gen getXmlForAgcObject:agcTemplate];
+    NSLog(@"AgcTemplate = %@", agcTemplate);
+    NSString *translation = [gen getXmlForAgcObject:agcTemplate];
     NSLog(@"Translation Dictionary = %@", translation);
+   
 }
+
 
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
     agcToXmlTemplate = [defDict mutableCopy];
     translationDict = [ruleDict mutableCopy];
-    //uniqueIds = [[NSMutableDictionary alloc] init];
     sceneNo = 0;
 
 
@@ -55,8 +51,13 @@
         //generate a random value; needed for id
         return [[NSUUID UUID] UUIDString];
         
+    } /*else {
+        //if it depends on an agc tag
+        initValue = [initValue substringFromIndex:1];
+        NSArray *array = [initValue componentsSeparatedByString:@"."];
+        
     
-    }
+    }*/
     
     return initValue;
 
@@ -74,16 +75,19 @@
 }
 
 // TODO generate toString depending on
--(NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName {
+-(NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName isLeaf:(BOOL)leaf {
     NSArray *order = [dict objectForKey:@"toString"];
-    
+    //NSLog(@"Order = %@", order);
     NSMutableString *tagStr = [NSMutableString stringWithFormat:@"<%@", varName];
     
     for (id object in order) {
-        [tagStr appendFormat:@" %@=%@ ", object, [dict objectForKey:object]];
+        [tagStr appendFormat:@" %@=%@", object, [dict objectForKey:object]];
     }
+    if (leaf)
+        [tagStr appendFormat:@"/>"];
+    else
+        [tagStr appendFormat:@">"];
     
-    [tagStr appendFormat:@">"];
     return tagStr;
 }
 
@@ -114,8 +118,11 @@
 
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSString*)cond params:(NSDictionary *)dict agcDict:agcParams{
     
-    NSMutableDictionary *objDict = [[[agcToXmlTemplate objectForKey:@"subviews"] objectForKey:rule] mutableCopy];
-    
+    NSMutableDictionary *objDict;
+    if ([rule isEqualToString:SUBVIEWS])
+        objDict = [[[agcToXmlTemplate objectForKey:SUBVIEWS] objectForKey:rule] mutableCopy];
+    else
+        objDict = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:rule] mutableCopy];
     
     // now changing based on params
     if (!cond) {
@@ -131,7 +138,7 @@
         
         id nodeValue;
         NSLog(@"Check for key = %@", key);
-        if ([key hasPrefix:@"$"] && [key isEqualToString:SCENE]) {
+        if ([key hasPrefix:@"$"] && [key isEqualToString:SCENENO]) {
             nodeValue = [values objectAtIndex:sceneNo];
         
         } else if ([key hasPrefix:@"$"] && [key isEqualToString:ARTBOARDSCENE]) {
@@ -165,6 +172,8 @@
         //maybe recursive ?
         //merge "dict" with "values"
         NSLog(@"NOT NULL TODO\n");
+        [self mergeDefaultValues:dictValue withDict:&objDict usingDict:dict];
+        return objDict;
         
     }
     
@@ -206,10 +215,6 @@
             NSMutableDictionary *mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
             NSLog(@"Merge dict = %@ For %@", mergeDict, rule);
             
-            NSString *ruleToString = [self toString:mergeDict name:rule];
-            
-            NSLog(@"ToString1 = %@", ruleToString);
-            
             if (mergeDict != nil) {
                 [rulesInitDict setObject:mergeDict forKey:rule];
                 NSLog(@"After merge  =  %@ ", rulesInitDict);
@@ -217,7 +222,8 @@
         
         } else {
             //TODO the modified variable is in the "finalDict"
-            
+            //remove the $x.y.z... rule
+            [rulesInitDict removeObjectForKey:rule];
             for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
                 viewDict = [viewDict objectForKey:key];
             }
@@ -232,23 +238,71 @@
     return finalDict;
 }
 
--(NSDictionary*) getXmlForAgcObject:(NSDictionary*)typeAgcObject {
+/* in caser of whole file translation => extend with header and footer */
+-(NSString *) surroundWithHeader:(NSString *) header footer:(NSString *) footer {
+    
+    
+    return @"";
+    
+}
+
+-(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
+    
+    NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
+    /* now we only have to translate the currentDict */
+    for (id key in [dict objectForKey:TOSTRING]) {
+        id attr = [dict objectForKey:key];
+        NSLog(@"At key = %@ with %@", key, str);
+        if ([key isEqualToString:RULES]) {
+            
+            [tmp appendString:[self parseToString:tmp dict:attr name:key]] ;
+           
+        
+        } else if ([key isEqualToString:HEADER]) {
+                /* create a new top tag with dict[allKeys] objeectAtIndex[0] */
+                [ tmp appendString: [self toString:attr name:name isLeaf:FALSE]];
+            
+            
+        } else if ([[agcToXmlTemplate objectForKey:SUBVIEWS] objectForKey:key]){
+            
+            
+            
+        } else if ([[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]){
+            
+            /* just an ordinary leaf tag; create a one-line with the given attributes */
+             [ tmp appendString: [self toString:attr name:name isLeaf:TRUE]];
+            
+        }
+    }
+    
+    return tmp;
+    
+    
+}
+
+-(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject {
     NSString *agcObject = [typeAgcObject objectForKey:@"type"];
     if (!agcObject) {
         // it was given the whole dictionary to process => goto @"content"; type = "view"
         // TODO insert header + footer of the xml file
-        return [self processWholeXmlFromAgc:typeAgcObject];
+        NSMutableString *finalString = [[NSMutableString alloc] init];
+        NSLog(@"type = %@ %@", typeAgcObject, agcToXmlTemplate);
+        NSDictionary *dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: @"view"];
+        NSLog(@"D1ct = %@", dict);
+        NSString *xmlGen = [self parseToString:finalString dict:dict name:@"view"];
+        NSLog(@"EQStr = %@", xmlGen);
+        return finalString;
         
     }
-    // look at subviews
-    NSArray *array = [NSArray arrayWithObjects:@"subviews", nil];
+    // TODO look at subviews
+   /* NSArray *array = [NSArray arrayWithObjects:@"subviews", nil];
    // NSDictionary *xmlDict;
     for (id key in array) {
         NSDictionary *result = [[translationDict objectForKey:key] objectForKey:agcObject];
         if (result)
-            return result;
+            return @"";
     
-    }
+    }*/
     return nil;
 }
 

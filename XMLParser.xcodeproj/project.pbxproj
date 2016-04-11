@@ -11,6 +11,7 @@
 		C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA11CB66A9B00A10C52 /* Defs.json */; };
 		C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9730EA41CB678D800A10C52 /* XMLGenerator.m */; };
 		C9730EA71CB687D100A10C52 /* Rules.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA61CB687D100A10C52 /* Rules.json */; };
+		C9756B3E1CBBE80F004E1792 /* File in Resources */ = {isa = PBXBuildFile; fileRef = C9756B3D1CBBE80F004E1792 /* File */; };
 		C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C98141E51CB7BAAF00936604 /* TestGenerator.json */; };
 		C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186C91C8B664A0071A25F /* AppDelegate.m */; };
 		C99186CD1C8B664A0071A25F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CC1C8B664A0071A25F /* main.m */; };
@@ -54,6 +55,7 @@
 		C9730EA31CB678D800A10C52 /* XMLGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLGenerator.h; sourceTree = "<group>"; };
 		C9730EA41CB678D800A10C52 /* XMLGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLGenerator.m; sourceTree = "<group>"; };
 		C9730EA61CB687D100A10C52 /* Rules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Rules.json; sourceTree = "<group>"; };
+		C9756B3D1CBBE80F004E1792 /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
 		C98141E51CB7BAAF00936604 /* TestGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestGenerator.json; sourceTree = "<group>"; };
 		C99186C51C8B664A0071A25F /* XMLParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMLParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99186C81C8B664A0071A25F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		C99186BC1C8B664A0071A25F = {
 			isa = PBXGroup;
 			children = (
+				C9756B3D1CBBE80F004E1792 /* File */,
 				C9C3C1641C9FF401002968EF /* Scene1.xml */,
 				C9C3C1621C9FE5EA002968EF /* myXMLfileScenes.xml */,
 				C9B0F4041C9C27660005903C /* Button.agc */,
@@ -290,6 +293,7 @@
 			files = (
 				C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */,
 				C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */,
+				C9756B3E1CBBE80F004E1792 /* File in Resources */,
 				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
 				C9DBD91A1C9967D0006A9638 /* myXMLfileDown.xml in Resources */,
 				C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */,

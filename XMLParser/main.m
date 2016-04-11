@@ -17,15 +17,17 @@
 
 int main(int argc, const char * argv[]) {
     
-    NSString *file = [NSString stringWithFormat:@"%s", argv[1]];
+   
+    NSString *xmlPath = [NSString stringWithFormat:@"%s", argv[1]];
     NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
-    //NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"storyboard"];
-    NSData *parser = [NSData dataWithContentsOfFile:file];
+    NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
+
+    NSData *parser = [NSData dataWithContentsOfFile:xmlPath];
     NSString *string = [[NSString alloc] initWithData:parser encoding:NSUTF8StringEncoding] ;
     NSLog(@"String%@", string);
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    [XMLReader dictionaryForXMLData:parser resources:imageDir outFile:file error:&parseError];
+    [XMLReader dictionaryForXMLData:parser resources:imageDir xdPath:xdPath outFile:xmlPath error:&parseError];
     
     
     /* copy <agc file> to clipboard */
@@ -33,7 +35,11 @@ int main(int argc, const char * argv[]) {
     [pasteboard clearContents];
     NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
    // NSString *hello = [NSString stringWithFormat:@"Hello"];
-    [clipboardItem setData:[NSData dataWithContentsOfFile:@"/Users/crogoz/Documents/artboardF.agc"] forType:@"com.adobe.sparkler.design"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *outFile = [NSString stringWithFormat:@"%@/%@", documentsDirectory, ARTBOARDXML];
+    [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     
    /* NSXMLElement *root = [[NSXMLElement alloc] initWithName:@"Request"];
@@ -42,8 +48,9 @@ int main(int argc, const char * argv[]) {
     [root addAttribute:[NSXMLNode attributeWithName:@"Attribute3" stringValue:@"Value3"]];
     NSString *ns = [NSString stringWithFormat:@"%@", root];
     NSLog(@"NS = %@", ns);*/
+ 
     
-    [XMLGenerator readTemplate];
+    //[XMLGenerator readTemplate];
 
     return NSApplicationMain(argc, argv);
 }

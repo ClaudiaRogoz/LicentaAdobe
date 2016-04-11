@@ -1,0 +1,42 @@
+{
+    "version" : "1.5.0",
+    "meta" : {
+        "ux" : {
+            "groupItems" : false
+        }
+    },
+    "resources" : {
+        "gradients" : {
+            
+        },
+        "clipPaths" : {
+            
+        }
+    },
+    "artboards" : {
+        "artboard1" : {
+            "y" : 0,
+            "name" : "iPhone 6 – 3",
+            "width" : 375,
+            "x" : 800,
+            "height" : 667
+        }
+    },
+    "viewSource" : {
+        "y" : 0,
+        "x" : 0,
+        "height" : 667,
+        "width" : 1600
+    },
+    "children" : [
+                  {
+                  "type" : "artboard",
+                  "artboard" : {
+                  "ref" : "artboard2",
+                  "children" : {
+                  
+                  }
+                  }
+                  }
+                  ]
+}

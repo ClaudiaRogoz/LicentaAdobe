@@ -16,6 +16,8 @@
 #define OFFSETBOARD 400
 #define WIDTHIPH6 375
 #define HEIGHTIPH6 667
+#define SPARKLERCLIPBOARD   @"com.adobe.sparkler.design"
+#define ARTBOARDXML         @"artboardFromXml.agc"
 
 @import AppKit;
 
@@ -108,11 +110,13 @@
 
 /* where we find all external resources: eg. images */
 @property NSString *resourcesPath;
+@property NSString *xdPath;
+@property NSString *xmlPath;
 
 /* -----------------------PUBLIC method------------------------*/
 
 /* used for xml2agc parsing */
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)errorPointer;
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir xdPath:(NSString *)path outFile:(NSString *)out_file error:(NSError **)errorPointer;
 
 /* -----------------------PRIVATE methods----------------------*/
 

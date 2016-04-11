@@ -379,7 +379,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         outputTempXml = [NSFileHandle fileHandleForWritingAtPath:pathToTempXml];
     }
     
-    NSFileHandle *inputXml = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"];
+    NSFileHandle *inputXml = [NSFileHandle fileHandleForReadingAtPath: [self xmlPath]];
     if (inputXml == nil)
         NSLog(@"Failed to open file");
     
@@ -485,7 +485,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 continue;
             }
             NSFileHandle *fHandle;
-            fHandle = [NSFileHandle fileHandleForReadingAtPath: @"/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"];
+            fHandle = [NSFileHandle fileHandleForReadingAtPath: [self xmlPath]];
             if (fHandle == nil)
                 NSLog(@"Failed to open file");
             
@@ -642,10 +642,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               
                                               //TODO change unzip directory -> maybe temp directory ?
                                               //NSString *destinationPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, //NSUserDomainMask, YES) objectAtIndex:0];
+                                              NSArray *paths = NSSearchPathForDirectoriesInDomains
+                                              (NSDocumentDirectory, NSUserDomainMask, YES);
+                                              NSString *documentsDirectory = [paths objectAtIndex:0];
+                                              
                                               NSTask *task = [[NSTask alloc] init];
                                               task.launchPath = @"/usr/bin/unzip";
                                               task.arguments = @[path];
-                                              task.currentDirectoryPath=@"/Users/crogoz/Documents/";
+                                              task.currentDirectoryPath=documentsDirectory;
                                               
                                               [task launch];
                                               [task waitUntilExit];
@@ -784,19 +788,22 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
 }
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)error
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir xdPath:(NSString*)xdPath outFile:(NSString *)out_file error:(NSError **)error
 {
     XMLReader *reader = [[XMLReader alloc] initWithError:error];
     [reader setResourcesPath:resourcesDir];
+    [reader setXdPath:xdPath];
+    [reader setXmlPath:out_file];
     
     NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];
     
-    NSString *finalArtboardName = [NSString stringWithFormat:@"artboardF.agc"];
+    NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName];
     
     [reader splitArtboards:rootDictionary];
     
-    [reader monitorXDFile:@"/Users/crogoz/Documents/Y/UntitledY.xd"];
+    
+    [reader monitorXDFile:xdPath];
     
     
     return rootDictionary;
