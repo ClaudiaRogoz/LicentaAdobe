@@ -8,9 +8,9 @@
 
 #import "XMLGenerator.h"
 
-#define DEF_PATH @"/Users/crogoz/Desktop/XMLParser/XMLParser/Defs.json"
-#define RULES_PATH @"/Users/crogoz/Desktop/XMLParser/XMLParser/Rules.json"
-#define TEST_PATH @"/Users/crogoz/Desktop/XMLParser/XMLParser/TestGenerator.json"
+#define DEF_PATH @"XMLParser/Defs.json"
+#define RULES_PATH @"XMLParser/Rules.json"
+#define TEST_PATH @"XMLParser/TestGenerator.json"
 
 #define RANDOM @"$rand"
 #define SCENE @"$sceneNo"
@@ -75,15 +75,16 @@
 
 // TODO generate toString depending on
 -(NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName {
-    //NSArray *order = [dict objectForKey:@"toString"];
+    NSArray *order = [dict objectForKey:@"toString"];
     
-    /*NSMutableString *tagStr = [[NSMutableString alloc] init];
-   
+    NSMutableString *tagStr = [NSMutableString stringWithFormat:@"<%@", varName];
+    
     for (id object in order) {
-        
-    }*/
+        [tagStr appendFormat:@" %@=%@ ", object, [dict objectForKey:object]];
+    }
     
-    return @"";
+    [tagStr appendFormat:@">"];
+    return tagStr;
 }
 
 -(void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict {
@@ -153,7 +154,7 @@
         NSLog(@"IT is null");
         [self mergeDefaultValues:[objDict objectForKey:DEFAULT] withDict:&objDict usingDict:dict];
         NSLog(@"t0 merge = %@", objDict);
-        return nil;
+        return objDict;
     } else if (isEmpty) {
         //no subview found
         NSLog(@"it is empty");
@@ -178,8 +179,10 @@
     NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
     NSLog(@"finalDict = %@ %@", finalDict, agcToXmlTemplate);
    // NSMutableDictionary *subviews = [[agcToXmlTemplate objectForKey:@"subviews"] mutableCopy];
-    NSMutableDictionary *rulesTempDict = [[finalDict objectForKey:@"view"] objectForKey:@"rules"];
-    NSMutableDictionary *tempDict = [finalDict objectForKey:@"view"] ;
+    NSMutableDictionary *viewDict = [finalDict objectForKey:@"view"];
+    NSMutableDictionary *rulesInitDict = [viewDict objectForKey:@"rules"];
+    NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
+    
     
     for (id rule in rulesTempDict) {
         NSLog(@"rule = %@", rule);
@@ -200,17 +203,27 @@
             else
                 cond = [[rulesDict allKeys] objectAtIndex:0];
             
-            [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
+            NSMutableDictionary *mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
+            NSLog(@"Merge dict = %@ For %@", mergeDict, rule);
+            
+            NSString *ruleToString = [self toString:mergeDict name:rule];
+            
+            NSLog(@"ToString1 = %@", ruleToString);
+            
+            if (mergeDict != nil) {
+                [rulesInitDict setObject:mergeDict forKey:rule];
+                NSLog(@"After merge  =  %@ ", rulesInitDict);
+            }
         
         } else {
             //TODO the modified variable is in the "finalDict"
             
             for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
-                tempDict = [tempDict objectForKey:key];
+                viewDict = [viewDict objectForKey:key];
             }
             NSString *value = [self computeValue:[rulesTempDict objectForKey:rule]];
-            NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], tempDict);
-            [tempDict setObject:value forKey:[keys lastObject]];
+            NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], viewDict);
+            [viewDict setObject:value forKey:[keys lastObject]];
             
         }
     

@@ -8,8 +8,7 @@
             "toString" : ["key", "contentMode", "id"]
             
         },
-        "footer" : "</view>",
-        "toString" : ["header", "rules", "footer"],
+        "toString" : ["header", "rules"],
         "rules" : {
             
             "$header.id" : "$rand",
