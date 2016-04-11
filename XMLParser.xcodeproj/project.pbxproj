@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */; };
+		C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA11CB66A9B00A10C52 /* Defs.json */; };
+		C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9730EA41CB678D800A10C52 /* XMLGenerator.m */; };
+		C9730EA71CB687D100A10C52 /* Rules.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA61CB687D100A10C52 /* Rules.json */; };
+		C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C98141E51CB7BAAF00936604 /* TestGenerator.json */; };
 		C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186C91C8B664A0071A25F /* AppDelegate.m */; };
 		C99186CD1C8B664A0071A25F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CC1C8B664A0071A25F /* main.m */; };
 		C99186D01C8B664A0071A25F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CF1C8B664A0071A25F /* ViewController.m */; };
@@ -46,6 +50,11 @@
 /* Begin PBXFileReference section */
 		C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfile.xml; sourceTree = "<group>"; };
 		C95EA96B1C8DC2F5004FFBA1 /* XCODELoaderSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCODELoaderSession.h; sourceTree = "<group>"; };
+		C9730EA11CB66A9B00A10C52 /* Defs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Defs.json; sourceTree = "<group>"; };
+		C9730EA31CB678D800A10C52 /* XMLGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLGenerator.h; sourceTree = "<group>"; };
+		C9730EA41CB678D800A10C52 /* XMLGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLGenerator.m; sourceTree = "<group>"; };
+		C9730EA61CB687D100A10C52 /* Rules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Rules.json; sourceTree = "<group>"; };
+		C98141E51CB7BAAF00936604 /* TestGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestGenerator.json; sourceTree = "<group>"; };
 		C99186C51C8B664A0071A25F /* XMLParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMLParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99186C81C8B664A0071A25F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C99186C91C8B664A0071A25F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -140,6 +149,11 @@
 				C99186D61C8B664A0071A25F /* Info.plist */,
 				C99186CB1C8B664A0071A25F /* Supporting Files */,
 				C95EA96B1C8DC2F5004FFBA1 /* XCODELoaderSession.h */,
+				C9730EA11CB66A9B00A10C52 /* Defs.json */,
+				C9730EA31CB678D800A10C52 /* XMLGenerator.h */,
+				C9730EA41CB678D800A10C52 /* XMLGenerator.m */,
+				C9730EA61CB687D100A10C52 /* Rules.json */,
+				C98141E51CB7BAAF00936604 /* TestGenerator.json */,
 			);
 			path = XMLParser;
 			sourceTree = "<group>";
@@ -279,11 +293,14 @@
 				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
 				C9DBD91A1C9967D0006A9638 /* myXMLfileDown.xml in Resources */,
 				C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */,
+				C9730EA71CB687D100A10C52 /* Rules.json in Resources */,
 				C9C3C1631C9FE5EA002968EF /* myXMLfileScenes.xml in Resources */,
 				C9C3C1651C9FF401002968EF /* Scene1.xml in Resources */,
+				C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */,
 				C99186D51C8B664A0071A25F /* Main.storyboard in Resources */,
 				C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */,
 				C9B0F4051C9C27660005903C /* Button.agc in Resources */,
+				C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +329,7 @@
 				C99186CD1C8B664A0071A25F /* main.m in Sources */,
 				C99186FA1C8B66760071A25F /* XMLReader.m in Sources */,
 				C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */,
+				C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +461,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = XMLParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParser;
@@ -455,6 +477,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = XMLParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParser;

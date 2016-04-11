@@ -83,7 +83,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "myXMLfileScenes"
+            argument = "/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
