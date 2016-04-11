@@ -802,13 +802,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     return rootDictionary;
 }
 
-//TODO remove this - of no use
-+ (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)error
-{
-    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    return [XMLReader dictionaryForXMLData:data resources:@"" outFile:@"" error:error];
-}
-
 - (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file {
     
     NSError *error;
@@ -881,11 +874,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     inheritanceStack = [[NSMutableArray alloc] init];
     attributes = [[NSMutableDictionary alloc] init];
     toInsertObjects = [[NSMutableArray alloc] init];
-    artboards = [[NSMutableArray alloc] init];
+    //artboards = [[NSMutableArray alloc] init];
     exportAgc = [[NSMutableDictionary alloc] init];
     offsetXmlFile = [[NSMutableDictionary alloc] init];
     objectOffset = [[NSMutableDictionary alloc] init];
-    exportScaleStack = [[NSMutableArray alloc] init];
+    //exportScaleStack = [[NSMutableArray alloc] init];
     
     sceneNo = 0;
     
@@ -1651,7 +1644,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         //TODO!!! new file -> compute header
         NSString *artboardNo = [NSString stringWithFormat:@"artboard%d", counterArtboards++] ;
         [[dictionaryStack lastObject] setObject:artboardNo forKey:@"ref"];
-        [artboards addObject:artboardNo];
+        //[artboards addObject:artboardNo];
     }
     
     //TODO2 remove function after TODO1 (this < didStartElement ?)
@@ -1759,9 +1752,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     }
     
     if ([toInsertObjects count] && [elementName isEqualToString:@"view"]) {
-        //NSInteger counter = [dictionaryStack count];
         NSLog(@"For button %@ at %@", toInsertObjects, [dictionaryStack objectAtIndex:2]);
-        id prevParent = [dictionaryStack objectAtIndex:2]; // TODO hardcodare doar ptr un artboard!!!!
+        id prevParent = [dictionaryStack objectAtIndex:2];
         
         [prevParent addEntriesFromDictionary:[toInsertObjects objectAtIndex:0]];
         [toInsertObjects removeLastObject];

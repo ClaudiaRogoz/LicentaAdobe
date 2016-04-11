@@ -36,12 +36,12 @@ int main(int argc, const char * argv[]) {
     [clipboardItem setData:[NSData dataWithContentsOfFile:@"/Users/crogoz/Documents/artboardF.agc"] forType:@"com.adobe.sparkler.design"];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     
-    NSXMLElement *root = [[NSXMLElement alloc] initWithName:@"Request"];
+   /* NSXMLElement *root = [[NSXMLElement alloc] initWithName:@"Request"];
     [root addAttribute:[NSXMLNode attributeWithName:@"Attribute1" stringValue:@"Value1"]];
     [root addAttribute:[NSXMLNode attributeWithName:@"Attribute2" stringValue:@"Value2"]];
     [root addAttribute:[NSXMLNode attributeWithName:@"Attribute3" stringValue:@"Value3"]];
     NSString *ns = [NSString stringWithFormat:@"%@", root];
-    NSLog(@"NS = %@", ns);
+    NSLog(@"NS = %@", ns);*/
     
     [XMLGenerator readTemplate];
 

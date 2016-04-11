@@ -42,7 +42,7 @@
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
     agcToXmlTemplate = [defDict mutableCopy];
     translationDict = [ruleDict mutableCopy];
-    uniqueIds = [[NSMutableDictionary alloc] init];
+    //uniqueIds = [[NSMutableDictionary alloc] init];
     sceneNo = 0;
 
 
