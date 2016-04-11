@@ -22,7 +22,7 @@
 @property NSString *agcPath;
 
 - (id)initWithError:(NSError **)error;
-+ (NSDictionary*)readTemplate;
++ (void)readTemplate;
 
 @end
 

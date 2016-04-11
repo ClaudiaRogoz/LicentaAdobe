@@ -34,7 +34,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     //maybe extedn to other subTags ?!
     NSArray *order = [NSArray arrayWithObjects:@"rect", @"fontDescription", @"color", nil];
     NSLog(@"Dict = %@", dict);
-    int cnt = 0;
+   // int cnt = 0;
     for (id key in order) {
         
         if (![dict objectForKey:key])
@@ -53,7 +53,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             unsigned long start = (unsigned long)rangeOfString.location;
             unsigned long end = [newString length];
             
-            newString = [newString stringByReplacingCharactersInRange:NSMakeRange(start, end - start) withString:value];
+            newString = [[newString stringByReplacingCharactersInRange:NSMakeRange(start, end - start) withString:value] mutableCopy];
         }
         
     }
@@ -67,7 +67,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 {
     
     //TODO first only for modified objects
-    int counter = MIN([first count], [second count]);
+    unsigned long counter = MIN([first count], [second count]);
     NSMutableDictionary *xmlExport = [[NSMutableDictionary alloc] init];
     for (int i = 0; i< counter; i++) {
         NSLog(@"Counter = %d", i);
@@ -90,7 +90,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 int prevTy = [[offsetGroupDict objectForKey:@"ty"] intValue];
                 int tx = [[transform objectForKey:@"tx"] intValue] + prevTx;
                 int ty = [[transform objectForKey:@"ty"] intValue] + prevTy;
-                NSMutableDictionary *dict = @{@"tx" : [NSNumber numberWithInt:tx], @"ty" : [NSNumber numberWithInt:ty]};
+                NSMutableDictionary *dict = [@{@"tx" : [NSNumber numberWithInt:tx], @"ty" : [NSNumber numberWithInt:ty]} mutableCopy];
                 
                 id newDictCh = [[newD objectForKey:@"group"] objectForKey:@"children"];
                 id prevDictCh = [[prev objectForKey:@"group"] objectForKey:@"children"];
@@ -103,7 +103,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 for (id newKey in newXmlDict) {
                     NSMutableDictionary *dict = [newXmlDict objectForKey:newKey];
                     
-                    NSMutableDictionary *dictGroup = [xmlExport objectForKey:[NSNumber numberWithInt:i + 1]];// forKey:<#(nonnull id<NSCopying>)#>
+                    NSMutableDictionary *dictGroup = [xmlExport objectForKey:[NSNumber numberWithInt:i + 1]];
                     if (dictGroup == nil) {
                         [xmlExport setObject:dict forKey:[NSNumber numberWithInt:i + 1]];
                     } else {
@@ -144,7 +144,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             //TODO change each NSMutabelDict into NSMutableDict of NSArray (it's easier)
             for (id key in solType){
                 
-                NSString *cond = [solType objectForKey:key];
+                id cond = [solType objectForKey:key];
                 if ([cond isKindOfClass:[NSArray class]]) {
                     //is kind of array => multiple rules must be achieved
                     NSString *condIsOfType = @"";
@@ -284,7 +284,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         return eq;
     
     //first of all go through each <key, value> pair; see difference -> TODO: eventually use xml2agcDict.. setup needed!!
-    id keys = [prev allKeys];
+    //id keys = [prev allKeys];
     NSArray * sortedAllKeys = [prev allKeys];
     sortedAllKeys = [sortedAllKeys sortedArrayUsingComparator:^(id a, id b) {
         return [a compare:b];
@@ -443,7 +443,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             NSString *replacedValue = [toChange objectForKey:key1];
             if ([[toChange objectForKey:key1] isKindOfClass:[NSNumber class]])
                 replacedValue= [[toChange objectForKey:key1] stringValue];
-            NSLog(@"key1 = %@ where minTagOffset = %d", key1, minTagOffset);
+            NSLog(@"key1 = %@ where minTagOffset = %ld", key1, minTagOffset);
             
             id key2 = [subTags objectAtIndex:0];
             
@@ -452,7 +452,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 NSString *newData = [stringChunks objectForKey:key2];
                 NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
                 
-                int shiftAttr = [[subTags lastObject] length] + 3;
+                unsigned long shiftAttr = [[subTags lastObject] length] + 3;
                 NSRange rangeOfString = [newData rangeOfString:attrString];
                 if (rangeOfString.location == NSNotFound )
                     NSLog(@"[ERROR] Not found :s");
@@ -463,8 +463,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     
                     NSLog(@"[ERROR] string was not found");
                 } else {
-                    int st = (unsigned long)rangeOfString.location + shiftAttr;
-                    int en = (unsigned long)rangeLastString.location;
+                    unsigned long st = (unsigned long)rangeOfString.location + shiftAttr;
+                    unsigned long en = (unsigned long)rangeLastString.location;
                     
                     newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
                     
@@ -491,7 +491,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
             minTagOffset = MIN((unsigned long)range.location, minTagOffset);
             
-            int sizeToRead = nextXMlTag  - (unsigned long)range.location;
+            unsigned long sizeToRead = nextXMlTag  - (unsigned long)range.location;
             
             [fHandle seekToFileOffset:range.location];
             NSData *databuffer;
@@ -501,7 +501,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             //TODO string replace with ...
             NSLog(@"DatBuffer = %@", newData);
             NSString *attrString = [NSString stringWithFormat:@" %@=\"", [subTags lastObject]];
-            int shiftAttr = [[subTags lastObject] length] + 3;
+            unsigned long shiftAttr = [[subTags lastObject] length] + 3;
             NSRange rangeOfString = [newData rangeOfString:attrString];
             NSString *tmpRange = [newData substringFromIndex:rangeOfString.location + shiftAttr];
             NSRange rangeLastString = [tmpRange rangeOfString:@"\""];
@@ -510,8 +510,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                 
                 NSLog(@"[ERROR] string was not found");
             } else {
-                int st = (unsigned long)rangeOfString.location + shiftAttr;
-                int en = (unsigned long)rangeLastString.location;
+                unsigned long st = (unsigned long)rangeOfString.location + shiftAttr;
+                unsigned long en = (unsigned long)rangeLastString.location;
                 newData = [newData stringByReplacingCharactersInRange:NSMakeRange(st, en) withString:replacedValue];
             }
             
@@ -522,7 +522,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
         }
         
-        NSNumber *tagOffset = [NSNumber numberWithInt:minTagOffset];
+        NSNumber *tagOffset = [NSNumber numberWithLong:minTagOffset];
         NSString *cntTag = [self appendModifiedString:stringChunks minTagOffset:&tagOffset];
         
         
@@ -559,7 +559,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             unsigned long sizeToRead = minTagOffset - [gotoXml longValue];
             NSData *inputData = [inputXml readDataOfLength:sizeToRead];
             NSString *dataBuff = [[NSString alloc] initWithData:inputData  encoding:NSUTF8StringEncoding];
-            NSLog(@"To insert string betwee = %@ %d %lu %lu", dataBuff, sizeToRead, tmpOffset, latest);
+            NSLog(@"To insert string betwee = %@ %lu %lu %lu", dataBuff, sizeToRead, tmpOffset, latest);
             [outputTempXml writeData:inputData];
             [outputTempXml seekToEndOfFile];
             [outputTempXml writeData:[cntTag dataUsingEncoding:NSUTF8StringEncoding]];
@@ -617,7 +617,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     NSLog(@"Offset: %@", offsetXmlFile);
     const char *pathString = [path cStringUsingEncoding:NSASCIIStringEncoding];
     int fildes = open(pathString, O_RDONLY);
-    int counter = 0;
+    //int counter = 0;
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE,fildes, DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_ATTRIB | DISPATCH_VNODE_LINK | DISPATCH_VNODE_RENAME | DISPATCH_VNODE_REVOKE,
                                                               queue);
@@ -638,10 +638,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                                               NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
                                               [[NSFileManager defaultManager] removeItemAtPath:pathToTempXml error:&error];
                                               
-                                              NSString *zipPath = [[NSBundle mainBundle] pathForResource:path ofType:@"xd"];
+                                              //NSString *zipPath = [[NSBundle mainBundle] pathForResource:path ofType:@"xd"];
                                               
                                               //TODO change unzip directory -> maybe temp directory ?
-                                              NSString *destinationPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                                              //NSString *destinationPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, //NSUserDomainMask, YES) objectAtIndex:0];
                                               NSTask *task = [[NSTask alloc] init];
                                               task.launchPath = @"/usr/bin/unzip";
                                               task.arguments = @[path];
@@ -789,7 +789,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     XMLReader *reader = [[XMLReader alloc] initWithError:error];
     [reader setResourcesPath:resourcesDir];
     
-    NSMutableDictionary *rootDictionary = [reader objectWithData:data];
+    NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];
     
     NSString *finalArtboardName = [NSString stringWithFormat:@"artboardF.agc"];
     [reader writeToFile:rootDictionary file:finalArtboardName];
@@ -835,11 +835,11 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 - (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
     
-    id artboards = [dictionary objectForKey:@"artboards"];
+    NSMutableDictionary *artboardsD = [dictionary objectForKey:@"artboards"];
     int nr = 1;
-    for (id key in artboards) {
+    for (id key in [artboardsD allKeys]) {
         NSMutableDictionary *tempArray = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: dictionary]];
-        id artboardNo = [artboards objectForKey:key];
+        id artboardNo = [artboardsD objectForKey:key];
         [tempArray  setValue:[[NSMutableDictionary alloc] init] forKey:@"artboards"];
         [[tempArray objectForKey:@"artboards"]  setValue:artboardNo forKey:key];
         
@@ -1153,7 +1153,8 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     // Parse the XML
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-    parser.delegate = self;
+    //parser.delegate = self;
+    [parser setDelegate:self];
     BOOL success = [parser parse];
     
     // Return the stack's root dictionary on success
@@ -1190,7 +1191,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         //TODO add viewSource
         
         [sources setObject:[NSNumber numberWithInt:x] forKey:@"width"];
-        NSDictionary *resultDict = [dictionaryStack objectAtIndex:0];
+        NSMutableDictionary *resultDict = [dictionaryStack objectAtIndex:0];
         return resultDict;
     }
     
@@ -1247,14 +1248,14 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     if (objectOffset[tagName] != nil){
         
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
-        int start = xmlOffset + 1;
-        int end = [xmlData length];
+        unsigned long start = xmlOffset + 1;
+        unsigned long end = [xmlData length];
         
         NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange(start, end -start)];
         //NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
         NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
-        [arr addObject:[NSNumber numberWithInt: range.location]];
-        xmlOffset = range.location;
+        [arr addObject:[NSNumber numberWithLong: range.location]];
+        xmlOffset = (unsigned long)range.location;
         //NSLog(@"Start = %d %d", xmlOffset, start);
         
     }
@@ -1269,15 +1270,15 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     
     // Get the dictionary for the current level in the stack
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
-    NSString *nameInit = elementName;
+    //NSString *nameInit = elementName;
     
     if ([elementName isEqualToString:@"switch"]){
         
         NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:@"agc"];
         NSError * error=nil;;
         
-        NSString *jsonString = [NSString stringWithContentsOfFile:buttonPath encoding:nil error:&error];
-        NSData * jsonData = [jsonString dataUsingEncoding:nil];
+        NSString *jsonString = [NSString stringWithContentsOfFile:buttonPath encoding:NSUTF8StringEncoding error:&error];
+        NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
         
         //NSLog(@"Button parent = %@", parentDict);
@@ -1715,7 +1716,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     }
     
     if ([elementName isEqualToString:@"textField"] || [elementName isEqualToString:@"label"]){
-        NSInteger length = tempReplace.length;
+       // NSInteger length = tempReplace.length;
         
         NSArray *strings = [[xml2agcDictionary objectForKey:@"length."] componentsSeparatedByString:@"."];
         
@@ -1728,7 +1729,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
             
         }
         
-        [value setObject:[NSNumber numberWithInt:textValue.length] forKey:[strings lastObject]];
+        [value setObject:[NSNumber numberWithLong:textValue.length] forKey:[strings lastObject]];
         
     }
     
@@ -1741,7 +1742,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     for(id key in def){
         
         NSArray *strings = [key componentsSeparatedByString:@"."];
-        NSString *firstTag = [[NSString alloc] initWithFormat:@"%@.", strings[0]];
+        //NSString *firstTag = [[NSString alloc] initWithFormat:@"%@.", strings[0]];
         id value = parentDict;
         
         for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
@@ -1758,7 +1759,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     }
     
     if ([toInsertObjects count] && [elementName isEqualToString:@"view"]) {
-        NSInteger counter = [dictionaryStack count];
+        //NSInteger counter = [dictionaryStack count];
         NSLog(@"For button %@ at %@", toInsertObjects, [dictionaryStack objectAtIndex:2]);
         id prevParent = [dictionaryStack objectAtIndex:2]; // TODO hardcodare doar ptr un artboard!!!!
         

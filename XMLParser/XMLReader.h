@@ -16,7 +16,7 @@
 @import AppKit;
 
 
-@interface XMLReader : NSObject
+@interface XMLReader : NSObject <NSXMLParserDelegate>
 {
     NSMutableArray *dictionaryStack;
     NSMutableArray *inheritanceStack;
@@ -40,7 +40,7 @@
     
     int sceneNo;
     NSData *xmlData;
-    int xmlOffset;
+    unsigned long xmlOffset;
     
     BOOL insertedRoot;
     int counterArtboards;
@@ -53,14 +53,14 @@
 
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)errorPointer;
 + (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)errorPointer;
-+ (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary;
-+ (void) writeToFile:(NSDictionary*)dict file:(NSString*) fileName;
-+ (void) monitorXDFile:(NSString*) path;
-- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)info offsetGroup:(NSMutableDictionary *)offsetGroupDict numberGroup:(NSNumber *) nr;
-- (NSMutableDictionary*) compare2Groups:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)info offsetGroup:(NSMutableDictionary *)offsetGroupDict numberGroup:(NSNumber *) nr;
+- (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary;
+- (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file;
+- (void) monitorXDFile:(NSString*) path;
+- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)jsonArtboards offsetGroup:(NSMutableDictionary *)offsetGroupDict numberGroup:(NSNumber *) nr;
+//- (NSMutableDictionary*) compare2Groups:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)info offsetGroup:(NSMutableDictionary *)offsetGroupDict numberGroup:(NSNumber *) nr;
 - (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq json_info:(NSDictionary *) jsonInfo;
-- (void) updateXMLfile:(NSDictionary*)tags tagNo:(NSNumber *)n;
+- (void) updateXMLfile:(NSDictionary *)tags tagNo:(NSNumber *)n offsetScene:(NSNumber **) offset_scene;
 - (NSString *) appendModifiedString:(NSMutableDictionary *)dict minTagOffset:(NSNumber **)tagOffset;
-- (NSRange) getStringRange: (NSString *)initString substr:(NSString *)substring offsetScene:(NSNumber **) offset_Scene;
+//- (NSRange) getStringRange: (NSString *)initString substr:(NSString *)substring offsetScene:(NSNumber **) offset_Scene;
 
 @end

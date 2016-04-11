@@ -40,8 +40,8 @@
 }
 
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
-    agcToXmlTemplate = defDict;
-    translationDict = ruleDict;
+    agcToXmlTemplate = [defDict mutableCopy];
+    translationDict = [ruleDict mutableCopy];
     uniqueIds = [[NSMutableDictionary alloc] init];
     sceneNo = 0;
 
@@ -75,13 +75,13 @@
 
 // TODO generate toString depending on
 -(NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName {
-    NSArray *order = [dict objectForKey:@"toString"];
+    //NSArray *order = [dict objectForKey:@"toString"];
     
-    NSMutableString *tagStr = [[NSMutableString alloc] init];
+    /*NSMutableString *tagStr = [[NSMutableString alloc] init];
    
     for (id object in order) {
         
-    }
+    }*/
     
     return @"";
 }
@@ -177,7 +177,7 @@
     
     NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
     NSLog(@"finalDict = %@ %@", finalDict, agcToXmlTemplate);
-    NSMutableDictionary *subviews = [[agcToXmlTemplate objectForKey:@"subviews"] mutableCopy];
+   // NSMutableDictionary *subviews = [[agcToXmlTemplate objectForKey:@"subviews"] mutableCopy];
     NSMutableDictionary *rulesTempDict = [[finalDict objectForKey:@"view"] objectForKey:@"rules"];
     NSMutableDictionary *tempDict = [finalDict objectForKey:@"view"] ;
     
@@ -193,7 +193,7 @@
             NSMutableDictionary *rulesDict = [rulesTempDict objectForKey:rule];
             if ([rulesDict isKindOfClass:[NSArray class]])
                 continue;
-            NSArray *conds = [rulesDict allKeys];
+            //NSArray *conds = [rulesDict allKeys];
             NSString* cond;
             if ([rulesDict count] == 0)
                 cond = nil;
@@ -229,7 +229,7 @@
     }
     // look at subviews
     NSArray *array = [NSArray arrayWithObjects:@"subviews", nil];
-    NSDictionary *xmlDict;
+   // NSDictionary *xmlDict;
     for (id key in array) {
         NSDictionary *result = [[translationDict objectForKey:key] objectForKey:agcObject];
         if (result)

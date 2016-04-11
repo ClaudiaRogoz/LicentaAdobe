@@ -19,20 +19,20 @@ int main(int argc, const char * argv[]) {
     
     NSString *file = [NSString stringWithFormat:@"%s", argv[1]];
     NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
-    NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"storyboard"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"storyboard"];
     NSData *parser = [NSData dataWithContentsOfFile:file];
     NSString *string = [[NSString alloc] initWithData:parser encoding:NSUTF8StringEncoding] ;
     NSLog(@"String%@", string);
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:parser resources:imageDir outFile:file error:&parseError];
+    [XMLReader dictionaryForXMLData:parser resources:imageDir outFile:file error:&parseError];
     
     
     /* copy <agc file> to clipboard */
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
-    NSString *hello = [NSString stringWithFormat:@"Hello"];
+   // NSString *hello = [NSString stringWithFormat:@"Hello"];
     [clipboardItem setData:[NSData dataWithContentsOfFile:@"/Users/crogoz/Documents/artboardF.agc"] forType:@"com.adobe.sparkler.design"];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     
