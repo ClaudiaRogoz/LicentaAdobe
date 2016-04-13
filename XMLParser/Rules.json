@@ -1,5 +1,7 @@
 {
     "artboard"  :   "view",
-    "view"      :   "artboard"
+    "view"      :   "artboard",
+    "text"      :   "label",
+    "label"     :   "text"
     
 }

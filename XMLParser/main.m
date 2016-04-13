@@ -17,7 +17,7 @@
 
 int main(int argc, const char * argv[]) {
     
-   
+    NSLog(@"Arg = %d %d", argc, sizeof(argv)/sizeof(argv[0]));
     NSString *xmlPath = [NSString stringWithFormat:@"%s", argv[1]];
     NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
@@ -50,7 +50,7 @@ int main(int argc, const char * argv[]) {
     NSLog(@"NS = %@", ns);*/
  
     
-    //[XMLGenerator readTemplate];
+    [XMLGenerator readTemplate];
 
     return NSApplicationMain(argc, argv);
 }

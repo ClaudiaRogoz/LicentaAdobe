@@ -39,6 +39,7 @@
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
     agcToXmlTemplate = [defDict mutableCopy];
     translationDict = [ruleDict mutableCopy];
+    resourcesDict = [[NSMutableDictionary alloc] init];
     sceneNo = 0;
 
 
@@ -120,7 +121,7 @@
     
     NSMutableDictionary *objDict;
     if ([rule isEqualToString:SUBVIEWS])
-        objDict = [[[agcToXmlTemplate objectForKey:SUBVIEWS] objectForKey:rule] mutableCopy];
+        objDict = [[agcToXmlTemplate objectForKey:SUBVIEWS] mutableCopy];
     else
         objDict = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:rule] mutableCopy];
     
@@ -133,7 +134,7 @@
     //get values from agc in order to transfer them into xml
     id values = agcParams;
     NSArray *goToAgc = [self splitVariable:cond];
-    
+    NSLog(@"Dependency = %@ %@", goToAgc, agcParams);
     for (id key in goToAgc) {
         
         id nodeValue;
@@ -172,7 +173,22 @@
         //maybe recursive ?
         //merge "dict" with "values"
         NSLog(@"NOT NULL TODO\n");
-        [self mergeDefaultValues:dictValue withDict:&objDict usingDict:dict];
+        if (![dictValue isKindOfClass:[NSArray class]])
+            [self mergeDefaultValues:dictValue withDict:&objDict usingDict:dict];
+        else {
+            NSMutableDictionary *tree = [[NSMutableDictionary alloc] init];
+            for (id object in dictValue) {
+                /* obtain the type of each object 
+                 * get the corresponding template*/
+                id type = [translationDict objectForKey:[object objectForKey:@"type"]];
+                NSMutableDictionary *typeObjDict = [objDict objectForKey:type];
+                 NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
+                NSMutableDictionary *tb = [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
+                //[self mergeDefaultValues:object withDict:&typeObjDict usingDict:dict];
+                NSLog(@"Merged = %@", tb);
+            }
+            
+        }
         return objDict;
         
     }
@@ -182,16 +198,10 @@
 
 }
 
+-(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict finalDict:(NSMutableDictionary *)finalDict{
 
--(NSDictionary*) processWholeXmlFromAgc:(NSDictionary *)agcDict {
-    
-    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
-    NSLog(@"finalDict = %@ %@", finalDict, agcToXmlTemplate);
-   // NSMutableDictionary *subviews = [[agcToXmlTemplate objectForKey:@"subviews"] mutableCopy];
-    NSMutableDictionary *viewDict = [finalDict objectForKey:@"view"];
-    NSMutableDictionary *rulesInitDict = [viewDict objectForKey:@"rules"];
+    NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:@"rules"];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
-    
     
     for (id rule in rulesTempDict) {
         NSLog(@"rule = %@", rule);
@@ -219,33 +229,45 @@
                 [rulesInitDict setObject:mergeDict forKey:rule];
                 NSLog(@"After merge  =  %@ ", rulesInitDict);
             }
-        
+            
         } else {
             //TODO the modified variable is in the "finalDict"
             //remove the $x.y.z... rule
             [rulesInitDict removeObjectForKey:rule];
             for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
-                viewDict = [viewDict objectForKey:key];
+                *templateDict = [*templateDict objectForKey:key];
             }
             NSString *value = [self computeValue:[rulesTempDict objectForKey:rule]];
-            NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], viewDict);
-            [viewDict setObject:value forKey:[keys lastObject]];
+            NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], *templateDict);
+            [*templateDict setObject:value forKey:[keys lastObject]];
             
         }
-    
+        
     }
-    
+
     return finalDict;
 }
 
-/* in caser of whole file translation => extend with header and footer */
--(NSString *) surroundWithHeader:(NSString *) header footer:(NSString *) footer {
+-(NSDictionary*) processWholeXmlFromAgc:(NSDictionary *)agcDict {
     
+    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
+    NSLog(@"finalDict = %@ %@", finalDict, agcToXmlTemplate);
+
+    NSMutableDictionary *viewDict = [finalDict objectForKey:@"view"];
     
-    return @"";
+    return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict];
     
 }
 
+/* in caser of whole file translation => extend with header and footer */
+-(NSString *) surroundWithHeader:(NSString *) header footer:(NSString *) footer string:(NSString *)str {
+    
+    
+    return [NSString stringWithFormat:@"%@\n%@\n%@", header, str, footer];
+    
+}
+
+/* TODO pretty print xml using tab = count nr of subtags etc !! */
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
     
     NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
@@ -263,14 +285,15 @@
                 [ tmp appendString: [self toString:attr name:name isLeaf:FALSE]];
             
             
-        } else if ([[agcToXmlTemplate objectForKey:SUBVIEWS] objectForKey:key]){
-            
+        } else if ([key isEqualToString:SUBVIEWS]){
+            NSLog(@"Key = %@ is Subview\n", key);
             
             
         } else if ([[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]){
             
             /* just an ordinary leaf tag; create a one-line with the given attributes */
-             [ tmp appendString: [self toString:attr name:name isLeaf:TRUE]];
+            NSString *ret = [self toString:attr name:key isLeaf:TRUE];
+             [ tmp appendString: [NSString stringWithFormat:@"\n\t%@", ret]];
             
         }
     }
@@ -286,11 +309,19 @@
         // it was given the whole dictionary to process => goto @"content"; type = "view"
         // TODO insert header + footer of the xml file
         NSMutableString *finalString = [[NSMutableString alloc] init];
-        NSLog(@"type = %@ %@", typeAgcObject, agcToXmlTemplate);
+        NSLog(@"typeX = %@ %@", typeAgcObject, agcToXmlTemplate);
         NSDictionary *dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: @"view"];
         NSLog(@"D1ct = %@", dict);
         NSString *xmlGen = [self parseToString:finalString dict:dict name:@"view"];
-        NSLog(@"EQStr = %@", xmlGen);
+        NSMutableString *stringFooter = [NSMutableString stringWithFormat:@"%@\n%@",@"</view>", XMLFOOTER];
+        if ([resourcesDict count]) {
+            //TODO append resources if it exists
+        }
+        
+        [stringFooter appendFormat:@"\n%@", XMLDOCUMENTFOOTER];
+        
+        NSString *xmlFile = [self surroundWithHeader:@"" footer:stringFooter string:xmlGen];
+        NSLog(@"EQStr = %@", xmlFile);
         return finalString;
         
     }

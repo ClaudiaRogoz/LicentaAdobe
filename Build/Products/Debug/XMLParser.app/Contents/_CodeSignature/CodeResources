@@ -46,7 +46,7 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		bgfxB73WHXJ/bMtJgZT4QKFUbFI=
+		FDO4MvAMj3z/ATVFGjNzD0/FP4g=
 		</data>
 		<key>Resources/File</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		oxiIRIMzW26zBNgPsiZjXWZvkpI=
+		J5TMYrc3FoxW9a0vTj9nrcmFsSU=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -62,7 +62,7 @@
 		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
-		whMSL12HIvg42opuN6TDgB7jOhw=
+		/id76S+P55UZ+zPWuGNKxBZ2ftE=
 		</data>
 		<key>Resources/XMLImages.xml</key>
 		<data>
@@ -158,11 +158,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bgfxB73WHXJ/bMtJgZT4QKFUbFI=
+			FDO4MvAMj3z/ATVFGjNzD0/FP4g=
 			</data>
 			<key>hash2</key>
 			<data>
-			TH6FnS6c3XqwfX78lbVfLIo93NHN0fVI0rgcqJGfrIo=
+			8El547I49pGAXmn1AG25f8sEh+QcUr+3miyZKrZSMRI=
 			</data>
 		</dict>
 		<key>Resources/File</key>
@@ -180,11 +180,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			oxiIRIMzW26zBNgPsiZjXWZvkpI=
+			J5TMYrc3FoxW9a0vTj9nrcmFsSU=
 			</data>
 			<key>hash2</key>
 			<data>
-			0l8uezCCUreYJjmbDfOhNGR+95U45ILTYTTiMjHy0qU=
+			otLQbeD9ws/l0o72qiU+kukHXG9xCC0TmsSDB6mlVl0=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -202,11 +202,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			whMSL12HIvg42opuN6TDgB7jOhw=
+			/id76S+P55UZ+zPWuGNKxBZ2ftE=
 			</data>
 			<key>hash2</key>
 			<data>
-			0T74FIH9CNcTw/ewOhFbTHcM7oTycAaQvnIQlW3lEMI=
+			l2qWfv4mogRN8LsnDMy2MNJmQGZPP1Z6Y+8QBXfAB3M=
 			</data>
 		</dict>
 		<key>Resources/XMLImages.xml</key>

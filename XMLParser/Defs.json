@@ -70,11 +70,7 @@
             "rules": {
                 "$header.id" : "$rand",
                 "$header.text" : "$children.$sceneNo.artboard.children.$subviewNo.text.rawtext",
-                "rect" : {
-                    "$formula?????" : {
-                    
-                    }
-                },
+                
                 "fontDescription" : {
                     "$subview.style.font" :
                     {

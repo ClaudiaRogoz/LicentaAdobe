@@ -91,9 +91,6 @@
             argument = "/Users/crogoz/Downloads"
             isEnabled = "YES">
          </CommandLineArgument>
-         <CommandLineArgument
-            isEnabled = "NO">
-         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
