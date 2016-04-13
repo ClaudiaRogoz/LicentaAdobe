@@ -17,7 +17,11 @@
     NSError *error;
     XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
     NSData *defData = [NSData dataWithContentsOfFile:DEF_PATH];
+    NSLog(@"Data %@", defData);
+    
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"Defs.json" ofType:@"txt" inDirectory:@"TranslationsSchemas"];
     NSData *ruleData = [NSData dataWithContentsOfFile:RULES_PATH];
+    NSLog(@"D1 = %@", ruleData);
     
     NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
  
@@ -183,6 +187,7 @@
                 id type = [translationDict objectForKey:[object objectForKey:@"type"]];
                 NSMutableDictionary *typeObjDict = [objDict objectForKey:type];
                  NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
+                NSLog(@"--------------------------------------------\n");
                 NSMutableDictionary *tb = [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
                 //[self mergeDefaultValues:object withDict:&typeObjDict usingDict:dict];
                 NSLog(@"Merged = %@", tb);
@@ -286,6 +291,15 @@
             
             
         } else if ([key isEqualToString:SUBVIEWS]){
+            [tmp appendString:XMLSUBVIEWS];
+            for (id subview in attr) {
+                NSDictionary* dict = [attr objectForKey:subview];
+                NSLog(@"Dict = %@", dict);
+                NSString *str = [self parseToString:tmp dict:dict name:subview];
+                
+                [tmp appendString: str];
+            }
+            [tmp appendString:XMLSUBVIEWSF];
             NSLog(@"Key = %@ is Subview\n", key);
             
             
@@ -318,7 +332,7 @@
             //TODO append resources if it exists
         }
         
-        [stringFooter appendFormat:@"\n%@", XMLDOCUMENTFOOTER];
+        [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
         
         NSString *xmlFile = [self surroundWithHeader:@"" footer:stringFooter string:xmlGen];
         NSLog(@"EQStr = %@", xmlFile);

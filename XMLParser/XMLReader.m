@@ -1273,7 +1273,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     //NSString *nameInit = elementName;
     
     if ([elementName isEqualToString:@"switch"]){
-        
+        NSString *switchPath = [NSString stringWithFormat:@"TranslationsSchemas/%@", xml2agcDictionary[elementName]];
         NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:@"agc"];
         NSError * error=nil;;
         

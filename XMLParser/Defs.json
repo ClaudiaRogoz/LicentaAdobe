@@ -72,7 +72,7 @@
                 "$header.text" : "$children.$sceneNo.artboard.children.$subviewNo.text.rawtext",
                 
                 "fontDescription" : {
-                    "$subview.style.font" :
+                    "$children.$sceneNo.artboard.children.$subviewNo.style.font" :
                     {
                         "key" : "fontDescription",
                         "type" : "system",
@@ -80,7 +80,7 @@
                     }
                 },
                 "color" : {
-                    "$subview.style.fill.color.value" : {
+                    "$children.$sceneNo.artboard.children.$subviewNo.style.fill.color.value" : {
                         "key" : "textColor",
                         "red" : "$r",
                         "green" : "$g",
@@ -93,10 +93,12 @@
                 "nil" : {
                     "key" : "highlightedColor"
                     
-                }
+                },
+                "toString" : ["fontDescription", "color", "nil"]
                 
                 
-            }
+            },
+            "toString" : ["header", "rules"]
         }
     },
     "subtags": {
@@ -133,6 +135,15 @@
                 "blue" : 255,
                 "alpha" : 1
             }
+        },
+        "fontDescription" : {
+            "key" : "fontDescription",
+            "type" : "system",
+            "pointSize" : "$size",
+            "toString" : ["key" , "type", "pointSize"]
+            
+            
+            
         }
     }
 }
