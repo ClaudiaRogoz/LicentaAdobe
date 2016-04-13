@@ -98,11 +98,12 @@
 
 -(void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict {
     
-    NSLog(@"Trying to merge %@ with %@", defaultDict, *initDict);
-    for (id key in [defaultDict allKeys]) {
-        NSString *value = [defaultDict objectForKey:key];
-        [*initDict setObject:value forKey:key];
-    }
+    NSLog(@"ABC to merge %@ with %@\nParams = %@", defaultDict, *initDict, paramDict);
+    if ([defaultDict count] > 0)
+        for (id key in [defaultDict allKeys]) {
+            NSString *value = [defaultDict objectForKey:key];
+            [*initDict setObject:value forKey:key];
+        }
     
     
     NSString *dependency = [[paramDict allKeys] objectAtIndex:0];
@@ -113,7 +114,7 @@
         NSLog(@"keyK = %@ %@", key, value);
         BOOL toTransform = [value isKindOfClass:[NSString class]] && [value hasPrefix:@"$"];
         if (toTransform) {
-            NSLog(@"transform %@", key);
+            NSLog(@"transform %@ with %@", key, [paramDict objectForKey:key]);
             [*initDict setObject:[paramDict objectForKey:key] forKey:key];
         }
     }
@@ -121,6 +122,36 @@
 
 }
 
+-(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
+              usingValues:(NSDictionary *)paramsValue {
+    
+    NSLog(@"DictValue = %@", paramsValue);
+    NSMutableDictionary *defaultDict = [*objDict objectForKey:DEFAULT];
+    paramsValue = [paramsValue objectForKey:[[paramsValue allKeys] objectAtIndex:0]];
+    
+    for (id key in [*objDict allKeys]) {
+        id value = [*objDict objectForKey:key];
+        
+        if ([value isKindOfClass:[NSString class]] && [value hasPrefix:@"$"]) {
+            value = [dictValue objectForKey:[value substringFromIndex:1]];
+            if (value) {
+                [*objDict setObject:value forKey:key];
+            } else {
+                /* use values specified from agc */
+                value = [paramsValue objectForKey:key];
+                if (![value hasPrefix:@"$"])
+                    [*objDict setValue:value forKey:key]; /* no need for transformation */
+                else {
+                    /* use default values */
+                    [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
+                }
+                    
+            }
+        }
+        
+    }
+    
+}
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSString*)cond params:(NSDictionary *)dict agcDict:agcParams{
     
     NSMutableDictionary *objDict;
@@ -177,8 +208,13 @@
         //maybe recursive ?
         //merge "dict" with "values"
         NSLog(@"NOT NULL TODO\n");
-        if (![dictValue isKindOfClass:[NSArray class]])
-            [self mergeDefaultValues:dictValue withDict:&objDict usingDict:dict];
+        if (![dictValue isKindOfClass:[NSArray class]]) {
+            NSLog(@"2merge = %@ with %@\dict= %@ %@", objDict,  dict, dictValue, agcParams);
+            
+            id dep = [[dict allKeys] objectAtIndex:0];
+            [self mergeDictionaries:&objDict withDict:dictValue usingValues:dict];
+            //[self mergeDefaultValues:[dict objectForKey:dep] withDict:&objDict usingDict:dictValue];
+        }
         else {
             NSMutableDictionary *tree = [[NSMutableDictionary alloc] init];
             for (id object in dictValue) {
@@ -295,8 +331,9 @@
             for (id subview in attr) {
                 NSDictionary* dict = [attr objectForKey:subview];
                 NSLog(@"Dict = %@", dict);
-                NSString *str = [self parseToString:tmp dict:dict name:subview];
-                
+                NSMutableString *str = [self parseToString:tmp dict:dict name:subview];
+                NSString* subFooter = [NSString stringWithFormat:@"\n</%@>", subview];
+                [str appendString:subFooter];
                 [tmp appendString: str];
             }
             [tmp appendString:XMLSUBVIEWSF];
@@ -326,7 +363,9 @@
         NSLog(@"typeX = %@ %@", typeAgcObject, agcToXmlTemplate);
         NSDictionary *dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: @"view"];
         NSLog(@"D1ct = %@", dict);
+        
         NSString *xmlGen = [self parseToString:finalString dict:dict name:@"view"];
+        NSString *header = [NSString stringWithFormat:@"%@\n%@", XMLHEADER, xmlGen];
         NSMutableString *stringFooter = [NSMutableString stringWithFormat:@"%@\n%@",@"</view>", XMLFOOTER];
         if ([resourcesDict count]) {
             //TODO append resources if it exists
@@ -334,8 +373,15 @@
         
         [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
         
-        NSString *xmlFile = [self surroundWithHeader:@"" footer:stringFooter string:xmlGen];
-        NSLog(@"EQStr = %@", xmlFile);
+        NSString *xmlFile = [self surroundWithHeader:XMLHEADER footer:stringFooter string:xmlGen];
+        NSLog(@"XML = %@", xmlFile);
+        NSData *data = [xmlFile dataUsingEncoding:NSUTF8StringEncoding];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+        NSError *err;
+        NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
+        NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
+        [xmlData writeToFile:@"new.xml" atomically:YES];
+        
         return finalString;
         
     }

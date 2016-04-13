@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"></deployment>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"></plugIn>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"></viewControllerLayoutGuide>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"></viewControllerLayoutGuide>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AE9BE1FF-D08A-4FB5-9B2D-0B6823C0BC0D">
+                        <rect key="frame" x="800" y="0" width="375" height="667"></rect>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"></autoresizingMask>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6F124CCB-855B-4D83-AA56-CD5E680618C7">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"></fontDescription>
+                                <color key="textColor" red="0.5" green="0" blue="0" alpha="1" colorSpace="calibratedRGB"></color>
+                                <nil key="highlightedColor"></nil>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="255" green="255" blue="255" alpha="1" colorSpace="calibratedRGB"></color>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tYr-Cr-j24" userLabel="First Responder" sceneMemberID="firstResponder"></placeholder>
+            </objects>
+            <point key="canvasLocation" x="2377" y="429"></point>
+        </scene>
+    </scenes>
+</document>

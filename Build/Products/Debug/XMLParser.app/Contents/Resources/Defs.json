@@ -69,10 +69,10 @@
             },
             "rules": {
                 "$header.id" : "$rand",
-                "$header.text" : "$children.$sceneNo.artboard.children.$subviewNo.text.rawtext",
+                "$header.text" : "$text.rawtext",
                 
                 "fontDescription" : {
-                    "$children.$sceneNo.artboard.children.$subviewNo.style.font" :
+                    "$style.font" :
                     {
                         "key" : "fontDescription",
                         "type" : "system",
@@ -80,13 +80,12 @@
                     }
                 },
                 "color" : {
-                    "$children.$sceneNo.artboard.children.$subviewNo.style.fill.color.value" : {
+                    "$style.fill.color.value" : {
                         "key" : "textColor",
                         "red" : "$r",
                         "green" : "$g",
                         "blue" : "$b",
-                        "alpha" : "$alpha",
-                        "colorSpace" :"calibratedRGB"
+                        "alpha" : "$alpha"
                         
                     }
                 },
