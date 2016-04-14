@@ -1,8 +1,13 @@
+UPDATE (14 apr 2016)
+	Changed first argument to ...../<Proj_Name>/<Proj_name>
+
+--------------
 Build & Run App:
 	Xcode IDE
  
 	input: 
-		<xmlFile> which corresponds to Xcode Storyboard
+		<xmlFile> which corresponds to Xcode Storyboard ( ...../<Proj_Name>/<Proj_name>
+)
 		<resources Directory> where are the resources <images> located
 
 	output: 
