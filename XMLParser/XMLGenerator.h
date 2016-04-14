@@ -12,6 +12,7 @@
 #define DEF_PATH @"XMLParser/Defs.json"
 #define RULES_PATH @"XMLParser/Rules.json"
 #define TEST_PATH @"XMLParser/TestGenerator.json"
+#define TEST2_PATH @"Test2LabelsInAgcGenerator.json"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
@@ -32,6 +33,8 @@
 #define XMLDOCUMENTF   @"</document>"
 
 
+
+
 /**
  *  Parses AGC code; Generates XML tags for XCODE
  **/
@@ -47,6 +50,8 @@
      **/
     NSMutableDictionary *translationDict;
     NSMutableDictionary *resourcesDict;
+    NSMutableDictionary *transformObjects;
+    
     //NSMutableDictionary *uniqueIds;
     
     /* current scene_number == artboard_number */

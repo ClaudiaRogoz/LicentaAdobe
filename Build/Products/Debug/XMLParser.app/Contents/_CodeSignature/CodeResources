@@ -46,7 +46,7 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		Vcf529ZiVTSCEljoLiPXF0Yo23M=
+		sjzeom6dRap5NWEV9FU4/5XjlRY=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
@@ -56,9 +56,13 @@
 		<data>
 		4Vv5kPeIkk8qbXJqendgGaSLjc8=
 		</data>
+		<key>Resources/Test2LabelsInAgcGenerator.json</key>
+		<data>
+		dIXvbH/N8Hk6jTYH98CCx0WVBcY=
+		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
-		/id76S+P55UZ+zPWuGNKxBZ2ftE=
+		SqChx64/LBJw58G8GmSipOVpg7A=
 		</data>
 		<key>Resources/XMLImages.xml</key>
 		<data>
@@ -154,11 +158,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Vcf529ZiVTSCEljoLiPXF0Yo23M=
+			sjzeom6dRap5NWEV9FU4/5XjlRY=
 			</data>
 			<key>hash2</key>
 			<data>
-			lQytCt94OnzfgIayYEMLljPAK5+EbNjE/cAMmmW+siM=
+			06Xqdqrh3333N9h7HfmoVz71l5QHnvih0+qDgtg4S9w=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
@@ -183,15 +187,26 @@
 			Mhjio6lUxn0sylLerqP+8wkCaY7T9s0IRSuxmwc0lBk=
 			</data>
 		</dict>
+		<key>Resources/Test2LabelsInAgcGenerator.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dIXvbH/N8Hk6jTYH98CCx0WVBcY=
+			</data>
+			<key>hash2</key>
+			<data>
+			9Ow92MWqtnbBO3y/ioxpDwkc6Sc7wBRQeiapidzyPTU=
+			</data>
+		</dict>
 		<key>Resources/TestGenerator.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/id76S+P55UZ+zPWuGNKxBZ2ftE=
+			SqChx64/LBJw58G8GmSipOVpg7A=
 			</data>
 			<key>hash2</key>
 			<data>
-			l2qWfv4mogRN8LsnDMy2MNJmQGZPP1Z6Y+8QBXfAB3M=
+			F8iea/SFGHcpujYyshhaz3GV6ilWYvIjQ0vzCzALAwo=
 			</data>
 		</dict>
 		<key>Resources/XMLImages.xml</key>

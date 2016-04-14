@@ -23,7 +23,7 @@
                 }
             }
             ,
-            "autoresizing" : {},
+            "autoresizingMask" : {},
             
             "subviews" : {
                 "$children.$sceneNo.artboard.children" : {}
@@ -39,7 +39,7 @@
                     "colorSpace" :"calibratedRGB"
                 }
             },
-            "toString" : ["rect", "autoresizing", "subviews", "color"]
+            "toString" : ["rect", "autoresizingMask", "subviews", "color"]
         }
     }
     }
@@ -69,7 +69,7 @@
             },
             "rules": {
                 "$header.id" : "$rand",
-                "$header.text" : "$text.rawtext",
+                "$header.text" : "$text.rawText",
                 
                 "fontDescription" : {
                     "$style.font" :
@@ -109,7 +109,7 @@
             "height" : "$height",
             "toString" : ["key", "x", "y", "width", "height"]
         },
-        "autoresizing" : {
+        "autoresizingMask" : {
             "key" : "autoresizingMask",
             "widthSizable" : "YES",
             "heightSizable" :"YES",

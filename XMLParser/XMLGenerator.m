@@ -31,7 +31,7 @@
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:TEST_PATH];
+    NSData *testData = [NSData dataWithContentsOfFile:TEST2_PATH];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
     NSLog(@"AgcTemplate = %@", agcTemplate);
     NSString *translation = [gen getXmlForAgcObject:agcTemplate];
@@ -44,25 +44,43 @@
     agcToXmlTemplate = [defDict mutableCopy];
     translationDict = [ruleDict mutableCopy];
     resourcesDict = [[NSMutableDictionary alloc] init];
+    transformObjects = [[NSMutableDictionary alloc] init];
+    transformObjects[@"size"] = [[NSMutableDictionary alloc] init];
+    transformObjects[@"size"][@"x"] = [NSNumber numberWithInt:1];
+    transformObjects[@"size"][@"y"] = [NSNumber numberWithInt:1];
+    
+    transformObjects[@"color"] = [[NSMutableDictionary alloc] init];
+    transformObjects[@"color"][@"red"] = [NSNumber numberWithInt:1];
+    transformObjects[@"color"][@"green"] = [NSNumber numberWithInt:1];
+    transformObjects[@"color"][@"blue"] = [NSNumber numberWithInt:1];
+    
     sceneNo = 0;
 
 
 }
 
 
--(NSString *) computeValue:(NSString *)initValue {
+-(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict{
+    
     
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
         return [[NSUUID UUID] UUIDString];
         
-    } /*else {
+    } else {
         //if it depends on an agc tag
         initValue = [initValue substringFromIndex:1];
         NSArray *array = [initValue componentsSeparatedByString:@"."];
         
+        id value = agcDict;
+        for (id key in array) {
+            value = [value objectForKey:key];
+           
+        }
+        
+        return value;
     
-    }*/
+    }
     
     return initValue;
 
@@ -125,7 +143,7 @@
 -(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
               usingValues:(NSDictionary *)paramsValue {
     
-    NSLog(@"DictValue = %@", paramsValue);
+    NSLog(@"DictValue = %@", dictValue);
     NSMutableDictionary *defaultDict = [*objDict objectForKey:DEFAULT];
     paramsValue = [paramsValue objectForKey:[[paramsValue allKeys] objectAtIndex:0]];
     
@@ -135,10 +153,20 @@
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:@"$"]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
             if (value) {
+                NSLog(@"Changing %@ with %@", key, value);
+                if ([[transformObjects objectForKey:@"size"] objectForKey:key]) {
+                    /* TODO change the size -> scale */
+                } else if ([[transformObjects objectForKey:@"color"] objectForKey:key]) {
+                    /* change color */
+                    float color = [value floatValue] / 255;
+                    [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
+                    continue;
+                }
                 [*objDict setObject:value forKey:key];
             } else {
                 /* use values specified from agc */
                 value = [paramsValue objectForKey:key];
+                NSLog(@"Setting value = %@", value);
                 if (![value hasPrefix:@"$"])
                     [*objDict setValue:value forKey:key]; /* no need for transformation */
                 else {
@@ -243,7 +271,7 @@
 
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:@"rules"];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
-    
+    NSMutableDictionary *tempTemplate = *templateDict;
     for (id rule in rulesTempDict) {
         NSLog(@"rule = %@", rule);
         NSArray *keys = [self splitVariable:rule];
@@ -274,13 +302,23 @@
         } else {
             //TODO the modified variable is in the "finalDict"
             //remove the $x.y.z... rule
-            [rulesInitDict removeObjectForKey:rule];
+            //[rulesInitDict removeObjectForKey:rule];
+            NSLog(@"TMPL = %@ %@", *templateDict, keys);
+            id val = *templateDict;
             for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
-                *templateDict = [*templateDict objectForKey:key];
+                val = [val objectForKey:key];
             }
-            NSString *value = [self computeValue:[rulesTempDict objectForKey:rule]];
-            NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], *templateDict);
-            [*templateDict setObject:value forKey:[keys lastObject]];
+            NSString *value = [self computeValue:[rulesTempDict objectForKey:rule] forDict:agcDict];
+            NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], val);
+            NSLog(@"Components = %@", [value componentsSeparatedByString:@" "]);
+            
+            if ([[value componentsSeparatedByString:@" "] count] == 1)
+                [val setObject:value forKey:[keys lastObject]];
+            else {
+                NSString *stringValue = [NSString stringWithFormat:@"\"%@\"", value];
+                [val setObject:stringValue forKey:[keys lastObject]];
+            }
+            NSLog(@"Val = %@", val);
             
         }
         
