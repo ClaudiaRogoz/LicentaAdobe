@@ -19,7 +19,6 @@
     NSData *defData = [NSData dataWithContentsOfFile:DEF_PATH];
     NSLog(@"Data %@", defData);
     
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"Defs.json" ofType:@"txt" inDirectory:@"TranslationsSchemas"];
     NSData *ruleData = [NSData dataWithContentsOfFile:RULES_PATH];
     NSLog(@"D1 = %@", ruleData);
     
@@ -31,7 +30,7 @@
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:TEST2_PATH];
+    NSData *testData = [NSData dataWithContentsOfFile:TEST_PATH];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
     NSLog(@"AgcTemplate = %@", agcTemplate);
     NSString *translation = [gen getXmlForAgcObject:agcTemplate];
@@ -237,14 +236,13 @@
         //merge "dict" with "values"
         NSLog(@"NOT NULL TODO\n");
         if (![dictValue isKindOfClass:[NSArray class]]) {
-            NSLog(@"2merge = %@ with %@\dict= %@ %@", objDict,  dict, dictValue, agcParams);
+            NSLog(@"2merge = %@ with %@dict= %@ %@", objDict,  dict, dictValue, agcParams);
             
-            id dep = [[dict allKeys] objectAtIndex:0];
             [self mergeDictionaries:&objDict withDict:dictValue usingValues:dict];
             //[self mergeDefaultValues:[dict objectForKey:dep] withDict:&objDict usingDict:dictValue];
         }
         else {
-            NSMutableDictionary *tree = [[NSMutableDictionary alloc] init];
+           
             for (id object in dictValue) {
                 /* obtain the type of each object 
                  * get the corresponding template*/
@@ -252,7 +250,7 @@
                 NSMutableDictionary *typeObjDict = [objDict objectForKey:type];
                  NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
                 NSLog(@"--------------------------------------------\n");
-                NSMutableDictionary *tb = [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
+                NSDictionary *tb = [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
                 //[self mergeDefaultValues:object withDict:&typeObjDict usingDict:dict];
                 NSLog(@"Merged = %@", tb);
             }
@@ -262,7 +260,6 @@
         
     }
     
-    NSLog(@"ValuesForKey = %@", values);
     return values;
 
 }
@@ -271,7 +268,7 @@
 
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:@"rules"];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
-    NSMutableDictionary *tempTemplate = *templateDict;
+
     for (id rule in rulesTempDict) {
         NSLog(@"rule = %@", rule);
         NSArray *keys = [self splitVariable:rule];
@@ -403,7 +400,7 @@
         NSLog(@"D1ct = %@", dict);
         
         NSString *xmlGen = [self parseToString:finalString dict:dict name:@"view"];
-        NSString *header = [NSString stringWithFormat:@"%@\n%@", XMLHEADER, xmlGen];
+
         NSMutableString *stringFooter = [NSMutableString stringWithFormat:@"%@\n%@",@"</view>", XMLFOOTER];
         if ([resourcesDict count]) {
             //TODO append resources if it exists
@@ -414,7 +411,7 @@
         NSString *xmlFile = [self surroundWithHeader:XMLHEADER footer:stringFooter string:xmlGen];
         NSLog(@"XML = %@", xmlFile);
         NSData *data = [xmlFile dataUsingEncoding:NSUTF8StringEncoding];
-        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+
         NSError *err;
         NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
         NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
@@ -437,7 +434,7 @@
 
 -(void) generateXmlForTag:(NSDictionary*)agcDict
 {
-    NSDictionary *xmlTemplate = [self getXmlForAgcObject:agcDict];
+    NSString *xmlTemplate = [self getXmlForAgcObject:agcDict];
     
     if (!xmlTemplate) {
         NSLog(@"[ERROR] No translation can be achieved at the moment for %@", [agcDict objectForKey:@"type"]);

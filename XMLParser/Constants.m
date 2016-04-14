@@ -9,18 +9,3 @@
 #import <Foundation/Foundation.h>
 #import "Constants.h"
 
-@implementation Constants
-
-+ (NSDictionary*) hasToBeTransformed {
-    static NSDictionary *inst = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        inst = @{
-                 @"size": @"",
-                 @"color": @"value2",
-                 };
-    });
-    return inst;
-}
-
-@end
