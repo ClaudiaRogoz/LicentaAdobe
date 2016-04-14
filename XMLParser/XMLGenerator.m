@@ -30,7 +30,7 @@
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:TEST_PATH];
+    NSData *testData = [NSData dataWithContentsOfFile:TEST2_PATH];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
     NSLog(@"AgcTemplate = %@", agcTemplate);
     NSString *translation = [gen getXmlForAgcObject:agcTemplate];
@@ -181,7 +181,7 @@
 }
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSString*)cond params:(NSDictionary *)dict agcDict:agcParams{
     
-    NSMutableDictionary *objDict;
+    id objDict;
     if ([rule isEqualToString:SUBVIEWS])
         objDict = [[agcToXmlTemplate objectForKey:SUBVIEWS] mutableCopy];
     else
@@ -242,19 +242,28 @@
             //[self mergeDefaultValues:[dict objectForKey:dep] withDict:&objDict usingDict:dictValue];
         }
         else {
-           
+            NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
+            NSMutableDictionary *newObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [objDict mutableCopy]]];
+            objDict = [[NSMutableArray alloc] init];
+            NSLog(@"objects in subviews are = %@", dictValue);
             for (id object in dictValue) {
                 /* obtain the type of each object 
                  * get the corresponding template*/
                 id type = [translationDict objectForKey:[object objectForKey:@"type"]];
-                NSMutableDictionary *typeObjDict = [objDict objectForKey:type];
-                 NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
+                NSLog(@"OBJDict  = %@", objDict);
+                /*TODO1:00!!*/
+                NSLog(@"newObj = %@", [newObjDict objectForKey:type]);
+                NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];//[newObjDict objectForKey:type];//[NSKeyedUnarchiver unarchiveObjectWithData:[newObjDict objectForKey:type]];
+                //NSLog(@"ParamsZ = %@ %@ %@", typeObjDict, object, finalDict);
                 NSLog(@"--------------------------------------------\n");
-                NSDictionary *tb = [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
+                [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
                 //[self mergeDefaultValues:object withDict:&typeObjDict usingDict:dict];
-                NSLog(@"Merged = %@", tb);
+                NSLog(@"Merged = %@", typeObjDict);
+                NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
+                [subViewDict setObject:typeObjDict forKey:type];
+                [objDict addObject:subViewDict];
             }
-            
+            NSLog(@"We've found that the Subview contains: %@", objDict);
         }
         return objDict;
         
@@ -281,13 +290,14 @@
             NSMutableDictionary *rulesDict = [rulesTempDict objectForKey:rule];
             if ([rulesDict isKindOfClass:[NSArray class]])
                 continue;
-            //NSArray *conds = [rulesDict allKeys];
+            
             NSString* cond;
             if ([rulesDict count] == 0)
                 cond = nil;
             else
                 cond = [[rulesDict allKeys] objectAtIndex:0];
             
+            NSLog(@"The condition %@ = %@ %@ %@ %@", rule, cond, rule, [rulesTempDict objectForKey:rule], agcDict);
             NSMutableDictionary *mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
             NSLog(@"Merge dict = %@ For %@", mergeDict, rule);
             
@@ -364,10 +374,11 @@
         } else if ([key isEqualToString:SUBVIEWS]){
             [tmp appendString:XMLSUBVIEWS];
             for (id subview in attr) {
-                NSDictionary* dict = [attr objectForKey:subview];
-                NSLog(@"Dict = %@", dict);
-                NSMutableString *str = [self parseToString:tmp dict:dict name:subview];
-                NSString* subFooter = [NSString stringWithFormat:@"\n</%@>", subview];
+                NSLog(@"Subviewz = %@", subview);
+                NSString *name = [[subview allKeys] objectAtIndex:0];
+                NSMutableDictionary *dict = [subview objectForKey:name];
+                NSMutableString *str = [self parseToString:tmp dict:dict name:name];
+                NSString* subFooter = [NSString stringWithFormat:@"\n</%@>", name];
                 [str appendString:subFooter];
                 [tmp appendString: str];
             }

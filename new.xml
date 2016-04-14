@@ -13,17 +13,22 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"></viewControllerLayoutGuide>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"></viewControllerLayoutGuide>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="171DBA68-091B-405F-9F0F-3CAD1181961C">
-                        <rect key="frame" x="800" y="0" width="375" height="667"></rect>
+                    <view key="view" contentMode="scaleToFill" id="EA41B44E-38FA-404E-8878-CEA2A1DE8C65">
+                        <rect key="frame" x="0" y="0" width="375" height="667"></rect>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"></autoresizingMask>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3C0D1EC-22C5-4013-B676-390A02B410C8">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"></fontDescription>
-                                <color key="textColor" red="0.784314" green="0.392157" blue="0.000000" alpha="1" colorSpace="calibratedRGB"></color>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Thatâ..s a label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CE99E8F1-7E4A-4EAD-8FF9-556E1CEF3117">
+                                <fontDescription key="fontDescription" type="system" pointSize="20"></fontDescription>
+                                <color key="textColor" red="0.584314" green="0.596078" blue="0.603922" alpha="1" colorSpace="calibratedRGB"></color>
+                                <nil key="highlightedColor"></nil>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="label 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9D33809A-7114-469B-A074-02C1602F5F36">
+                                <fontDescription key="fontDescription" type="system" pointSize="20"></fontDescription>
+                                <color key="textColor" red="0.584314" green="0.596078" blue="0.603922" alpha="1" colorSpace="calibratedRGB"></color>
                                 <nil key="highlightedColor"></nil>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="255" green="255" blue="255" alpha="1" colorSpace="calibratedRGB"></color>
+                        <color key="backgroundColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYr-Cr-j24" userLabel="First Responder" sceneMemberID="firstResponder"></placeholder>
