@@ -9,10 +9,5 @@
 #ifndef Constants_h
 #define Constants_h
 
-@interface Constants : NSObject 
-
-+(NSDictionary*)hasToBeTransformed:(NSString *)value;
-
-@end
-
+#define STORYBOARD  @"Base.lproj/Main.storyboard"
 #endif /* Constants_h */

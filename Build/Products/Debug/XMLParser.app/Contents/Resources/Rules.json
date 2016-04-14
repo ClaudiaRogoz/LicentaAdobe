@@ -2,6 +2,8 @@
     "artboard"  :   "view",
     "view"      :   "artboard",
     "text"      :   "label",
-    "label"     :   "text"
+    "label"     :   "text",
+    "shape"     :   "imageView",
+    "imageView" :   "shape"
     
 }

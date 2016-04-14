@@ -8,11 +8,13 @@
 
 #import "XMLGenerator.h"
 
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-
+@import AppKit;
 @implementation XMLGenerator
 
-+ (void)readTemplate
++ (void)readTemplateUsingXML:(NSString *)xmlPath
 {
     NSError *error;
     XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
@@ -25,12 +27,12 @@
     NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
  
     NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
-    
+    [gen setXmlPath:xmlPath];
     [gen initializeWithDefs:defDictionary rules:ruleDictionary];
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:TEST2_PATH];
+    NSData *testData = [NSData dataWithContentsOfFile:TESTIL_PATH];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
     NSLog(@"AgcTemplate = %@", agcTemplate);
     NSString *translation = [gen getXmlForAgcObject:agcTemplate];
@@ -42,7 +44,8 @@
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
     agcToXmlTemplate = [defDict mutableCopy];
     translationDict = [ruleDict mutableCopy];
-    resourcesDict = [[NSMutableDictionary alloc] init];
+    resourcesDict = [[NSMutableString alloc] init];
+    
     transformObjects = [[NSMutableDictionary alloc] init];
     transformObjects[@"size"] = [[NSMutableDictionary alloc] init];
     transformObjects[@"size"][@"x"] = [NSNumber numberWithInt:1];
@@ -250,7 +253,10 @@
                 /* obtain the type of each object 
                  * get the corresponding template*/
                 id type = [translationDict objectForKey:[object objectForKey:@"type"]];
+                if (!type)
+                    continue;
                 NSLog(@"OBJDict  = %@", objDict);
+                NSLog(@"TypeABC = %@", type);
                 /*TODO1:00!!*/
                 NSLog(@"newObj = %@", [newObjDict objectForKey:type]);
                 NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];//[newObjDict objectForKey:type];//[NSKeyedUnarchiver unarchiveObjectWithData:[newObjDict objectForKey:type]];
@@ -339,6 +345,7 @@
     NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
     NSLog(@"finalDict = %@ %@", finalDict, agcToXmlTemplate);
 
+    
     NSMutableDictionary *viewDict = [finalDict objectForKey:@"view"];
     
     return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict];
@@ -353,14 +360,62 @@
     
 }
 
-/* TODO pretty print xml using tab = count nr of subtags etc !! */
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
     
     NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
+    NSLog(@"tmp = %@", dict);
+    
     /* now we only have to translate the currentDict */
     for (id key in [dict objectForKey:TOSTRING]) {
         id attr = [dict objectForKey:key];
-        NSLog(@"At key = %@ with %@", key, str);
+        NSLog(@"At key = %@ with %@", key, attr);
+        if ([attr isKindOfClass:[NSDictionary class]] && [attr objectForKey:ISIMAGE]) {
+            /* add image in the resources tag */
+            NSString * href = [attr objectForKey:ISIMAGE];
+            /* find widtth and height for image */
+            
+           
+            /* TODO copy the image into the xcode project!!! */
+            /* TODO get only the name of the file */
+             NSImage *image = [[NSImage alloc]initWithContentsOfFile:href];
+            /* create an image Tag using subTags */
+            NSMutableDictionary *imageDict = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:ISIMAGE] mutableCopy];
+            NSString *theFileName = [href lastPathComponent];
+            NSLog(@"FileName = %@ %@", theFileName, dict);
+            imageDict[NAME] = theFileName;
+           // [attr objectForKey:ISIMAGE];
+            imageDict[WIDTH] = [NSString stringWithFormat:@"%f", image.size.width];
+            imageDict[HEIGHT] = [NSString stringWithFormat:@"%f", image.size.height];
+            
+            NSArray *rootarray = [[self xmlPath] componentsSeparatedByString:@"/"];
+            rootarray = [rootarray subarrayWithRange:NSMakeRange(0, [rootarray count] -2)];
+            
+            /* TODO copy to the same file! for now just copy to our try file*/
+           
+            /* NSString *toCopyPath = [rootarray componentsJoinedByString:@"/"];
+            NSLog(@"TOCOPY = %@", toCopyPath);
+           */
+             NSString *toCopyPath = @"/Users/crogoz/Desktop/Try/ladybug.jpg";
+            [[NSFileManager defaultManager] createFileAtPath:toCopyPath contents:nil attributes:nil];
+            NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithContentsOfFile:href];
+            
+            NSData *data = [imageRep representationUsingType:NSPNGFileType properties:nil];
+            [data writeToFile:toCopyPath atomically:YES];
+            // Save the data
+            // NSString *copyImageToXcodeDir = [NSString stringWithFormat:@"%@/%@", //xmlPath, theFileName];
+            
+            NSString *tmp = @"";
+            NSLog(@"imageView = %@", imageDict);
+            NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
+            
+            [[dict objectForKey:HEADER]  setObject:theFileName forKey:ISIMAGE];
+            /* insert this tag into resourcesDict */
+            [resourcesDict appendString:str];
+            
+            NSLog(@"ResourcesW = %@", resourcesDict);
+        
+        }
+        
         if ([key isEqualToString:RULES]) {
             
             [tmp appendString:[self parseToString:tmp dict:attr name:key]] ;
@@ -377,6 +432,7 @@
                 NSLog(@"Subviewz = %@", subview);
                 NSString *name = [[subview allKeys] objectAtIndex:0];
                 NSMutableDictionary *dict = [subview objectForKey:name];
+                NSLog(@"name = %@ %@", name, dict);
                 NSMutableString *str = [self parseToString:tmp dict:dict name:name];
                 NSString* subFooter = [NSString stringWithFormat:@"\n</%@>", name];
                 [str appendString:subFooter];
@@ -389,6 +445,7 @@
         } else if ([[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]){
             
             /* just an ordinary leaf tag; create a one-line with the given attributes */
+            NSLog(@"OneLiner = %@ %@", key, attr);
             NSString *ret = [self toString:attr name:key isLeaf:TRUE];
              [ tmp appendString: [NSString stringWithFormat:@"\n\t%@", ret]];
             
@@ -413,8 +470,10 @@
         NSString *xmlGen = [self parseToString:finalString dict:dict name:@"view"];
 
         NSMutableString *stringFooter = [NSMutableString stringWithFormat:@"%@\n%@",@"</view>", XMLFOOTER];
-        if ([resourcesDict count]) {
+        if ([resourcesDict length]) {
             //TODO append resources if it exists
+            NSString *resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
+            [stringFooter appendString:resources];
         }
         
         [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];

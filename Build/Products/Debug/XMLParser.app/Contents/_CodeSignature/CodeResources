@@ -46,11 +46,11 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		sjzeom6dRap5NWEV9FU4/5XjlRY=
+		AUz5IJcc6sVudXhG33+/S6OzNG0=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		J5TMYrc3FoxW9a0vTj9nrcmFsSU=
+		BubaiVQ9mXrVazJQw3FFgo/Qji8=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -60,9 +60,17 @@
 		<data>
 		d6aBOURteH6tgtBANp9nT5j671s=
 		</data>
+		<key>Resources/TestDropFile.json</key>
+		<data>
+		iqWhV+zUsgcXwkxQIoklEiR3L/8=
+		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
 		SqChx64/LBJw58G8GmSipOVpg7A=
+		</data>
+		<key>Resources/TestImageLabels.json</key>
+		<data>
+		2iTBNFn2fhiASI4NKAwBefZ+B2s=
 		</data>
 		<key>Resources/XMLImages.xml</key>
 		<data>
@@ -158,22 +166,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sjzeom6dRap5NWEV9FU4/5XjlRY=
+			AUz5IJcc6sVudXhG33+/S6OzNG0=
 			</data>
 			<key>hash2</key>
 			<data>
-			06Xqdqrh3333N9h7HfmoVz71l5QHnvih0+qDgtg4S9w=
+			HnBRySh4H+sYy5OJFjRxme83SIAjjhxQV6C9840xHyw=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			J5TMYrc3FoxW9a0vTj9nrcmFsSU=
+			BubaiVQ9mXrVazJQw3FFgo/Qji8=
 			</data>
 			<key>hash2</key>
 			<data>
-			otLQbeD9ws/l0o72qiU+kukHXG9xCC0TmsSDB6mlVl0=
+			LIhdwX193tEhjKyEM4QawHEDsvzQOF3F604n3X3xOSY=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -198,6 +206,17 @@
 			4mD1yoBNvofqYnH/q3adR6MmyJ4XzpWFhqG5uBNntO0=
 			</data>
 		</dict>
+		<key>Resources/TestDropFile.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			iqWhV+zUsgcXwkxQIoklEiR3L/8=
+			</data>
+			<key>hash2</key>
+			<data>
+			1Y2oiJMLRsIC3wWlPnLMCccFdL5MyJclVCuvnOEuisc=
+			</data>
+		</dict>
 		<key>Resources/TestGenerator.json</key>
 		<dict>
 			<key>hash</key>
@@ -207,6 +226,17 @@
 			<key>hash2</key>
 			<data>
 			F8iea/SFGHcpujYyshhaz3GV6ilWYvIjQ0vzCzALAwo=
+			</data>
+		</dict>
+		<key>Resources/TestImageLabels.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2iTBNFn2fhiASI4NKAwBefZ+B2s=
+			</data>
+			<key>hash2</key>
+			<data>
+			ONvoh2c/JFq0UnR+VDyVz99eUQc/tP15/jvRIjHkHJU=
 			</data>
 		</dict>
 		<key>Resources/XMLImages.xml</key>

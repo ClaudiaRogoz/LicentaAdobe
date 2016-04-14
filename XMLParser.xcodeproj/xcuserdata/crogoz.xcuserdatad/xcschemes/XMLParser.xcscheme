@@ -84,7 +84,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/crogoz/Desktop/Samples/Samples/Base.lproj/Main.storyboard"
+            argument = "/Users/crogoz/Desktop/Samples/Samples/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

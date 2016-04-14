@@ -14,10 +14,11 @@
 #include <stdlib.h>
 #import "XMLReader.h"
 #import "XMLGenerator.h"
+#include "Constants.h"
 
 int main(int argc, const char * argv[]) {
     
-    NSString *xmlPath = [NSString stringWithFormat:@"%s", argv[1]];
+    NSString *xmlPath = [NSString stringWithFormat:@"%s%@", argv[1], STORYBOARD];
     NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
 
@@ -49,7 +50,7 @@ int main(int argc, const char * argv[]) {
     NSLog(@"NS = %@", ns);*/
  
     
-    [XMLGenerator readTemplate];
+    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%s", argv[1]]];
 
     return NSApplicationMain(argc, argv);
 }

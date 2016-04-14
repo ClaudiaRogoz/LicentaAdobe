@@ -45,6 +45,38 @@
     }
     ,
     "subviews":{
+        "imageView" : {
+            "header" : {
+                "userInteractionEnabled" : "NO",
+                "contentMode"  : "scaleToFill",
+                "horizontalHuggingPriority" : "251",
+                "verticalHuggingPriority" : "251",
+                "fixedFrame" : "YES",
+                "image" : "$",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id" : "$rand",
+                "toString" : ["userInteractionEnabled", "contentMode", "horizontalHuggingPriority",
+                              "verticalHuggingPriority", "fixedFrame",
+                              "image",
+                              "translatesAutoresizingMaskIntoConstraints", "id"]
+            },
+            "rules" : {
+                "$header.id" : "$rand",
+                "$header.image" : "$style.fill.pattern.href",
+                "rect" : {
+                    "$shape" : {
+                        "width" : "$width",
+                        "height" : "$height",
+                        "key" : "frame",
+                        "x" : "$x",
+                        "y" : "$y"
+                        
+                    }
+                },
+                "toString" : ["rect"]
+            },
+            "toString" : ["header", "rules"]
+        },
         "label" : {
             "header": {
                 "opaque" : "NO",
@@ -141,7 +173,12 @@
             "pointSize" : "$size",
             "toString" : ["key" , "type", "pointSize"]
             
-            
+        },
+        "image" : {
+            "name" : "$name",
+            "width" : "$width",
+            "height" : "$height",
+            "toString" : ["name", "width", "height"]
             
         }
     }
