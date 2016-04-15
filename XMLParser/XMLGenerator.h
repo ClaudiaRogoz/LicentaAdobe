@@ -39,7 +39,8 @@
 #define XMLSUBVIEWS         @"\n<subviews>"
 #define XMLSUBVIEWSF        @"\n</subviews>"
 #define XMLDOCUMENTF   @"</document>"
-
+#define XARTBOARD       @"x"
+#define YARTBOARD       @"y"
 
 
 
@@ -60,7 +61,8 @@
     NSMutableDictionary *translationDict;
     NSMutableString *resourcesDict;
     NSMutableDictionary *transformObjects;
-    
+    int startXArtboard;
+    int startYArtboard;
     //NSMutableDictionary *uniqueIds;
     
     /* current scene_number == artboard_number */

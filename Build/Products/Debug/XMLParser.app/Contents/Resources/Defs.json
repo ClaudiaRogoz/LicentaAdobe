@@ -110,8 +110,10 @@
                         "key" : "frame"
                     },
                     "$style.font" : {
-                        "width" : "$size",
-                        "height" : "$size"
+                        "width" : "$size"
+                    },
+                    "$text" : {
+                        "height" : "$rawText"
                         
                     }
                 },
