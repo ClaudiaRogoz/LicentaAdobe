@@ -145,19 +145,21 @@
 -(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
               usingValues:(NSDictionary *)paramsValue {
     
-    NSLog(@"DictValue = %@", dictValue);
+    NSLog(@"DictValue = %@ %@ %@", dictValue, *objDict, paramsValue);
     NSMutableDictionary *defaultDict = [*objDict objectForKey:DEFAULT];
-    paramsValue = [paramsValue objectForKey:[[paramsValue allKeys] objectAtIndex:0]];
+    //paramsValue = [paramsValue objectForKey:[[paramsValue allKeys] objectAtIndex:0]];
     
     for (id key in [*objDict allKeys]) {
         id value = [*objDict objectForKey:key];
-        
+        NSLog(@"key = %@ value = %@ Dict = %@", key, value, dictValue);
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:@"$"]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
+            
             if (value) {
                 NSLog(@"Changing %@ with %@", key, value);
                 if ([[transformObjects objectForKey:@"size"] objectForKey:key]) {
                     /* TODO change the size -> scale */
+                    NSLog(@"Key need to be resized = %@", key);
                 } else if ([[transformObjects objectForKey:@"color"] objectForKey:key]) {
                     /* change color */
                     float color = [value floatValue] / 255;
@@ -168,11 +170,19 @@
             } else {
                 /* use values specified from agc */
                 value = [paramsValue objectForKey:key];
-                NSLog(@"Setting value = %@", value);
+                NSLog(@"Setting key = %@ value = %@ params = %@", key, value, paramsValue);
+                if (!value)
+                    continue;
+                
                 if (![value hasPrefix:@"$"])
                     [*objDict setValue:value forKey:key]; /* no need for transformation */
-                else {
-                    /* use default values */
+                else if ([dictValue objectForKey:[[self splitVariable:value] objectAtIndex:0]]) {//[[translationDict objectForKey:value] isEqualToString:key]){ /* used for tx & ty */
+                   // NSLog(@"%@ === %@", [translationDict objectForKey:value], key);
+                    NSLog(@"%@", [self splitVariable:value]);
+                    NSLog(@"there is a translation :D %@", dictValue);
+                    id tvalue = [[self splitVariable:value] objectAtIndex:0];
+                    [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
+                } else {/* use default values */
                     [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
                 }
                     
@@ -182,7 +192,7 @@
     }
     
 }
--(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSString*)cond params:(NSDictionary *)dict agcDict:agcParams{
+-(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict agcDict:agcParams{
     
     id objDict;
     if ([rule isEqualToString:SUBVIEWS])
@@ -197,9 +207,14 @@
         
     }
     //get values from agc in order to transfer them into xml
-    id values = agcParams;
-    NSArray *goToAgc = [self splitVariable:cond];
-    NSLog(@"Dependency = %@ %@", goToAgc, agcParams);
+    
+    NSLog(@"Mutiple conditions = %@", cond);
+    for (id condition in cond) {
+        id values = agcParams;
+        NSLog(@"Obj = %@", objDict);
+        NSLog(@"Check for the following condition: %@", condition);
+    NSArray *goToAgc = [self splitVariable:condition];
+    NSLog(@"Dependency = %@ %@", goToAgc, values);
     for (id key in goToAgc) {
         
         id nodeValue;
@@ -212,6 +227,7 @@
             nodeValue = [values objectForKey:artboard];
 
         } else {
+            
             nodeValue = [values objectForKey:key];
             
         }
@@ -241,7 +257,7 @@
         if (![dictValue isKindOfClass:[NSArray class]]) {
             NSLog(@"2merge = %@ with %@dict= %@ %@", objDict,  dict, dictValue, agcParams);
             
-            [self mergeDictionaries:&objDict withDict:dictValue usingValues:dict];
+            [self mergeDictionaries:&objDict withDict:dictValue usingValues:[dict objectForKey:condition]];
             //[self mergeDefaultValues:[dict objectForKey:dep] withDict:&objDict usingDict:dictValue];
         }
         else {
@@ -269,13 +285,16 @@
                 [subViewDict setObject:typeObjDict forKey:type];
                 [objDict addObject:subViewDict];
             }
+            
             NSLog(@"We've found that the Subview contains: %@", objDict);
         }
-        return objDict;
+    }
+        
         
     }
+    return objDict;
     
-    return values;
+  
 
 }
 
@@ -297,11 +316,13 @@
             if ([rulesDict isKindOfClass:[NSArray class]])
                 continue;
             
-            NSString* cond;
+            NSLog(@"Conditions for : %@ are %@", rule, [rulesDict allKeys]);
+            
+            NSArray *cond;
             if ([rulesDict count] == 0)
                 cond = nil;
             else
-                cond = [[rulesDict allKeys] objectAtIndex:0];
+                cond = [rulesDict allKeys];// objectAtIndex:0];
             
             NSLog(@"The condition %@ = %@ %@ %@ %@", rule, cond, rule, [rulesTempDict objectForKey:rule], agcDict);
             NSMutableDictionary *mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
@@ -402,7 +423,7 @@
             NSData *data = [imageRep representationUsingType:NSPNGFileType properties:nil];
             [data writeToFile:toCopyPath atomically:YES];
             // Save the data
-            // NSString *copyImageToXcodeDir = [NSString stringWithFormat:@"%@/%@", //xmlPath, theFileName];
+            // NSString *copyImageToXcodeDir = [NSString stringWithFormat:@"%@/%@",xmlPath, theFileName];
             
             NSString *tmp = @"";
             NSLog(@"imageView = %@", imageDict);

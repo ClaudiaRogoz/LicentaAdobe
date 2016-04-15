@@ -4,6 +4,8 @@
     "text"      :   "label",
     "label"     :   "text",
     "shape"     :   "imageView",
-    "imageView" :   "shape"
+    "imageView" :   "shape",
+    "$tx"       :   "x",
+    "$ty"       :   "y"
     
 }

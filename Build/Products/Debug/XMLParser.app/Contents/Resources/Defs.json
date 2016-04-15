@@ -67,10 +67,11 @@
                     "$shape" : {
                         "width" : "$width",
                         "height" : "$height",
-                        "key" : "frame",
-                        "x" : "$x",
-                        "y" : "$y"
-                        
+                        "key" : "frame"
+                    },
+                    "$transform" : {
+                        "x" : "$tx",
+                        "y" : "$ty"
                     }
                 },
                 "toString" : ["rect"]
@@ -102,7 +103,18 @@
             "rules": {
                 "$header.id" : "$rand",
                 "$header.text" : "$text.rawText",
-                
+                "rect" : {
+                    "$transform" : {
+                        "x" : "$tx",
+                        "y" : "$ty",
+                        "key" : "frame"
+                    },
+                    "$style.font" : {
+                        "width" : "$size",
+                        "height" : "$size"
+                        
+                    }
+                },
                 "fontDescription" : {
                     "$style.font" :
                     {
@@ -125,7 +137,7 @@
                     "key" : "highlightedColor"
                     
                 },
-                "toString" : ["fontDescription", "color", "nil"]
+                "toString" : ["rect", "fontDescription", "color", "nil"]
                 
                 
             },
@@ -134,7 +146,7 @@
     },
     "subtags": {
         "rect" :  {
-            "key" : "$frame",
+            "key" : "$key",
             "x" : "$x",
             "y" : "$y",
             "width" : "$width",
