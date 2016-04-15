@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		rV0A/Prm/cJbGEh/+Bcjd3V+XNg=
+		BubaiVQ9mXrVazJQw3FFgo/Qji8=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -70,7 +70,11 @@
 		</data>
 		<key>Resources/TestImageLabels.json</key>
 		<data>
-		hDdsRBQ3avFVULXoT7KCmEKG8j8=
+		3NdjdVoudZgcT7NMiPK+Zwndwmo=
+		</data>
+		<key>Resources/TestMultiple.json</key>
+		<data>
+		HJvoFtBq5Btfyp89Sd+ikm0P9Vw=
 		</data>
 		<key>Resources/XMLImages.xml</key>
 		<data>
@@ -177,11 +181,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rV0A/Prm/cJbGEh/+Bcjd3V+XNg=
+			BubaiVQ9mXrVazJQw3FFgo/Qji8=
 			</data>
 			<key>hash2</key>
 			<data>
-			EG2jGjvWYQMmcPhLXEr7uX3/AtPfk9+NLtMn3o4YjIY=
+			LIhdwX193tEhjKyEM4QawHEDsvzQOF3F604n3X3xOSY=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -232,11 +236,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hDdsRBQ3avFVULXoT7KCmEKG8j8=
+			3NdjdVoudZgcT7NMiPK+Zwndwmo=
 			</data>
 			<key>hash2</key>
 			<data>
-			zGGDF4S+8BBCFImBzO/INcRSks+9ERL9uxtuNMIo4kU=
+			xbD8F0HQ21Jnqbg0HeNKbjGErMA+scl8x+brGGQvFcg=
+			</data>
+		</dict>
+		<key>Resources/TestMultiple.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HJvoFtBq5Btfyp89Sd+ikm0P9Vw=
+			</data>
+			<key>hash2</key>
+			<data>
+			4m/hayggmSUwxAjjAPsmLpCXDcfksISfIoRPqvKUwRg=
 			</data>
 		</dict>
 		<key>Resources/XMLImages.xml</key>

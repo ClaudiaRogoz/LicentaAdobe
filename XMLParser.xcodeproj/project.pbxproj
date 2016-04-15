@@ -26,6 +26,7 @@
 		C9AF2B541CBFBE76001C39C7 /* TestDropFile.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */; };
 		C9AF2B561CBFC696001C39C7 /* TestImageLabels.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B551CBFC696001C39C7 /* TestImageLabels.json */; };
 		C9B0F4051C9C27660005903C /* Button.agc in Resources */ = {isa = PBXBuildFile; fileRef = C9B0F4041C9C27660005903C /* Button.agc */; };
+		C9B5FFB91CC133EF0014575C /* TestMultiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C9B5FFB81CC133EF0014575C /* TestMultiple.json */; };
 		C9C3C1631C9FE5EA002968EF /* myXMLfileScenes.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9C3C1621C9FE5EA002968EF /* myXMLfileScenes.xml */; };
 		C9C3C1651C9FF401002968EF /* Scene1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9C3C1641C9FF401002968EF /* Scene1.xml */; };
 		C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9DBD9171C995524006A9638 /* myXMLfileFood.xml */; };
@@ -82,6 +83,7 @@
 		C9AF2B551CBFC696001C39C7 /* TestImageLabels.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestImageLabels.json; sourceTree = "<group>"; };
 		C9AF2B591CBFDF69001C39C7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C9B0F4041C9C27660005903C /* Button.agc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Button.agc; sourceTree = "<group>"; };
+		C9B5FFB81CC133EF0014575C /* TestMultiple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestMultiple.json; sourceTree = "<group>"; };
 		C9C3C1621C9FE5EA002968EF /* myXMLfileScenes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileScenes.xml; sourceTree = "<group>"; };
 		C9C3C1641C9FF401002968EF /* Scene1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Scene1.xml; sourceTree = "<group>"; };
 		C9DBD9171C995524006A9638 /* myXMLfileFood.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileFood.xml; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */,
 				C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */,
 				C9AF2B551CBFC696001C39C7 /* TestImageLabels.json */,
+				C9B5FFB81CC133EF0014575C /* TestMultiple.json */,
 			);
 			name = TestFiles;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				C9C3C1631C9FE5EA002968EF /* myXMLfileScenes.xml in Resources */,
 				C9C3C1651C9FF401002968EF /* Scene1.xml in Resources */,
 				C9AF2B4F1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json in Resources */,
+				C9B5FFB91CC133EF0014575C /* TestMultiple.json in Resources */,
 				C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */,
 				C99186D51C8B664A0071A25F /* Main.storyboard in Resources */,
 				C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */,

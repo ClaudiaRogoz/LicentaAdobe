@@ -15,6 +15,7 @@
 #define TEST2_PATH @"Test2LabelsInAgcGenerator.json"
 #define TESTDROP_PATH @"TestDropFile.json"
 #define TESTIL_PATH    @"TestImageLabels.json"
+#define TESTMUL_PATH    @"TestMultiple.json"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
@@ -59,11 +60,20 @@
      * it is read from Rules.json
      **/
     NSMutableDictionary *translationDict;
+    
+    /* dictionary used for maintaining
+     * the images resources
+     **/
     NSMutableString *resourcesDict;
+    
+    /* dictionary that maps attributes that need to be changed
+     * eg. x, y (absolute <=> relative)
+     **/
     NSMutableDictionary *transformObjects;
+    
+    /* the start index for the current artboard */
     int startXArtboard;
     int startYArtboard;
-    //NSMutableDictionary *uniqueIds;
     
     /* current scene_number == artboard_number */
     int sceneNo;
@@ -73,10 +83,36 @@
 @property NSString *xmlPath;
 @property NSString *agcPath;
 
++ (void)readTemplateUsingXML:(NSString *)xmlPath;
 
 - (id)initWithError:(NSError **)error;
 
-+ (void)readTemplateUsingXML:(NSString *)xmlPath;
+/* init translations dictionaries */
+- (void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict;
+
+
+- (NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict;
+
+/* splits the variable Name depending on $ and hierarchy */
+- (NSArray *) splitVariable:(NSString*) varName;
+
+/* converts a dictionary to xml file */
+- (NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName isLeaf:(BOOL)leaf;
+
+/* merges a dictionary with the default dictionary */
+- (void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict;
+
+/* merges multiple dictionaries */
+-(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue usingValues:(NSDictionary *)paramsValue;
+
+/* given the rule that need to be achieved, othe dependency and the */
+-(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict agcDict:agcParams;
+-(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict finalDict:(NSMutableDictionary *)finalDict;
+-(NSDictionary*) processWholeXmlFromAgc:(NSDictionary *)agcDict;
+-(NSString *) surroundWithHeader:(NSString *) header footer:(NSString *) footer string:(NSString *)str;
+-(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name;
+-(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject;
+-(void) generateXmlForTag:(NSDictionary*)agcDict;
 
 @end
 
