@@ -6,44 +6,77 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="BA03CFF7-62A6-42F1-89A3-54166A87EEDF">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="F61FCC27-D83B-4466-888A-B45362E90782" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"></viewControllerLayoutGuide>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"></viewControllerLayoutGuide>
+                        <viewControllerLayoutGuide type="top" id="1675456C-3C84-4160-A602-857E5F67EFC5"></viewControllerLayoutGuide>
+                        <viewControllerLayoutGuide type="bottom" id="5AAD87EA-DB18-4635-BBA1-C5B34D3D55A3"></viewControllerLayoutGuide>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="B1DE8A5D-1FD1-434D-81C4-D83280EEC7A5">
-                        <rect key="frame" x="-144" y="-20" width="375" height="667"></rect>
+                    <view key="view" contentMode="scaleToFill" id="684A9234-164B-4801-B950-16F8447DFFA3">
+                        <rect key="frame" x="0" y="0" width="375" height="667"></rect>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"></autoresizingMask>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5836330C-15B9-469C-8436-FBF49917B08B">
-                                <rect key="frame" x="144" y="20" width="500" height="500"></rect>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8D7335F3-E133-4491-B2B9-A018BE5D9B9F">
+                                <rect key="frame" x="-76" y="103" width="$width" height="$height"></rect>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50C46D6C-C740-44E0-8C7B-03FAEC3533A8">
-                                        <rect key="frame" x="140" y="206" width="65.88184" height="24"></rect>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5A0F5F74-843D-4863-AAF0-7F5845E725F7">
+                                        <rect key="frame" x="224" y="186" width="68.9729" height="25"></rect>
                                         <mutableString key="text">sfwsbf</mutableString>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"></fontDescription>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"></fontDescription>
                                         <color key="textColor" red="0.584314" green="0.596078" blue="0.603922" alpha="1" colorSpace="calibratedRGB"></color>
                                         <nil key="highlightedColor"></nil>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19F20D70-E125-4295-BD18-8ECE762A1ECA">
-                                        <rect key="frame" x="170" y="307" width="91.57715" height="24"></rect>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17C597E2-E2A5-4596-8D86-9A1745913F9B">
+                                        <rect key="frame" x="290" y="286" width="100.3213" height="27"></rect>
                                         <mutableString key="text">degwbwr</mutableString>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"></fontDescription>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"></fontDescription>
                                         <color key="textColor" red="0.584314" green="0.596078" blue="0.603922" alpha="1" colorSpace="calibratedRGB"></color>
                                         <nil key="highlightedColor"></nil>
                                     </label>
                                 </subviews>
                                 <color key="$key" red="$r" green="$g" blue="$b" alpha="$alpha" colorSpace="calibratedRGB"></color>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="6e94dd3adb184c8df71ca220ec1ab8f6.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6F849905-A187-492F-9F97-521EC5111D9B">
+                                <rect key="frame" x="-17" y="0" width="397" height="247"></rect>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tYr-Cr-j24" userLabel="First Responder" sceneMemberID="firstResponder"></placeholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0A5A3FF5-11B1-44C9-8FB7-FEE24872AE0F" userLabel="First Responder" sceneMemberID="firstResponder"></placeholder>
+            </objects>
+            <point key="canvasLocation" x="2377" y="429"></point>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="007277DE-504C-435C-82AF-3C239BC23150">
+            <objects>
+                <viewController id="F2F41A31-BA82-46E9-BA0B-6C18C53505BE" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FBF54607-2D47-4DFF-864D-7DBB2E5F1FD3"></viewControllerLayoutGuide>
+                        <viewControllerLayoutGuide type="bottom" id="730D5C3D-5FA4-4511-9D90-A50222B03B8D"></viewControllerLayoutGuide>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7967EAC2-08D0-427C-A183-D569EFA1DCE2">
+                        <rect key="frame" x="0" y="0" width="375" height="667"></rect>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"></autoresizingMask>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74A2A172-B143-459E-8976-E97C3471A741">
+                                <rect key="frame" x="699" y="337" width="375.7274" height="247"></rect>
+                                <mutableString key="text">There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything... that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"></fontDescription>
+                                <color key="textColor" red="0.172549" green="0.172549" blue="0.172549" alpha="1" colorSpace="calibratedRGB"></color>
+                                <nil key="highlightedColor"></nil>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A3B443BE-691D-49D6-BADA-6838010355D3" userLabel="First Responder" sceneMemberID="firstResponder"></placeholder>
             </objects>
             <point key="canvasLocation" x="2377" y="429"></point>
         </scene>
     </scenes>
+    <resources>
+        <image name="6e94dd3adb184c8df71ca220ec1ab8f6.jpg" width="0.000000" height="0.000000"></image>
+    </resources>
 </document>

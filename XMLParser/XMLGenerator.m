@@ -30,7 +30,7 @@
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:TESTTEXT_PATH];
+    NSData *testData = [NSData dataWithContentsOfFile:TESTPARAGROUP_PATH ];//TESTTEXT_PATH];//
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
 
     [gen getXmlForAgcObject:agcTemplate];
@@ -176,12 +176,20 @@
                     /* TODO change the size -> scale */
                     float translatedValue;
                     NSLog(@"Key need to be resized = %@ %f %d", key, [value floatValue], startXArtboard);
-                    if ([key isEqualToString:XARTBOARD])
-                        translatedValue = fabsf(startXArtboard - [value floatValue]);
-                    else
-                        translatedValue = fabsf(startYArtboard - [value floatValue]);
+                    float xScaleFactor = (float)widthXDArtboard / WIDTHXMLARTBOARD;
+                    float yScaleFactor = (float)heightXDArtboard / HEIGHTXMLARTBOARD;
+                    if ([key isEqualToString:XARTBOARD]) {
+                        translatedValue = [value floatValue] - startXArtboard;
+                        translatedValue = translatedValue * xScaleFactor;
+                    }
+                    else {
+                        translatedValue = [value floatValue] - startYArtboard;
+                        translatedValue = translatedValue * yScaleFactor;
+                    }
+                    
+                    
                     NSLog(@"translation = %f", translatedValue);
-                    [*objDict setObject:value forKey:key];
+                    [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
                 } else if ([[transformObjects objectForKey:@"color"] objectForKey:key]) {
                     /* change the color */
@@ -211,11 +219,19 @@
                         NSLog(@"vhange her ");
                         float translatedValue;
                         float initValue = [[dictValue objectForKey:tvalue] floatValue];
-                        NSLog(@"Key need to be resized = %@ %f %d", key, initValue, startXArtboard);
-                        if ([key isEqualToString:XARTBOARD])
-                            translatedValue = fabsf(startXArtboard - initValue);
-                        else
-                            translatedValue = fabsf(startYArtboard - initValue);
+                        
+                        float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
+                        float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
+                        NSLog(@"ScalerFactor = %f %f %f %f", xScaleFactor, yScaleFactor, WIDTHXMLARTBOARD, widthXDArtboard);
+                        if ([key isEqualToString:XARTBOARD]) {
+                            translatedValue = initValue - startXArtboard;//fabsf(startXArtboard - initValue);
+                            translatedValue = translatedValue * xScaleFactor;
+                        }
+                        else {
+                            translatedValue = initValue - startYArtboard;//fabsf(startYArtboard - initValue);
+                            translatedValue = translatedValue * yScaleFactor;
+                        }
+                        NSLog(@"Key need to be resized = %@ %f %f offset: %d", key, initValue, translatedValue, startXArtboard);
                         [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
                     } else
                         [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
@@ -266,25 +282,6 @@
         
     }
     
-}
-
-
-/* a group represents a new view added in the subtags */
-- (NSMutableDictionary *) processGroup:(NSMutableDictionary **)groupDict agcDict:(NSDictionary *) agcDict{
-    
-    NSLog(@"group's dict = %@", *groupDict);
-    NSLog(@"AGC = %@", agcDict);
-    NSMutableDictionary *viewDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [[agcToXmlTemplate objectForKey:SUBVIEWS] objectForKey:VIEW]]];
-    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
-    for (id key in [agcDict objectForKey:@"children"]) {
-        
-    }
-    NSDictionary *newDict = [self processTemplateDict:&*groupDict agcDict:agcDict finalDict:finalDict];
-    NSLog(@"NnewDict = %@", newDict);
-    
-    return *groupDict;
-    
-
 }
 
 -(id) getShapeType:(id)type object:(id)object {
@@ -368,7 +365,11 @@
                 /* obtain the startX and startY for the current scene */
                 startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
                 startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
-                NSLog(@"STARTXY = %d %d", startXArtboard, startYArtboard);
+                NSLog(@"XYWH = %@", nodeValue);
+                widthXDArtboard = [[nodeValue objectForKey:WIDTH] intValue];
+                heightXDArtboard = [[nodeValue objectForKey:HEIGHT] intValue];
+                
+                NSLog(@"STARTXY = %d %d %d %d", startXArtboard, startYArtboard, heightXDArtboard, widthXDArtboard);
             } else if ([key hasPrefix:@"$"] && [key isEqualToString:LINES]){
                 nodeValue = [values objectAtIndex:0];
             } else if ([key hasPrefix:@"$"] && [key isEqualToString:LINESDICT]){
@@ -490,6 +491,7 @@
                         NSMutableDictionary *viewDict = [newObjDict objectForKey:VIEW];
                         [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict];
                         NSLog(@"parent = %@", viewDict);
+                        
                         NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
                         for (id key in [[object objectForKey:GROUP] objectForKey:@"children"]) {
                             id type = [translationDict objectForKey:[key objectForKey:@"type"]];
@@ -505,8 +507,9 @@
                             NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
                             [subViewDict setObject:typeObjDict forKey:type];
                             [viewSubviews addObject:subViewDict];
-                            //[objDict addObject:subViewDict];
+                            
                         }
+                        
                         NSLog(@"ObjDict = %@", viewSubviews);
                         [[viewDict objectForKey:RULES ] setObject:viewSubviews forKey:SUBVIEWS];
                         NSMutableDictionary *subViewTmp = [[NSMutableDictionary alloc] init ];
@@ -739,11 +742,21 @@
             dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: @"view"];
             
             NSLog(@"D1ct = %@", dict);
-            [finalString appendString: SCENEHEADER];
+            [finalString appendString: SCENEHEADERA];
+            [finalString appendString: [[NSUUID UUID] UUIDString]];
+            [finalString appendString: SCENEHEADERB];
+            [finalString appendString: [[NSUUID UUID] UUIDString]];
+            [finalString appendString: SCENEHEADERC];
+            [finalString appendString: [[NSUUID UUID] UUIDString]];
+            [finalString appendString: SCENEHEADERD];
+            [finalString appendString: [[NSUUID UUID] UUIDString]];
+            [finalString appendString: SCENEHEADERE];
+            
             [finalString appendString: [self parseToString:finalString dict:dict name:@"view"]];
-            //footer = [NSMutableString stringWithFormat:@"%@\n%@", @"<view>", XMLFOOTER];
             [finalString appendString:@"</view>"];
-            [finalString appendString:XMLFOOTER];
+            [finalString appendString:XMLFOOTERA];
+            [finalString appendString: [[NSUUID UUID] UUIDString]];
+            [finalString appendString:XMLFOOTERB];
             [xmlGen appendString:finalString];
             ++sceneNo;
             NSLog(@"Scene = %d", sceneNo);

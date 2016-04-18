@@ -51,15 +51,24 @@
 #define XMLRESOURCES   @"<resources>"
 #define XMLRESOURCESF  @"</resources>"
 #define XMLHEADER   @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><document type=\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\" version=\"3.0\" toolsVersion=\"9532\" systemVersion=\"15E65\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\" initialViewController=\"BYZ-38-t0r\"><dependencies><deployment identifier=\"iOS\"/><plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"9530\"/></dependencies><scenes>"
-#define XMLFOOTER   @"</viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"tYr-Cr-j24\" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x=\"2377\" y=\"429\"/></scene>"
+#define XMLFOOTERA   @"</viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id="
+#define XMLFOOTERB   @" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x=\"2377\" y=\"429\"/></scene>"
 
-#define SCENEHEADER @"<!--View Controller--><scene sceneID=\"tne-QT-ifu\"><objects><viewController id=\"BYZ-38-t0r\" customClass=\"ViewController\" sceneMemberID=\"viewController\"><layoutGuides><viewControllerLayoutGuide type=\"top\" id=\"y3c-jy-aDJ\"/><viewControllerLayoutGuide type=\"bottom\" id=\"wfy-db-euE\"/></layoutGuides>"
+#define SCENEHEADERA @"<!--View Controller--><scene sceneID="
+#define SCENEHEADERB @"><objects><viewController id="
+#define SCENEHEADERC @" customClass=\"ViewController\" sceneMemberID=\"viewController\"><layoutGuides><viewControllerLayoutGuide type=\"top\" id="
+#define SCENEHEADERD @"/><viewControllerLayoutGuide type=\"bottom\" id="
+#define SCENEHEADERE @"/></layoutGuides>"
 
 #define XMLSUBVIEWS         @"\n<subviews>"
 #define XMLSUBVIEWSF        @"\n</subviews>"
 #define XMLDOCUMENTF   @"</document>"
 #define XARTBOARD       @"x"
 #define YARTBOARD       @"y"
+#define WIDTHXMLARTBOARD    600
+#define HEIGHTXMLARTBOARD   600
+#define WIDTHXDARTBOARD     375
+#define HEIGHTXDARTBOARD    667
 
 
 
@@ -92,6 +101,12 @@
     /* the start index for the current artboard */
     int startXArtboard;
     int startYArtboard;
+    
+    int widthXDArtboard;
+    int heightXDArtboard;
+    
+    int widthXMLArtboard;
+    int heightXMLArtboard;
     
     /* current scene_number == artboard_number */
     int sceneNo;
