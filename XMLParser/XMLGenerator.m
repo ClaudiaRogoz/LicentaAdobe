@@ -30,7 +30,7 @@
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:TESTMUL_PATH];
+    NSData *testData = [NSData dataWithContentsOfFile:TESTPARA_PATH];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
 
     [gen getXmlForAgcObject:agcTemplate];
@@ -74,7 +74,16 @@
         
         id value = agcDict;
         for (id key in array) {
-            value = [value objectForKey:key];
+            NSLog(@"key = %@", key);
+            
+            if ([key isEqualToString:COUNT]) {
+                return [ NSString stringWithFormat:@"%d", (int)[value count]];
+            }
+            if ([key isEqualToString:LINES])
+                value = [value objectAtIndex:0];
+            else
+                value = [value objectForKey:key];
+            
             
         }
         
@@ -99,7 +108,8 @@
 
 -(NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName isLeaf:(BOOL)leaf {
     NSArray *order = [dict objectForKey:@"toString"];
-
+    NSArray *betweenTags = [dict objectForKey:BETWEEN];
+    
     NSMutableString *tagStr = [NSMutableString stringWithFormat:@"<%@", varName];
     
     for (id object in order) {
@@ -109,6 +119,17 @@
         [tagStr appendFormat:@"/>"];
     else
         [tagStr appendFormat:@">"];
+    
+    if (betweenTags) {
+    
+        for (id object in betweenTags) {
+            [tagStr appendFormat:@"%@", [dict objectForKey:object]];
+        }
+        [tagStr appendFormat:@"</mutableString>"];
+        NSLog(@"Tag = %@", tagStr);
+    }
+    
+    
     
     return tagStr;
 }
@@ -204,15 +225,26 @@
                         /*FIX ME: assumed that the text font is the NSFont */
                         /* we have the height = text; width = fontSize; */
                         
-                        NSLog(@"BUHUHU1");
+                        NSLog(@"BUHUHU1 %d %d", textLines, textLen);
                         //[*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
                         
                         NSString *label = [*objDict objectForKey:@"height"];
+                        
+                        NSString *firstLine = [label substringToIndex:textLen];
                         int fontSize = [[*objDict objectForKey:@"width"] intValue];
+                        NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+                        [style setLineBreakMode:NSLineBreakByWordWrapping];
                         
-                        NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:fontSize]};
+                        NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:fontSize],
+                                                      NSParagraphStyleAttributeName: style};
                         
-                        CGRect rect = [label boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                        CGRect lineFrame = [firstLine boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                                attributes:attributes
+                                                                   context:nil];
+                        
+                        float width = lineFrame.size.width  + 0.1 * lineFrame.size.width;
+                        CGRect rect = [label boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                                                                   options:NSStringDrawingUsesLineFragmentOrigin
                                                                attributes:attributes
                                                                   context:nil];
@@ -259,7 +291,7 @@
         for (id key in goToAgc) {
             
             id nodeValue;
-            NSLog(@"Check for key = %@", key);
+            NSLog(@"Check for key = %@ %@ %@", key, condition, values);
             if ([key hasPrefix:@"$"] && [key isEqualToString:SCENENO]) {
                 nodeValue = [values objectAtIndex:sceneNo];
                 
@@ -271,8 +303,12 @@
                 startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
                 startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
                 NSLog(@"STARTXY = %d %d", startXArtboard, startYArtboard);
+            } else if ([key hasPrefix:@"$"] && [key isEqualToString:LINES]){
+                nodeValue = [values objectAtIndex:0];
+            } else if ([key hasPrefix:@"$"] && [key isEqualToString:LINESDICT]){
+                nodeValue = [values objectForKey:[NSNumber numberWithInt:0]];
             } else {
-                
+            
                 nodeValue = [values objectForKey:key];
                 
             }
@@ -292,6 +328,21 @@
             //no subview found
             return nil;
         } else {
+            NSLog(@"Dict for cond = %@", [dict objectForKey:condition]);
+            id subRules = [dict objectForKey:condition];
+            if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:LEN]) {
+                int counter = (int)[dictValue count];
+                NSLog(@"ClaudSet to %d %@", counter, objDict);
+                textLines = counter;
+                NSLog(@"objectDict = %@", objDict);
+                //[objDict setObject:[NSNumber numberWithInt:counter] forKey:LEN];
+                id tmp = dictValue;
+                id firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:@"to"];
+                NSLog(@"First = %@", firstLine);
+                textLen = [firstLine intValue];
+                //[ setObject:firstLine forKey:@"to"];
+                continue;
+            }
             
             if (![dictValue isKindOfClass:[NSArray class]]) {
                 
@@ -299,13 +350,19 @@
                 
             }
             else {
+                
+                
+                
                 NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
                 NSMutableDictionary *newObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [objDict mutableCopy]]];
                 objDict = [[NSMutableArray alloc] init];
                 
+                
+                
                 for (id object in dictValue) {
                     /* obtain the type of each object
                      * get the corresponding template*/
+                    NSLog(@"object = %@", object);
                     id type = [translationDict objectForKey:[object objectForKey:@"type"]];
                     if (!type)
                         continue;
@@ -313,6 +370,8 @@
                     
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
                    
+                    
+                    
                     [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
                     
                     NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
@@ -354,6 +413,8 @@
             NSArray *cond;
             if ([rulesDict count] == 0)
                 cond = nil;
+            else if ([rulesDict objectForKey:ORDER])
+                cond = [rulesDict objectForKey:ORDER];
             else
                 cond = [rulesDict allKeys];
             
@@ -494,11 +555,13 @@
             
             
         } else if ([[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]){
+            BOOL inBetween = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]objectForKey:BETWEEN] == nil;
             
             /* just an ordinary leaf tag; create a one-line with the given attributes */
             NSLog(@"OneLiner = %@ %@", key, attr);
-            NSString *ret = [self toString:attr name:key isLeaf:TRUE];
+            NSString *ret = [self toString:attr name:key isLeaf:inBetween];
             [ tmp appendString: [NSString stringWithFormat:@"\n\t%@", ret]];
+            
             
         }
     }
@@ -510,31 +573,45 @@
 
 -(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject {
     NSString *agcObject = [typeAgcObject objectForKey:@"type"];
+    NSMutableString *xmlGen = [NSMutableString stringWithFormat:@""];
+    NSMutableString *finalString;
+    NSDictionary *dict;
+    NSMutableString *stringFooter = [NSMutableString stringWithFormat:@"</scenes>"];
+    
     if (!agcObject) {
         // it was given the whole dictionary to process => goto @"content"; type = "view"
         // TODO insert header + footer of the xml file
-        NSMutableString *finalString = [[NSMutableString alloc] init];
+        
         NSLog(@"typeX = %@ %@", typeAgcObject, agcToXmlTemplate);
-        NSDictionary *dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: @"view"];
+        int artboardsNo = (int)[[typeAgcObject objectForKey:@"artboards"] count];
+        NSLog(@"No of artboards = %d", artboardsNo);
         
-        NSLog(@"D1ct = %@", dict);
+        while (sceneNo < artboardsNo) {
+            finalString = [[NSMutableString alloc] init];
+            
+            dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: @"view"];
+            
+            NSLog(@"D1ct = %@", dict);
+            [finalString appendString: SCENEHEADER];
+            [finalString appendString: [self parseToString:finalString dict:dict name:@"view"]];
+            //footer = [NSMutableString stringWithFormat:@"%@\n%@", @"<view>", XMLFOOTER];
+            [finalString appendString:@"</view>"];
+            [finalString appendString:XMLFOOTER];
+            [xmlGen appendString:finalString];
+            ++sceneNo;
+            NSLog(@"Scene = %d", sceneNo);
+        }
         
-        NSMutableString *xmlGen = [self parseToString:finalString dict:dict name:@"view"];
         /* TODO 15 apr */
-        /*NSLog(@"XMLGen = %@", xmlGen);
-        ++sceneNo;
-        dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: @"view"];
-        finalString = [[NSMutableString alloc] init];
-        [xmlGen appendString:[self parseToString:finalString dict:dict name:@"view"]];
         NSLog(@"XMLGen = %@", xmlGen);
-        */
-        NSMutableString *stringFooter = [NSMutableString stringWithFormat:@"%@\n%@",@"</view>", XMLFOOTER];
+        
+      // NSMutableString *stringFooter = [NSMutableString stringWithFormat:@"%@\n%@",@"</view>", XMLFOOTER];
         if ([resourcesDict length]) {
             //TODO append resources if it exists
             NSString *resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
             [stringFooter appendString:resources];
         }
-        
+        NSLog(@"here = %@", stringFooter);
         [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
         
         NSString *xmlFile = [self surroundWithHeader:XMLHEADER footer:stringFooter string:xmlGen];

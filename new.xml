@@ -13,14 +13,15 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"></viewControllerLayoutGuide>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"></viewControllerLayoutGuide>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="A122BD1E-1CE6-4058-BDD7-5FF0CD9E5548">
-                        <rect key="frame" x="-445" y="0" width="375" height="667"></rect>
+                    <view key="view" contentMode="scaleToFill" id="A872A423-F1A1-405F-8461-443D490A03CB">
+                        <rect key="frame" x="0" y="0" width="375" height="667"></rect>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"></autoresizingMask>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="fwefw" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7D8CC915-4393-424C-83B4-D41307830B49">
-                                <rect key="frame" x="257" y="163" width="59.62988" height="24"></rect>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"></fontDescription>
-                                <color key="textColor" red="0.584314" green="0.596078" blue="0.603922" alpha="1" colorSpace="calibratedRGB"></color>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F82EA788-9975-4E31-9AEC-D8775419A213">
+                                <rect key="frame" x="37" y="376" width="375.7274" height="247"></rect>
+                                <mutableString key="text">There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything... that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"></fontDescription>
+                                <color key="textColor" red="0.172549" green="0.172549" blue="0.172549" alpha="1" colorSpace="calibratedRGB"></color>
                                 <nil key="highlightedColor"></nil>
                             </label>
                         </subviews>

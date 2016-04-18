@@ -86,23 +86,23 @@
                 "horizontalHuggingPriority" : 251,
                 "verticalHuggingPriority" : 251,
                 "fixedFrame" : "YES",
-                "text" : "$",
                 "textAlignment" : "natural",
                 "lineBreakMode" : "tailTruncation",
+                "numberOfLines" : "$",
                 "baselineAdjustment" : "alignBaselines",
                 "adjustsFontSizeToFit": "NO",
                 "translatesAutoresizingMaskIntoConstraints" : "NO",
                 "id":"$rand",
                 "toString" : ["opaque", "userInteractionEnabled",
                               "contentMode", "horizontalHuggingPriority",
-                              "verticalHuggingPriority", "fixedFrame", "text",
-                              "textAlignment", "lineBreakMode", "baselineAdjustment",
+                              "verticalHuggingPriority", "fixedFrame",
+                              "textAlignment", "lineBreakMode", "numberOfLines", "baselineAdjustment",
                               "adjustsFontSizeToFit", "translatesAutoresizingMaskIntoConstraints", "id"
                               ]
             },
             "rules": {
                 "$header.id" : "$rand",
-                "$header.text" : "$text.rawText",
+                "$header.numberOfLines" : "$text.paragraphs.$lineListNo.lines.$count",
                 "rect" : {
                     "$transform" : {
                         "x" : "$tx",
@@ -115,7 +115,11 @@
                     "$text" : {
                         "height" : "$rawText"
                         
-                    }
+                    },
+                    "$text.paragraphs.$lineListNo.lines" : {
+                        "len"   :   "$len"
+                    },
+                    "order" : ["$text.paragraphs.$lineListNo.lines", "$text", "$style.font", "$transform"]
                 },
                 "fontDescription" : {
                     "$style.font" :
@@ -123,6 +127,11 @@
                         "key" : "fontDescription",
                         "type" : "system",
                         "pointSize" : "$size"
+                    }
+                },
+                "mutableString" : {
+                    "$text" : {
+                        "text" : "$rawText"
                     }
                 },
                 "color" : {
@@ -139,7 +148,7 @@
                     "key" : "highlightedColor"
                     
                 },
-                "toString" : ["rect", "fontDescription", "color", "nil"]
+                "toString" : ["rect", "mutableString", "fontDescription", "color", "nil"]
                 
                 
             },
@@ -153,6 +162,8 @@
             "y" : "$y",
             "width" : "$width",
             "height" : "$height",
+            "len"   : "$len",
+            "to"    : "$to",
             "toString" : ["key", "x", "y", "width", "height"]
         },
         "autoresizingMask" : {
@@ -180,6 +191,12 @@
                 "blue" : 255,
                 "alpha" : 1
             }
+        },
+        "mutableString" : {
+            "key" : "text",
+            "text" : "$text",
+            "toString" : ["key"],
+            "inBetween" : ["text"]
         },
         "fontDescription" : {
             "key" : "fontDescription",

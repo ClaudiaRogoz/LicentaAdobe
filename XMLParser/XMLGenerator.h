@@ -16,12 +16,19 @@
 #define TESTDROP_PATH @"TestDropFile.json"
 #define TESTIL_PATH    @"TestImageLabels.json"
 #define TESTMUL_PATH    @"TestMultiple.json"
+#define TESTPARA_PATH   @"TestParagraphs.json"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
 #define SUBVIEWNO @"$subviewNo"
+
 #define DEFAULT @"default"
+
 #define ARTBOARDSCENE @"$artboardsceneNo"
+#define LINES       @"$lineListNo"
+#define LINESDICT   @"$lineNo"
+#define COUNT       @"$count"
+
 #define RULES       @"rules"
 #define ARTBOARD    @"view"
 #define TOSTRING    @"toString"
@@ -32,10 +39,16 @@
 #define WIDTH       @"width"
 #define HEIGHT      @"height"
 #define NAME        @"name"
+#define LEN         @"len"
+#define ORDER       @"order"
+#define BETWEEN     @"inBetween"
+
 #define XMLRESOURCES   @"<resources>"
 #define XMLRESOURCESF  @"</resources>"
-#define XMLHEADER   @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><document type=\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\" version=\"3.0\" toolsVersion=\"9532\" systemVersion=\"15E65\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\" initialViewController=\"BYZ-38-t0r\"><dependencies><deployment identifier=\"iOS\"/><plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"9530\"/></dependencies><scenes><!--View Controller--><scene sceneID=\"tne-QT-ifu\"><objects><viewController id=\"BYZ-38-t0r\" customClass=\"ViewController\" sceneMemberID=\"viewController\"><layoutGuides><viewControllerLayoutGuide type=\"top\" id=\"y3c-jy-aDJ\"/><viewControllerLayoutGuide type=\"bottom\" id=\"wfy-db-euE\"/></layoutGuides>"
-#define XMLFOOTER   @"</viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"tYr-Cr-j24\" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x=\"2377\" y=\"429\"/></scene></scenes>"
+#define XMLHEADER   @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><document type=\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\" version=\"3.0\" toolsVersion=\"9532\" systemVersion=\"15E65\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\" initialViewController=\"BYZ-38-t0r\"><dependencies><deployment identifier=\"iOS\"/><plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"9530\"/></dependencies><scenes>"
+#define XMLFOOTER   @"</viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"tYr-Cr-j24\" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x=\"2377\" y=\"429\"/></scene>"
+
+#define SCENEHEADER @"<!--View Controller--><scene sceneID=\"tne-QT-ifu\"><objects><viewController id=\"BYZ-38-t0r\" customClass=\"ViewController\" sceneMemberID=\"viewController\"><layoutGuides><viewControllerLayoutGuide type=\"top\" id=\"y3c-jy-aDJ\"/><viewControllerLayoutGuide type=\"bottom\" id=\"wfy-db-euE\"/></layoutGuides>"
 
 #define XMLSUBVIEWS         @"\n<subviews>"
 #define XMLSUBVIEWSF        @"\n</subviews>"
@@ -77,6 +90,9 @@
     
     /* current scene_number == artboard_number */
     int sceneNo;
+    
+    int textLen;
+    int textLines;
 }
 
 /* agc & xml file paths */
