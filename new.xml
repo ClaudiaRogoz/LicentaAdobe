@@ -13,17 +13,30 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"></viewControllerLayoutGuide>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"></viewControllerLayoutGuide>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="A872A423-F1A1-405F-8461-443D490A03CB">
-                        <rect key="frame" x="0" y="0" width="375" height="667"></rect>
+                    <view key="view" contentMode="scaleToFill" id="B1DE8A5D-1FD1-434D-81C4-D83280EEC7A5">
+                        <rect key="frame" x="-144" y="-20" width="375" height="667"></rect>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"></autoresizingMask>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F82EA788-9975-4E31-9AEC-D8775419A213">
-                                <rect key="frame" x="37" y="376" width="375.7274" height="247"></rect>
-                                <mutableString key="text">There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything... that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts.</mutableString>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"></fontDescription>
-                                <color key="textColor" red="0.172549" green="0.172549" blue="0.172549" alpha="1" colorSpace="calibratedRGB"></color>
-                                <nil key="highlightedColor"></nil>
-                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5836330C-15B9-469C-8436-FBF49917B08B">
+                                <rect key="frame" x="144" y="20" width="500" height="500"></rect>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50C46D6C-C740-44E0-8C7B-03FAEC3533A8">
+                                        <rect key="frame" x="140" y="206" width="65.88184" height="24"></rect>
+                                        <mutableString key="text">sfwsbf</mutableString>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"></fontDescription>
+                                        <color key="textColor" red="0.584314" green="0.596078" blue="0.603922" alpha="1" colorSpace="calibratedRGB"></color>
+                                        <nil key="highlightedColor"></nil>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19F20D70-E125-4295-BD18-8ECE762A1ECA">
+                                        <rect key="frame" x="170" y="307" width="91.57715" height="24"></rect>
+                                        <mutableString key="text">degwbwr</mutableString>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"></fontDescription>
+                                        <color key="textColor" red="0.584314" green="0.596078" blue="0.603922" alpha="1" colorSpace="calibratedRGB"></color>
+                                        <nil key="highlightedColor"></nil>
+                                    </label>
+                                </subviews>
+                                <color key="$key" red="$r" green="$g" blue="$b" alpha="$alpha" colorSpace="calibratedRGB"></color>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
                     </view>

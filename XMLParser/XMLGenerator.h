@@ -17,6 +17,9 @@
 #define TESTIL_PATH    @"TestImageLabels.json"
 #define TESTMUL_PATH    @"TestMultiple.json"
 #define TESTPARA_PATH   @"TestParagraphs.json"
+#define TESTPARAGROUP_PATH  @"TestParaGroup.json"
+#define TESTTGS_PATH         @"TestTextGroupShapes.json"
+#define TESTTEXT_PATH       @"TestTextGroup.json"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
@@ -29,6 +32,7 @@
 #define LINESDICT   @"$lineNo"
 #define COUNT       @"$count"
 
+#define VIEW        @"view"
 #define RULES       @"rules"
 #define ARTBOARD    @"view"
 #define TOSTRING    @"toString"
@@ -42,6 +46,7 @@
 #define LEN         @"len"
 #define ORDER       @"order"
 #define BETWEEN     @"inBetween"
+#define GROUP       @"group"
 
 #define XMLRESOURCES   @"<resources>"
 #define XMLRESOURCESF  @"</resources>"

@@ -50,11 +50,11 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		cR1UqhcUz3mXGsvg6SLHPOI9qXI=
+		lUpeKEN8mjrwDovkjZgmbClTbn4=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		BubaiVQ9mXrVazJQw3FFgo/Qji8=
+		KfFpWL5nA2YvX5HpkFBD/d406AY=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -80,9 +80,21 @@
 		<data>
 		HJvoFtBq5Btfyp89Sd+ikm0P9Vw=
 		</data>
+		<key>Resources/TestParaGroup.json</key>
+		<data>
+		rSo0C/LtfqiODl8O9aK2C4a+2xk=
+		</data>
 		<key>Resources/TestParagraphs.json</key>
 		<data>
 		4CKhiCXSGo+TpWC8QFCNy180VzE=
+		</data>
+		<key>Resources/TestTextGroup.json</key>
+		<data>
+		C+mK2jIVOUzGkPvQqTjEeCnhAKA=
+		</data>
+		<key>Resources/TestTextGroupShapes.json</key>
+		<data>
+		rQ/W+pxOQRfDi0j0eDES+gbHRbg=
 		</data>
 		<key>Resources/XMLImages.xml</key>
 		<data>
@@ -189,22 +201,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			cR1UqhcUz3mXGsvg6SLHPOI9qXI=
+			lUpeKEN8mjrwDovkjZgmbClTbn4=
 			</data>
 			<key>hash2</key>
 			<data>
-			ARDVeMMXymy5PkOd8xWjuuovmCgbFgk5xS6IsejrEjQ=
+			jlH3GwPC9J38hLStd+tXvxblZ8TZp6eHfbZhkSLYudo=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			BubaiVQ9mXrVazJQw3FFgo/Qji8=
+			KfFpWL5nA2YvX5HpkFBD/d406AY=
 			</data>
 			<key>hash2</key>
 			<data>
-			LIhdwX193tEhjKyEM4QawHEDsvzQOF3F604n3X3xOSY=
+			prfWy/MJBs1el77PrVk5vjPnIYlRdYWMiDv9TQLsC7w=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -273,6 +285,17 @@
 			4m/hayggmSUwxAjjAPsmLpCXDcfksISfIoRPqvKUwRg=
 			</data>
 		</dict>
+		<key>Resources/TestParaGroup.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rSo0C/LtfqiODl8O9aK2C4a+2xk=
+			</data>
+			<key>hash2</key>
+			<data>
+			kY8gcEvUFmjn5JXFfBFMiE6JaD543DS9Y2eGOmWDeUM=
+			</data>
+		</dict>
 		<key>Resources/TestParagraphs.json</key>
 		<dict>
 			<key>hash</key>
@@ -282,6 +305,28 @@
 			<key>hash2</key>
 			<data>
 			XcqWA6hV5yNLxuJUAjbSWCIk0bCsm9TxAS71ANG/4mM=
+			</data>
+		</dict>
+		<key>Resources/TestTextGroup.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			C+mK2jIVOUzGkPvQqTjEeCnhAKA=
+			</data>
+			<key>hash2</key>
+			<data>
+			OAYwAsALyoZTyeZyhwzf+BcAMv+x5+Bdj8/A08yygvw=
+			</data>
+		</dict>
+		<key>Resources/TestTextGroupShapes.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rQ/W+pxOQRfDi0j0eDES+gbHRbg=
+			</data>
+			<key>hash2</key>
+			<data>
+			EqU6njPtlZHZ8+6G0VwBnIaTYrsRXpuxX8kw6Dnp69Y=
 			</data>
 		</dict>
 		<key>Resources/XMLImages.xml</key>

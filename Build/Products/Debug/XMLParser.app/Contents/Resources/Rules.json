@@ -3,7 +3,14 @@
     "view"      :   "artboard",
     "text"      :   "label",
     "label"     :   "text",
-    "shape"     :   "imageView",
-    "imageView" :   "shape"
+    "shape"     :   {
+        "shape.type.rect" : {
+            "style.fill.type.pattern" : "imageView",
+            "style.fill.type.solid"   : "button"
+        },
+        "shape.type.ellipse" : "ellipse"
+    },
+    "imageView" :   "shape",
+    "group"     :   "group"
     
 }

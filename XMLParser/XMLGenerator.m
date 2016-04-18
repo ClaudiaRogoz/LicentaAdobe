@@ -30,7 +30,7 @@
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:TESTPARA_PATH];
+    NSData *testData = [NSData dataWithContentsOfFile:TESTTEXT_PATH];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
 
     [gen getXmlForAgcObject:agcTemplate];
@@ -251,6 +251,9 @@
                         
                         [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:@"height"];
                         [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.1 * rect.size.width] forKey:@"width"];
+                        
+                        //TODO update y because in XD "tx" = upper left corner; transfer it to lower left corner
+                        //[[*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:@"height"];]
                     }
                     
                     
@@ -265,6 +268,69 @@
     
 }
 
+
+/* a group represents a new view added in the subtags */
+- (NSMutableDictionary *) processGroup:(NSMutableDictionary **)groupDict agcDict:(NSDictionary *) agcDict{
+    
+    NSLog(@"group's dict = %@", *groupDict);
+    NSLog(@"AGC = %@", agcDict);
+    NSMutableDictionary *viewDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [[agcToXmlTemplate objectForKey:SUBVIEWS] objectForKey:VIEW]]];
+    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
+    for (id key in [agcDict objectForKey:@"children"]) {
+        
+    }
+    NSDictionary *newDict = [self processTemplateDict:&*groupDict agcDict:agcDict finalDict:finalDict];
+    NSLog(@"NnewDict = %@", newDict);
+    
+    return *groupDict;
+    
+
+}
+
+-(id) getShapeType:(id)type object:(id)object {
+    
+    if ([type isKindOfClass:[NSDictionary class]]) {
+        NSLog(@"Dict irt is!");
+        for (id key in [type allKeys]) {
+            NSLog(@"Check for %@", key);
+            id value = [object mutableCopy];
+            id subType = [type objectForKey:key];
+            NSArray *gotoTag = [key componentsSeparatedByString:@"."];
+            NSLog(@"Obj = %@", value);
+            for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
+                NSLog(@"elem = %@", elem);
+                value = [value objectForKey:elem];
+                NSLog(@"goto %@", value);
+            }
+            
+            if (![value isEqualToString:[gotoTag lastObject]])
+            continue;
+            
+            NSLog(@"Match here %@", subType);
+            for (id subKey in subType) {
+                id subValue = [object mutableCopy];
+                id subSubType = [subType objectForKey:subKey];
+                gotoTag = [subKey componentsSeparatedByString:@"."];
+                for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
+                    subValue = [subValue objectForKey:elem];
+                }
+                
+                if (![subValue isEqualToString:[gotoTag lastObject]])
+                continue;
+                else {
+                    NSLog(@"Settype = %@", type);
+                    type = subSubType;
+                    break;
+                }
+            }
+            
+            break;
+        }
+    }
+
+    return type;
+
+}
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict agcDict:agcParams{
     
     id objDict;
@@ -321,6 +387,7 @@
         BOOL isEmpty = ([dictValue count] == 0);
         if (isEmpty && !dictValue) {
             //use default values!!!
+            NSLog(@"MERGEDEF: %@ %@ %@", [objDict objectForKey:DEFAULT], objDict, dict);
             [self mergeDefaultValues:[objDict objectForKey:DEFAULT] withDict:&objDict usingDict:dict];
             return objDict;
             
@@ -364,12 +431,92 @@
                      * get the corresponding template*/
                     NSLog(@"object = %@", object);
                     id type = [translationDict objectForKey:[object objectForKey:@"type"]];
+                    NSLog(@"Ttype = %@", type);
                     if (!type)
                         continue;
                     
                     
+                    
+                    type = [self getShapeType:type object:object];
+                    /* we need to check several rules in order to decide which is the type of an object
+                     * esp for type = shape
+                     **/
+                   /*if ([type isKindOfClass:[NSDictionary class]]) {
+                        NSLog(@"Dict irt is!");
+                        for (id key in [type allKeys]) {
+                            NSLog(@"Check for %@", key);
+                            id value = [object mutableCopy];
+                            id subType = [type objectForKey:key];
+                            NSArray *gotoTag = [key componentsSeparatedByString:@"."];
+                            NSLog(@"Obj = %@", value);
+                            for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
+                                NSLog(@"elem = %@", elem);
+                                value = [value objectForKey:elem];
+                                NSLog(@"goto %@", value);
+                            }
+                            
+                            if (![value isEqualToString:[gotoTag lastObject]])
+                                continue;
+                            
+                            NSLog(@"Match here %@", subType);
+                            for (id subKey in subType) {
+                                id subValue = [object mutableCopy];
+                                id subSubType = [subType objectForKey:subKey];
+                                gotoTag = [subKey componentsSeparatedByString:@"."];
+                                for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
+                                    subValue = [subValue objectForKey:elem];
+                                }
+                                
+                                if (![subValue isEqualToString:[gotoTag lastObject]])
+                                    continue;
+                                else {
+                                    NSLog(@"Settype = %@", type);
+                                    type = subSubType;
+                                    break;
+                                }
+                            }
+                            
+                            break;
+                        }
+                    }
+                    
+                    */
+                    
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
-                   
+                    
+                    NSLog(@"Ttype = %@", type);
+                    if ([type isEqualToString:GROUP]) {
+                        NSLog(@"This is a group! %@", object);
+                        NSMutableDictionary *viewDict = [newObjDict objectForKey:VIEW];
+                        [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict];
+                        NSLog(@"parent = %@", viewDict);
+                        NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
+                        for (id key in [[object objectForKey:GROUP] objectForKey:@"children"]) {
+                            id type = [translationDict objectForKey:[key objectForKey:@"type"]];
+                            NSLog(@"Ttype = %@", type);
+                            
+                            if (!type)
+                                continue;
+                            
+                            type = [self getShapeType:type object:object];
+                            NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
+                            [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict];
+                            NSLog(@"group = %@", typeObjDict);
+                            NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
+                            [subViewDict setObject:typeObjDict forKey:type];
+                            [viewSubviews addObject:subViewDict];
+                            //[objDict addObject:subViewDict];
+                        }
+                        NSLog(@"ObjDict = %@", viewSubviews);
+                        [[viewDict objectForKey:RULES ] setObject:viewSubviews forKey:SUBVIEWS];
+                        NSMutableDictionary *subViewTmp = [[NSMutableDictionary alloc] init ];
+                        [subViewTmp setObject:viewDict forKey:VIEW];
+                        
+                        [objDict addObject:subViewTmp];
+                        NSLog(@"ObjectView = %@", objDict);
+                        //NSMutableDictionary *groupDict = [self processGroup:&viewDict agcDict:[object objectForKey:GROUP]];
+                        continue;
+                    }
                     
                     
                     [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];

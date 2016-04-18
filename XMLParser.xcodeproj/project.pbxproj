@@ -13,6 +13,9 @@
 		C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA11CB66A9B00A10C52 /* Defs.json */; };
 		C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9730EA41CB678D800A10C52 /* XMLGenerator.m */; };
 		C9730EA71CB687D100A10C52 /* Rules.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA61CB687D100A10C52 /* Rules.json */; };
+		C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A41CC4C16100E487AB /* TestParaGroup.json */; };
+		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
+		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
 		C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C98141E51CB7BAAF00936604 /* TestGenerator.json */; };
 		C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186C91C8B664A0071A25F /* AppDelegate.m */; };
 		C99186CD1C8B664A0071A25F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CC1C8B664A0071A25F /* main.m */; };
@@ -62,6 +65,9 @@
 		C9730EA31CB678D800A10C52 /* XMLGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLGenerator.h; sourceTree = "<group>"; };
 		C9730EA41CB678D800A10C52 /* XMLGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLGenerator.m; sourceTree = "<group>"; };
 		C9730EA61CB687D100A10C52 /* Rules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Rules.json; path = XMLParser/Rules.json; sourceTree = "<group>"; };
+		C97921A41CC4C16100E487AB /* TestParaGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParaGroup.json; sourceTree = "<group>"; };
+		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
+		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
 		C98141E51CB7BAAF00936604 /* TestGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TestGenerator.json; path = XMLParser/TestGenerator.json; sourceTree = "<group>"; };
 		C99186C51C8B664A0071A25F /* XMLParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMLParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99186C81C8B664A0071A25F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -153,6 +159,9 @@
 				C9AF2B551CBFC696001C39C7 /* TestImageLabels.json */,
 				C9B5FFB81CC133EF0014575C /* TestMultiple.json */,
 				C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */,
+				C97921A41CC4C16100E487AB /* TestParaGroup.json */,
+				C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */,
+				C97921A81CC4F66500E487AB /* TestTextGroup.json */,
 			);
 			name = TestFiles;
 			sourceTree = "<group>";
@@ -335,6 +344,7 @@
 				C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */,
 				C9AF2B541CBFBE76001C39C7 /* TestDropFile.json in Resources */,
 				C9AF2B561CBFC696001C39C7 /* TestImageLabels.json in Resources */,
+				C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */,
 				C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */,
 				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
 				C9DBD91A1C9967D0006A9638 /* myXMLfileDown.xml in Resources */,
@@ -345,11 +355,13 @@
 				C9AF2B4F1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json in Resources */,
 				C9B5FFB91CC133EF0014575C /* TestMultiple.json in Resources */,
 				C96E8FCD1CC22FC100956B49 /* TestParagraphs.json in Resources */,
+				C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */,
 				C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */,
 				C96E8FCF1CC2BAAB00956B49 /* CopyDefs in Resources */,
 				C99186D51C8B664A0071A25F /* Main.storyboard in Resources */,
 				C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */,
 				C9B0F4051C9C27660005903C /* Button.agc in Resources */,
+				C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */,
 				C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

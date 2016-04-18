@@ -45,6 +45,36 @@
     }
     ,
     "subviews":{
+        "view" : {
+            "header" : {
+                "contentMode" : "scaleToFill",
+                "fixedFrame" : "YES",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id" : "$",
+                "toString" : ["contentMode", "fixedFrame", "translatesAutoresizingMaskIntoConstraints", "id"]
+            },
+            "toString" : ["header", "rules"],
+            "rules" : {
+                
+                "$header.id" : "$rand",
+                
+                "rect" : {
+                    "$transform" : {
+                        "x" : "$tx",
+                        "y" : "$ty",
+                        "key" : "frame"
+                        
+                    }
+                }
+                , "subviews" : {
+                },"color" : {
+                },
+                "toString" : ["rect", "subviews", "color"],
+                "order" : ["rect", "color"]
+            }
+
+        
+        },
         "imageView" : {
             "header" : {
                 "userInteractionEnabled" : "NO",
@@ -119,7 +149,7 @@
                     "$text.paragraphs.$lineListNo.lines" : {
                         "len"   :   "$len"
                     },
-                    "order" : ["$text.paragraphs.$lineListNo.lines", "$text", "$style.font", "$transform"]
+                    "order" : ["$transform", "$text.paragraphs.$lineListNo.lines", "$text", "$style.font" ]
                 },
                 "fontDescription" : {
                     "$style.font" :
