@@ -133,6 +133,7 @@
             "rules": {
                 "$header.id" : "$rand",
                 "$header.numberOfLines" : "$text.paragraphs.$lineListNo.lines.$count",
+                "$header.numberOfLines" : "$text.paragraphs.$count",
                 "rect" : {
                     "$transform" : {
                         "x" : "$tx",
@@ -149,7 +150,10 @@
                     "$text.paragraphs.$lineListNo.lines" : {
                         "len"   :   "$len"
                     },
-                    "order" : ["$transform", "$text.paragraphs.$lineListNo.lines", "$text", "$style.font" ]
+                    "$text.paragraphs" : {
+                        "len"   :   "$len"
+                    },
+                    "order" : ["$transform", "$text.paragraphs.$lineListNo.lines", "$text.paragraphs" , "$text", "$style.font" ]
                 },
                 "fontDescription" : {
                     "$style.font" :
@@ -192,7 +196,7 @@
             "y" : "$y",
             "width" : "$width",
             "height" : "$height",
-            "len"   : "$len",
+            "len"   : "0",
             "to"    : "$to",
             "toString" : ["key", "x", "y", "width", "height"]
         },

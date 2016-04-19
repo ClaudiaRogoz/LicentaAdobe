@@ -250,12 +250,13 @@
                         /* we have the height = text; width = fontSize; */
                         
                         NSLog(@"BUHUHU1 %d %d", textLines, textLen);
-                        //[*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
+                        NSLog(@"Dict -= %@", *objDict);
+                        [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
                         
-                        NSString *label = [*objDict objectForKey:@"height"];
+                        NSString *label = [*objDict objectForKey:HEIGHT];
                         
                         NSString *firstLine = [label substringToIndex:textLen];
-                        int fontSize = [[*objDict objectForKey:@"width"] intValue];
+                        int fontSize = [[*objDict objectForKey:WIDTH] intValue];
                         NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
                         [style setLineBreakMode:NSLineBreakByWordWrapping];
                         
@@ -273,11 +274,9 @@
                                                                attributes:attributes
                                                                   context:nil];
                         
-                        [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:@"height"];
-                        [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.1 * rect.size.width] forKey:@"width"];
+                        [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
+                        [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.1 * rect.size.width] forKey:WIDTH];
                         
-                        //TODO update y because in XD "tx" = upper left corner; transfer it to lower left corner
-                        //[[*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:@"height"];]
                     }
                     
                     
@@ -411,15 +410,23 @@
                 
                 int counter = (int)[dictValue count];
                 NSLog(@"ClaudSet to %d %@", counter, dictValue);
-                textLines = counter;
+                //textLines = counter;
                 //NSLog(@"objectDict = %@", objDict);
-                [objDict setObject:[NSNumber numberWithInt:counter] forKey:LEN];
-                NSLog(@"LENG = %d", counter);
+                textLines = MAX(counter, [[objDict objectForKey:LEN] intValue]);
+                
+                [objDict setObject:[NSNumber numberWithInt:textLines] forKey:LEN];
+                
                 id tmp = dictValue;
-                id firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:@"to"];
-                //NSLog(@"First = %@", firstLine);
+                id firstLine;
+                if (textLines == counter && [condition isEqualToString:@"$text.paragraphs.$lineListNo.lines"])
+                    firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:@"to"];
+                else if (textLines == counter && [condition isEqualToString:@"$text.paragraphs"]) {
+                    tmp = [[tmp objectAtIndex:0] objectForKey:@"lines"];
+                    firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:@"to"];
+                }
+                
                 textLen = [firstLine intValue];
-                //[ setObject:firstLine forKey:@"to"];
+            
                 continue;
             }
             if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:TYPE] &&
@@ -651,13 +658,20 @@
             }
             NSString *value = [self computeValue:[rulesTempDict objectForKey:rule] forDict:agcDict];
             NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], val);
-            NSLog(@"Components = %@", [value componentsSeparatedByString:@" "]);
+           // NSLog(@"Components = %@", [value componentsSeparatedByString:@" "]);
             
-            if ([[value componentsSeparatedByString:@" "] count] == 1)
-                [val setObject:value forKey:[keys lastObject]];
-            else {
+            if ([[value componentsSeparatedByString:@" "] count] == 1) {
+                id hasValue = [val objectForKey:[keys lastObject]];
+                if (hasValue && [hasValue intValue]){
+                    int max = MAX([hasValue intValue], [value intValue]);
+                    [val setObject:[NSNumber numberWithInt:max] forKey:[keys lastObject]];
+                }
+                else [val setObject:value forKey:[keys lastObject]];
+            } else {
                 NSString *stringValue = [NSString stringWithFormat:@"\"%@\"", value];
+                 NSLog(@"A");
                 [val setObject:stringValue forKey:[keys lastObject]];
+                
             }
             NSLog(@"Val = %@", val);
             
