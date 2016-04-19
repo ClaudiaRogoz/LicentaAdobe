@@ -648,9 +648,7 @@
             }
             
         } else {
-            //TODO the modified variable is in the "finalDict"
-            //remove the $x.y.z... rule
-            //[rulesInitDict removeObjectForKey:rule];
+            
             NSLog(@"TMPL = %@ %@", *templateDict, keys);
             id val = *templateDict;
             for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
@@ -658,7 +656,7 @@
             }
             NSString *value = [self computeValue:[rulesTempDict objectForKey:rule] forDict:agcDict];
             NSLog(@"Set value = %@ %@\n%@", value, [keys lastObject], val);
-           // NSLog(@"Components = %@", [value componentsSeparatedByString:@" "]);
+           
             
             if ([[value componentsSeparatedByString:@" "] count] == 1) {
                 id hasValue = [val objectForKey:[keys lastObject]];
