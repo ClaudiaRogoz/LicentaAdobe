@@ -404,14 +404,17 @@
             //no subview found
             return nil;
         } else {
-            //NSLog(@"Dict for cond = %@", [dict objectForKey:condition]);
+            NSLog(@"Dict for cond = %@", [dict objectForKey:condition]);
             id subRules = [dict objectForKey:condition];
+            
             if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:LEN]) {
+                
                 int counter = (int)[dictValue count];
-                //NSLog(@"ClaudSet to %d %@", counter, objDict);
+                NSLog(@"ClaudSet to %d %@", counter, dictValue);
                 textLines = counter;
                 //NSLog(@"objectDict = %@", objDict);
-                //[objDict setObject:[NSNumber numberWithInt:counter] forKey:LEN];
+                [objDict setObject:[NSNumber numberWithInt:counter] forKey:LEN];
+                NSLog(@"LENG = %d", counter);
                 id tmp = dictValue;
                 id firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:@"to"];
                 //NSLog(@"First = %@", firstLine);
@@ -559,9 +562,14 @@
                         NSLog(@"ObjDict = %@", viewSubviews);
                         
                         for (id keyObject in viewSubviews) {
-                            //id name = [keyObject allKeys];
-                            
-                        
+                            id name = [[keyObject allKeys] objectAtIndex:0];
+                            id frame = [[[keyObject objectForKey:name ] objectForKey:RULES] objectForKey:FRAME];
+                            int x = [[frame objectForKey:XARTBOARD] intValue];
+                            x = x - minx;
+                            int y = [[frame objectForKey:YARTBOARD] intValue];
+                            y = y - miny;
+                            [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
+                            [frame setObject:[NSNumber numberWithInt:y] forKey:YARTBOARD];
                         
                         }
                         [[viewDict objectForKey:RULES ] setObject:viewSubviews forKey:SUBVIEWS];

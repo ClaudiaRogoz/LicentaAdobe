@@ -53,6 +53,7 @@
 #define REGULAR     @"Regular"
 #define ITALIC      @"Italic"
 #define BOLD        @"Bold"
+#define FRAME       @"rect"
 
 
 #define XMLRESOURCES   @"<resources>"

@@ -58,7 +58,7 @@ int main(int argc, const char * argv[]) {
     NSLog(@"NS = %@", ns);*/
  
     
-    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%s", argv[1]]];
+    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", tmpPath]];
 
     return NSApplicationMain(argc, argv);
 }
