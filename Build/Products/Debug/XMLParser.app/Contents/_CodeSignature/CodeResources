@@ -8,7 +8,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QSZ7lHf26E5l1lsXOpdDwXraaXo=
+			CPzisUivjOnwZOyOSCmwubPTkZg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -17,7 +17,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bJdLOrFvluMuM6phcjC1cs10Fvw=
+			kJkYH/p9vP2R6Yu3gJFJHt8A5gc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -26,7 +26,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sfe2/ASrF4NvoKJvt1zVjiju9Og=
+			2o8fjNMEayr0+dVhhGXey8F4oQM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -44,13 +44,9 @@
 		<data>
 		FD8bEs9ffMt2KFk2HS/OWnVco+0=
 		</data>
-		<key>Resources/CopyDefs</key>
-		<data>
-		mc+yC4ElDs5hyukKvPFsrKWnddM=
-		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		lUpeKEN8mjrwDovkjZgmbClTbn4=
+		cAe/aLEXanpY2RfM3I71pKGU0K0=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
@@ -75,6 +71,10 @@
 		<key>Resources/TestImageLabels.json</key>
 		<data>
 		3NdjdVoudZgcT7NMiPK+Zwndwmo=
+		</data>
+		<key>Resources/TestMulText.json</key>
+		<data>
+		Y6ilbMfJz5oMoCgmrVQKG+s1LTg=
 		</data>
 		<key>Resources/TestMultiple.json</key>
 		<data>
@@ -127,11 +127,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QSZ7lHf26E5l1lsXOpdDwXraaXo=
+			CPzisUivjOnwZOyOSCmwubPTkZg=
 			</data>
 			<key>hash2</key>
 			<data>
-			QjlRvDzubH2V/5sy7A38iu7mVIY4L76nvsTxzUI9gvA=
+			6NJEO98NCrV48BHkycAkjVLrnFHbAya+9dXYm84YKZI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -140,11 +140,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bJdLOrFvluMuM6phcjC1cs10Fvw=
+			kJkYH/p9vP2R6Yu3gJFJHt8A5gc=
 			</data>
 			<key>hash2</key>
 			<data>
-			R325sybFA4FRlxoOJPUXX6sgZSK2w/G6SlPJMfYOtDk=
+			O0ZDvTG+EkNAgBZXpDrMaiEvQMLwvx/ibLgfKdOe3WU=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -153,11 +153,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sfe2/ASrF4NvoKJvt1zVjiju9Og=
+			2o8fjNMEayr0+dVhhGXey8F4oQM=
 			</data>
 			<key>hash2</key>
 			<data>
-			Bl5JbjSl/eyo/2FAPDG2EbTCr7AljRi+UsYeojCgahE=
+			qFQo/zoCsL22nQ78PRmioa3UojjFmbwKD3vke/efX00=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -186,26 +186,15 @@
 			JvzS2plxSZ3E4kJ25rKRGpN8QLELr8viCRTy6+ZkgHc=
 			</data>
 		</dict>
-		<key>Resources/CopyDefs</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			mc+yC4ElDs5hyukKvPFsrKWnddM=
-			</data>
-			<key>hash2</key>
-			<data>
-			/MW3giR/4HMKZ7XWatdzu+VZh2C5uXdE2fUgJs8xBDM=
-			</data>
-		</dict>
 		<key>Resources/Defs.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			lUpeKEN8mjrwDovkjZgmbClTbn4=
+			cAe/aLEXanpY2RfM3I71pKGU0K0=
 			</data>
 			<key>hash2</key>
 			<data>
-			jlH3GwPC9J38hLStd+tXvxblZ8TZp6eHfbZhkSLYudo=
+			6p8V3rTxD+dPd6lwRyeQWsw7yJV4wXNcllcNfwcFL4g=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
@@ -272,6 +261,17 @@
 			<key>hash2</key>
 			<data>
 			xbD8F0HQ21Jnqbg0HeNKbjGErMA+scl8x+brGGQvFcg=
+			</data>
+		</dict>
+		<key>Resources/TestMulText.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Y6ilbMfJz5oMoCgmrVQKG+s1LTg=
+			</data>
+			<key>hash2</key>
+			<data>
+			AiXQyuFnCnkylPfEYXeNyhHsxZG2TnIM/ylJJpXdLPc=
 			</data>
 		</dict>
 		<key>Resources/TestMultiple.json</key>

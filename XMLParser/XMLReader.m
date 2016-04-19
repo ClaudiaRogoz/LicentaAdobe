@@ -796,14 +796,18 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     [reader setXmlPath:out_file];
     
     NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];
-    
+
+    NSLog(@"ROOTDICTIONARY = %@", rootDictionary);
+
+
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName];
     
+    NSLog(@"Split\n");
     [reader splitArtboards:rootDictionary];
     
     
-    [reader monitorXDFile:xdPath];
+   // [reader monitorXDFile:xdPath];
     
     
     return rootDictionary;

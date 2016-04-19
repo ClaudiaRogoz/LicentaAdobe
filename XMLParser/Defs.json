@@ -155,7 +155,7 @@
                     "$style.font" :
                     {
                         "key" : "fontDescription",
-                        "type" : "system",
+                        "type" : "$style",
                         "pointSize" : "$size"
                     }
                 },
@@ -230,7 +230,7 @@
         },
         "fontDescription" : {
             "key" : "fontDescription",
-            "type" : "system",
+            "type" : "$",
             "pointSize" : "$size",
             "toString" : ["key" , "type", "pointSize"]
             

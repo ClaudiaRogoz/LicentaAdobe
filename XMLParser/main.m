@@ -18,11 +18,19 @@
 
 int main(int argc, const char * argv[]) {
     
-    NSString *xmlPath = [NSString stringWithFormat:@"%s%@", argv[1], STORYBOARD];
+    
+    NSString *tmpPath = [NSString stringWithFormat:@"%s", argv[1]];
+    NSString *xmlPath;
+    if ([tmpPath hasSuffix:@"/"])
+        xmlPath = [NSString stringWithFormat:@"%s%@", argv[1], STORYBOARD];
+    else
+        xmlPath = [NSString stringWithFormat:@"%s/%@", argv[1], STORYBOARD];
+    
     NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
-
+    NSLog(@"path = %@ %@", xmlPath, imageDir);
     NSData *parser = [NSData dataWithContentsOfFile:xmlPath];
+    NSLog(@"parser = %@", parser);
     NSString *string = [[NSString alloc] initWithData:parser encoding:NSUTF8StringEncoding] ;
     NSLog(@"String%@", string);
     // Parse the XML into a dictionary

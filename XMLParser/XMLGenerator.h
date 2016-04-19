@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 
-#define DEF_PATH @"XMLParser/Defs.json"
-#define RULES_PATH @"XMLParser/Rules.json"
+#define DEF_PATH @"./XMLParser/Defs.json"
+#define RULES_PATH @"./XMLParser/Rules.json"
 #define TEST_PATH @"XMLParser/TestGenerator.json"
 #define TEST2_PATH @"Test2LabelsInAgcGenerator.json"
 #define TESTDROP_PATH @"TestDropFile.json"
@@ -20,6 +20,7 @@
 #define TESTPARAGROUP_PATH  @"TestParaGroup.json"
 #define TESTTGS_PATH         @"TestTextGroupShapes.json"
 #define TESTTEXT_PATH       @"TestTextGroup.json"
+#define TESTMULTTEXT_PATH       @"TestMulText"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
@@ -31,6 +32,7 @@
 #define LINES       @"$lineListNo"
 #define LINESDICT   @"$lineNo"
 #define COUNT       @"$count"
+#define STYLE       @"$style"
 
 #define VIEW        @"view"
 #define RULES       @"rules"
@@ -47,10 +49,16 @@
 #define ORDER       @"order"
 #define BETWEEN     @"inBetween"
 #define GROUP       @"group"
+#define TYPE        @"type"
+#define REGULAR     @"Regular"
+#define ITALIC      @"Italic"
+#define BOLD        @"Bold"
+
 
 #define XMLRESOURCES   @"<resources>"
 #define XMLRESOURCESF  @"</resources>"
-#define XMLHEADER   @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><document type=\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\" version=\"3.0\" toolsVersion=\"9532\" systemVersion=\"15E65\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\" initialViewController=\"BYZ-38-t0r\"><dependencies><deployment identifier=\"iOS\"/><plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"9530\"/></dependencies><scenes>"
+#define XMLHEADERA   @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><document type=\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\" version=\"3.0\" toolsVersion=\"9532\" systemVersion=\"15E65\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\" initialViewController="
+#define XMLHEADERB  @"><dependencies><deployment identifier=\"iOS\"/><plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"9530\"/></dependencies><scenes>"
 #define XMLFOOTERA   @"</viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id="
 #define XMLFOOTERB   @" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x=\"2377\" y=\"429\"/></scene>"
 
@@ -113,6 +121,8 @@
     
     int textLen;
     int textLines;
+    
+    BOOL computed;
 }
 
 /* agc & xml file paths */
