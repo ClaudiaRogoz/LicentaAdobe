@@ -28,11 +28,9 @@ int main(int argc, const char * argv[]) {
     
     NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
-    NSLog(@"path = %@ %@", xmlPath, imageDir);
+    
     NSData *parser = [NSData dataWithContentsOfFile:xmlPath];
-    NSLog(@"parser = %@", parser);
-    NSString *string = [[NSString alloc] initWithData:parser encoding:NSUTF8StringEncoding] ;
-    NSLog(@"String%@", string);
+   
     // Parse the XML into a dictionary
     NSError *parseError = nil;
     [XMLReader dictionaryForXMLData:parser resources:imageDir xdPath:xdPath outFile:xmlPath error:&parseError];
@@ -42,20 +40,13 @@ int main(int argc, const char * argv[]) {
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
-   // NSString *hello = [NSString stringWithFormat:@"Hello"];
+   
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *outFile = [NSString stringWithFormat:@"%@/%@", documentsDirectory, ARTBOARDXML];
     [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
-    
-   /* NSXMLElement *root = [[NSXMLElement alloc] initWithName:@"Request"];
-    [root addAttribute:[NSXMLNode attributeWithName:@"Attribute1" stringValue:@"Value1"]];
-    [root addAttribute:[NSXMLNode attributeWithName:@"Attribute2" stringValue:@"Value2"]];
-    [root addAttribute:[NSXMLNode attributeWithName:@"Attribute3" stringValue:@"Value3"]];
-    NSString *ns = [NSString stringWithFormat:@"%@", root];
-    NSLog(@"NS = %@", ns);*/
  
     
     [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", tmpPath]];
