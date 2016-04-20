@@ -8,16 +8,9 @@
 
 
 #import <Foundation/Foundation.h>
-#define EPS 3 // just an epsilon value for pointSize calc
 
-/* constants used for iphone6 artboards 
- * TODO: update for each artboard
- */
-#define OFFSETBOARD 400
-#define WIDTHIPH6 375
-#define HEIGHTIPH6 667
-#define SPARKLERCLIPBOARD   @"com.adobe.sparkler.design"
-#define ARTBOARDXML         @"artboardFromXml.agc"
+#import "Constants.h"
+
 
 @import AppKit;
 
@@ -25,6 +18,8 @@
 @interface XMLReader : NSObject <NSXMLParserDelegate>
 {
     NSMutableArray *dictionaryStack;
+    
+    
     /** stack representing inheritance tree with regards to tags
      * eg. <label attr = ....>
      *          <color attr=.../>
@@ -66,29 +61,15 @@
     NSMutableDictionary *attributes;
     
     /**
-     * rules needed for agc2xml export;
-     * using these rules we obtain the type of the agc element
-     **/
-    NSMutableDictionary *exportAgc;
-    
-    /**
      * offsets of tags in the xml file; needed for sync
      **/
     NSMutableDictionary *offsetXmlFile;
-    
+ 
     /**
      *  which objects to monitor;
      *  used for sync
      **/
     NSMutableDictionary *objectOffset;
-    
-    
-    /**
-     *  temp variable used for textField/label; 
-     * we have to propagate the text name for lower tags
-     * TODO: integrate in attributes
-     **/
-    NSString *tempText;
     
     /* width/height of xcode artboards and xd artboards */
     int widthXMLArtboard;

@@ -61,8 +61,9 @@
 #define GROUP       @"group"
 #define TYPE        @"type"
 #define ARTBOARDS   @"artboards"
-
-
+#define TRANSFORM   @"transform"
+#define TX          @"tx"
+#define TY          @"ty"
 #define FRAME       @"rect"
 
 
@@ -71,12 +72,14 @@
 #define GREEN       @"green"
 #define BLUE        @"blue"
 
+#define NOT         @"NOT"
 
 /* Fonts */
 #define REGULAR     @"Regular"
 #define ITALIC      @"Italic"
 #define BOLD        @"Bold"
 
+#define FONT_DESCR @"fontDescription"
 #define FONT_SYSTEM @"system"
 #define FONT_ITALIC @"italicSystem"
 #define FONT_BOLD   @"boldSystem"
@@ -85,7 +88,16 @@
 #define DOT         @"."
 #define TO          @"to"
 #define RAWTEXT     @"$rawText"
+#define RAWTEXT_VALUE   @"rawText"
 #define TOTRANSFORM @"$"
+
+/* XML2AGC const */
+#define FRAME_X    @"$rect.x"
+#define FRAME_Y    @"$rect.y"
+#define COLOR_RED     @"$color.red"
+#define COLOR_GREEN     @"$color.green"
+#define COLOR_BLUE  @"$color.blue"
+#define FONT_POINT  @"$fontDescription.pointSize"
 
 /* template for headers */
 #define STRINGTAG   @"</mutableString>"
@@ -115,5 +127,17 @@
 #define HEIGHTXMLARTBOARD   600
 #define WIDTHXDARTBOARD     375
 #define HEIGHTXDARTBOARD    667
+
+
+#define EPS 3 // just an epsilon value for pointSize calc
+
+/* constants used for iphone6 artboards
+ * TODO: update for each artboard
+ */
+#define OFFSETBOARD 400
+#define WIDTHIPH6 375
+#define HEIGHTIPH6 667
+#define SPARKLERCLIPBOARD   @"com.adobe.sparkler.design"
+#define ARTBOARDXML         @"artboardFromXml.agc"
 
 #endif /* Constants_h */

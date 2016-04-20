@@ -23,17 +23,18 @@ int main(int argc, const char * argv[]) {
     NSString *xmlPath;
     if ([tmpPath hasSuffix:@"/"])
         xmlPath = [NSString stringWithFormat:@"%s%@", argv[1], STORYBOARD];
-    else
+    else {
+        tmpPath = [tmpPath stringByAppendingString:@"/"];
         xmlPath = [NSString stringWithFormat:@"%s/%@", argv[1], STORYBOARD];
+    }
     
-    NSString *imageDir = [NSString stringWithFormat:@"%s", argv[2]];
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
     
     NSData *parser = [NSData dataWithContentsOfFile:xmlPath];
    
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    [XMLReader dictionaryForXMLData:parser resources:imageDir xdPath:xdPath outFile:xmlPath error:&parseError];
+    [XMLReader dictionaryForXMLData:parser resources:tmpPath xdPath:xdPath outFile:xmlPath error:&parseError];
     
     
     /* copy <agc file> to clipboard */
