@@ -608,29 +608,31 @@
     
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
-    id rulesByOrder;
+    NSArray *keys, *cond;
+    NSMutableDictionary *rulesDict, *mergeDict;
+    NSString *value, *stringValue;
+    id rulesByOrder, val;
     
+
     /* if an order is specified => follow it
      * otherwis use the default enumerator */
     if ([rulesTempDict objectForKey:ORDER])
         rulesByOrder = [rulesTempDict objectForKey:ORDER];
     else rulesByOrder = rulesTempDict;
+    
+    
     for (id rule in rulesByOrder) {
         
-        NSArray *keys = [self splitVariable:rule];
-        
+        keys = [self splitVariable:rule];
         
         if ([keys count] == 1) {
             
             //goto "subviews" dictionary
-           
-            NSMutableDictionary *rulesDict = [rulesTempDict objectForKey:rule];
+            rulesDict = [rulesTempDict objectForKey:rule];
             
             if ([rulesDict isKindOfClass:[NSArray class]])
                 continue;
             
-            
-            NSArray *cond;
             if ([rulesDict count] == 0)
                 cond = nil;
             else if ([rulesDict objectForKey:ORDER])
@@ -638,8 +640,7 @@
             else
                 cond = [rulesDict allKeys];
             
-            
-            NSMutableDictionary *mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
+            mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
             
             if (mergeDict != nil) {
                 
@@ -649,16 +650,14 @@
             
         } else {
             
-            
-            id val = *templateDict;
+            val = *templateDict;
             
             for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
                 val = [val objectForKey:key];
             }
             
-            NSString *value = [self computeValue:[rulesTempDict objectForKey:rule] forDict:agcDict];
+            value = [self computeValue:[rulesTempDict objectForKey:rule] forDict:agcDict];
            
-            
             if ([[value componentsSeparatedByString:@" "] count] == 1) {
                 id hasValue = [val objectForKey:[keys lastObject]];
                 
@@ -670,7 +669,7 @@
                 
             } else {
                 
-                NSString *stringValue = [NSString stringWithFormat:@"\"%@\"", value];
+                stringValue = [NSString stringWithFormat:@"\"%@\"", value];
                 
                 [val setObject:stringValue forKey:[keys lastObject]];
                 
@@ -717,9 +716,6 @@
             NSString * href = [attr objectForKey:ISIMAGE];
             /* find width and height for image */
             
-            
-            /* TODO copy the image into the xcode project!!! */
-            /* TODO get only the name of the file */
             NSImage *image = [[NSImage alloc]initWithContentsOfFile:href];
             /* create an image Tag using subTags */
             NSMutableDictionary *imageDict = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:ISIMAGE] mutableCopy];
@@ -734,20 +730,11 @@
             rootarray = [rootarray subarrayWithRange:NSMakeRange(0, [rootarray count] -2)];
             
             /* TODO copy to the same file! for now just copy to our try file*/
-            
-            /* NSString *toCopyPath = [rootarray componentsJoinedByString:@"/"];
-             NSLog(@"TOCOPY = %@", toCopyPath);
-             */
-            NSString *toCopyPath = @"/Users/crogoz/Desktop/Try/ladybug.jpg";
-            [[NSFileManager defaultManager] createFileAtPath:toCopyPath contents:nil attributes:nil];
-            
-            NSBitmapImageRep *imgRep = (NSBitmapImageRep *)[[image representations] objectAtIndex: 0];
-            NSData *data = (NSData *)[imgRep representationUsingType: NSPNGFileType properties: [[NSDictionary alloc] init]];
-            [data writeToFile: toCopyPath atomically: NO];
            
             NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
             
             [[dict objectForKey:HEADER]  setObject:theFileName forKey:ISIMAGE];
+            
             /* insert this tag into resourcesDict 
              * only if this resource was not prev added */
             if ([resourcesDict rangeOfString:str].location == NSNotFound) {
@@ -798,22 +785,58 @@
     
 }
 
+-(bool) generateSceneHeaderUsingString:(NSMutableString **)finalString withInitialArtboard:(NSString*) initialArtboard
+                           sceneOffset:(long)offset isInitialSet:(bool) setInitial dictionary:(NSDictionary *)dict {
+    
+    [*finalString appendString: SCENEHEADERA];
+    [*finalString appendString: [[NSUUID UUID] UUIDString]];
+    
+    [*finalString appendString: SCENEHEADERB];
+    if (!setInitial) {
+        [*finalString appendString: initialArtboard];
+        setInitial = true;
+    }
+    else
+        [*finalString appendString: [[NSUUID UUID] UUIDString]];
+    
+    [*finalString appendString: SCENEHEADERC];
+    [*finalString appendString: [[NSUUID UUID] UUIDString]];
+    [*finalString appendString: SCENEHEADERD];
+    [*finalString appendString: [[NSUUID UUID] UUIDString]];
+    [*finalString appendString: SCENEHEADERE];
+    
+    [*finalString appendString: [self parseToString:*finalString dict:dict name: ARTBOARD]];
+    [*finalString appendString: XMLVIEWF];
+    [*finalString appendString:XMLFOOTERA];
+    [*finalString appendString: [[NSUUID UUID] UUIDString]];
+    [*finalString appendString:XMLFOOTERB];
+    [*finalString appendFormat:@"%lu", offset];
+    [*finalString appendString:XMLFOOTERC];
+    [*finalString appendFormat:@"%d", XML_SCENE_Y];
+    [*finalString appendString:XMLFOOTERD];
+
+    return true;
+}
+
 -(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject {
+    
     NSString *agcObject = [typeAgcObject objectForKey:TYPE];
     NSMutableString *xmlGen = [NSMutableString stringWithFormat:@""];
     NSMutableString *finalString;
     NSDictionary *dict;
     NSMutableString *stringFooter = [NSMutableString stringWithFormat:XMLSCENESF];
+    NSString *initialArtboard, *resources, *xmlHeader, *xmlFile;
+    BOOL setInitial = false;
+    long sceneOffset = XML_SCENE_X;
+    int artboardsNo;
+    NSError *err;
     
     if (!agcObject) {
         // it was given the whole dictionary to process => goto @"content"; type = "view"
         
-        int artboardsNo = (int)[[typeAgcObject objectForKey:ARTBOARDS] count];
+        artboardsNo = (int)[[typeAgcObject objectForKey:ARTBOARDS] count];
        
-        
-        NSString *initialArtboard = [[NSUUID UUID] UUIDString];
-        BOOL setInitial = false;
-        long sceneOffset = XML_SCENE_X;
+        initialArtboard = [[NSUUID UUID] UUIDString];
         
         while (sceneNo < artboardsNo) {
             finalString = [[NSMutableString alloc] init];
@@ -821,31 +844,12 @@
             dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
             sceneOffset = sceneOffset + sceneNo * XML_OFFSET_X;
             
-            [finalString appendString: SCENEHEADERA];
-            [finalString appendString: [[NSUUID UUID] UUIDString]];
+            setInitial = [self generateSceneHeaderUsingString:&finalString
+                                          withInitialArtboard:initialArtboard
+                                                  sceneOffset:sceneOffset
+                                                    isInitialSet:setInitial
+                                                   dictionary:dict];
             
-            [finalString appendString: SCENEHEADERB];
-            if (!setInitial) {
-                [finalString appendString: initialArtboard];
-                setInitial = true;
-            }
-            else
-                [finalString appendString: [[NSUUID UUID] UUIDString]];
-            [finalString appendString: SCENEHEADERC];
-            [finalString appendString: [[NSUUID UUID] UUIDString]];
-            [finalString appendString: SCENEHEADERD];
-            [finalString appendString: [[NSUUID UUID] UUIDString]];
-            [finalString appendString: SCENEHEADERE];
-            
-            [finalString appendString: [self parseToString:finalString dict:dict name: ARTBOARD]];
-            [finalString appendString: XMLVIEWF];
-            [finalString appendString:XMLFOOTERA];
-            [finalString appendString: [[NSUUID UUID] UUIDString]];
-            [finalString appendString:XMLFOOTERB];
-            [finalString appendFormat:@"%lu", sceneOffset];
-            [finalString appendString:XMLFOOTERC];
-            [finalString appendFormat:@"%d", XML_SCENE_Y];
-            [finalString appendString:XMLFOOTERD];
             
             [xmlGen appendString:finalString];
             ++sceneNo;
@@ -854,17 +858,17 @@
         
         if ([resourcesDict length]) {
             // append resources if it exists
-            NSString *resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
+            resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
             [stringFooter appendString:resources];
         }
         
         [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
-        NSString *xmlHeader =  [self surroundWithHeader:XMLHEADERA footer:XMLHEADERB string:initialArtboard];
-        NSString *xmlFile = [self surroundWithHeader:xmlHeader footer:stringFooter string:xmlGen];
+        xmlHeader =  [self surroundWithHeader:XMLHEADERA footer:XMLHEADERB string:initialArtboard];
+        xmlFile = [self surroundWithHeader:xmlHeader footer:stringFooter string:xmlGen];
         
         NSData *data = [xmlFile dataUsingEncoding:NSUTF8StringEncoding];
         
-        NSError *err;
+        
         NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
         NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
         [xmlData writeToFile:@"new.xml" atomically:YES];
