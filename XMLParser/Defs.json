@@ -39,7 +39,8 @@
                     "colorSpace" :"calibratedRGB"
                 }
             },
-            "toString" : ["rect", "autoresizingMask", "subviews", "color"]
+            "toString" : ["rect", "autoresizingMask", "subviews", "color"],
+            "order" : ["$header.id", "rect", "autoresizingMask", "color", "subviews"]
         }
     }
     }

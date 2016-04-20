@@ -213,7 +213,7 @@
                     
                     id tvalue = [[self splitVariable:value] objectAtIndex:0];
                     
-                    if ([[transformObjects objectForKey:@"size"] objectForKey:key]) {
+                    if ([[transformObjects objectForKey:SIZE] objectForKey:key]) {
                         /* changing size here */
                         
                         
@@ -222,6 +222,7 @@
                         float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
                         float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
                         
+                        NSLog(@"Transform %f %d %f %f", initValue, startXArtboard , xScaleFactor, yScaleFactor);
                         if ([key isEqualToString:XARTBOARD]) {
                             translatedValue = initValue - startXArtboard;
                             translatedValue = translatedValue * xScaleFactor;
@@ -230,7 +231,7 @@
                             translatedValue = initValue - startYArtboard;
                             translatedValue = translatedValue * yScaleFactor;
                         }
-                       
+                        NSLog(@"Transformed in %f", translatedValue);
                         [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
                     } else
                         [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
@@ -368,7 +369,7 @@
                 /* obtain the startX and startY for the current scene */
                 startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
                 startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
-                
+                NSLog(@"StartXArtboard = %d", startXArtboard);
                 widthXDArtboard = [[nodeValue objectForKey:WIDTH] intValue];
                 heightXDArtboard = [[nodeValue objectForKey:HEIGHT] intValue];
                 
@@ -607,8 +608,14 @@
     
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
+    id rulesByOrder;
     
-    for (id rule in rulesTempDict) {
+    /* if an order is specified => follow it
+     * otherwis use the default enumerator */
+    if ([rulesTempDict objectForKey:ORDER])
+        rulesByOrder = [rulesTempDict objectForKey:ORDER];
+    else rulesByOrder = rulesTempDict;
+    for (id rule in rulesByOrder) {
         
         NSArray *keys = [self splitVariable:rule];
         
@@ -806,11 +813,13 @@
         
         NSString *initialArtboard = [[NSUUID UUID] UUIDString];
         BOOL setInitial = false;
+        long sceneOffset = XML_SCENE_X;
         
         while (sceneNo < artboardsNo) {
             finalString = [[NSMutableString alloc] init];
             
             dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
+            sceneOffset = sceneOffset + sceneNo * XML_OFFSET_X;
             
             [finalString appendString: SCENEHEADERA];
             [finalString appendString: [[NSUUID UUID] UUIDString]];
@@ -833,6 +842,11 @@
             [finalString appendString:XMLFOOTERA];
             [finalString appendString: [[NSUUID UUID] UUIDString]];
             [finalString appendString:XMLFOOTERB];
+            [finalString appendFormat:@"%lu", sceneOffset];
+            [finalString appendString:XMLFOOTERC];
+            [finalString appendFormat:@"%d", XML_SCENE_Y];
+            [finalString appendString:XMLFOOTERD];
+            
             [xmlGen appendString:finalString];
             ++sceneNo;
            

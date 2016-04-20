@@ -100,6 +100,12 @@
 #define COLOR_BLUE  @"$color.blue"
 #define FONT_POINT  @"$fontDescription.pointSize"
 
+/* initial offset for xml scene */
+#define XML_SCENE_X 2377
+#define XML_SCENE_Y 429
+
+#define XML_OFFSET_X    644
+
 /* template for headers */
 #define STRINGTAG   @"</mutableString>"
 #define XMLRESOURCES   @"<resources>"
@@ -107,7 +113,9 @@
 #define XMLHEADERA   @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><document type=\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\" version=\"3.0\" toolsVersion=\"9532\" systemVersion=\"15E65\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\" initialViewController="
 #define XMLHEADERB  @"><dependencies><deployment identifier=\"iOS\"/><plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"9530\"/></dependencies><scenes>"
 #define XMLFOOTERA   @"</viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id="
-#define XMLFOOTERB   @" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x=\"2377\" y=\"429\"/></scene>"
+#define XMLFOOTERB   @" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x="
+#define XMLFOOTERC   @" y="
+#define XMLFOOTERD   @"/></scene>"
 
 #define SCENEHEADERA @"<!--View Controller--><scene sceneID="
 #define SCENEHEADERB @"><objects><viewController id="
