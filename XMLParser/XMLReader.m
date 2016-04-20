@@ -24,12 +24,6 @@
 #pragma mark Public methods
 
 
-
-
-
-
-
-
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir xdPath:(NSString*)xdPath outFile:(NSString *)out_file error:(NSError **)error
 {
     XMLReader *reader = [[XMLReader alloc] initWithError:error];
@@ -39,17 +33,11 @@
     
     NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];
 
-    NSLog(@"ROOTDICTIONARY = %@", rootDictionary);
-
 
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName];
     
-    NSLog(@"Split\n");
     [reader splitArtboards:rootDictionary];
-    
-    
-   // [reader monitorXDFile:xdPath];
     
     
     return rootDictionary;
@@ -59,7 +47,7 @@
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                       options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     
     if (! jsonData) {
@@ -67,11 +55,11 @@
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains
-        (NSDocumentDirectory, NSUserDomainMask, YES);
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
+        
         NSString *outFile = [NSString stringWithFormat:@"%@/%@", documentsDirectory, file];
-        NSLog(@"Writing to file %@", outFile);
+        
         [[NSFileManager defaultManager] createFileAtPath:outFile contents:nil attributes:nil];
         [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
         
@@ -379,7 +367,7 @@
     
     // Parse the XML
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-    //parser.delegate = self;
+    
     [parser setDelegate:self];
     BOOL success = [parser parse];
     
@@ -389,17 +377,17 @@
         
         id type = [dictionaryStack objectAtIndex:0];
         [type  setObject:[[NSMutableDictionary alloc] init] forKey:@"artboards"];
-        //TODO5.03 added here these 3 -> check if export still works
+        
         [type  setObject:[attributes objectForKey:@"viewSource"] forKey:@"viewSource"];
         [type  setObject:[attributes objectForKey:@"meta"] forKey:@"meta"];
         [type  setObject:[attributes objectForKey:@"resources"] forKey:@"resources"];
         id sources = [type objectForKey:@"viewSource"];
-        //id viewSource =
+       
         type = [type objectForKey:@"artboards"];
-        NSLog(@"Success = %d", counterArtboards);
+        
         int width = 375;
         int height = 667;
-        //int offsetX = 400;
+        
         int x = 0;
         
         for (int i = 1; i< counterArtboards; i++){
@@ -437,19 +425,16 @@
         return;
         
     }
-    int x = [[*attrScaleDict objectForKey:@"x"] intValue];
-    int y = [[*attrScaleDict objectForKey:@"y"]intValue];
-    int width = [[*attrScaleDict objectForKey:@"width"] intValue];
-    int height = [[*attrScaleDict objectForKey:@"height"]intValue];
+
     
     float xScaleFactor = (float)WIDTHIPH6/widthXMLArtboard;
     float yScaleFactor = (float)HEIGHTIPH6/heightXMLArtboard;
-    NSLog(@"x = %d ;y  = %d ;width = %d; height = %d", x, y, width, height);
+   
     NSArray *arrayWithSize = [NSArray arrayWithObjects:@"x", @"width", @"y", @"height", nil];
     for (id value in arrayWithSize) {
         float scaledValue = [[*attrScaleDict objectForKey:value] floatValue];
         if ([value isEqualToString:@"x"] ) {
-            NSLog(@"Scena este = %d %d", sceneNo, (sceneNo -1) * OFFSETBOARD);
+            
             scaledValue = scaledValue * xScaleFactor+ (sceneNo -1) * OFFSETBOARD;
         }
         else if ([value isEqualToString:@"width"])
@@ -457,7 +442,6 @@
         else
             scaledValue = scaledValue * yScaleFactor;
     
-        NSLog(@"Update %@ with %f", value, scaledValue);
         [*attrScaleDict setValue:[NSNumber numberWithFloat:scaledValue] forKey:value];
     }
 }
@@ -478,11 +462,11 @@
         unsigned long end = [xmlData length];
         
         NSRange range = [xmlData rangeOfData:find options:0 range:NSMakeRange(start, end -start)];
-        //NSLog(@"For = %@ %d %d", elementName, range.location, range.length);
+        
         NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
         [arr addObject:[NSNumber numberWithLong: range.location]];
         xmlOffset = (unsigned long)range.location;
-        //NSLog(@"Start = %d %d", xmlOffset, start);
+        
         
     }
     
@@ -496,7 +480,7 @@
     
     // Get the dictionary for the current level in the stack
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
-    //NSString *nameInit = elementName;
+    
     
     if ([elementName isEqualToString:@"switch"]){
         
@@ -507,7 +491,7 @@
         NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
         
-        //NSLog(@"Button parent = %@", parentDict);
+        
         [parentDict[@"children"] addObject:parsedData];
         [inheritanceStack addObject:@"switch"];
         
@@ -531,7 +515,7 @@
         if ([elementName isEqualToString: @"rect"]) {
             //save frame for label/textfield
             NSArray *keys =[NSArray arrayWithObjects:@"x", @"y", @"width", @"height", nil];
-            NSLog(@"My parent is %@", inheritanceStack);
+            
             
             if ([[inheritanceStack lastObject] isEqualToString:@"children"]) {
                 // axiom: all artboards must have the same size in a single app
@@ -552,11 +536,8 @@
         }
         
         if ([elementName isEqualToString:@"color"] && [[inheritanceStack lastObject] isEqualToString:@"switch"]) {
-            int red = [[attributeDict objectForKey:@"red"] floatValue] * 255;
-            int green = [[attributeDict objectForKey:@"green"] floatValue] * 255;
-            int blue = [[attributeDict objectForKey:@"blue"] floatValue] * 255;
-            NSLog(@"Set color to %d %d %d", red, green, blue);
-            NSLog(@"Switch parent = %@", [dictionaryStack lastObject]);
+
+            
             return;
         }
         
@@ -765,7 +746,7 @@
     
     
     elementName = [xml2agcDictionary objectForKey:elementName];
-    //NSLog(@"ElementName = %@ for %@", elementName, nameInit);
+    
     NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
     ;
     //First level attributes

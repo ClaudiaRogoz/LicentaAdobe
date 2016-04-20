@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0575E5DB-B393-4B04-9D22-7E7CF1F42F44">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1FB6ADBB-302E-4059-B5C5-F3C7B84FFD71">
     <dependencies>
         <deployment identifier="iOS"></deployment>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"></plugIn>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="0748456E-A7AE-4178-AD77-FE4B74DD2954">
+        <scene sceneID="97319812-41E8-40B9-B920-8D2274FAFECB">
             <objects>
-                <viewController id="0575E5DB-B393-4B04-9D22-7E7CF1F42F44" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="1FB6ADBB-302E-4059-B5C5-F3C7B84FFD71" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9EB893FF-F706-4EB1-B9BE-D9EC0BAAD349"></viewControllerLayoutGuide>
-                        <viewControllerLayoutGuide type="bottom" id="7A58A8A8-E72C-4262-A9AE-357C38B6CEB7"></viewControllerLayoutGuide>
+                        <viewControllerLayoutGuide type="top" id="CCE308FD-DAFC-43D9-9D59-36D26C523F88"></viewControllerLayoutGuide>
+                        <viewControllerLayoutGuide type="bottom" id="68A3BA7C-E36D-40FA-A9EC-E9DE3D7BAB9D"></viewControllerLayoutGuide>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3D77C054-7989-44E3-851A-F5F935BAC070">
+                    <view key="view" contentMode="scaleToFill" id="69F925BB-8DC0-4AEF-8F58-ACAEE67FE6B5">
                         <rect key="frame" x="0" y="0" width="375" height="667"></rect>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"></autoresizingMask>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4797F865-34B8-4AC1-8194-83D9C8E40AA6">
-                                <rect key="frame" x="28" y="127" width="216.0136" height="56"></rect>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2C7C0BD-8E26-4456-B2A5-D0CDFF769F8A">
+                                <rect key="frame" x="30" y="127" width="216.0136" height="56"></rect>
                                 <mutableString key="text">Hiking Through the Utah Backcountry</mutableString>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"></fontDescription>
                                 <color key="textColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
                                 <nil key="highlightedColor"></nil>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E52C73D1-3B9D-42B9-AA47-968F9DD27CE7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78CB726C-27FB-4E21-9E37-093CD53C38CE">
                                 <rect key="frame" x="32" y="99" width="62.42017" height="14"></rect>
                                 <mutableString key="text">FEATURED</mutableString>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"></fontDescription>
                                 <color key="textColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
                                 <nil key="highlightedColor"></nil>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C41CC3B0-DF9F-4C72-BF95-F21A43172584">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90DBC5B4-8752-4D86-B48D-59EC35A4A053">
                                 <rect key="frame" x="27" y="236" width="129.3778" height="14"></rect>
                                 <mutableString key="text">LATEST ADVENTURES</mutableString>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"></fontDescription>
                                 <color key="textColor" red="0.047059" green="0.666667" blue="0.862745" alpha="1" colorSpace="calibratedRGB"></color>
                                 <nil key="highlightedColor"></nil>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2469C63F-2C89-4C69-A3EB-F484CD86556F">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1302B2D5-4962-4098-BC9A-BB3E1F7F02AE">
                                 <rect key="frame" x="32" y="177" width="141.9317" height="17"></rect>
                                 <mutableString key="text">with Talin Wadsworth</mutableString>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="13"></fontDescription>
                                 <color key="textColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
                                 <nil key="highlightedColor"></nil>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D53412CE-6FD1-4875-BFF0-3B8064F90597">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0483AD6A-0BCE-45C7-89EF-60387E5EFE9E">
                                 <rect key="frame" x="291" y="277" width="258" height="98"></rect>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABDA71B1-B020-4831-AFB4-196FB7577FC1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F012355D-59A9-4570-9E01-C359EBE239A9">
                                         <rect key="frame" x="0" y="22" width="129.5911" height="38"></rect>
                                         <mutableString key="text">Finding Beauty in the Badlands</mutableString>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"></fontDescription>
                                         <color key="textColor" red="1.000000" green="1.000000" blue="1.000000" alpha="1" colorSpace="calibratedRGB"></color>
                                         <nil key="highlightedColor"></nil>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6B1E5FAC-3AC7-42E7-B0DB-5924DF04ACE5">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9689892B-FA5A-49DB-BC7A-0D1031EE8525">
                                         <rect key="frame" x="0" y="76" width="68.34019" height="14"></rect>
                                         <mutableString key="text">2 hours ago</mutableString>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"></fontDescription>
                                         <color key="textColor" red="0.047059" green="0.666667" blue="0.862745" alpha="1" colorSpace="calibratedRGB"></color>
                                         <nil key="highlightedColor"></nil>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AF6C9EAC-8B20-451C-B4A5-07B9CF0B7174">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1D3A0E07-47FC-4DC2-AF07-F1B035E23CC8">
                                         <rect key="frame" x="0" y="0" width="70.54395" height="16"></rect>
                                         <mutableString key="text">Adventures</mutableString>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="12"></fontDescription>
@@ -72,13 +72,19 @@
                                 </subviews>
                                 <color key="$key" red="$r" green="$g" blue="$b" alpha="$alpha" colorSpace="calibratedRGB"></color>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rectangle-mask-1.png" translatesAutoresizingMaskIntoConstraints="NO" id="DB017426-61A4-4941-8DCC-1870F37C9EFC">
+                                <rect key="frame" x="-24" y="377" width="397" height="247"></rect>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.098039" green="0.098039" blue="0.098039" alpha="1" colorSpace="calibratedRGB"></color>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AFDEDDE4-B2D2-49CE-A0EE-C237A55BA979" userLabel="First Responder" sceneMemberID="firstResponder"></placeholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="24A2EE27-16C6-4DAD-A183-CD1F846BD3A9" userLabel="First Responder" sceneMemberID="firstResponder"></placeholder>
             </objects>
             <point key="canvasLocation" x="2377" y="429"></point>
         </scene>
     </scenes>
+    <resources>
+        <image name="rectangle-mask-1.png" width="397.000000" height="247.000000"></image>
+    </resources>
 </document>

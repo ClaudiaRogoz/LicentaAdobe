@@ -132,8 +132,7 @@
             },
             "rules": {
                 "$header.id" : "$rand",
-                "$header.numberOfLines" : "$text.paragraphs.$lineListNo.lines.$count",
-                "$header.numberOfLines" : "$text.paragraphs.$count",
+                "$header.numberOfLines" : "$MAX $text.paragraphs.$count $text.paragraphs.$lineListNo.lines.$count",
                 "rect" : {
                     "$transform" : {
                         "x" : "$tx",

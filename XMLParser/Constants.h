@@ -73,6 +73,7 @@
 #define BLUE        @"blue"
 
 #define NOT         @"NOT"
+#define SPACE       @" "
 
 /* Fonts */
 #define REGULAR     @"Regular"
@@ -90,7 +91,7 @@
 #define RAWTEXT     @"$rawText"
 #define RAWTEXT_VALUE   @"rawText"
 #define TOTRANSFORM @"$"
-
+#define GETMAX      @"$MAX"
 /* XML2AGC const */
 #define FRAME_X    @"$rect.x"
 #define FRAME_Y    @"$rect.y"

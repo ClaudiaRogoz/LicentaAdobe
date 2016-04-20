@@ -70,20 +70,34 @@
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
     
-    
+    NSLog(@"IV: %@", initValue);
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
         return [[NSUUID UUID] UUIDString];
         
+    } else if ([initValue hasPrefix:GETMAX]) {
+        
+        NSRange range = [initValue rangeOfString:GETMAX];
+        NSArray *max2 = [[initValue substringFromIndex:range.location + GETMAX.length + 1] componentsSeparatedByString:SPACE];
+       
+        id first = [self computeValue:[max2 objectAtIndex:0] forDict:agcDict];
+        id second = [self computeValue:[max2 objectAtIndex:1] forDict:agcDict];
+        int ret = MAX([first intValue], [second intValue]);
+        
+        return [NSString stringWithFormat:@"%d", ret];
+        
+        
+    
     } else {
         //if it depends on an agc tag
         initValue = [initValue substringFromIndex:1];
-        NSArray *array = [initValue componentsSeparatedByString:@"."];
+        NSArray *array = [initValue componentsSeparatedByString:DOT];
         
         id value = agcDict;
         for (id key in array) {
             
             if ([key isEqualToString:COUNT]) {
+                NSLog(@"Counter found %@", agcDict);
                 return [ NSString stringWithFormat:@"%d", (int)[value count]];
             }
             if ([key isEqualToString:LINES])
@@ -177,8 +191,8 @@
             
             if (value) {
                 
-                if ([[transformObjects objectForKey:SIZE] objectForKey:key]) {
-                    /* changing the size -> scale */
+                /*if ([[transformObjects objectForKey:SIZE] objectForKey:key]) {
+                     changing the size -> scale 
                     float translatedValue;
                    
                     float xScaleFactor = (float)widthXDArtboard / WIDTHXMLARTBOARD;
@@ -195,7 +209,7 @@
                     [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
                     
-                } else if ([[transformObjects objectForKey:COLOR] objectForKey:key]) {
+                } else */if ([[transformObjects objectForKey:COLOR] objectForKey:key]) {
                     /* change the color */
                     float color = [value floatValue] / 255;
                     [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
@@ -252,6 +266,8 @@
                         
                         NSString *firstLine = [label substringToIndex:textLen];
                         int fontSize = [[*objDict objectForKey:WIDTH] intValue];
+                        
+                        
                         NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
                         [style setLineBreakMode:NSLineBreakByWordWrapping];
                         
@@ -413,18 +429,20 @@
                 
                 [objDict setObject:[NSNumber numberWithInt:textLines] forKey:LEN];
                 
+                
                 id tmp = dictValue;
                 id firstLine;
                 
-                if (textLines == counter && [condition isEqualToString:TEXT_LINES])
+                if (textLines == counter && [condition isEqualToString:TEXT_LINES]) {
                     firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
-                
-                else if (textLines == counter && [condition isEqualToString:TEXT_PARAGRAPH]) {
+                    textLen = [firstLine intValue];
+                } else if (textLines == counter && [condition isEqualToString:TEXT_PARAGRAPH]) {
                     tmp = [[tmp objectAtIndex:0] objectForKey:LINE_VALUE];
                     firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
+                    textLen = [firstLine intValue];
                 }
                 
-                textLen = [firstLine intValue];
+                
             
                 continue;
             }
@@ -741,9 +759,11 @@
             NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
             
             [[dict objectForKey:HEADER]  setObject:theFileName forKey:ISIMAGE];
-            /* insert this tag into resourcesDict */
-            [resourcesDict appendString:str];
-            
+            /* insert this tag into resourcesDict 
+             * only if this resource was not prev added */
+            if ([resourcesDict rangeOfString:str].location == NSNotFound) {
+                [resourcesDict appendString:str];
+            }
             
         }
         
@@ -810,12 +830,15 @@
             
             dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
             
+            NSLog(@"Dict = %@", dict);
             [finalString appendString: SCENEHEADERA];
             [finalString appendString: [[NSUUID UUID] UUIDString]];
             
             [finalString appendString: SCENEHEADERB];
-            if (!setInitial)
+            if (!setInitial) {
                 [finalString appendString: initialArtboard];
+                setInitial = true;
+            }
             else
                 [finalString appendString: [[NSUUID UUID] UUIDString]];
             [finalString appendString: SCENEHEADERC];
