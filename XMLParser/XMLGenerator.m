@@ -70,7 +70,7 @@
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
     
-    NSLog(@"IV: %@", initValue);
+    
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
         return [[NSUUID UUID] UUIDString];
@@ -97,7 +97,7 @@
         for (id key in array) {
             
             if ([key isEqualToString:COUNT]) {
-                NSLog(@"Counter found %@", agcDict);
+                
                 return [ NSString stringWithFormat:@"%d", (int)[value count]];
             }
             if ([key isEqualToString:LINES])
@@ -191,25 +191,7 @@
             
             if (value) {
                 
-                /*if ([[transformObjects objectForKey:SIZE] objectForKey:key]) {
-                     changing the size -> scale 
-                    float translatedValue;
-                   
-                    float xScaleFactor = (float)widthXDArtboard / WIDTHXMLARTBOARD;
-                    float yScaleFactor = (float)heightXDArtboard / HEIGHTXMLARTBOARD;
-                    if ([key isEqualToString:XARTBOARD]) {
-                        translatedValue = [value floatValue] - startXArtboard;
-                        translatedValue = translatedValue * xScaleFactor;
-                    }
-                    else {
-                        translatedValue = [value floatValue] - startYArtboard;
-                        translatedValue = translatedValue * yScaleFactor;
-                    }
-                    
-                    [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
-                    continue;
-                    
-                } else */if ([[transformObjects objectForKey:COLOR] objectForKey:key]) {
+                if ([[transformObjects objectForKey:COLOR] objectForKey:key]) {
                     /* change the color */
                     float color = [value floatValue] / 255;
                     [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
@@ -830,7 +812,6 @@
             
             dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
             
-            NSLog(@"Dict = %@", dict);
             [finalString appendString: SCENEHEADERA];
             [finalString appendString: [[NSUUID UUID] UUIDString]];
             
