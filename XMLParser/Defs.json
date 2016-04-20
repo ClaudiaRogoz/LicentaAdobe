@@ -73,8 +73,8 @@
                 "toString" : ["rect", "subviews", "color"],
                 "order" : ["rect", "color"]
             }
-
-        
+            
+            
         },
         "imageView" : {
             "header" : {
@@ -109,6 +109,73 @@
             },
             "toString" : ["header", "rules"]
         },
+        "$frame" : {
+            "header": {
+                "opaque" : "NO",
+                "userInteractionEnabled" :"NO",
+                "contentMode" :"left",
+                "horizontalHuggingPriority" : 251,
+                "verticalHuggingPriority" : 251,
+                "fixedFrame" : "YES",
+                "text" : "",
+                "textAlignment" : "natural",
+                "lineBreakMode" : "tailTruncation",
+                "baselineAdjustment" : "alignBaselines",
+                "adjustsFontSizeToFit": "NO",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id":"$rand",
+                "toString" : ["opaque", "userInteractionEnabled",
+                              "contentMode", "horizontalHuggingPriority",
+                              "verticalHuggingPriority", "fixedFrame",
+                              "textAlignment", "lineBreakMode", "baselineAdjustment",
+                              "adjustsFontSizeToFit", "translatesAutoresizingMaskIntoConstraints", "id"
+                              ]
+            },
+            "rules": {
+                "$header.id" : "$rand",
+                "rect" : {
+                    "$transform" : {
+                        "x" : "$tx",
+                        "y" : "$ty",
+                        "key" : "frame"
+                    },
+                    "$shape" : {
+                        "width" : "$width",
+                        "height" : "$height"
+                        
+                    }
+                },
+                "fontDescription" : {
+                    "$style.font" :
+                    {
+                        "key" : "fontDescription",
+                        "type" : "$style",
+                        "pointSize" : "$size"
+                    }
+                },
+                "color" : {
+                    "$style.fill.color.value" : {
+                        "key" : "backgroundColor",
+                        "red" : "$r",
+                        "green" : "$g",
+                        "blue" : "$b",
+                        "alpha" : "$alpha"
+                        
+                    }
+                },
+                "nil" : {
+                    "key" : "highlightedColor"
+                    
+                },
+                "toString" : ["rect", "color", "fontDescription", "nil"]
+                
+                
+            },
+            "toString" : ["header", "rules"]
+        },
+        
+        
+        
         "label" : {
             "header": {
                 "opaque" : "NO",
@@ -180,11 +247,8 @@
                 },
                 "nil" : {
                     "key" : "highlightedColor"
-                    
                 },
                 "toString" : ["rect", "mutableString", "fontDescription", "color", "nil"]
-                
-                
             },
             "toString" : ["header", "rules"]
         }
@@ -236,6 +300,11 @@
             "key" : "fontDescription",
             "type" : "$",
             "pointSize" : "$size",
+            "default" : {
+                "type" : "system",
+                "pointSize" : "17"
+                
+            },
             "toString" : ["key" , "type", "pointSize"]
             
         },

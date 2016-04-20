@@ -13,6 +13,8 @@
 		C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9730EA41CB678D800A10C52 /* XMLGenerator.m */; };
 		C9730EA71CB687D100A10C52 /* Rules.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA61CB687D100A10C52 /* Rules.json */; };
 		C973402F1CC7740D008F8E8D /* Sync.m in Sources */ = {isa = PBXBuildFile; fileRef = C973402E1CC7740D008F8E8D /* Sync.m */; };
+		C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C97340321CC7BC78008F8E8D /* TestBigImage.json */; };
+		C97340371CC7C6EE008F8E8D /* TestFrame.json in Resources */ = {isa = PBXBuildFile; fileRef = C97340361CC7C6EE008F8E8D /* TestFrame.json */; };
 		C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A41CC4C16100E487AB /* TestParaGroup.json */; };
 		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
 		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
@@ -68,6 +70,8 @@
 		C973402E1CC7740D008F8E8D /* Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
 		C97340301CC7744C008F8E8D /* Sync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
 		C97340311CC78A77008F8E8D /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		C97340321CC7BC78008F8E8D /* TestBigImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestBigImage.json; sourceTree = "<group>"; };
+		C97340361CC7C6EE008F8E8D /* TestFrame.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestFrame.json; sourceTree = "<group>"; };
 		C97921A41CC4C16100E487AB /* TestParaGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParaGroup.json; sourceTree = "<group>"; };
 		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
 		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */,
 				C97921A81CC4F66500E487AB /* TestTextGroup.json */,
 				C9B02E291CC6157000F25875 /* TestMulText.json */,
+				C97340321CC7BC78008F8E8D /* TestBigImage.json */,
+				C97340361CC7C6EE008F8E8D /* TestFrame.json */,
 			);
 			name = TestFiles;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 				C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */,
 				C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */,
 				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
+				C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */,
 				C9DBD91A1C9967D0006A9638 /* myXMLfileDown.xml in Resources */,
 				C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */,
 				C9730EA71CB687D100A10C52 /* Rules.json in Resources */,
@@ -364,6 +371,7 @@
 				C96E8FCD1CC22FC100956B49 /* TestParagraphs.json in Resources */,
 				C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */,
 				C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */,
+				C97340371CC7C6EE008F8E8D /* TestFrame.json in Resources */,
 				C99186D51C8B664A0071A25F /* Main.storyboard in Resources */,
 				C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */,
 				C9B0F4051C9C27660005903C /* Button.agc in Resources */,

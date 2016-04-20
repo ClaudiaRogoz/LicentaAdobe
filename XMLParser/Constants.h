@@ -24,6 +24,7 @@
 #define TESTTGS_PATH         @"TestTextGroupShapes.json"
 #define TESTTEXT_PATH       @"TestTextGroup.json"
 #define TESTMULTTEXT_PATH       @"TestMulText"
+#define TESTBIGIMG      @"TestBigImage"
 #define JSON            @"json"
 
 #define RANDOM @"$rand"

@@ -12,6 +12,7 @@
 #import <CoreData/CoreData.h>
 
 @import AppKit;
+
 @implementation XMLGenerator
 
 + (void)readTemplateUsingXML:(NSString *)xmlPath
@@ -21,8 +22,8 @@
     NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
     NSString *def = [thisBundle pathForResource:DEF_PATH ofType:JSON];
     NSString *rule = [thisBundle pathForResource:RULES_PATH ofType:JSON];
-    NSString *test = [thisBundle pathForResource:TESTMULTTEXT_PATH ofType:JSON];
-    
+    //NSString *test = [thisBundle pathForResource:TESTMULTTEXT_PATH ofType:JSON];
+    NSString *test = [thisBundle pathForResource:@"TestFrame" ofType:JSON];
     XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
     NSData *defData = [NSData dataWithContentsOfFile:def];
     
@@ -131,6 +132,9 @@
     NSArray *order = [dict objectForKey:TOSTRING];
     NSArray *betweenTags = [dict objectForKey:BETWEEN];
     
+    if ([varName hasPrefix:TOTRANSFORM] && [translationDict objectForKey:varName])
+        varName = [translationDict objectForKey:varName];
+        
     NSMutableString *tagStr = [NSMutableString stringWithFormat:@"<%@", varName];
     
     for (id object in order) {
@@ -215,7 +219,6 @@
                     
                     if ([[transformObjects objectForKey:SIZE] objectForKey:key]) {
                         /* changing size here */
-                        
                         
                         float initValue = [[dictValue objectForKey:tvalue] floatValue];
                         float translatedValue = initValue;
@@ -761,6 +764,8 @@
                 NSMutableDictionary *dict = [subview objectForKey:name];
                
                 NSMutableString *str = [self parseToString:tmp dict:dict name:name];
+                if ([name hasPrefix:TOTRANSFORM] && [translationDict objectForKey:name])
+                    name = [translationDict objectForKey:name];
                 NSString* subFooter = [NSString stringWithFormat:@"\n</%@>", name];
                 
                 [str appendString:subFooter];
@@ -842,7 +847,7 @@
             finalString = [[NSMutableString alloc] init];
             
             dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
-            sceneOffset = sceneOffset + sceneNo * XML_OFFSET_X;
+            sceneOffset = sceneOffset + XML_OFFSET_X;
             
             setInitial = [self generateSceneHeaderUsingString:&finalString
                                           withInitialArtboard:initialArtboard

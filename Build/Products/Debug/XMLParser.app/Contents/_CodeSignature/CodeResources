@@ -46,11 +46,11 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		S3Z32m7TBDO1Uelq+SbGBxzyz0Q=
+		bKUsnfyUKh4ulaDSEXdJE+1IfWM=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		KfFpWL5nA2YvX5HpkFBD/d406AY=
+		5Wd5jf0crzNyRGthnEi4yvettMA=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -60,9 +60,17 @@
 		<data>
 		d6aBOURteH6tgtBANp9nT5j671s=
 		</data>
+		<key>Resources/TestBigImage.json</key>
+		<data>
+		L/7wdWEpS4slUH97D8Jxw/sN7dg=
+		</data>
 		<key>Resources/TestDropFile.json</key>
 		<data>
 		iqWhV+zUsgcXwkxQIoklEiR3L/8=
+		</data>
+		<key>Resources/TestFrame.json</key>
+		<data>
+		RNBYL4M//+92VY2l4CQJzG3liYE=
 		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
@@ -74,7 +82,7 @@
 		</data>
 		<key>Resources/TestMulText.json</key>
 		<data>
-		JDXX7zG+Ad+oBePDReUDsQX1AVQ=
+		IbkgKJCksxhUmQ6KxBJz+lhnf+I=
 		</data>
 		<key>Resources/TestMultiple.json</key>
 		<data>
@@ -190,22 +198,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			S3Z32m7TBDO1Uelq+SbGBxzyz0Q=
+			bKUsnfyUKh4ulaDSEXdJE+1IfWM=
 			</data>
 			<key>hash2</key>
 			<data>
-			792SBQMRASFirqknDwpssRmTwzTJ2OB7JRbpGLG+EEM=
+			HrvFFjmQGmwX/PMErNKlDlI62MID8Mal1UX7GFmHfHI=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			KfFpWL5nA2YvX5HpkFBD/d406AY=
+			5Wd5jf0crzNyRGthnEi4yvettMA=
 			</data>
 			<key>hash2</key>
 			<data>
-			prfWy/MJBs1el77PrVk5vjPnIYlRdYWMiDv9TQLsC7w=
+			8qMPVjoEWHZhvOQOuy+ySd24QCqkDepZ7b+AE+kQT1w=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -230,6 +238,17 @@
 			4mD1yoBNvofqYnH/q3adR6MmyJ4XzpWFhqG5uBNntO0=
 			</data>
 		</dict>
+		<key>Resources/TestBigImage.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			L/7wdWEpS4slUH97D8Jxw/sN7dg=
+			</data>
+			<key>hash2</key>
+			<data>
+			7ugw3lv18wM/4sYtF96KWRNixNGZohUDA12PMRLVnrw=
+			</data>
+		</dict>
 		<key>Resources/TestDropFile.json</key>
 		<dict>
 			<key>hash</key>
@@ -239,6 +258,17 @@
 			<key>hash2</key>
 			<data>
 			1Y2oiJMLRsIC3wWlPnLMCccFdL5MyJclVCuvnOEuisc=
+			</data>
+		</dict>
+		<key>Resources/TestFrame.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			RNBYL4M//+92VY2l4CQJzG3liYE=
+			</data>
+			<key>hash2</key>
+			<data>
+			5HY1KtWlXnM2zucjO0fItOq7ZTucZjWvd186dfgwnp0=
 			</data>
 		</dict>
 		<key>Resources/TestGenerator.json</key>
@@ -267,11 +297,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JDXX7zG+Ad+oBePDReUDsQX1AVQ=
+			IbkgKJCksxhUmQ6KxBJz+lhnf+I=
 			</data>
 			<key>hash2</key>
 			<data>
-			v+LM9o7sMuLfCaA0ovWJmbj+l8nqYrHNuw5nBCzhhg4=
+			E5png6ZyRJd8T6ii0uGBDAKXgutxDAy+qZqRfIBdijw=
 			</data>
 		</dict>
 		<key>Resources/TestMultiple.json</key>

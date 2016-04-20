@@ -6,11 +6,12 @@
     "shape"     :   {
         "shape.type.rect" : {
             "style.fill.type.pattern" : "imageView",
-            "style.fill.type.solid"   : "button"
+            "style.fill.type.solid"   : "$frame"
         },
         "shape.type.ellipse" : "ellipse"
     },
     "imageView" :   "shape",
-    "group"     :   "group"
+    "group"     :   "group",
+    "$frame"    :   "label"
     
 }
