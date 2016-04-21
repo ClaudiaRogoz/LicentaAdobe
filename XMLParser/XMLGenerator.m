@@ -11,7 +11,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+
+
 @import AppKit;
+
 
 @implementation XMLGenerator
 
@@ -39,7 +42,7 @@
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    NSData *testData = [NSData dataWithContentsOfFile:test ];//TESTPARAGROUP_PATH ];//TESTTEXT_PATH];//
+    NSData *testData = [NSData dataWithContentsOfFile:test ];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
 
     [gen getXmlForAgcObject:agcTemplate];
@@ -47,6 +50,41 @@
     
 }
 
+-(void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex{
+    
+    NSLog(@"FilePath = %@", filePath);
+    NSError *error;
+    NSString *svgTemplate = [[NSBundle mainBundle] pathForResource:SVG_TEMPLATE ofType:SVG];
+    NSMutableString *path = [NSMutableString stringWithContentsOfFile:svgTemplate encoding:NSUTF8StringEncoding error:&error];
+    long len = [path length];
+    
+    /* color transformation */
+    
+    NSRange range = [path rangeOfString:SVG_FILL];
+    long start = range.location + SVG_FILL_LEN;
+    long end = len - start;
+    NSRange finalRange =  [path rangeOfString:SVG_FILL_END options:0 range:NSMakeRange(start, end)];
+    [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:hex];
+    
+    /* path transformation */
+    len = [path length];
+    range = [path rangeOfString:SVG_INFO];
+    start = range.location + SVG_INFO_LEN;
+    end = len - start;
+    
+    finalRange = [path rangeOfString:SVG_INFO_END options:0 range:NSMakeRange(start, end)];
+    [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:pathString];
+    
+    NSData *fileContents = [path dataUsingEncoding:NSUTF8StringEncoding];
+    
+    /* write to file */
+    [[NSFileManager defaultManager] createFileAtPath:filePath
+                                            contents:fileContents
+                                          attributes:nil];
+
+
+
+}
 
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
     agcToXmlTemplate = [defDict mutableCopy];
@@ -67,7 +105,24 @@
     
     
 }
-
+- (NSString *)hexStringForColor:(NSDictionary *)value {
+    CGFloat red = [[value objectForKey:RED] floatValue] /255;
+    CGFloat green = [[value objectForKey:GREEN] floatValue] /255;
+    CGFloat blue = [[value objectForKey:BLUE] floatValue] /255;
+    
+    NSColor *color = [NSColor colorWithRed:red
+                                    green:green
+                                      blue:blue
+                                     alpha:1];
+    
+    const CGFloat *components = CGColorGetComponents(color.CGColor);
+    CGFloat r = components[0];
+    CGFloat g = components[1];
+    CGFloat b = components[2];
+    
+    NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X", (int)(r * 255), (int)(g * 255), (int)(b * 255)];
+    return hexString;
+}
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
     
@@ -78,6 +133,7 @@
         
     } else if ([initValue hasPrefix:GETMAX]) {
         
+        /* used for multiline labels */
         NSRange range = [initValue rangeOfString:GETMAX];
         NSArray *max2 = [[initValue substringFromIndex:range.location + GETMAX.length + 1] componentsSeparatedByString:SPACE];
        
@@ -86,9 +142,22 @@
         int ret = MAX([first intValue], [second intValue]);
         
         return [NSString stringWithFormat:@"%d", ret];
-        
-        
     
+    } else if ([initValue hasPrefix:PATH]){
+        
+        NSRange range = [initValue rangeOfString:PATH];
+        NSArray *paths = [[initValue substringFromIndex:range.location + PATH.length + 1] componentsSeparatedByString:SPACE];
+        
+        NSString *pathStr = [self computeValue:[paths objectAtIndex:0] forDict:agcDict];
+        NSString *fileName = [self computeValue:[paths objectAtIndex:1] forDict:agcDict];
+        NSString *hexColor = [self computeValue:[paths objectAtIndex:2] forDict:agcDict];
+        
+        fileName = [fileName stringByAppendingFormat:@"%@%@", DOT, SVG];
+        
+        [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor];
+        
+        return  fileName;
+        
     } else {
         //if it depends on an agc tag
         initValue = [initValue substringFromIndex:1];
@@ -107,6 +176,11 @@
                 value = [value objectForKey:key];
             
             
+        }
+        
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            /* only in case of color transformation to hex */
+            return [self hexStringForColor:(NSDictionary*)value];
         }
         
         return value;
@@ -225,7 +299,6 @@
                         float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
                         float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
                         
-                        NSLog(@"Transform %f %d %f %f", initValue, startXArtboard , xScaleFactor, yScaleFactor);
                         if ([key isEqualToString:XARTBOARD]) {
                             translatedValue = initValue - startXArtboard;
                             translatedValue = translatedValue * xScaleFactor;
@@ -234,7 +307,7 @@
                             translatedValue = initValue - startYArtboard;
                             translatedValue = translatedValue * yScaleFactor;
                         }
-                        NSLog(@"Transformed in %f", translatedValue);
+                        
                         [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
                     } else
                         [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
@@ -307,6 +380,9 @@
             if (![value isEqualToString:[gotoTag lastObject]])
                 continue;
             
+            if ([subType isKindOfClass:[NSString class]]) {
+                return subType;
+            }
             
             for (id subKey in subType) {
                 

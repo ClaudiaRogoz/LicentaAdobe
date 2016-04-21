@@ -48,7 +48,8 @@ int main(int argc, const char * argv[]) {
     NSString *outFile = [NSString stringWithFormat:@"%@/%@", documentsDirectory, ARTBOARDXML];
     [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
- 
+    
+   
     
     [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", tmpPath]];
 

@@ -4,11 +4,15 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/AGCTemplate.json</key>
+		<data>
+		GYF3jyyMXDUxK20xS4a//hnclRs=
+		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CPzisUivjOnwZOyOSCmwubPTkZg=
+			JaHarJZCviPSLHIla8FfV7ETUec=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -17,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kJkYH/p9vP2R6Yu3gJFJHt8A5gc=
+			H4hSz/E2WxyyGQFluvlL5OP6Cbs=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -26,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2o8fjNMEayr0+dVhhGXey8F4oQM=
+			xxxtJE4GEibRPS1hS/nWIYudyWQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -46,15 +50,27 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		bKUsnfyUKh4ulaDSEXdJE+1IfWM=
+		ZBJhAWBcPENnWye+lfIf0M5B0rM=
+		</data>
+		<key>Resources/File.json</key>
+		<data>
+		n6M7yNarqw5k4ignDdNfGl53hxo=
+		</data>
+		<key>Resources/File2.json</key>
+		<data>
+		oIP/fZ2oafYEfuztKwY+4QMWFSI=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		5Wd5jf0crzNyRGthnEi4yvettMA=
+		Kf3hvzbinlr5VfzYxkNAu4dnXaQ=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
 		4Vv5kPeIkk8qbXJqendgGaSLjc8=
+		</data>
+		<key>Resources/SvgTemplate.svg</key>
+		<data>
+		xEYhhKBjx2zDmj7swHwlRXne2x8=
 		</data>
 		<key>Resources/Test2LabelsInAgcGenerator.json</key>
 		<data>
@@ -70,7 +86,7 @@
 		</data>
 		<key>Resources/TestFrame.json</key>
 		<data>
-		RNBYL4M//+92VY2l4CQJzG3liYE=
+		aSiSrT7uppoDbWTuebQV1N7b10I=
 		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
@@ -96,6 +112,10 @@
 		<data>
 		4CKhiCXSGo+TpWC8QFCNy180VzE=
 		</data>
+		<key>Resources/TestPaths.json</key>
+		<data>
+		e//MruyBzjLhFwHQz14ZiTa0SH8=
+		</data>
 		<key>Resources/TestTextGroup.json</key>
 		<data>
 		s5uG0QjGxuSnWtMCwUGg2VRxhQQ=
@@ -107,6 +127,10 @@
 		<key>Resources/XMLImages.xml</key>
 		<data>
 		uqtJCM5HttZICR73WUHI5hv9R90=
+		</data>
+		<key>Resources/Xml2AgcTranslations.json</key>
+		<data>
+		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
 		</data>
 		<key>Resources/myXMLfile.xml</key>
 		<data>
@@ -131,15 +155,26 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Resources/AGCTemplate.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GYF3jyyMXDUxK20xS4a//hnclRs=
+			</data>
+			<key>hash2</key>
+			<data>
+			FbDyCRtnVYgEsdL7kLm6/VU6UpM7f+kmlXiTfNzIrrk=
+			</data>
+		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CPzisUivjOnwZOyOSCmwubPTkZg=
+			JaHarJZCviPSLHIla8FfV7ETUec=
 			</data>
 			<key>hash2</key>
 			<data>
-			6NJEO98NCrV48BHkycAkjVLrnFHbAya+9dXYm84YKZI=
+			xiBqFP+i2T8twqmyzxtZA8ceSXy42tfhJGGel8sUxSM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -148,11 +183,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kJkYH/p9vP2R6Yu3gJFJHt8A5gc=
+			H4hSz/E2WxyyGQFluvlL5OP6Cbs=
 			</data>
 			<key>hash2</key>
 			<data>
-			O0ZDvTG+EkNAgBZXpDrMaiEvQMLwvx/ibLgfKdOe3WU=
+			Ime51T+QYkHkZukiGfeZYf9alXZd/FsQBfrL5JWZanQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -161,11 +196,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2o8fjNMEayr0+dVhhGXey8F4oQM=
+			xxxtJE4GEibRPS1hS/nWIYudyWQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			qFQo/zoCsL22nQ78PRmioa3UojjFmbwKD3vke/efX00=
+			sly7Mvwkh4mOE4WrNWptQGNetDpXH0mGRhc4BegiyvM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -198,22 +233,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bKUsnfyUKh4ulaDSEXdJE+1IfWM=
+			ZBJhAWBcPENnWye+lfIf0M5B0rM=
 			</data>
 			<key>hash2</key>
 			<data>
-			HrvFFjmQGmwX/PMErNKlDlI62MID8Mal1UX7GFmHfHI=
+			jtZ0g/SXkdX02ICVY4/Y/U23nP350eNpWgsPL49Ftp4=
+			</data>
+		</dict>
+		<key>Resources/File.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			n6M7yNarqw5k4ignDdNfGl53hxo=
+			</data>
+			<key>hash2</key>
+			<data>
+			WUQ6JT9JdLN4emHUnUNYxUH1YBxF8QYyluURtUV0Shw=
+			</data>
+		</dict>
+		<key>Resources/File2.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			oIP/fZ2oafYEfuztKwY+4QMWFSI=
+			</data>
+			<key>hash2</key>
+			<data>
+			sCqNdEErG99Vr5wDsqoni0PO2k4DMGjVBzPgRwd1N3o=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5Wd5jf0crzNyRGthnEi4yvettMA=
+			Kf3hvzbinlr5VfzYxkNAu4dnXaQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			8qMPVjoEWHZhvOQOuy+ySd24QCqkDepZ7b+AE+kQT1w=
+			oxV32yvbGQJxY2lii9PmFaAWfvr+v+/UI00WhwS1dRQ=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -225,6 +282,17 @@
 			<key>hash2</key>
 			<data>
 			Mhjio6lUxn0sylLerqP+8wkCaY7T9s0IRSuxmwc0lBk=
+			</data>
+		</dict>
+		<key>Resources/SvgTemplate.svg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xEYhhKBjx2zDmj7swHwlRXne2x8=
+			</data>
+			<key>hash2</key>
+			<data>
+			CEMpqkYEXAF/Hx9/vU68S4Afn5OYPNHvyBSW8Ii1doE=
 			</data>
 		</dict>
 		<key>Resources/Test2LabelsInAgcGenerator.json</key>
@@ -264,11 +332,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RNBYL4M//+92VY2l4CQJzG3liYE=
+			aSiSrT7uppoDbWTuebQV1N7b10I=
 			</data>
 			<key>hash2</key>
 			<data>
-			5HY1KtWlXnM2zucjO0fItOq7ZTucZjWvd186dfgwnp0=
+			WRLCJSJErGbqFQdpQ6clG8qcxghCCsNytxTxs5FGMzI=
 			</data>
 		</dict>
 		<key>Resources/TestGenerator.json</key>
@@ -337,6 +405,17 @@
 			XcqWA6hV5yNLxuJUAjbSWCIk0bCsm9TxAS71ANG/4mM=
 			</data>
 		</dict>
+		<key>Resources/TestPaths.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			e//MruyBzjLhFwHQz14ZiTa0SH8=
+			</data>
+			<key>hash2</key>
+			<data>
+			oOmyiNINYI18UnVCu29PirMkycWATA0j40M8ji99n0Y=
+			</data>
+		</dict>
 		<key>Resources/TestTextGroup.json</key>
 		<dict>
 			<key>hash</key>
@@ -368,6 +447,17 @@
 			<key>hash2</key>
 			<data>
 			8GzwIDE0z1DKF0bA2eDv7Ng1ktGLrUhd6t6eTMpreSE=
+			</data>
+		</dict>
+		<key>Resources/Xml2AgcTranslations.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+			</data>
+			<key>hash2</key>
+			<data>
+			47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
 			</data>
 		</dict>
 		<key>Resources/myXMLfile.xml</key>

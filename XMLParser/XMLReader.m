@@ -195,6 +195,13 @@
     defaultValues[@"textField"][@"textField.style.fill.color.value.b"] = [NSNumber numberWithInt:0];
     defaultValues[@"textField"][@"textField.style.fill.color.alpha"] = [NSNumber numberWithInt:1];
     
+    NSError *error;
+    NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
+    NSString *def = [thisBundle pathForResource:AGC_TEMPLATE ofType:JSON];
+    NSData *defData = [NSData dataWithContentsOfFile:def];
+    attributes = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
+    //NSLog(@"atrt = %@", attributes );
+    
     // custom templates for agc representation
     attributes = [[NSMutableDictionary alloc] init];
     attributes[@"artboard"] = [[NSMutableDictionary alloc] init]; //TODO style -> background color from color tag (inherits view)
@@ -227,6 +234,9 @@
     attributes[@"textField"][@"style"][@"font"][@"size"] = @"$fontDescription.pointSize";
     attributes[@"textField"][@"text"] = [[NSMutableDictionary alloc] init];
     attributes[@"textField"][@"text"][@"rawText"] = @"#text";
+    attributes[@"textField"][@"text"][@"frame"] = [[NSMutableDictionary alloc] init];
+    attributes[@"textField"][@"text"][@"frame"][@"type"] = @"positioned";
+    attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
     
     attributes[@"rectangle"] = [[NSMutableDictionary alloc] init];
     attributes[@"rectangle"][@"type"] = @"shape";
@@ -310,9 +320,7 @@
     attributes[@"imageView"][@"shape"][@"width"] = @"$rect.width";
     attributes[@"imageView"][@"shape"][@"height"] = @"$rect.height";
     
-    attributes[@"textField"][@"text"][@"frame"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"text"][@"frame"][@"type"] = @"positioned";
-    attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
+
     
     attributes[@"backgroundColor"] = [[NSMutableDictionary alloc] init];
     attributes[@"backgroundColor"][@"style"] = [[NSMutableDictionary alloc] init];
@@ -358,7 +366,7 @@
     [line addObject:temp];
     [lines setObject:line forKey:@"lines"];
     
-    attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
+     attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
     [attributes[@"textField"][@"text"][@"paragraphs"] addObject: lines];
     
     offsetXmlFile = [[NSMutableDictionary alloc] init];

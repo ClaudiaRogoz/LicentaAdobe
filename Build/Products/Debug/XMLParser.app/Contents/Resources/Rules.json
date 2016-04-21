@@ -8,10 +8,11 @@
             "style.fill.type.pattern" : "imageView",
             "style.fill.type.solid"   : "$frame"
         },
-        "shape.type.ellipse" : "ellipse"
+        "shape.type.ellipse" : "ellipse",
+        "shape.type.path"   : "$imageView"
     },
-    "imageView" :   "shape",
     "group"     :   "group",
-    "$frame"    :   "label"
+    "$frame"    :   "label",
+    "$imageView"    :   "imageView"
     
 }

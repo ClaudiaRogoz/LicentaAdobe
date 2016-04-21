@@ -12,6 +12,9 @@
 #define STORYBOARD  @"Base.lproj/Main.storyboard"
 #define DEF_PATH @"Defs"
 #define RULES_PATH @"Rules"
+#define SVG_TEMPLATE    @"SvgTemplate"
+#define SVG         @"svg"
+#define JSON            @"json"
 
 /* Test files */
 #define TEST_PATH @"XMLParser/TestGenerator.json"
@@ -25,7 +28,17 @@
 #define TESTTEXT_PATH       @"TestTextGroup.json"
 #define TESTMULTTEXT_PATH       @"TestMulText"
 #define TESTBIGIMG      @"TestBigImage"
-#define JSON            @"json"
+#define AGC_TEMPLATE    @"AGCTemplate"
+
+
+
+#define SVG_INFO    @" d="
+#define SVG_FILL    @"fill: "
+#define SVG_INFO_LEN     4
+#define SVG_FILL_LEN     7
+#define SVG_INFO_END    @"\""
+#define SVG_FILL_END    @";"
+
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
@@ -93,6 +106,7 @@
 #define RAWTEXT_VALUE   @"rawText"
 #define TOTRANSFORM @"$"
 #define GETMAX      @"$MAX"
+#define PATH        @"$PATH"
 /* XML2AGC const */
 #define FRAME_X    @"$rect.x"
 #define FRAME_Y    @"$rect.y"

@@ -76,6 +76,35 @@
             
             
         },
+        "$imageView" : {
+            "header" : {
+                "userInteractionEnabled" : "NO",
+                "contentMode"  : "scaleToFill",
+                "horizontalHuggingPriority" : "251",
+                "verticalHuggingPriority" : "251",
+                "fixedFrame" : "YES",
+                "image" : "$",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id" : "$rand",
+                "toString" : ["userInteractionEnabled", "contentMode", "horizontalHuggingPriority",
+                              "verticalHuggingPriority", "fixedFrame",
+                              "image",
+                              "translatesAutoresizingMaskIntoConstraints", "id"]
+            },
+            "rules" : {
+                "$header.id" : "$rand",
+                "$header.image" : "$PATH $shape.path $name $style.fill.color.value",
+                "rect" : {
+                    "$transform" : {
+                        "key" : "frame",
+                        "x" : "$tx",
+                        "y" : "$ty"
+                    }
+                },
+                "toString" : ["rect"]
+            },
+            "toString" : ["header", "rules"]
+        },
         "imageView" : {
             "header" : {
                 "userInteractionEnabled" : "NO",
