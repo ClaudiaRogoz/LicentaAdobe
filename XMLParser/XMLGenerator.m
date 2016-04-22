@@ -453,7 +453,7 @@
                 /* obtain the startX and startY for the current scene */
                 startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
                 startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
-                NSLog(@"StartXArtboard = %d", startXArtboard);
+    
                 widthXDArtboard = [[nodeValue objectForKey:WIDTH] intValue];
                 heightXDArtboard = [[nodeValue objectForKey:HEIGHT] intValue];
                 
