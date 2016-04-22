@@ -60,9 +60,10 @@
 
 /* agc & xml file paths */
 @property NSString *xmlPath;
+@property NSString *outXmlPath;
 @property NSString *agcPath;
 
-+ (void)readTemplateUsingXML:(NSString *)xmlPath;
++ (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString *)outXml;
 
 - (id)initWithError:(NSError **)error;
 

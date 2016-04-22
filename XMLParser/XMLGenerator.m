@@ -18,7 +18,7 @@
 
 @implementation XMLGenerator
 
-+ (void)readTemplateUsingXML:(NSString *)xmlPath
++ (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString*)outXmlPath
 {
     NSError *error;
     
@@ -38,6 +38,7 @@
     
     NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
     [gen setXmlPath:xmlPath];
+    [gen setOutXmlPath:outXmlPath];
     [gen initializeWithDefs:defDictionary rules:ruleDictionary];
     
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
@@ -95,6 +96,10 @@
     transformObjects[SIZE] = [[NSMutableDictionary alloc] init];
     transformObjects[SIZE][XARTBOARD] = [NSNumber numberWithInt:1];
     transformObjects[SIZE][YARTBOARD] = [NSNumber numberWithInt:1];
+    
+    transformObjects[SCALE] = [[NSMutableDictionary alloc] init];
+    transformObjects[SCALE][WIDTH] = [NSNumber numberWithInt:1];
+    transformObjects[SCALE][HEIGHT] = [NSNumber numberWithInt:1];
     
     transformObjects[COLOR] = [[NSMutableDictionary alloc] init];
     transformObjects[COLOR][RED] = [NSNumber numberWithInt:1];
@@ -555,8 +560,8 @@
                      **/
                     
                     type = [self getShapeType:type object:object];
-                    
-                   
+                    if (![type isKindOfClass:[NSString class]])
+                        continue;
                     
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
                     
@@ -600,6 +605,11 @@
                                 continue;
                             
                             type = [self getShapeType:type object:object];
+                            if (![type isKindOfClass:[NSString class]]) {
+                                NSLog(@"NOt recognized type %@", [key objectForKey:TYPE]);
+                                continue;
+                            }
+                                  
                             NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
                             
                             [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict];
@@ -622,7 +632,7 @@
                                 maxw = w;
                             }
                                 
-                            
+                            NSLog(@"objDict = %@", objDict);
                             NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
                             [subViewDict setObject:typeObjDict forKey:type];
                             [viewSubviews addObject:subViewDict];
@@ -802,6 +812,7 @@
            
             imageDict[NAME] = theFileName;
             
+            
             imageDict[WIDTH] = [NSString stringWithFormat:@"%f", image.size.width];
             imageDict[HEIGHT] = [NSString stringWithFormat:@"%f", image.size.height];
             
@@ -952,7 +963,7 @@
         
         NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
         NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-        [xmlData writeToFile:@"new.xml" atomically:YES];
+        [xmlData writeToFile:[self outXmlPath] atomically:YES];
         
         return finalString;
         

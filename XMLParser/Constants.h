@@ -95,7 +95,7 @@
 #define COLORSPACE  @"colorSpace"
 #define RGB         @"calibratedRGB"
 #define SCENE       @"scene"
-
+#define ISFONT      @"family"
 #define SWITCH      @"switch"
 #define SWITCH_TX   @"switch.transform.tx"
 #define SWITCH_TY   @"switch.transform.ty"
@@ -116,6 +116,7 @@
 #define ART_SCENE   @"artboard"
 #define SHAPE       @"shape"
 #define LABEL       @"label"
+#define SCALE       @"scale"
 
 #define VERSION_AGC @"1.5.0"
 #define HREF        @"href"

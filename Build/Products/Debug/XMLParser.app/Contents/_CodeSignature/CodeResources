@@ -62,7 +62,7 @@
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		Kf3hvzbinlr5VfzYxkNAu4dnXaQ=
+		AOJOtV+If39LzJ+QGj0bcRHIW90=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -86,7 +86,7 @@
 		</data>
 		<key>Resources/TestFrame.json</key>
 		<data>
-		aSiSrT7uppoDbWTuebQV1N7b10I=
+		5rNsad26umMg3B/AWRphEqeMwXQ=
 		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>Resources/TestPaths.json</key>
 		<data>
-		e//MruyBzjLhFwHQz14ZiTa0SH8=
+		33JWl1jDusoVuKCMYYsi5RtMnlc=
 		</data>
 		<key>Resources/TestTextGroup.json</key>
 		<data>
@@ -266,11 +266,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Kf3hvzbinlr5VfzYxkNAu4dnXaQ=
+			AOJOtV+If39LzJ+QGj0bcRHIW90=
 			</data>
 			<key>hash2</key>
 			<data>
-			oxV32yvbGQJxY2lii9PmFaAWfvr+v+/UI00WhwS1dRQ=
+			60OhgXGF+orxafCkRaRRVu0awL4Hqpr2o9LUtZtPToQ=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -332,11 +332,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aSiSrT7uppoDbWTuebQV1N7b10I=
+			5rNsad26umMg3B/AWRphEqeMwXQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			WRLCJSJErGbqFQdpQ6clG8qcxghCCsNytxTxs5FGMzI=
+			UmvrRw5SLk6muzlrtxsWdvZBTUEr8c86CjUYmQI2Xcc=
 			</data>
 		</dict>
 		<key>Resources/TestGenerator.json</key>
@@ -409,11 +409,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			e//MruyBzjLhFwHQz14ZiTa0SH8=
+			33JWl1jDusoVuKCMYYsi5RtMnlc=
 			</data>
 			<key>hash2</key>
 			<data>
-			oOmyiNINYI18UnVCu29PirMkycWATA0j40M8ji99n0Y=
+			qT8J0pratFzRY8Yq4rBnf/2PhXqTrK54YVGv910u1Aw=
 			</data>
 		</dict>
 		<key>Resources/TestTextGroup.json</key>

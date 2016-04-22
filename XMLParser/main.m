@@ -27,6 +27,14 @@ int main(int argc, const char * argv[]) {
         tmpPath = [tmpPath stringByAppendingString:@"/"];
         xmlPath = [NSString stringWithFormat:@"%s/%@", argv[1], STORYBOARD];
     }
+    NSString *tmpOutPath = [NSString stringWithFormat:@"%s", argv[2]];
+    NSString *outXmlPath;
+    if ([tmpOutPath hasSuffix:@"/"])
+        outXmlPath = [NSString stringWithFormat:@"%s%@", argv[2], STORYBOARD];
+    else {
+        tmpOutPath = [tmpOutPath stringByAppendingString:@"/"];
+        outXmlPath = [NSString stringWithFormat:@"%s/%@", argv[2], STORYBOARD];
+    }
     
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
     
@@ -51,7 +59,7 @@ int main(int argc, const char * argv[]) {
     
    
     
-    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", tmpPath]];
+    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", tmpPath] writeTo:outXmlPath];
 
     return NSApplicationMain(argc, argv);
 }
