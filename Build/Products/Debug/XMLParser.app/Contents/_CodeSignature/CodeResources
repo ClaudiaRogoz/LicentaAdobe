@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/AGCTemplate.json</key>
 		<data>
-		GYF3jyyMXDUxK20xS4a//hnclRs=
+		j7tU2RH++1+nOeS2FTKx4fpjAUo=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
@@ -54,11 +54,11 @@
 		</data>
 		<key>Resources/File.json</key>
 		<data>
-		n6M7yNarqw5k4ignDdNfGl53hxo=
+		McELQXS990/g3g7i0yKlFyLWyQQ=
 		</data>
 		<key>Resources/File2.json</key>
 		<data>
-		oIP/fZ2oafYEfuztKwY+4QMWFSI=
+		JJ7XkeFQe/0uRRbVKDN4tVxQkuQ=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
@@ -159,11 +159,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			GYF3jyyMXDUxK20xS4a//hnclRs=
+			j7tU2RH++1+nOeS2FTKx4fpjAUo=
 			</data>
 			<key>hash2</key>
 			<data>
-			FbDyCRtnVYgEsdL7kLm6/VU6UpM7f+kmlXiTfNzIrrk=
+			h5WekMKMupWn2vQD9a12M5w7ubGUB/JYIR/oN0FknyE=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
@@ -244,22 +244,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			n6M7yNarqw5k4ignDdNfGl53hxo=
+			McELQXS990/g3g7i0yKlFyLWyQQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			WUQ6JT9JdLN4emHUnUNYxUH1YBxF8QYyluURtUV0Shw=
+			Bff+YPOFeg5T2iElQDpwQz+cilKAXypy0Zip+NOljmk=
 			</data>
 		</dict>
 		<key>Resources/File2.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			oIP/fZ2oafYEfuztKwY+4QMWFSI=
+			JJ7XkeFQe/0uRRbVKDN4tVxQkuQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			sCqNdEErG99Vr5wDsqoni0PO2k4DMGjVBzPgRwd1N3o=
+			qc7OBieblUNAwqxAYRbOmeYV5beP5NfEb5votZaDBgs=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>

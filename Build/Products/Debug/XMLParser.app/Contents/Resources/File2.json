@@ -2,7 +2,7 @@
     "version" : "1.5.0",
     "meta" : {
         "ux" : {
-            "groupItems" : "false"
+            "groupItems" : false
         }
     },
     "resources" : {
@@ -30,10 +30,10 @@
         }
     },
     "viewSource" : {
-        "y" : "0",
-        "x" : "0",
-        "width" : 800,
-        "height" : "667"
+        "y" : 0,
+        "x" : 0,
+        "height" : 667,
+        "width" : 800
     },
     "children" : [
                   {
@@ -62,28 +62,28 @@
                                 "pattern" : {
                                 "meta" : {
                                 "ux" : {
-                                "uid" : "702987"
+                                "uid" : "76155"
                                 }
                                 },
                                 "width" : 397,
-                                "height" : 247,
-                                "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/rectangle-mask-1.png"
+                                "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/rectangle-mask-1.png",
+                                "height" : 247
                                 }
                                 }
                                 },
                                 "transform" : {
-                                "d" : "1",
-                                "b" : "0",
+                                "d" : 1,
+                                "b" : 0,
                                 "ty" : -8,
-                                "c" : "0",
-                                "a" : "1",
+                                "c" : 0,
+                                "a" : 1,
                                 "tx" : -10
                                 },
                                 "type" : "shape",
                                 "shape" : {
-                                "y" : "0",
+                                "y" : 0,
                                 "type" : "rect",
-                                "x" : "0",
+                                "x" : 0,
                                 "width" : 248.125,
                                 "height" : 274.5817
                                 }
@@ -110,16 +110,17 @@
                                 }
                                 },
                                 "transform" : {
-                                "d" : "1",
-                                "b" : "0",
+                                "d" : 1,
+                                "b" : 0,
                                 "ty" : 523.9808,
-                                "c" : "0",
-                                "a" : "1",
+                                "c" : 0,
+                                "a" : 1,
                                 "tx" : 251.4983
                                 },
                                 "type" : "text",
                                 "name" : "Label",
                                 "text" : {
+                                "rawText" : "Label",
                                 "frame" : {
                                 "type" : "positioned"
                                 },
@@ -136,8 +137,7 @@
                                                             ]
                                                            ]
                                                 }
-                                                ],
-                                "rawText" : "Label"
+                                                ]
                                 }
                                 }
                                 ]
@@ -178,20 +178,20 @@
                                 }
                                 },
                                 "transform" : {
-                                "d" : "1",
-                                "b" : "0",
+                                "d" : 1,
+                                "b" : 0,
                                 "ty" : 359,
-                                "c" : "0",
-                                "a" : "1",
+                                "c" : 0,
+                                "a" : 1,
                                 "tx" : 490
                                 },
                                 "type" : "shape",
                                 "shape" : {
-                                "y" : "0",
+                                "y" : 0,
                                 "width" : 69,
                                 "height" : 94,
                                 "type" : "rect",
-                                "x" : "0"
+                                "x" : 0
                                 }
                                 },
                                 {
@@ -216,16 +216,17 @@
                                 }
                                 },
                                 "transform" : {
-                                "d" : "1",
-                                "b" : "0",
+                                "d" : 1,
+                                "b" : 0,
                                 "ty" : 415.3141,
-                                "c" : "0",
-                                "a" : "1",
+                                "c" : 0,
+                                "a" : 1,
                                 "tx" : 496.7349
                                 },
                                 "type" : "text",
                                 "name" : "Label",
                                 "text" : {
+                                "rawText" : "Label",
                                 "frame" : {
                                 "type" : "positioned"
                                 },
@@ -242,8 +243,7 @@
                                                             ]
                                                            ]
                                                 }
-                                                ],
-                                "rawText" : "Label"
+                                                ]
                                 }
                                 },
                                 {

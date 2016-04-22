@@ -33,7 +33,7 @@
         "y" : "0",
         "x" : "0",
         "width" : 800,
-        "height" : "667"
+        "height" : 667
     },
     "children" : [
                   {
@@ -62,7 +62,7 @@
                                 "pattern" : {
                                 "meta" : {
                                 "ux" : {
-                                "uid" : "312067"
+                                "uid" : "91382"
                                 }
                                 },
                                 "width" : 397,

@@ -200,175 +200,12 @@
     NSString *def = [thisBundle pathForResource:AGC_TEMPLATE ofType:JSON];
     NSData *defData = [NSData dataWithContentsOfFile:def];
     attributes = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
-    //NSLog(@"atrt = %@", attributes );
-    
-    // custom templates for agc representation
-    attributes = [[NSMutableDictionary alloc] init];
-    attributes[@"artboard"] = [[NSMutableDictionary alloc] init]; //TODO style -> background color from color tag (inherits view)
-    attributes[@"artboard"][@"ref"] = @"artboard1";
-    
-    attributes[@"textField"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"type"] = @"text";
-    attributes[@"textField"][@"name"] = @"$text"; //TODO update with ID!!!
-    attributes[@"textField"][@"transform"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"transform"][@"a"] = [NSNumber numberWithInt:1];
-    attributes[@"textField"][@"transform"][@"b"] = [NSNumber numberWithInt:0];
-    attributes[@"textField"][@"transform"][@"c"] = [NSNumber numberWithInt:0];
-    attributes[@"textField"][@"transform"][@"d"] = [NSNumber numberWithInt:1];
-    attributes[@"textField"][@"transform"][@"tx"] = @"$rect.x"; // TODO transform based of outer shape(rectangle) -> look for attributes -> textAlignment in testField -> center/ left/right
-    attributes[@"textField"][@"transform"][@"ty"] = @"$rect.y";
-    attributes[@"textField"][@"style"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"style"][@"fill"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"style"][@"fill"][@"type"] = @"solid"; // ?? fontDescription pointsize ???
-    attributes[@"textField"][@"style"][@"fill"][@"color"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"style"][@"fill"][@"color"][@"mode"] = @"RGB";
-    attributes[@"textField"][@"style"][@"fill"][@"color"][@"value"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"style"][@"fill"][@"color"][@"value"][@"r"] = @"$color.red";
-    attributes[@"textField"][@"style"][@"fill"][@"color"][@"value"][@"g"] = @"$color.green";
-    attributes[@"textField"][@"style"][@"fill"][@"color"][@"value"][@"b"] = @"$color.blue";
-    attributes[@"textField"][@"style"][@"fill"][@"color"][@"alpha"] = @"$color.alpha";
-    attributes[@"textField"][@"style"][@"font"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"style"][@"font"][@"postscriptName"] = @"HelveticaNeue"; //TODO hardcodare => default properties
-    attributes[@"textField"][@"style"][@"font"][@"family"] = @"Helvetica Neue";
-    attributes[@"textField"][@"style"][@"font"][@"style"] = @"Regular";
-    attributes[@"textField"][@"style"][@"font"][@"size"] = @"$fontDescription.pointSize";
-    attributes[@"textField"][@"text"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"text"][@"rawText"] = @"#text";
-    attributes[@"textField"][@"text"][@"frame"] = [[NSMutableDictionary alloc] init];
-    attributes[@"textField"][@"text"][@"frame"][@"type"] = @"positioned";
-    attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
-    
-    attributes[@"rectangle"] = [[NSMutableDictionary alloc] init];
-    attributes[@"rectangle"][@"type"] = @"shape";
-    attributes[@"rectangle"][@"transform"] = [[NSMutableDictionary alloc] init];
-    attributes[@"rectangle"][@"transform"][@"a"] = [NSNumber numberWithInt:1];
-    attributes[@"rectangle"][@"transform"][@"b"] = [NSNumber numberWithInt:0];
-    attributes[@"rectangle"][@"transform"][@"c"] = [NSNumber numberWithInt:0];
-    attributes[@"rectangle"][@"transform"][@"d"] = [NSNumber numberWithInt:1];
-    attributes[@"rectangle"][@"transform"][@"tx"] = @"$rect.x";
-    attributes[@"rectangle"][@"transform"][@"ty"] = @"$rect.y";
-    attributes[@"rectangle"][@"style"] = [[NSMutableDictionary alloc] init];
-    attributes[@"rectangle"][@"style"][@"fill"] = [[NSMutableDictionary alloc] init];
-    attributes[@"rectangle"][@"style"][@"fill"][@"type"] = @"solid"; // ?? fontDescription pointsize ???
-    attributes[@"rectangle"][@"style"][@"fill"][@"color"] = [[NSMutableDictionary alloc] init];
-    attributes[@"rectangle"][@"style"][@"fill"][@"color"][@"mode"] = @"RGB";
-    attributes[@"rectangle"][@"style"][@"fill"][@"color"][@"value"] = [[NSMutableDictionary alloc] init];
-    attributes[@"rectangle"][@"style"][@"fill"][@"color"][@"value"][@"r"] = @"$color.red";
-    attributes[@"rectangle"][@"style"][@"fill"][@"color"][@"value"][@"g"] = @"$color.green";
-    attributes[@"rectangle"][@"style"][@"fill"][@"color"][@"value"][@"b"] = @"$color.blue";
-    attributes[@"rectangle"][@"shape"] = [[NSMutableDictionary alloc] init];
-    attributes[@"rectangle"][@"shape"][@"type"] = @"rect";
-    attributes[@"rectangle"][@"shape"][@"x"] = [NSNumber numberWithInt:0];
-    attributes[@"rectangle"][@"shape"][@"y"] = [NSNumber numberWithInt:0];
-    attributes[@"rectangle"][@"shape"][@"width"] = @"$rect.width";
-    attributes[@"rectangle"][@"shape"][@"height"] = @"$rect.height";
-    
-    attributes[@"path"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"type"] = @"shape";
-    attributes[@"path"][@"transform"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"transform"][@"a"] = [NSNumber numberWithInt:1];
-    attributes[@"path"][@"transform"][@"b"] = [NSNumber numberWithInt:0];
-    attributes[@"path"][@"transform"][@"c"] = [NSNumber numberWithInt:0];
-    attributes[@"path"][@"transform"][@"d"] = [NSNumber numberWithInt:1];
-    attributes[@"path"][@"transform"][@"tx"] = @"$rect.x";
-    attributes[@"path"][@"transform"][@"ty"] = @"$rect.y";
-    attributes[@"path"][@"style"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"style"][@"fill"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"style"][@"fill"][@"type"] = @"solid"; // ?? fontDescription pointsize ???
-    attributes[@"path"][@"style"][@"fill"][@"color"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"style"][@"fill"][@"color"][@"mode"] = @"RGB";
-    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"][@"r"] = @"$color.red";
-    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"][@"g"] = @"$color.green";
-    attributes[@"path"][@"style"][@"fill"][@"color"][@"value"][@"b"] = @"$color.blue";
-    attributes[@"path"][@"shape"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"shape"][@"type"] = @"path";
-    attributes[@"path"][@"shape"][@"path"] = @"";
-    attributes[@"path"][@"style"][@"stroke"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"style"][@"stroke"][@"color"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"style"][@"stroke"][@"color"][@"mode"] = @"RGB";
-    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"][@"r"] = @"$color.red";
-    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"][@"g"] = @"$color.green";
-    attributes[@"path"][@"style"][@"stroke"][@"color"][@"value"][@"b"] = @"$color.blue";
-    attributes[@"path"][@"style"][@"stroke"][@"type"] = @"solid";
-    attributes[@"path"][@"style"][@"stroke"][@"width"] = @"$justAValue";
-    attributes[@"path"][@"visualBounds"] = [[NSMutableDictionary alloc] init];
-    attributes[@"path"][@"visualBounds"][@"x"] = @"$rect.x";
-    attributes[@"path"][@"visualBounds"][@"y"] = @"$rect.y";
-    attributes[@"path"][@"visualBounds"][@"width"] = @"$rect.width";
-    attributes[@"path"][@"visualBounds"][@"height"] = @"$rect.height";
-    
-    attributes[@"imageView"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"type"] = @"shape";
-    attributes[@"imageView"][@"transform"] = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[@"rectangle"][@"transform"]]];
-    attributes[@"imageView"][@"style"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"style"][@"fill"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"style"][@"fill"][@"type"] = @"pattern";
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"width"] = @"$justAValue";
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"height"] = @"$justAValue";
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"href"] = @"$image"; // TODO add resourcesPath
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"meta"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"meta"][@"ux"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"style"][@"fill"][@"pattern"][@"meta"][@"ux"][@"uid"] = @"$rand";
-    
-    attributes[@"imageView"][@"shape"] = [[NSMutableDictionary alloc] init];
-    attributes[@"imageView"][@"shape"][@"type"] = @"rect";
-    attributes[@"imageView"][@"shape"][@"x"] = [NSNumber numberWithInt:0];
-    attributes[@"imageView"][@"shape"][@"y"] = [NSNumber numberWithInt:0];
-    attributes[@"imageView"][@"shape"][@"width"] = @"$rect.width";
-    attributes[@"imageView"][@"shape"][@"height"] = @"$rect.height";
-    
 
-    
-    attributes[@"backgroundColor"] = [[NSMutableDictionary alloc] init];
-    attributes[@"backgroundColor"][@"style"] = [[NSMutableDictionary alloc] init];
-    attributes[@"backgroundColor"][@"style"][@"fill"] = [[NSMutableDictionary alloc] init];
-    attributes[@"backgroundColor"][@"style"][@"fill"][@"type"] = @"solid"; // ?? fontDescription pointsize ???
-    attributes[@"backgroundColor"][@"style"][@"fill"][@"color"] = [[NSMutableDictionary alloc] init];
-    attributes[@"backgroundColor"][@"style"][@"fill"][@"color"][@"mode"] = @"RGB";
-    attributes[@"backgroundColor"][@"style"][@"fill"][@"color"][@"value"] = [[NSMutableDictionary alloc] init];
-    attributes[@"backgroundColor"][@"style"][@"fill"][@"color"][@"value"][@"r"] = @"$color.red";
-    attributes[@"backgroundColor"][@"style"][@"fill"][@"color"][@"value"][@"g"] = @"$color.green";
-    attributes[@"backgroundColor"][@"style"][@"fill"][@"color"][@"value"][@"b"] = @"$color.blue";
-    
-    attributes[@"meta"] = [[NSMutableDictionary alloc] init];
-    attributes[@"meta"][@"ux"] = [[NSMutableDictionary alloc] init];
-    attributes[@"meta"][@"ux"][@"groupItems"] =  [NSNumber numberWithBool:false];
-    
-    attributes[@"viewSource"] = [[NSMutableDictionary alloc] init];
-    attributes[@"viewSource"][@"x"] = [NSNumber numberWithInt:0];
-    attributes[@"viewSource"][@"y"] = [NSNumber numberWithInt:0];
-    attributes[@"viewSource"][@"width"] = 0;
-    attributes[@"viewSource"][@"height"] = [NSNumber numberWithInt:667]; //TODO change for any Artboard type -> for now Iphone 6
-    
-    attributes[@"resources"] = [[NSMutableDictionary alloc] init];
-    attributes[@"resources"][@"gradients"] = [[NSMutableDictionary alloc] init];
-    attributes[@"resources"][@"clipPaths"] = [[NSMutableDictionary alloc] init];
-    
-    attributes[@"frame"] = [[NSMutableDictionary alloc] init];
-    
     objectOffset[@"<imageView"] = [NSNumber numberWithInt: 1];
     objectOffset[@"<label"] = [NSNumber numberWithInt: 1];
     objectOffset[@"<textField"] = [NSNumber numberWithInt: 1];
     objectOffset[@"<switch"] = [NSNumber numberWithInt: 1];
-    
-    NSMutableDictionary *lines = [[NSMutableDictionary alloc] init];
-    NSMutableArray *line = [[NSMutableArray alloc] init];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    dict[@"x"] = [NSNumber numberWithInt:0];
-    dict[@"y"] = [NSNumber numberWithInt:0];
-    dict[@"from"] = [NSNumber numberWithInt:0];
-    dict[@"to"] = [NSNumber numberWithInt:11];
-    NSMutableArray *temp = [[NSMutableArray alloc]init];
-    [temp addObject:dict];
-    [line addObject:temp];
-    [lines setObject:line forKey:@"lines"];
-    
-     attributes[@"textField"][@"text"][@"paragraphs"] = [[NSMutableArray alloc] init];
-    [attributes[@"textField"][@"text"][@"paragraphs"] addObject: lines];
-    
+
     offsetXmlFile = [[NSMutableDictionary alloc] init];
     
     [dictionaryStack addObject:[NSMutableDictionary dictionary]];
@@ -387,6 +224,9 @@
         [type  setObject:[[NSMutableDictionary alloc] init] forKey:@"artboards"];
         
         [type  setObject:[attributes objectForKey:@"viewSource"] forKey:@"viewSource"];
+        BOOL booleanGroup = [[[[attributes objectForKey:@"meta"] objectForKey:@"ux"] objectForKey:@"groupItems"] boolValue];
+        NSLog(@"Value = %d %@",booleanGroup, [[attributes objectForKey:@"meta"] objectForKey:@"ux"]);
+        [[[type objectForKey:@"meta"] objectForKey:@"ux"] setObject:[NSNumber numberWithBool:false] forKey:@"groupItems"];
         [type  setObject:[attributes objectForKey:@"meta"] forKey:@"meta"];
         [type  setObject:[attributes objectForKey:@"resources"] forKey:@"resources"];
         id sources = [type objectForKey:@"viewSource"];

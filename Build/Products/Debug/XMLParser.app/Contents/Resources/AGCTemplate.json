@@ -42,7 +42,19 @@
             "frame" : {
                 "type" : "positioned"
             },
-            "paragraphs" : {},
+            "paragraphs" : [{
+                            "lines" : [[
+                                       {
+                                        "x" : 0,
+                                        "y" : 0,
+                                        "from" : 0,
+                                        "to" : 11
+                                        
+                                       }
+                                       
+                                       ]]
+            
+            }],
             "rawText" :  "#text"
         }
     },
@@ -179,14 +191,14 @@
     },
     "meta" : {
         "ux" : {
-            "groupItems" : "false"
+            "groupItems" : false
         }
     },
     "viewSource" : {
         "x" : "0",
         "y" : "0",
         "width" : "0",
-        "height" : "667"
+        "height" : 667
     },
     "resources" : {
         "gradients" : {},
