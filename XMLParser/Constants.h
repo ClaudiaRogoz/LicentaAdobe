@@ -10,11 +10,20 @@
 #define Constants_h
 
 #define STORYBOARD  @"Base.lproj/Main.storyboard"
+
+
+/* template paths */
 #define DEF_PATH @"Defs"
 #define RULES_PATH @"Rules"
 #define SVG_TEMPLATE    @"SvgTemplate"
-#define SVG         @"svg"
+#define AGC_TEMPLATE    @"AGCTemplate"
+#define XML2AGC_TEMPLATE    @"Xml2AgcTranslations"
+
+
+/* files format */
+#define SVG             @"svg"
 #define JSON            @"json"
+#define AGC             @"agc"
 
 /* Test files */
 #define TEST_PATH @"XMLParser/TestGenerator.json"
@@ -28,9 +37,11 @@
 #define TESTTEXT_PATH       @"TestTextGroup.json"
 #define TESTMULTTEXT_PATH       @"TestMulText"
 #define TESTBIGIMG      @"TestBigImage"
-#define AGC_TEMPLATE    @"AGCTemplate"
 
 
+
+
+#define ARTBOARD_FILE_PREFIX    @"artboard-artboard"
 
 #define SVG_INFO    @" d="
 #define SVG_FILL    @"fill: "
@@ -79,8 +90,45 @@
 #define TX          @"tx"
 #define TY          @"ty"
 #define FRAME       @"rect"
+#define KEY         @"key"
+#define BACKGROUND  @"backgroundColor"
+#define COLORSPACE  @"colorSpace"
+#define RGB         @"calibratedRGB"
+#define SCENE       @"scene"
 
+#define SWITCH      @"switch"
+#define SWITCH_TX   @"switch.transform.tx"
+#define SWITCH_TY   @"switch.transform.ty"
+#define RECTANGLE   @"rectangle"
+#define FRAME_SIZE  @"frame"
+#define VIEWSOURCE  @"viewSource"
+#define META        @"meta"
+#define UX          @"ux"
+#define TEXT        @"text"
+#define PLACEHOLDER @"placeholder"
+#define RESOURCES   @"resources"
+#define GROUP_ITEMS  @"groupItems"
+#define VERSION     @"version"
+#define IMAGEVIEW   @"imageView"
+#define IMAGEVIEW_INV   @"imageView."
+#define UID         @"uid"
+#define LIST        @"list"
+#define ART_SCENE   @"artboard"
+#define SHAPE       @"shape"
+#define LABEL       @"label"
 
+#define VERSION_AGC @"1.5.0"
+#define HREF        @"href"
+#define REF         @"ref"
+#define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
+#define TEXTFIELD   @"textField"
+#define TEXT_COLOR_R    @"textField.style.fill.color.value.r"
+#define TEXT_COLOR_G    @"textField.style.fill.color.value.g"
+#define TEXT_COLOR_B    @"textField.style.fill.color.value.b"
+#define TEXT_COLOR_A    @"textField.style.fill.color.alpha"
+
+#define FRAME_DOT   @"rect."
+#define LENGTH_DOT  @"length."
 #define COLOR       @"color"
 #define RED         @"red"
 #define GREEN       @"green"
@@ -105,6 +153,8 @@
 #define RAWTEXT     @"$rawText"
 #define RAWTEXT_VALUE   @"rawText"
 #define TOTRANSFORM @"$"
+#define SAVED_VALUE @"#"
+#define SAVED_TEXT  @"#text"
 #define GETMAX      @"$MAX"
 #define PATH        @"$PATH"
 /* XML2AGC const */

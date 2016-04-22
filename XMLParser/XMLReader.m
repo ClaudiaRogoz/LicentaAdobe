@@ -67,22 +67,25 @@
 }
 
 - (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
-    NSMutableArray *rootArray = [[NSMutableArray alloc] init];
     
-    NSMutableDictionary *artboardsD = [dictionary objectForKey:@"artboards"];
+    NSMutableArray *rootArray = [[NSMutableArray alloc] init];
+    NSMutableDictionary *artboardsD = [dictionary objectForKey:ARTBOARDS];
     int nr = 1;
+    
     for (id key in [artboardsD allKeys]) {
+        
         NSMutableDictionary *tempArray = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: dictionary]];
+        
         id artboardNo = [artboardsD objectForKey:key];
-        [tempArray  setValue:[[NSMutableDictionary alloc] init] forKey:@"artboards"];
-        [[tempArray objectForKey:@"artboards"]  setValue:artboardNo forKey:key];
+        [tempArray  setValue:[[NSMutableDictionary alloc] init] forKey:ARTBOARDS];
+        [[tempArray objectForKey:ARTBOARDS]  setValue:artboardNo forKey:key];
         
-        id children =  [[dictionary objectForKey:@"children"] objectAtIndex:(nr -1)];
+        id children =  [[dictionary objectForKey:CHILDREN] objectAtIndex:(nr -1)];
         
-        [tempArray setObject:[[NSMutableArray alloc] init] forKey:@"children"];
-        [[tempArray objectForKey:@"children"] addObject:children];
+        [tempArray setObject:[[NSMutableArray alloc] init] forKey:CHILDREN];
+        [[tempArray objectForKey:CHILDREN] addObject:children];
         
-        NSString *artboardName = [NSString stringWithFormat:@"artboard-artboard%d.agc", nr];
+        NSString *artboardName = [NSString stringWithFormat:@"%@%d%@%@", ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
         [self writeToFile:tempArray file:artboardName];
         nr++;
     }
@@ -107,131 +110,80 @@
     
 }
 
-- (NSMutableDictionary *)objectWithData:(NSData *)data
-{
+-(void) initAllData {
     
     dictionaryStack = [[NSMutableArray alloc] init];
     textInProgress = [[NSMutableString alloc] init];
     inheritanceStack = [[NSMutableArray alloc] init];
     attributes = [[NSMutableDictionary alloc] init];
     toInsertObjects = [[NSMutableArray alloc] init];
-    //artboards = [[NSMutableArray alloc] init];
-    
-    //exportScaleStack = [[NSMutableArray alloc] init];
     
     sceneNo = 0;
-    
-    xmlData = [data mutableCopy];
     xmlOffset = 0;
-    
     counterArtboards = 1;
-    //TODO eventually read from file (XML ??? )
     insertedRoot = false;
     
-    xml2agcDictionary = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"scenes"] = @"children";
-    xml2agcDictionary[@"scene"] = @"artboard2";
-    xml2agcDictionary[@"viewController"] = @"artboard";
-    xml2agcDictionary[@"imageView"] = @"imageView";
-    xml2agcDictionary[@"view"] = @"children";
-    xml2agcDictionary[@"textField"] =@"textField";
-    xml2agcDictionary[@"label"] = @"textField";
-    xml2agcDictionary[@"switch"] = @"Button";
-    
-    xml2agcDictionary[@"children"] = @"list";
-    xml2agcDictionary[@"children1"] = @"list";
-    xml2agcDictionary[@"paragraphs"] = @"list";
-    
-    //for type = "shape"
-    
-    
-    xml2agcDictionary[@"textField."][@"name"] = @"text";
-    
-    
-    //inverted index for bottom-up inheritance
-    xml2agcDictionary[@"imageView."] = @"style.fill.pattern.href";
-    xml2agcDictionary[@"rect."] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"rect."][@"x"] = @"textField.transform.tx"; //TODO Dictionary based on type (textField only) -> make dictionary of {textfield: transform.x; label: ....x}
-    xml2agcDictionary[@"rect."][@"y"] = @"textField.transform.ty";
-    
-    //TODO1 eventually transfer to xml2agcDictionary [@"rect."] !!!
-    xml2agcDictionary[@"switch."] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"switch."][@"rect"] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"switch."][@"rect"][@"x"] = @"switch.transform.tx";
-    xml2agcDictionary[@"switch."][@"rect"][@"y"] = @"switch.transform.ty";
-    
-    
-    xml2agcDictionary[@"switch."][@"color"] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"switch."][@"color"][@"onTintColor"] = [[NSMutableDictionary alloc] init];
-    
-    xml2agcDictionary[@"rect."][@"width"] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"rect."][@"width"][@"rect"] = @"rect.shape.width"; //TODO Dictionary based on type (textField only) -> make dictionary of {textfield: transform.x; label: ....x}
-    xml2agcDictionary[@"rect."][@"width"][@"text"] = @"textField.shape.width";
-    xml2agcDictionary[@"rect."][@"width"][@"shape"] = @"imageView.style.fill.pattern.width";
-    
-    xml2agcDictionary[@"rect."][@"height"] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"rect."][@"height"][@"text"]= @"textField.shape.height";
-    xml2agcDictionary[@"rect."][@"height"][@"rect"]= @"rect.shape.height";
-    xml2agcDictionary[@"rect."][@"height"][@"shape"] = @"imageView.style.fill.pattern.height";
-    
-    xml2agcDictionary[@"color."] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"color."][@"red"] = @"textField.style.fill.color.value.r";
-    xml2agcDictionary[@"color."][@"green"] = @"textField.style.fill.color.value.g";
-    xml2agcDictionary[@"color."][@"blue"] = @"textField.style.fill.color.value.b";
-    xml2agcDictionary[@"color."][@"alpha"] = @"textField.style.fill.color.alpha";
-    xml2agcDictionary[@"fontDescription."] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"fontDescription."][@"pointSize"] = @"textField.style.font.size";
-    xml2agcDictionary[@"length."] = @"textField.text.paragraphs.lines.to";
-    //mapping between attr from parent tag -> attr to siblings tag (top -> down ) eg name and rawtext from textField
-    // used for didEndElement
-    xml2agcDictionary[@"#textField"] = [[NSMutableDictionary alloc] init];
-    xml2agcDictionary[@"#textField"][@"textField.text.rawText"] = @"#text";
-    
-    //default values template!!!
-    defaultValues = [[NSMutableDictionary alloc] init];
-    defaultValues[@"textField"] = [[NSMutableDictionary alloc] init];
-    defaultValues[@"textField"][@"textField.style.fill.color.value.r"] = [NSNumber numberWithInt:0];
-    defaultValues[@"textField"][@"textField.style.fill.color.value.g"] = [NSNumber numberWithInt:0];
-    defaultValues[@"textField"][@"textField.style.fill.color.value.b"] = [NSNumber numberWithInt:0];
-    defaultValues[@"textField"][@"textField.style.fill.color.alpha"] = [NSNumber numberWithInt:1];
-    
     NSError *error;
+    
+    /* xml2agc translations */
     NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
+    NSString *dictStr = [thisBundle pathForResource:XML2AGC_TEMPLATE ofType:JSON];
+    NSData *dictData = [NSData dataWithContentsOfFile:dictStr];
+    xml2agcDictionary = [NSJSONSerialization JSONObjectWithData:dictData options:NSJSONReadingMutableContainers error:&error];
+    
+    /* agc template */
     NSString *def = [thisBundle pathForResource:AGC_TEMPLATE ofType:JSON];
     NSData *defData = [NSData dataWithContentsOfFile:def];
     attributes = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
-
+    
+    /* default values template */
+    defaultValues = [[NSMutableDictionary alloc] init];
+    defaultValues[TEXTFIELD] = [[NSMutableDictionary alloc] init];
+    defaultValues[TEXTFIELD][TEXT_COLOR_R] = [NSNumber numberWithInt:0];
+    defaultValues[TEXTFIELD][TEXT_COLOR_G] = [NSNumber numberWithInt:0];
+    defaultValues[TEXTFIELD][TEXT_COLOR_B] = [NSNumber numberWithInt:0];
+    defaultValues[TEXTFIELD][TEXT_COLOR_A] = [NSNumber numberWithInt:1];
+    
+    /*TODO remove*/
     objectOffset[@"<imageView"] = [NSNumber numberWithInt: 1];
     objectOffset[@"<label"] = [NSNumber numberWithInt: 1];
     objectOffset[@"<textField"] = [NSNumber numberWithInt: 1];
     objectOffset[@"<switch"] = [NSNumber numberWithInt: 1];
-
+    
     offsetXmlFile = [[NSMutableDictionary alloc] init];
     
     [dictionaryStack addObject:[NSMutableDictionary dictionary]];
+
+
+}
+
+- (NSMutableDictionary *)objectWithData:(NSData *)data
+{
     
-    // Parse the XML
+    
+    [self initAllData];
+    
+    xmlData = [data mutableCopy];
+    
+    /* Parse the XML */
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
     
     [parser setDelegate:self];
     BOOL success = [parser parse];
     
-    // Return the stack's root dictionary on success
+    /* Return the stack's root dictionary on success */
     if (success)
     {
         
         id type = [dictionaryStack objectAtIndex:0];
-        [type  setObject:[[NSMutableDictionary alloc] init] forKey:@"artboards"];
-        
-        [type  setObject:[attributes objectForKey:@"viewSource"] forKey:@"viewSource"];
-        BOOL booleanGroup = [[[[attributes objectForKey:@"meta"] objectForKey:@"ux"] objectForKey:@"groupItems"] boolValue];
-        NSLog(@"Value = %d %@",booleanGroup, [[attributes objectForKey:@"meta"] objectForKey:@"ux"]);
-        [[[type objectForKey:@"meta"] objectForKey:@"ux"] setObject:[NSNumber numberWithBool:false] forKey:@"groupItems"];
-        [type  setObject:[attributes objectForKey:@"meta"] forKey:@"meta"];
-        [type  setObject:[attributes objectForKey:@"resources"] forKey:@"resources"];
-        id sources = [type objectForKey:@"viewSource"];
+        [type  setObject:[[NSMutableDictionary alloc] init] forKey:ARTBOARDS];
+        [type  setObject:[attributes objectForKey:VIEWSOURCE] forKey:VIEWSOURCE];
+        [[[type objectForKey:META] objectForKey:UX] setObject:[NSNumber numberWithBool:false] forKey:GROUP_ITEMS];
+        [type  setObject:[attributes objectForKey:META] forKey:META];
+        [type  setObject:[attributes objectForKey:RESOURCES] forKey:RESOURCES];
+        id sources = [type objectForKey:VIEWSOURCE];
        
-        type = [type objectForKey:@"artboards"];
+        type = [type objectForKey:ARTBOARDS];
         
         int width = 375;
         int height = 667;
@@ -242,17 +194,15 @@
             NSMutableString *artboardNo = [NSMutableString stringWithFormat:@"artboard%d", i];
             NSMutableString *iphoneNo = [NSMutableString stringWithFormat:@"iPhone 6 – %d", i];
             [type  setObject:[[NSMutableDictionary alloc] init] forKey:artboardNo];
-            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: width] forKey:@"width"];
-            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: height] forKey:@"height"];
-            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: x] forKey:@"x"];
-            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: 0] forKey:@"y"];
-            [[type objectForKey:artboardNo] setObject:iphoneNo forKey:@"name"];
+            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: width] forKey:WIDTH];
+            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: height] forKey:HEIGHT];
+            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: x] forKey:XARTBOARD];
+            [[type objectForKey:artboardNo] setObject:[NSNumber numberWithInt: 0] forKey:YARTBOARD];
+            [[type objectForKey:artboardNo] setObject:iphoneNo forKey:NAME];
             x = x + OFFSETBOARD;
         }
         
-        //TODO add viewSource
-        
-        [sources setObject:[NSNumber numberWithInt:x] forKey:@"width"];
+        [sources setObject:[NSNumber numberWithInt:x] forKey:WIDTH];
         NSMutableDictionary *resultDict = [dictionaryStack objectAtIndex:0];
         return resultDict;
     }
@@ -260,32 +210,33 @@
     return nil;
 }
 
-// functions that scales & updates x based on artboards and import
+/* scales & updates x based on artboards and import data */
 - (void) scaleAttrDict:(NSMutableDictionary **) attrScaleDict attribute:(NSString *)elementName{
-    //don't bother for tags != <rect>
-    if (![elementName isEqualToString:@"rect"])
+    
+    NSArray *arrayWithSize = [NSArray arrayWithObjects:XARTBOARD, WIDTH,YARTBOARD, HEIGHT, nil];
+    
+    /* don't bother for tags != <rect> */
+    if (![elementName isEqualToString:FRAME])
         return;
     
-    if ([[inheritanceStack lastObject] isEqualToString:@"children"]) {
-        // axiom: all artboards must have the same size in a single app
-        widthXMLArtboard = [[*attrScaleDict objectForKey:@"width"] intValue];
-        heightXMLArtboard = [[*attrScaleDict objectForKey:@"height"] intValue];
-        return;
+    if ([[inheritanceStack lastObject] isEqualToString:CHILDREN]) {
         
+        /* all artboards must have the same size in a single app */
+        widthXMLArtboard = [[*attrScaleDict objectForKey:WIDTH] intValue];
+        heightXMLArtboard = [[*attrScaleDict objectForKey:HEIGHT] intValue];
+        return;
     }
 
-    
     float xScaleFactor = (float)WIDTHIPH6/widthXMLArtboard;
     float yScaleFactor = (float)HEIGHTIPH6/heightXMLArtboard;
-   
-    NSArray *arrayWithSize = [NSArray arrayWithObjects:@"x", @"width", @"y", @"height", nil];
+    
     for (id value in arrayWithSize) {
         float scaledValue = [[*attrScaleDict objectForKey:value] floatValue];
-        if ([value isEqualToString:@"x"] ) {
+        if ([value isEqualToString:XARTBOARD] ) {
             
             scaledValue = scaledValue * xScaleFactor+ (sceneNo -1) * OFFSETBOARD;
         }
-        else if ([value isEqualToString:@"width"])
+        else if ([value isEqualToString:WIDTH])
             scaledValue = scaledValue * xScaleFactor;
         else
             scaledValue = scaledValue * yScaleFactor;
@@ -297,12 +248,389 @@
 #pragma mark -
 #pragma mark NSXMLParserDelegate methods
 
+-(void) saveFrame:(NSMutableDictionary *)attributeDict {
+
+    /* save frame for label/textfield */
+    NSArray *keys =[NSArray arrayWithObjects:XARTBOARD, YARTBOARD, WIDTH, HEIGHT, nil];
+    
+    
+    if ([[inheritanceStack lastObject] isEqualToString:CHILDREN]) {
+        // axiom: all artboards must have the same size in a single app
+        widthXMLArtboard = [[attributeDict objectForKey:WIDTH] intValue];
+        heightXMLArtboard = [[attributeDict objectForKey:HEIGHT] intValue];
+        
+    }
+    
+    for (id attr in keys){
+        
+        if ([attributeDict[attr] intValue] || [attributeDict[attr] floatValue])
+            attributes[FRAME_SIZE][attr] = [NSNumber numberWithFloat:[attributeDict[attr] floatValue]];
+        
+        attributes[FRAME_SIZE][attr] = attributeDict[attr];
+        
+    }
+
+}
+
+-(NSNumber *)convertToNumber:(id) tempValue {
+
+    NSNumber *nr = [[NSNumber alloc] init];
+    if ([tempValue intValue])
+        nr = [NSNumber numberWithInt:[tempValue intValue]];
+    else if ([tempValue floatValue])
+        nr = [NSNumber numberWithFloat:[tempValue floatValue]];
+    else if ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"])
+        nr = [NSNumber numberWithInt:0];
+    
+    return nr;
+
+}
+
+-(void)transformAgcColor:(NSString *)entry  searchAttr:(NSMutableDictionary *)searchAttr dictAttr:(NSMutableDictionary *)attributeDict {
+
+    for (id key1 in [xml2agcDictionary objectForKey:entry]){
+        NSArray *strings = [[xml2agcDictionary[entry] objectForKey:key1] componentsSeparatedByString:@"."];
+        
+        id value = searchAttr;
+        for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
+            value = [value objectForKey:key];
+            
+        }
+        
+        id tempValue = [attributeDict objectForKey:key1];
+        NSNumber *number = [self convertToNumber:(id) tempValue];
+        
+        float x = [number floatValue];
+        int y = x * 255;
+        [value setObject:[NSNumber numberWithInt:y] forKey:[strings lastObject]];
+        
+    }
+
+}
+
+-(void)createAgcFrameForElement:(NSString *)elementName attributes:(NSMutableDictionary *)attributeDict {
+
+    NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[RECTANGLE]]];
+    
+    NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
+    
+    [self transformAgcColor:entry searchAttr:shapeAttr dictAttr:attributeDict];
+    
+    id size = [attributes objectForKey:FRAME_SIZE];
+    
+    for (id key1 in xml2agcDictionary[FRAME_DOT]){
+        
+        NSArray *strings;
+        if ([[xml2agcDictionary[FRAME_DOT] objectForKey:key1] isKindOfClass:[NSMutableDictionary class]]) {
+            
+            strings = [[[xml2agcDictionary[FRAME_DOT] objectForKey:key1] objectForKey:FRAME ]componentsSeparatedByString:DOT];
+            
+        }
+        else
+            strings = [[xml2agcDictionary[FRAME_DOT] objectForKey:key1] componentsSeparatedByString:DOT];
+        
+        
+        id value = shapeAttr;
+        for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
+            value = [value objectForKey:key];
+            
+        }
+        
+        id tempValue = [size objectForKey:key1];
+        
+        NSNumber *number = [self convertToNumber:(id) tempValue];
+        [value setObject:number forKey:[strings lastObject]];
+        
+    }
+    
+    
+    [toInsertObjects addObject: shapeAttr];
+
+}
+
+-(NSDictionary*) getIdealFrameForPointSize:(id) tempValue {
+
+    NSMutableDictionary *offset = [[NSMutableDictionary alloc] init];
+    NSString *text = attributes[SAVED_TEXT];
+    float width = [[[attributes objectForKey:FRAME_SIZE] objectForKey:WIDTH] floatValue];
+    float height = [[[attributes objectForKey:FRAME_SIZE] objectForKey:HEIGHT] floatValue];
+    float x = [[[attributes objectForKey:FRAME_SIZE] objectForKey:XARTBOARD] floatValue];
+    float y = [[[attributes objectForKey:FRAME_SIZE] objectForKey:YARTBOARD] floatValue];
+    CGSize frameSize = CGSizeMake(width, height);
+    int textSize = [tempValue intValue];
+    NSFont *font = [NSFont systemFontOfSize:textSize];
+    
+    CGRect idealFrame = [text boundingRectWithSize:frameSize
+                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                        attributes:@{ NSFontAttributeName:font }
+                                           context:nil];
+    
+    float x_pos =(width - idealFrame.size.width) /2;
+    float y_pos =(height - idealFrame.size.height) /2;
+    
+    x_pos = x_pos + x;
+    y_pos = y_pos + y + textSize;
+    
+    [offset setObject:[NSNumber numberWithFloat:x_pos] forKey:XARTBOARD];
+    [offset setObject:[NSNumber numberWithFloat:y_pos] forKey:YARTBOARD];
+    
+    return  offset;
+}
+
+-(void)replaceTemplateValuesForEntry:(NSString *)elementName parentDict:(NSMutableDictionary *)parentDict
+                           attribDict:(NSMutableDictionary *)attributeDict {
+    
+    bool ok = false;
+    NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
+    
+    for (id key in xml2agcDictionary[entry]){
+        
+        NSArray *strings;
+        
+        if ([[xml2agcDictionary[entry] objectForKey:key] isKindOfClass:[NSMutableDictionary class]]) {
+            
+            NSString *parent = [parentDict objectForKey:TYPE];
+            
+            if (parent)
+                strings = [[[xml2agcDictionary[entry] objectForKey:key] objectForKey: parent] componentsSeparatedByString:DOT];
+            else {
+                ok = true;
+                return;
+            }
+        }
+        else {
+            strings = [[xml2agcDictionary[entry] objectForKey:key] componentsSeparatedByString:DOT];
+        }
+        
+        id value = parentDict;
+        
+        for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
+            value = [value objectForKey: key1];
+            
+        }
+        
+        if (![attributeDict objectForKey:key])
+            continue;
+
+        id tempValue = [attributeDict objectForKey:key];
+        
+        if ([tempValue intValue])
+            tempValue = [NSNumber numberWithInt:[tempValue intValue]];
+        else if ([tempValue floatValue])
+            tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
+        
+        if ([attributeDict objectForKey:key] && [elementName isEqualToString:COLOR]){
+            //transform to RGB values!!!!
+            float x = [tempValue floatValue];
+            int y = x * 255;
+            tempValue = [NSNumber numberWithInt: y];
+            
+        } else if ([attributeDict objectForKey:key] && [elementName isEqualToString:FONT_DESCR] && [[inheritanceStack lastObject] intValue]) {
+            
+            NSDictionary *pos = [self getIdealFrameForPointSize:tempValue];
+            id tempDict = parentDict;
+            
+            tempDict = [tempDict objectForKey:TRANSFORM];
+            
+            [tempDict setObject:[pos objectForKey:XARTBOARD] forKey:TX];
+            [tempDict setObject:[pos objectForKey:YARTBOARD] forKey:TY];
+            
+            [value setObject:tempValue forKey:[strings lastObject]];
+            return;
+        }
+        if (!ok){
+            if([ [value objectForKey:[strings lastObject]] isKindOfClass:[NSString class] ] &&
+               [[ [value objectForKey:[strings lastObject]] substringToIndex:1] isEqualToString:TOTRANSFORM])
+                [value setObject:tempValue forKey:[strings lastObject]];
+            else if ([value objectForKey:HREF]) {
+                //if it is an image -> update width & height
+                
+                id value = parentDict;
+                value = [value objectForKey:SHAPE];
+                
+                float weight = [[attributeDict objectForKey:WIDTH] floatValue];
+                float height = [[attributeDict objectForKey:HEIGHT] floatValue];
+                
+                [value setObject:[NSNumber numberWithFloat:weight] forKey:WIDTH];
+                [value setObject:[NSNumber numberWithFloat:height]  forKey:HEIGHT];
+            }
+        }
+    }
+
+
+}
+
+-(void)transformAttributesForElement:(NSString *)elementName attributeDict:(NSMutableDictionary*)attributeDict
+                           childDict:(NSMutableDictionary *)childDict parentDict:(NSMutableDictionary**)parentDict
+{
+    
+    NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
+    ;
+    //First level attributes
+    for (id key in attributes[elementName]){
+        
+        id value = [attributes[elementName] objectForKey:key];
+        
+        if ([value isKindOfClass:[NSString class]]){
+            if ([[value substringToIndex:1] isEqualToString:TOTRANSFORM]){
+                
+                NSInteger i = [value length] -1;
+                value = [value substringWithRange:NSMakeRange(1, i)];
+                
+                NSString *tempSaved = [NSString stringWithFormat:@"%@%@", SAVED_VALUE, value];
+                id tempValue = nil;
+                if ([value isEqualToString:TEXT] && attributeDict[value])
+                    tempValue = attributeDict[value];
+                
+                else if (!attributeDict[value])
+                    tempValue = attributeDict[PLACEHOLDER];
+                
+                if ([tempValue intValue] )
+                    tempValue = [NSNumber numberWithInt:[tempValue intValue]];
+                else if ([tempValue floatValue]){
+                    tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
+                }
+                attributes[tempSaved] = tempValue;
+                correctAttr[key] = tempValue;
+                
+            }
+            /* transfrom for lower levels; propagate attributes */
+        } else if ([elementName isEqualToString:IMAGEVIEW] && [key isEqualToString:STYLE_VALUE]){
+            
+            NSString *imageName = [NSString stringWithFormat:@"%@%@",
+                                   [self resourcesPath], [attributeDict objectForKey:ISIMAGE]];
+            NSArray *strings = [[xml2agcDictionary objectForKey:IMAGEVIEW_INV] componentsSeparatedByString:DOT];
+            
+            id value = correctAttr;
+            for (id key in [strings subarrayWithRange:NSMakeRange(0, [strings count] -1)]){
+                value = [value objectForKey:key];
+                
+            }
+            
+            /* generate random values for uid */
+            int num = arc4random() % 1000000;
+            [value setObject:imageName forKey:[strings lastObject]];
+            
+            NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
+            
+            if (image == nil) {
+                NSLog(@"[ERROR]Image is nil");
+            }
+            
+            [value setObject:[NSNumber numberWithInt:image.size.width] forKey:WIDTH];
+            [value setObject:[NSNumber numberWithInt:image.size.height] forKey:HEIGHT];
+            
+            value = [[value objectForKey:META] objectForKey:UX];
+            
+            [value setObject: [NSString stringWithFormat:@"%d", num] forKey:UID];
+        }
+    }
+    
+    [childDict addEntriesFromDictionary:correctAttr];
+    
+    if ([xml2agcDictionary objectForKey:[inheritanceStack lastObject]] &&
+        [[xml2agcDictionary objectForKey:[inheritanceStack lastObject]] isEqual: LIST]){
+        elementName = [[NSString alloc] initWithFormat:@"%d",counterCh++];
+        id lastObject =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [dictionaryStack lastObject]]];
+        
+        if ([[inheritanceStack lastObject] isEqualToString: CHILDREN] && ![childDict objectForKey:TYPE]){
+            [childDict setObject:ART_SCENE forKey:TYPE];
+        }
+        
+        NSMutableArray *array = nil;
+        if (![lastObject isKindOfClass:[NSMutableArray class]] && [lastObject count] == 0 ){
+            array = [NSMutableArray array];
+            [array addObject:childDict];
+            
+            [*parentDict setObject:array forKey:[inheritanceStack lastObject]];
+        }
+        else {
+            
+            array = (NSMutableArray *) [lastObject objectForKey:[inheritanceStack lastObject]];
+            
+            [array addObject: childDict];
+            [*parentDict setObject:array forKey:[inheritanceStack lastObject]];
+            
+        }
+        
+    }else   [*parentDict setObject:childDict forKey:elementName];
+
+    [inheritanceStack addObject:elementName];
+    
+    [dictionaryStack addObject:childDict];
+
+}
+
+-(void)createDictionaryForElement:(NSString *) elementName attributes:(NSMutableDictionary *) attributeDict parentDict:( NSMutableDictionary *)parentDict{
+
+    /* Create the child dictionary for the new element, and initilaize it with the attributes */
+    NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
+    
+    NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
+    tempDict[HREF] = GRAPHIC_CONTENT;
+    
+    if (![xml2agcDictionary objectForKey:elementName]) {
+        
+        /* check if the attr are needed */
+        NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
+        
+        if (![xml2agcDictionary objectForKey:entry])
+            return;
+        
+        if ([elementName isEqualToString: FRAME]) {
+            [self saveFrame:attributeDict];
+        }
+        
+        if ([elementName isEqualToString:COLOR] && [[inheritanceStack lastObject] isEqualToString:SWITCH]) {
+            return;
+        }
+        
+        /* when there is a tag with the key backgroundColor; add new rectangle with the spec colors */
+        if ([elementName isEqualToString: COLOR] && [[attributeDict objectForKey:KEY] isEqualToString:BACKGROUND] &&
+                            [[inheritanceStack lastObject] intValue]) {
+            
+            [self createAgcFrameForElement:elementName attributes:attributeDict];
+            return;
+            
+        /* when we use background for artboard */
+        } else if ([elementName isEqualToString: COLOR] && [[attributeDict objectForKey:KEY] isEqualToString:BACKGROUND] &&
+                   [[attributeDict objectForKey:COLORSPACE] isEqualToString:RGB]){
+            
+            NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
+            
+            NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[BACKGROUND]]];
+            
+            [self transformAgcColor:entry searchAttr:shapeAttr dictAttr:attributeDict];
+            
+            [toInsertObjects addObject:shapeAttr];
+            
+            return;
+        }
+        
+        [self replaceTemplateValuesForEntry:elementName parentDict:parentDict attribDict:attributeDict];
+
+        return;
+    }
+    else if (!insertedRoot){
+        [parentDict setObject: VERSION_AGC forKey:VERSION];
+        [parentDict setObject: tempDict  forKey:RESOURCES];
+        [parentDict setObject: tempDict  forKey:ARTBOARDS];
+        
+        insertedRoot = true;
+    }
+
+    elementName = [xml2agcDictionary objectForKey:elementName];
+    
+    [self transformAttributesForElement:elementName attributeDict:attributeDict childDict:childDict parentDict:&parentDict];
+
+}
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSMutableDictionary *)attributeDict
 {
     attributeDict = [attributeDict mutableCopy];
     NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
     
-    //updates width/height/x/y
+    /* updates width/height/x/y */
     if (objectOffset[tagName] != nil){
         
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
@@ -314,11 +642,9 @@
         NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
         [arr addObject:[NSNumber numberWithLong: range.location]];
         xmlOffset = (unsigned long)range.location;
-        
-        
     }
     
-    if ([elementName isEqualToString:@"scene"]) {
+    if ([elementName isEqualToString:SCENE]) {
         sceneNo++;
         [offsetXmlFile setObject: [[NSMutableArray alloc] init] forKey:[NSNumber numberWithInt:sceneNo]];
         
@@ -326,13 +652,13 @@
     
     [self scaleAttrDict:&attributeDict attribute:elementName];
     
-    // Get the dictionary for the current level in the stack
+    /* Get the dictionary for the current level in the stack */
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
     
-    
-    if ([elementName isEqualToString:@"switch"]){
+    /* if the current element is a switch, just copy the code and move on to its attributes */
+    if ([elementName isEqualToString:SWITCH]){
         
-        NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:@"agc"];
+        NSString *buttonPath = [[NSBundle mainBundle] pathForResource:xml2agcDictionary[elementName] ofType:AGC];
         NSError * error=nil;;
         
         NSString *jsonString = [NSString stringWithContentsOfFile:buttonPath encoding:NSUTF8StringEncoding error:&error];
@@ -340,405 +666,66 @@
         NSMutableDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
         
         
-        [parentDict[@"children"] addObject:parsedData];
-        [inheritanceStack addObject:@"switch"];
+        [parentDict[CHILDREN] addObject:parsedData];
+        [inheritanceStack addObject:SWITCH];
         
         return;
     }
     
-    // Create the child dictionary for the new element, and initilaize it with the attributes
-    NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
+    [self createDictionaryForElement:(NSString *) elementName
+                          attributes:(NSMutableDictionary *)attributeDict
+                          parentDict:( NSMutableDictionary *)parentDict];
     
-    
-    NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
-    tempDict[@"href"] = @"/resources/graphics/graphicContent.agc";
-    
-    if (![xml2agcDictionary objectForKey:elementName]) {
-        
-        //check whether the attr are needed
-        NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
-        if (![xml2agcDictionary objectForKey:entry])
-            return;
-        
-        if ([elementName isEqualToString: @"rect"]) {
-            //save frame for label/textfield
-            NSArray *keys =[NSArray arrayWithObjects:@"x", @"y", @"width", @"height", nil];
-            
-            
-            if ([[inheritanceStack lastObject] isEqualToString:@"children"]) {
-                // axiom: all artboards must have the same size in a single app
-                widthXMLArtboard = [[attributeDict objectForKey:@"width"] intValue];
-                heightXMLArtboard = [[attributeDict objectForKey:@"height"] intValue];
-                
-            }
-            
-            for (id attr in keys){
-                
-                if ([attributeDict[attr] intValue] || [attributeDict[attr] floatValue])
-                    attributes[@"frame"][attr] = [NSNumber numberWithFloat:[attributeDict[attr] floatValue]];
-                
-                attributes[@"frame"][attr] = attributeDict[attr];
-                
-            }
-            
-        }
-        
-        if ([elementName isEqualToString:@"color"] && [[inheritanceStack lastObject] isEqualToString:@"switch"]) {
-
-            
-            return;
-        }
-        
-        // when there is a tag with the key backgroundColor; add new rectangle with the spec colors
-        if ([elementName isEqualToString: @"color"] && [[attributeDict objectForKey:@"key"] isEqualToString:@"backgroundColor"] && [[inheritanceStack lastObject] intValue]) {
-            
-            NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[@"rectangle"]]];
-            
-            NSString *str = [NSString stringWithFormat:@"%@.", elementName];
-            
-            
-            for (id key1 in [xml2agcDictionary objectForKey:str]){
-                NSArray *strings = [[xml2agcDictionary[str] objectForKey:key1] componentsSeparatedByString:@"."];
-                
-                id value = shapeAttr;
-                for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
-                    value = [value objectForKey:key];
-                    
-                }
-                
-                id tempValue = [attributeDict objectForKey:key1];
-                
-                if ([tempValue intValue])
-                    tempValue = [NSNumber numberWithInt:[tempValue intValue]];
-                else if ([tempValue floatValue])
-                    tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
-                else if ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"])
-                    tempValue = [NSNumber numberWithInt:0];
-                float x = [tempValue floatValue];
-                int y = x * 255;
-                [value setObject:[NSNumber numberWithInt:y] forKey:[strings lastObject]];
-                
-            }
-            
-            id size = [attributes objectForKey:@"frame"];
-            
-            for (id key1 in xml2agcDictionary[@"rect."]){
-                
-                NSArray *strings;
-                if ([[xml2agcDictionary[@"rect."] objectForKey:key1] isKindOfClass:[NSMutableDictionary class]]) {
-                    
-                    strings = [[[xml2agcDictionary[@"rect."] objectForKey:key1] objectForKey:@"rect" ]componentsSeparatedByString:@"."];
-                    
-                }
-                else
-                    strings = [[xml2agcDictionary[@"rect."] objectForKey:key1] componentsSeparatedByString:@"."];
-                
-                
-                id value = shapeAttr;
-                for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
-                    value = [value objectForKey:key];
-                    
-                }
-                
-                id tempValue = [size objectForKey:key1];
-                
-                if ([tempValue intValue])
-                    tempValue = [NSNumber numberWithInt:[tempValue intValue]];
-                else if ([tempValue floatValue])
-                    tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
-                else if ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"])
-                    tempValue = [NSNumber numberWithInt:0];
-                    
-                [value setObject:tempValue forKey:[strings lastObject]];
-                
-            }
-            
-            
-            [toInsertObjects addObject: shapeAttr];
-            
-            return;
-            
-        } else if ([elementName isEqualToString: @"color"] && [[attributeDict objectForKey:@"key"] isEqualToString:@"backgroundColor"] &&
-                   [[attributeDict objectForKey:@"colorSpace" ] isEqualToString:@"calibratedRGB"]){
-            
-            NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
-            
-            NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[@"backgroundColor"]]];
-            
-            for (id key in xml2agcDictionary[entry]){
-                id value = shapeAttr;
-                NSArray *strings = [[xml2agcDictionary[entry] objectForKey:key] componentsSeparatedByString:@"."];
-                
-                for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]) {
-                    value = [value objectForKey:key1];
-                    
-                }
-                
-                float tempValue = [[attributeDict objectForKey:key] floatValue];
-                int rgb = tempValue * 255;
-                
-                [value setObject:[NSNumber numberWithInt:rgb] forKey:[strings lastObject]];
-                
-            }
-            
-            [toInsertObjects addObject:shapeAttr];
-            
-            return;
-        }
-        
-        bool ok = false;
-        for (id key in xml2agcDictionary[entry]){
-            
-            NSArray *strings;
-            
-            if ([[xml2agcDictionary[entry] objectForKey:key] isKindOfClass:[NSMutableDictionary class]]) {
-                
-                NSString *parent = [parentDict objectForKey:@"type"];
-                
-                if (parent)
-                    strings = [[[xml2agcDictionary[entry] objectForKey:key] objectForKey: parent] componentsSeparatedByString:@"."];
-                else {
-                    ok = true;
-                    return;
-                    
-                }
-            }
-            else {
-                strings = [[xml2agcDictionary[entry] objectForKey:key] componentsSeparatedByString:@"."];
-            }
-            
-            id value = parentDict;
-            
-            for (id key1 in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
-                value = [value objectForKey: key1];
-                
-            }
-            
-            if (![attributeDict objectForKey:key])
-                continue;
-            
-            
-            id tempValue = [attributeDict objectForKey:key];
-            
-            if ([tempValue intValue])
-                tempValue = [NSNumber numberWithInt:[tempValue intValue]];
-            else if ([tempValue floatValue])
-                tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
-            
-            if ([attributeDict objectForKey:key] && [elementName isEqualToString:@"color"]){
-                //transform to RGB values!!!!
-                float x = [tempValue floatValue];
-                int y = x * 255;
-                tempValue = [NSNumber numberWithInt: y];
-                
-            } else if ([attributeDict objectForKey:key] && [elementName isEqualToString:@"fontDescription"] && [[inheritanceStack lastObject] intValue]){
-                
-                NSString *text = attributes[@"#text"];
-                float width = [[[attributes objectForKey:@"frame"] objectForKey:@"width"] floatValue];
-                float height = [[[attributes objectForKey:@"frame"] objectForKey:@"height"] floatValue];
-                float x = [[[attributes objectForKey:@"frame"] objectForKey:@"x"] floatValue];
-                float y = [[[attributes objectForKey:@"frame"] objectForKey:@"y"] floatValue];
-                CGSize frameSize = CGSizeMake(width, height);
-                int textSize = [tempValue intValue];
-                NSFont *font = [NSFont systemFontOfSize:textSize];
-                
-                CGRect idealFrame = [text boundingRectWithSize:frameSize
-                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                    attributes:@{ NSFontAttributeName:font }
-                                                       context:nil];
-                
-                float x_pos =(width - idealFrame.size.width) /2;
-                float y_pos =(height - idealFrame.size.height) /2;
-                
-                x_pos = x_pos + x;
-                y_pos = y_pos + y + textSize;
-                
-                id tempDict = parentDict;
-                
-                tempDict = [tempDict objectForKey:@"transform"];
-                
-                [tempDict setObject:[NSNumber numberWithFloat:x_pos] forKey:@"tx"];
-                [tempDict setObject:[NSNumber numberWithFloat:y_pos] forKey:@"ty"];
-                
-                [value setObject:tempValue forKey:[strings lastObject]];
-                return;
-            }
-            if (!ok){
-                if([ [value objectForKey:[strings lastObject]] isKindOfClass:[NSString class] ] &&
-                   [[ [value objectForKey:[strings lastObject]] substringToIndex:1] isEqualToString:@"$"])
-                    [value setObject:tempValue forKey:[strings lastObject]];
-                else if ([value objectForKey:@"href"]) {
-                    //if it is an image -> update width & height
-                    
-                    id value = parentDict;
-                    value = [value objectForKey:@"shape"];
-                    
-                    float weight = [[attributeDict objectForKey:@"width"] floatValue];
-                    float height = [[attributeDict objectForKey:@"height"] floatValue];
-                    
-                    [value setObject:[NSNumber numberWithFloat:weight] forKey:@"width"];
-                    [value setObject:[NSNumber numberWithFloat:height]  forKey:@"height"];
-                }
-            }
-        }
-        
-        return;
-    }
-    else if (!insertedRoot){
-        [parentDict setObject: @"1.5.0" forKey:@"version"];
-        [parentDict setObject: tempDict  forKey:@"resources"];
-        [parentDict setObject: tempDict  forKey:@"artboards"];
-        
-        insertedRoot = true;
-    }
-    
-    
-    elementName = [xml2agcDictionary objectForKey:elementName];
-    
-    NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
-    ;
-    //First level attributes
-    for (id key in attributes[elementName]){
-        
-        id value = [attributes[elementName] objectForKey:key];
-        
-        if ([value isKindOfClass:[NSString class]]){
-            if ([[value substringToIndex:1] isEqualToString:@"$"]){
-                
-                NSInteger i = [value length] -1;
-                value = [value substringWithRange:NSMakeRange(1, i)];
-                
-                NSString *tempSaved = [NSString stringWithFormat:@"#%@", value];
-                id tempValue = nil;
-                if ([value isEqualToString:@"text"] && attributeDict[value])
-                    tempValue = attributeDict[value];
-                
-                else if (!attributeDict[value])
-                    tempValue = attributeDict[@"placeholder"];
-                
-                if ([tempValue intValue] )
-                    tempValue = [NSNumber numberWithInt:[tempValue intValue]];
-                else if ([tempValue floatValue]){
-                    tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
-                }
-                attributes[tempSaved] = tempValue;
-                correctAttr[key] = tempValue;
-                
-            }
-            //TODO transfrom for lower levels; propagate attributes
-        } else if ([elementName isEqualToString:@"imageView"] && [key isEqualToString:@"style"]){
-            
-            NSString *imageName = [NSString stringWithFormat:@"%@%@",
-                                   [self resourcesPath], [attributeDict objectForKey:@"image"]];
-            NSArray *strings = [[xml2agcDictionary objectForKey:@"imageView."] componentsSeparatedByString:@"."];
-            
-            id value = correctAttr;
-            for (id key in [strings subarrayWithRange:NSMakeRange(0, [strings count] -1)]){
-                value = [value objectForKey:key];
-                
-            }
-            
-            //generate random values for uid ...
-            int num = arc4random() % 1000000;
-            [value setObject:imageName forKey:[strings lastObject]];
-            
-            NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
-            
-            if (image == nil) {
-                NSLog(@"[ERROR]Image is nil");
-            }
-            
-            [value setObject:[NSNumber numberWithInt:image.size.width] forKey:@"width"];
-            [value setObject:[NSNumber numberWithInt:image.size.height] forKey:@"height"];
-            
-            value = [[value objectForKey:@"meta"] objectForKey:@"ux"];
-            
-            [value setObject: [NSString stringWithFormat:@"%d", num] forKey:@"uid"];
-        }
-    }
-    
-    [childDict addEntriesFromDictionary:correctAttr];
-    
-    if ([xml2agcDictionary objectForKey:[inheritanceStack lastObject]] &&
-        [[xml2agcDictionary objectForKey:[inheritanceStack lastObject]] isEqual: @"list"]){
-        elementName = [[NSString alloc] initWithFormat:@"%d",counterCh++];
-        id lastObject =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [dictionaryStack lastObject]]];
-        
-        if ([[inheritanceStack lastObject] isEqualToString: @"children"] && ![childDict objectForKey:@"type"]){
-            [childDict setObject:@"artboard" forKey:@"type"];
-        }
-        
-        NSMutableArray *array = nil;
-        if (![lastObject isKindOfClass:[NSMutableArray class]] && [lastObject count] == 0 ){
-            array = [NSMutableArray array];
-            [array addObject:childDict];
-            
-            [parentDict setObject:array forKey:[inheritanceStack lastObject]];
-        }
-        else {
-            
-            array = (NSMutableArray *) [lastObject objectForKey:[inheritanceStack lastObject]];
-            
-            [array addObject: childDict];
-            [parentDict setObject:array forKey:[inheritanceStack lastObject]];
-            
-        }
-        
-    }else   [parentDict setObject:childDict forKey:elementName];
-    
-    
-    [inheritanceStack addObject:elementName];
-    
-    [dictionaryStack addObject:childDict];
+  
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     
     
-    if ([elementName isEqualToString:@"switch"]) {
-        [inheritanceStack removeObject:@"switch"];
+    if ([elementName isEqualToString:SWITCH]) {
+        [inheritanceStack removeObject:SWITCH];
         return;
         
     }
     
-    if ([xml2agcDictionary[elementName] isEqualToString:@"artboard"]) {
+    if ([xml2agcDictionary[elementName] isEqualToString:ART_SCENE]) {
         
         NSString *artboardNo = [NSString stringWithFormat:@"artboard%d", counterArtboards++] ;
-        [[dictionaryStack lastObject] setObject:artboardNo forKey:@"ref"];
+        [[dictionaryStack lastObject] setObject:artboardNo forKey:REF];
         
     }
     
     
-    if ([elementName isEqualToString:@"rect"] && [[inheritanceStack lastObject] isEqualToString:@"switch"]){
+    if ([elementName isEqualToString:FRAME] && [[inheritanceStack lastObject] isEqualToString:SWITCH]){
         
-        id value = [[[dictionaryStack lastObject] objectForKey:@"children"] lastObject];
+        id value = [[[dictionaryStack lastObject] objectForKey:CHILDREN] lastObject];
         
         
-        NSArray *strings = [@"switch.transform.tx" componentsSeparatedByString:@"."];
+        NSArray *strings = [SWITCH_TX componentsSeparatedByString:DOT];
         
         for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] -2)]) {
             value = [value objectForKey:key];
         }
         
-        id frame = [attributes objectForKey:@"frame"];
-        [value setObject:[frame objectForKey:@"x"] forKey:[strings lastObject]];
+        id frame = [attributes objectForKey:FRAME_SIZE];
+        [value setObject:[frame objectForKey:XARTBOARD] forKey:[strings lastObject]];
         
-        strings = [@"switch.transform.ty" componentsSeparatedByString:@"."];
-        frame = [attributes objectForKey:@"frame"];
+        strings = [SWITCH_TY componentsSeparatedByString:DOT];
+        frame = [attributes objectForKey:FRAME_SIZE];
         
-        [value setObject:[frame objectForKey:@"y"] forKey:[strings lastObject]];
+        [value setObject:[frame objectForKey:YARTBOARD] forKey:[strings lastObject]];
         
         return;
         
     }
     
-    //replace all $"smth" values with default ones
+    /* replace all $"smth" values with default ones */
     
-    NSString *tempReplace = [NSString stringWithFormat:@"#%@", elementName];
+    NSString *tempReplace = [NSString stringWithFormat:@"%@%@", SAVED_VALUE, elementName];
     
-    if ([elementName isEqualToString:@"label"]){
-        tempReplace = [NSString stringWithFormat:@"#%@", xml2agcDictionary[elementName]];
+    if ([elementName isEqualToString:LABEL]){
+        tempReplace = [NSString stringWithFormat:@"%@%@", SAVED_VALUE, xml2agcDictionary[elementName]];
     }
     
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
@@ -746,7 +733,7 @@
     for (id key in xml2agcDictionary[tempReplace]){
         
         
-        NSArray *strings = [key componentsSeparatedByString:@"."];
+        NSArray *strings = [key componentsSeparatedByString:DOT];
         
         
         id value = parentDict;
@@ -762,16 +749,16 @@
     
     
     id agcElement = [xml2agcDictionary objectForKey:elementName];
-    if ([[xml2agcDictionary objectForKey:agcElement] isEqualToString:@"list"]){
+    if ([[xml2agcDictionary objectForKey:agcElement] isEqualToString:LIST]){
         
         NSInteger counter = [dictionaryStack count];
         id prevParent = dictionaryStack[counter - 2];
         [prevParent addEntriesFromDictionary:parentDict];
     }
     
-    if ([elementName isEqualToString:@"textField"] || [elementName isEqualToString:@"label"]){
+    if ([elementName isEqualToString:TEXTFIELD] || [elementName isEqualToString:LABEL]){
         
-        NSArray *strings = [[xml2agcDictionary objectForKey:@"length."] componentsSeparatedByString:@"."];
+        NSArray *strings = [[xml2agcDictionary objectForKey:LENGTH_DOT] componentsSeparatedByString:DOT];
         
         id value = parentDict;
         for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
@@ -788,13 +775,13 @@
     
     //default Values
     id name = elementName;
-    if ([elementName isEqualToString:@"label"])
+    if ([elementName isEqualToString:LABEL])
         name =xml2agcDictionary[elementName];
     
     id def = [defaultValues objectForKey:name];
     for(id key in def){
         
-        NSArray *strings = [key componentsSeparatedByString:@"."];
+        NSArray *strings = [key componentsSeparatedByString:DOT];
         
         id value = parentDict;
         
@@ -811,7 +798,7 @@
         
     }
     
-    if ([toInsertObjects count] && [elementName isEqualToString:@"view"]) {
+    if ([toInsertObjects count] && [elementName isEqualToString:VIEW]) {
         
         id prevParent = [dictionaryStack objectAtIndex:2];
         
@@ -820,13 +807,13 @@
         
     }
     
-    //insert Objects from toInsertObjects
-    if ([elementName isEqualToString:@"textField"] || [elementName isEqualToString:@"label"] ) {
+    /* insert Objects from toInsertObjects */
+    if ([elementName isEqualToString:TEXTFIELD] || [elementName isEqualToString:LABEL] ) {
         for (id key in toInsertObjects){
             NSInteger counter = [dictionaryStack count];
             id prevParent = dictionaryStack[counter - 2];
             
-            [[prevParent objectForKey:@"children" ] insertObject:key atIndex:0];
+            [[prevParent objectForKey:CHILDREN ] insertObject:key atIndex:0];
             
         }
         
