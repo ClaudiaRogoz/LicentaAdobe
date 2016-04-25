@@ -12,7 +12,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JaHarJZCviPSLHIla8FfV7ETUec=
+			c4tEsan7dJdojTgQ0mzBClRJvQQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -21,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			H4hSz/E2WxyyGQFluvlL5OP6Cbs=
+			POUZBmhV27dQiJNVNL0jk7CEmVQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -30,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xxxtJE4GEibRPS1hS/nWIYudyWQ=
+			WaLO+7OKHU3blZ3bPht7cgTKoEg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		ZBJhAWBcPENnWye+lfIf0M5B0rM=
+		cCXsSd3tPb02gCwMQDC1OMUM9wU=
 		</data>
 		<key>Resources/File.json</key>
 		<data>
@@ -86,7 +86,7 @@
 		</data>
 		<key>Resources/TestFrame.json</key>
 		<data>
-		5rNsad26umMg3B/AWRphEqeMwXQ=
+		YobgF0Se/Sm7IWzWKB4WKSgdGBc=
 		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
@@ -170,11 +170,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JaHarJZCviPSLHIla8FfV7ETUec=
+			c4tEsan7dJdojTgQ0mzBClRJvQQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			xiBqFP+i2T8twqmyzxtZA8ceSXy42tfhJGGel8sUxSM=
+			X6fWiv6hVi5DtbQa9zHdlFECLeWRNkNj3PyPWYsjsrg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -183,11 +183,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			H4hSz/E2WxyyGQFluvlL5OP6Cbs=
+			POUZBmhV27dQiJNVNL0jk7CEmVQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			Ime51T+QYkHkZukiGfeZYf9alXZd/FsQBfrL5JWZanQ=
+			DdpLtD298PVcw2aUS6bWPEboNdODcyWYZ5fZZAEJd0E=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -196,11 +196,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xxxtJE4GEibRPS1hS/nWIYudyWQ=
+			WaLO+7OKHU3blZ3bPht7cgTKoEg=
 			</data>
 			<key>hash2</key>
 			<data>
-			sly7Mvwkh4mOE4WrNWptQGNetDpXH0mGRhc4BegiyvM=
+			VFVvFo0MxoprchLJwViz9VVVhkKUIEcXxnAbY3rQnd4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -233,11 +233,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZBJhAWBcPENnWye+lfIf0M5B0rM=
+			cCXsSd3tPb02gCwMQDC1OMUM9wU=
 			</data>
 			<key>hash2</key>
 			<data>
-			jtZ0g/SXkdX02ICVY4/Y/U23nP350eNpWgsPL49Ftp4=
+			x+xDUtnBpwgatHU9hIyFTpteYBOm3/37phYoprGQAqI=
 			</data>
 		</dict>
 		<key>Resources/File.json</key>
@@ -332,11 +332,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5rNsad26umMg3B/AWRphEqeMwXQ=
+			YobgF0Se/Sm7IWzWKB4WKSgdGBc=
 			</data>
 			<key>hash2</key>
 			<data>
-			UmvrRw5SLk6muzlrtxsWdvZBTUEr8c86CjUYmQI2Xcc=
+			+C4Wu2bsPCT3tf6SPOtOwjfurnG81oHa6WK4Lq86bM4=
 			</data>
 		</dict>
 		<key>Resources/TestGenerator.json</key>

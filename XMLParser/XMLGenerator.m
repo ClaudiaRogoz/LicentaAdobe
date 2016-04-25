@@ -560,8 +560,8 @@
                      **/
                     
                     type = [self getShapeType:type object:object];
-                    if (![type isKindOfClass:[NSString class]])
-                        continue;
+                   // if (![type isKindOfClass:[NSString class]])
+                     //   continue;
                     
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
                     
@@ -576,14 +576,19 @@
                     if ([type isEqualToString:GROUP]) {
                         
                         NSMutableDictionary *viewDict = [newObjDict objectForKey:VIEW];
-                        [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict];
+                        NSLog(@"X %@", [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict isAGroup:true]);
                         
-                        
+                        NSLog(@"ViewDict = %@", viewDict);
                         id sizeFrame = [[viewDict objectForKey:RULES] objectForKey:FRAME];
+                        id colorFrame = [viewDict objectForKey:RULES];
                         
+                        id defaultColor = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:
+                                                                                      [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR] objectForKey:DEFAULT]]];
+                        id colorToString = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:
+                                                                                       [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR] objectForKey:TOSTRING]]];
                         int x = [[sizeFrame objectForKey:XARTBOARD] intValue];
                         int y = [[sizeFrame objectForKey:YARTBOARD] intValue];
-                        
+                        NSLog(@"Frame tx = %d , ty = %d", x, y);
                         
                         int prevWidth = widthXDArtboard;
                         int prevHeight = heightXDArtboard;
@@ -591,8 +596,8 @@
                         heightXDArtboard = HEIGHTXMLARTBOARD;
                         int prevX = startXArtboard;
                         int prevY = startYArtboard;
-                        startXArtboard = x - startXArtboard;
-                        startYArtboard = y - startYArtboard;
+                        startXArtboard = -x + startXArtboard;
+                        startYArtboard = -y + startYArtboard;
                         
                         NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
                         
@@ -605,14 +610,10 @@
                                 continue;
                             
                             type = [self getShapeType:type object:object];
-                            if (![type isKindOfClass:[NSString class]]) {
-                                NSLog(@"NOt recognized type %@", [key objectForKey:TYPE]);
-                                continue;
-                            }
                                   
                             NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
                             
-                            [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict];
+                            [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict isAGroup:true];
                             
                             id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
                             
@@ -621,18 +622,21 @@
                             int w = [[groupFrame objectForKey:WIDTH] intValue];
                             int h = [[groupFrame objectForKey:HEIGHT] intValue];
                             
-                            if (x <= minx && y <= miny) {
+                            if (x <= minx)  {
                                 minx = x;
+                            }
+                            if (y <= miny) {
                                 miny = y;
                             }
-                            if (x + w >= maxx && y + h >= maxy) {
+                            if (x + w >= maxx) {
                                 maxx = x + w;
-                                maxy = y + h;
-                                maxh = h;
                                 maxw = w;
                             }
-                                
-                            NSLog(@"objDict = %@", objDict);
+                            if ( y + h >= maxy) {
+                                maxy = y + h;
+                                maxh = h;
+                            }
+                            
                             NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
                             [subViewDict setObject:typeObjDict forKey:type];
                             [viewSubviews addObject:subViewDict];
@@ -651,8 +655,12 @@
                         [sizeFrame setObject:[NSNumber numberWithInt:miny] forKey:YARTBOARD];
                         [sizeFrame setObject:[NSNumber numberWithInt:widthFrame] forKey:WIDTH];
                         [sizeFrame setObject:[NSNumber numberWithInt:heightFrame] forKey:HEIGHT];
-
+                        [defaultColor setObject:colorToString forKey:TOSTRING];
+                        [colorFrame setObject:defaultColor forKey:COLOR];
                         
+                        
+                        NSLog(@"defColo = %@", defaultColor);
+                        NSLog(@"colorFrame = %@", colorFrame);
                         
                         for (id keyObject in viewSubviews) {
                             id name = [[keyObject allKeys] objectAtIndex:0];
@@ -670,13 +678,14 @@
                         [subViewTmp setObject:viewDict forKey:VIEW];
                         
                         [objDict addObject:subViewTmp];
+                        NSLog(@"ObjDict = %@", objDict);
                        
                         continue;
                     }
                     
                     
-                    [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict];
-                    
+                    [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict isAGroup:false];
+                    NSLog(@"typeObjDict = %@", typeObjDict);
                     NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
                     [subViewDict setObject:typeObjDict forKey:type];
                     [objDict addObject:subViewDict];
@@ -693,7 +702,8 @@
     
 }
 
--(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict finalDict:(NSMutableDictionary *)finalDict{
+-(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
+                           finalDict:(NSMutableDictionary *)finalDict isAGroup:(BOOL) isGroup {
     
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
@@ -778,7 +788,7 @@
     
     NSMutableDictionary *viewDict = [finalDict objectForKey:ARTBOARD];
     
-    return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict];
+    return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict isAGroup:false];
     
 }
 
@@ -963,7 +973,8 @@
         
         NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
         NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-        [xmlData writeToFile:[self outXmlPath] atomically:YES];
+        [xmlData writeToFile:@"new.xml" atomically:YES];
+        //[xmlData writeToFile:[self outXmlPath] atomically:YES];
         
         return finalString;
         

@@ -71,9 +71,8 @@
                 },"color" : {
                 },
                 "toString" : ["rect", "subviews", "color"],
-                "order" : ["rect", "color"]
+                "order" : ["$header.id", "rect", "color"]
             }
-            
             
         },
         "$imageView" : {
@@ -316,7 +315,9 @@
                 "red" : 255,
                 "green" : 255,
                 "blue" : 255,
-                "alpha" : 1
+                "alpha" : 1,
+                "key" : "backgroundColor",
+                "colorSpace" : "calibratedRGB"
             }
         },
         "mutableString" : {
