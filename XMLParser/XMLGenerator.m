@@ -465,12 +465,12 @@
     int prevY = startYArtboard;
     startXArtboard = -x + startXArtboard;
     startYArtboard = -y + startYArtboard;
-    
+    NSLog(@"Starter = %d %d", x, y);
     NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
     
     for (id key in [[object objectForKey:GROUP] objectForKey:CHILDREN]) {
         id type = [translationDict objectForKey:[key objectForKey:TYPE]];
-        NSLog(@"keyx = %@", key);
+        
         if (!type)
             continue;
         
@@ -480,7 +480,6 @@
         
         if ([type isEqualToString:GROUP]) {
            
-            NSLog(@"ViewSubviews = %@", viewSubviews);
             NSMutableDictionary *tempDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
             
             
@@ -490,9 +489,9 @@
             NSMutableArray* arrayObj = [[NSMutableArray alloc] init];
             
             [self computeGroup:newObj agcDict:key finalDict:finalDict retDict:&arrayObj];
-            NSLog(@"arrayObj  = %@", arrayObj);
+           
             viewSubviews = [[viewSubviews arrayByAddingObjectsFromArray:arrayObj] mutableCopy];
-            NSLog(@"viewSubviews = %@", viewSubviews);
+            
             continue;
         }
         
@@ -521,7 +520,7 @@
         }
         
         NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
-        NSLog(@"typeObjDict = %@", typeObjDict);
+        
         [subViewDict setObject:typeObjDict forKey:type];
         [viewSubviews addObject:subViewDict];
         
@@ -551,7 +550,7 @@
         y = y - miny;
         [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
         [frame setObject:[NSNumber numberWithInt:y] forKey:YARTBOARD];
-        
+        NSLog(@"New = %d %d", x, y);
     }
     
     [[viewDict objectForKey:RULES ] setObject:viewSubviews forKey:SUBVIEWS];
@@ -603,7 +602,6 @@
         } else {
             
             nodeValue = [*values objectForKey:key];
-            
         }
         
         *values = nodeValue;
@@ -713,10 +711,8 @@
 
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
                     
-                   
-                    if ([type isEqualToString:GROUP]) {
-                        
-
+                    
+                    if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
                         [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:&objDict];
 
                         continue;
