@@ -100,6 +100,8 @@
     transformObjects[SCALE] = [[NSMutableDictionary alloc] init];
     transformObjects[SCALE][WIDTH] = [NSNumber numberWithInt:1];
     transformObjects[SCALE][HEIGHT] = [NSNumber numberWithInt:1];
+    transformObjects[SCALE][FRAMED] = [NSNumber numberWithInt:1];
+    transformObjects[SCALE][IMAGEVIEW] = [NSNumber numberWithInt:1];
     
     transformObjects[COLOR] = [[NSMutableDictionary alloc] init];
     transformObjects[COLOR][RED] = [NSNumber numberWithInt:1];
@@ -261,7 +263,7 @@
 }
 
 -(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
-              usingValues:(NSDictionary *)paramsValue {
+              usingValues:(NSDictionary *)paramsValue type:(NSString *)type {
     
     
     NSMutableDictionary *defaultDict = [*objDict objectForKey:DEFAULT];
@@ -280,6 +282,21 @@
                     [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
                     continue;
                 }
+                if ([[transformObjects objectForKey:SCALE] objectForKey:key] &&
+                    [[transformObjects objectForKey:SCALE] objectForKey:type]) {
+                    float translatedValue;
+                
+                    float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
+                    float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
+                    if ([key isEqualToString:WIDTH]) {
+                        translatedValue = [value floatValue] * xScaleFactor;
+                    }
+                    else if ([key isEqualToString:HEIGHT]) {
+                        translatedValue = [value floatValue] * yScaleFactor;
+                    }
+                    [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
+                    continue;
+                }
                 [*objDict setObject:value forKey:key];
                 
             } else {
@@ -295,6 +312,7 @@
                 } else if ([dictValue objectForKey:[[self splitVariable:value] objectAtIndex:0]]) {
                     
                     id tvalue = [[self splitVariable:value] objectAtIndex:0];
+                    
                     
                     if ([[transformObjects objectForKey:SIZE] objectForKey:key]) {
                         /* changing size here */
@@ -418,7 +436,184 @@
     return type;
 
 }
--(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict agcDict:agcParams{
+
+-(void) computeGroup:(NSMutableDictionary *)newObjDict agcDict:(NSMutableDictionary*)object finalDict:(NSMutableDictionary*)finalDict
+             retDict:(NSMutableArray**)objDict {
+
+    int minx = WIDTHXMLARTBOARD, miny = HEIGHTXMLARTBOARD;
+    int maxx = 0, maxy = 0, maxh = 0, maxw = 0;
+    
+    NSMutableDictionary *viewDict = [newObjDict objectForKey:VIEW];
+    [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict ofType:GROUP];
+    
+    id sizeFrame = [[viewDict objectForKey:RULES] objectForKey:FRAME];
+    id colorFrame = [viewDict objectForKey:RULES];
+    
+    id defaultColor = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:
+                                                                  [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR] objectForKey:DEFAULT]]];
+    id colorToString = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:
+                                                                   [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR] objectForKey:TOSTRING]]];
+    int x = [[sizeFrame objectForKey:XARTBOARD] intValue];
+    int y = [[sizeFrame objectForKey:YARTBOARD] intValue];
+    
+    
+    int prevWidth = widthXDArtboard;
+    int prevHeight = heightXDArtboard;
+    widthXDArtboard = WIDTHXMLARTBOARD;
+    heightXDArtboard = HEIGHTXMLARTBOARD;
+    int prevX = startXArtboard;
+    int prevY = startYArtboard;
+    startXArtboard = -x + startXArtboard;
+    startYArtboard = -y + startYArtboard;
+    
+    NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
+    
+    for (id key in [[object objectForKey:GROUP] objectForKey:CHILDREN]) {
+        id type = [translationDict objectForKey:[key objectForKey:TYPE]];
+        NSLog(@"keyx = %@", key);
+        if (!type)
+            continue;
+        
+        type = [self getShapeType:type object:key];
+        
+        NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
+        
+        if ([type isEqualToString:GROUP]) {
+           
+            NSLog(@"ViewSubviews = %@", viewSubviews);
+            NSMutableDictionary *tempDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
+            
+            
+            NSMutableDictionary *viewTempDict = [finalDict objectForKey:ARTBOARD];
+            NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
+            NSMutableDictionary *newObj = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [[agcToXmlTemplate objectForKey:SUBVIEWS] mutableCopy]]];
+            NSMutableArray* arrayObj = [[NSMutableArray alloc] init];
+            
+            [self computeGroup:newObj agcDict:key finalDict:finalDict retDict:&arrayObj];
+            NSLog(@"arrayObj  = %@", arrayObj);
+            viewSubviews = [[viewSubviews arrayByAddingObjectsFromArray:arrayObj] mutableCopy];
+            NSLog(@"viewSubviews = %@", viewSubviews);
+            continue;
+        }
+        
+        [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict ofType:type];
+        
+        id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
+        
+        int x = [[groupFrame objectForKey:XARTBOARD] intValue];
+        int y = [[groupFrame objectForKey:YARTBOARD] intValue];
+        int w = [[groupFrame objectForKey:WIDTH] intValue];
+        int h = [[groupFrame objectForKey:HEIGHT] intValue];
+        
+        if (x <= minx)  {
+            minx = x;
+        }
+        if (y <= miny) {
+            miny = y;
+        }
+        if (x + w >= maxx) {
+            maxx = x + w;
+            maxw = w;
+        }
+        if ( y + h >= maxy) {
+            maxy = y + h;
+            maxh = h;
+        }
+        
+        NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
+        NSLog(@"typeObjDict = %@", typeObjDict);
+        [subViewDict setObject:typeObjDict forKey:type];
+        [viewSubviews addObject:subViewDict];
+        
+    }
+    
+    
+    widthXDArtboard = prevWidth;
+    heightXDArtboard = prevHeight;
+    startXArtboard = prevX;
+    startYArtboard = prevY;
+    int widthFrame = maxx - minx;
+    int heightFrame = maxy - miny;
+    
+    [sizeFrame setObject:[NSNumber numberWithInt:minx] forKey:XARTBOARD];
+    [sizeFrame setObject:[NSNumber numberWithInt:miny] forKey:YARTBOARD];
+    [sizeFrame setObject:[NSNumber numberWithInt:widthFrame] forKey:WIDTH];
+    [sizeFrame setObject:[NSNumber numberWithInt:heightFrame] forKey:HEIGHT];
+    [defaultColor setObject:colorToString forKey:TOSTRING];
+    [colorFrame setObject:defaultColor forKey:COLOR];
+    
+    for (id keyObject in viewSubviews) {
+        id name = [[keyObject allKeys] objectAtIndex:0];
+        id frame = [[[keyObject objectForKey:name ] objectForKey:RULES] objectForKey:FRAME];
+        int x = [[frame objectForKey:XARTBOARD] intValue];
+        x = x - minx;
+        int y = [[frame objectForKey:YARTBOARD] intValue];
+        y = y - miny;
+        [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
+        [frame setObject:[NSNumber numberWithInt:y] forKey:YARTBOARD];
+        
+    }
+    
+    [[viewDict objectForKey:RULES ] setObject:viewSubviews forKey:SUBVIEWS];
+    NSMutableDictionary *subViewTmp = [[NSMutableDictionary alloc] init ];
+    [subViewTmp setObject:viewDict forKey:VIEW];
+    
+    [*objDict addObject:subViewTmp];
+
+}
+
+-(NSString *) convertFont:(NSString *)styleFont {
+    id translatedStyle;
+    
+    if ([styleFont isEqualToString:REGULAR])
+        translatedStyle = FONT_SYSTEM;
+    else if ([styleFont isEqualToString:ITALIC])
+        translatedStyle = FONT_ITALIC;
+    else if ([styleFont isEqualToString:BOLD])
+        translatedStyle = FONT_BOLD;
+    
+    return translatedStyle;
+
+}
+
+-(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
+   
+    for (id key in goToAgc) {
+        
+        id nodeValue;
+        
+        if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:SCENENO]) {
+            nodeValue = [*values objectAtIndex:sceneNo];
+            
+        } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:ARTBOARDSCENE]) {
+            NSString *artboard = [NSString stringWithFormat:@"artboard%d", sceneNo +1];
+            nodeValue = [*values objectForKey:artboard];
+            
+            /* obtain the startX and startY for the current scene */
+            startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
+            startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
+            
+            widthXDArtboard = [[nodeValue objectForKey:WIDTH] intValue];
+            heightXDArtboard = [[nodeValue objectForKey:HEIGHT] intValue];
+            
+        } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:LINES]){
+            nodeValue = [*values objectAtIndex:0];
+        } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:LINESDICT]){
+            nodeValue = [*values objectForKey:[NSNumber numberWithInt:0]];
+        } else {
+            
+            nodeValue = [*values objectForKey:key];
+            
+        }
+        
+        *values = nodeValue;
+    }
+    
+}
+
+-(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
+                                agcDict:agcParams type:(NSString *)type {
+    
     
     id objDict;
     if ([rule isEqualToString:SUBVIEWS])
@@ -430,54 +625,22 @@
     if (!cond) {
         //just generate the tag; no other transformations are needed
         return objDict;
-        
     }
     //get values from agc in order to transfer them into xml
     
     for (id condition in cond) {
         id values = agcParams;
-       
+        
         NSArray *goToAgc = [self splitVariable:condition];
        
-        for (id key in goToAgc) {
-            
-            id nodeValue;
-            
-            if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:SCENENO]) {
-                nodeValue = [values objectAtIndex:sceneNo];
-                
-            } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:ARTBOARDSCENE]) {
-                NSString *artboard = [NSString stringWithFormat:@"artboard%d", sceneNo +1];
-                nodeValue = [values objectForKey:artboard];
-
-                /* obtain the startX and startY for the current scene */
-                startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
-                startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
-    
-                widthXDArtboard = [[nodeValue objectForKey:WIDTH] intValue];
-                heightXDArtboard = [[nodeValue objectForKey:HEIGHT] intValue];
-                
-            } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:LINES]){
-                nodeValue = [values objectAtIndex:0];
-            } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:LINESDICT]){
-                nodeValue = [values objectForKey:[NSNumber numberWithInt:0]];
-            } else {
-            
-                nodeValue = [values objectForKey:key];
-                
-            }
-            
-            values = nodeValue;
-        }
+        [self getDict:&values fromConditions:goToAgc];
         
         NSMutableDictionary *dictValue = values;
         BOOL isEmpty = ([dictValue count] == 0);
         
         if (isEmpty && !dictValue) {
             //use default values!!!
-           
             [self mergeDefaultValues:[objDict objectForKey:DEFAULT] withDict:&objDict usingDict:dict];
-            
             return objDict;
             
         } else if (isEmpty) {
@@ -508,24 +671,14 @@
                     firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
                     textLen = [firstLine intValue];
                 }
-                
-                
-            
+
                 continue;
             }
             if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:TYPE] &&
                 [[subRules objectForKey:TYPE] isEqualToString:STYLE]) {
                 
                 id styleFont = [dictValue objectForKey:STYLE_VALUE];
-                
-                id translatedStyle;
-                
-                if ([styleFont isEqualToString:REGULAR])
-                    translatedStyle = FONT_SYSTEM;
-                else if ([styleFont isEqualToString:ITALIC])
-                    translatedStyle = FONT_ITALIC;
-                else if ([styleFont isEqualToString:BOLD])
-                    translatedStyle = FONT_BOLD;
+                id translatedStyle = [self convertFont:styleFont];
                 
                 [[dict objectForKey:condition] setObject:translatedStyle forKey:TYPE];
                 
@@ -533,19 +686,17 @@
             }
             if (![dictValue isKindOfClass:[NSArray class]]) {
                 
-                [self mergeDictionaries:&objDict withDict:dictValue usingValues:[dict objectForKey:condition]];
+                [self mergeDictionaries:&objDict withDict:dictValue usingValues:[dict objectForKey:condition] type:type];
                 
             }
             else {
-                
                 
                 
                 NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
                 NSMutableDictionary *newObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [objDict mutableCopy]]];
                 objDict = [[NSMutableArray alloc] init];
                 
-                
-                
+ 
                 for (id object in dictValue) {
                     /* obtain the type of each object
                      * get the corresponding template*/
@@ -558,134 +709,21 @@
                     /* we need to check several rules in order to decide which is the type of an object
                      * esp for type = shape
                      **/
-                    
                     type = [self getShapeType:type object:object];
-                   // if (![type isKindOfClass:[NSString class]])
-                     //   continue;
-                    
+
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
-                    
-                    int minx = WIDTHXMLARTBOARD;
-                    int miny = HEIGHTXMLARTBOARD;
-                    int maxx = 0;
-                    int maxy = 0;
-                    int maxh = 0;
-                    int maxw = 0;
                     
                    
                     if ([type isEqualToString:GROUP]) {
                         
-                        NSMutableDictionary *viewDict = [newObjDict objectForKey:VIEW];
-                        NSLog(@"X %@", [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict isAGroup:true]);
-                        
-                        NSLog(@"ViewDict = %@", viewDict);
-                        id sizeFrame = [[viewDict objectForKey:RULES] objectForKey:FRAME];
-                        id colorFrame = [viewDict objectForKey:RULES];
-                        
-                        id defaultColor = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:
-                                                                                      [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR] objectForKey:DEFAULT]]];
-                        id colorToString = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:
-                                                                                       [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR] objectForKey:TOSTRING]]];
-                        int x = [[sizeFrame objectForKey:XARTBOARD] intValue];
-                        int y = [[sizeFrame objectForKey:YARTBOARD] intValue];
-                        NSLog(@"Frame tx = %d , ty = %d", x, y);
-                        
-                        int prevWidth = widthXDArtboard;
-                        int prevHeight = heightXDArtboard;
-                        widthXDArtboard = WIDTHXMLARTBOARD;
-                        heightXDArtboard = HEIGHTXMLARTBOARD;
-                        int prevX = startXArtboard;
-                        int prevY = startYArtboard;
-                        startXArtboard = -x + startXArtboard;
-                        startYArtboard = -y + startYArtboard;
-                        
-                        NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
-                        
-                        
-                        for (id key in [[object objectForKey:GROUP] objectForKey:CHILDREN]) {
-                            id type = [translationDict objectForKey:[key objectForKey:TYPE]];
-                           
-                            
-                            if (!type)
-                                continue;
-                            
-                            type = [self getShapeType:type object:object];
-                                  
-                            NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
-                            
-                            [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict isAGroup:true];
-                            
-                            id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
-                            
-                            int x = [[groupFrame objectForKey:XARTBOARD] intValue];
-                            int y = [[groupFrame objectForKey:YARTBOARD] intValue];
-                            int w = [[groupFrame objectForKey:WIDTH] intValue];
-                            int h = [[groupFrame objectForKey:HEIGHT] intValue];
-                            
-                            if (x <= minx)  {
-                                minx = x;
-                            }
-                            if (y <= miny) {
-                                miny = y;
-                            }
-                            if (x + w >= maxx) {
-                                maxx = x + w;
-                                maxw = w;
-                            }
-                            if ( y + h >= maxy) {
-                                maxy = y + h;
-                                maxh = h;
-                            }
-                            
-                            NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
-                            [subViewDict setObject:typeObjDict forKey:type];
-                            [viewSubviews addObject:subViewDict];
-                            
-                        }
-                        
-                       
-                        widthXDArtboard = prevWidth;
-                        heightXDArtboard = prevHeight;
-                        startXArtboard = prevX;
-                        startYArtboard = prevY;
-                        int widthFrame = maxx - minx + maxw;
-                        int heightFrame = maxy - miny + maxh;
-                        
-                        [sizeFrame setObject:[NSNumber numberWithInt:minx] forKey:XARTBOARD];
-                        [sizeFrame setObject:[NSNumber numberWithInt:miny] forKey:YARTBOARD];
-                        [sizeFrame setObject:[NSNumber numberWithInt:widthFrame] forKey:WIDTH];
-                        [sizeFrame setObject:[NSNumber numberWithInt:heightFrame] forKey:HEIGHT];
-                        [defaultColor setObject:colorToString forKey:TOSTRING];
-                        [colorFrame setObject:defaultColor forKey:COLOR];
-                        
-                        
-                        NSLog(@"defColo = %@", defaultColor);
-                        NSLog(@"colorFrame = %@", colorFrame);
-                        
-                        for (id keyObject in viewSubviews) {
-                            id name = [[keyObject allKeys] objectAtIndex:0];
-                            id frame = [[[keyObject objectForKey:name ] objectForKey:RULES] objectForKey:FRAME];
-                            int x = [[frame objectForKey:XARTBOARD] intValue];
-                            x = x - minx;
-                            int y = [[frame objectForKey:YARTBOARD] intValue];
-                            y = y - miny;
-                            [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
-                            [frame setObject:[NSNumber numberWithInt:y] forKey:YARTBOARD];
-                        
-                        }
-                        [[viewDict objectForKey:RULES ] setObject:viewSubviews forKey:SUBVIEWS];
-                        NSMutableDictionary *subViewTmp = [[NSMutableDictionary alloc] init ];
-                        [subViewTmp setObject:viewDict forKey:VIEW];
-                        
-                        [objDict addObject:subViewTmp];
-                        NSLog(@"ObjDict = %@", objDict);
-                       
+
+                        [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:&objDict];
+
                         continue;
                     }
                     
+                    [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict ofType:type];
                     
-                    [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict isAGroup:false];
-                    NSLog(@"typeObjDict = %@", typeObjDict);
                     NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
                     [subViewDict setObject:typeObjDict forKey:type];
                     [objDict addObject:subViewDict];
@@ -703,7 +741,7 @@
 }
 
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
-                           finalDict:(NSMutableDictionary *)finalDict isAGroup:(BOOL) isGroup {
+                           finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
     
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
@@ -739,7 +777,7 @@
             else
                 cond = [rulesDict allKeys];
             
-            mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict];
+            mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict type:type];
             
             if (mergeDict != nil) {
                 
@@ -788,7 +826,7 @@
     
     NSMutableDictionary *viewDict = [finalDict objectForKey:ARTBOARD];
     
-    return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict isAGroup:false];
+    return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict ofType:VIEW];
     
 }
 

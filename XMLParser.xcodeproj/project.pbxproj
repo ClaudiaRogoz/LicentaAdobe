@@ -19,8 +19,6 @@
 		C9748D2E1CC8D6A200752B3F /* TestPaths.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D2D1CC8D6A200752B3F /* TestPaths.json */; };
 		C9748D3A1CC8FC3400752B3F /* Xml2AgcTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D391CC8FC3400752B3F /* Xml2AgcTranslations.json */; };
 		C9748D3C1CC8FC6E00752B3F /* AGCTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D3B1CC8FC6E00752B3F /* AGCTemplate.json */; };
-		C9748D3E1CC90F4600752B3F /* File.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D3D1CC90F4600752B3F /* File.json */; };
-		C9748D401CC90F7E00752B3F /* File2.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D3F1CC90F7E00752B3F /* File2.json */; };
 		C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A41CC4C16100E487AB /* TestParaGroup.json */; };
 		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
 		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
@@ -82,8 +80,6 @@
 		C9748D2D1CC8D6A200752B3F /* TestPaths.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestPaths.json; sourceTree = "<group>"; };
 		C9748D391CC8FC3400752B3F /* Xml2AgcTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Xml2AgcTranslations.json; sourceTree = "<group>"; };
 		C9748D3B1CC8FC6E00752B3F /* AGCTemplate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AGCTemplate.json; sourceTree = "<group>"; };
-		C9748D3D1CC90F4600752B3F /* File.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = File.json; sourceTree = "<group>"; };
-		C9748D3F1CC90F7E00752B3F /* File2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = File2.json; sourceTree = "<group>"; };
 		C97921A41CC4C16100E487AB /* TestParaGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParaGroup.json; sourceTree = "<group>"; };
 		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
 		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
@@ -146,13 +142,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C98022C11CC7F062000BAC7F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		C98A7BFF1CBE4DB70071E791 /* AgcResources */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,9 +192,6 @@
 		C99186BC1C8B664A0071A25F = {
 			isa = PBXGroup;
 			children = (
-				C9748D3D1CC90F4600752B3F /* File.json */,
-				C9748D3F1CC90F7E00752B3F /* File2.json */,
-				C98022C11CC7F062000BAC7F /* Frameworks */,
 				C98A7C011CBE4EDD0071E791 /* TestFiles */,
 				C98A7C001CBE4DD10071E791 /* TranslationsSchemas */,
 				C98A7BFF1CBE4DB70071E791 /* AgcResources */,
@@ -380,13 +366,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9748D401CC90F7E00752B3F /* File2.json in Resources */,
 				C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */,
 				C9AF2B541CBFBE76001C39C7 /* TestDropFile.json in Resources */,
 				C9AF2B561CBFC696001C39C7 /* TestImageLabels.json in Resources */,
 				C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */,
 				C9748D2E1CC8D6A200752B3F /* TestPaths.json in Resources */,
-				C9748D3E1CC90F4600752B3F /* File.json in Resources */,
 				C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */,
 				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
 				C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */,

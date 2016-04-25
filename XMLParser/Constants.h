@@ -196,6 +196,8 @@
 #define XMLDOCUMENTF   @"</document>"
 #define XARTBOARD       @"x"
 #define YARTBOARD       @"y"
+#define FRAMED       @"$frame"
+
 
 /* artboards's sizes */
 #define WIDTHXMLARTBOARD    600
@@ -214,5 +216,6 @@
 #define HEIGHTIPH6 667
 #define SPARKLERCLIPBOARD   @"com.adobe.sparkler.design"
 #define ARTBOARDXML         @"artboardFromXml.agc"
+
 
 #endif /* Constants_h */
