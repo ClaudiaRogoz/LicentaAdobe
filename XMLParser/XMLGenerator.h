@@ -37,9 +37,13 @@
      **/
     NSMutableDictionary *transformObjects;
     
+    NSMutableArray *scaleImage;
+    
+    
     /* the start index for the current artboard */
     int startXArtboard;
     int startYArtboard;
+    int scaleNo;
     
     int widthXDArtboard;
     int heightXDArtboard;

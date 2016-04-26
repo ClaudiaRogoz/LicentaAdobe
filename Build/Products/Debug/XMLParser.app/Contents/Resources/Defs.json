@@ -133,7 +133,8 @@
                         "y" : "$ty"
                     }
                 },
-                "toString" : ["rect"]
+                "toString" : ["rect"],
+                
             },
             "toString" : ["header", "rules"]
         },
