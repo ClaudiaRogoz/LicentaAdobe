@@ -319,7 +319,8 @@
                 "alpha" : 1,
                 "key" : "backgroundColor",
                 "colorSpace" : "calibratedRGB"
-            }
+            },
+            "order" : ["red", "green", "blue", "alpha", "colorSpace", "key"]
         },
         "mutableString" : {
             "key" : "text",

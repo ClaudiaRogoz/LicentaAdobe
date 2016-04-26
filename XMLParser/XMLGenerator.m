@@ -98,6 +98,8 @@
     translationDict = [ruleDict mutableCopy];
     resourcesDict = [[NSMutableString alloc] init];
     scaleImage = [[NSMutableArray alloc] init];
+    inheritanceColor = [[NSMutableArray alloc] init];
+    
     scaleNo = 0;
     
     transformObjects = [[NSMutableDictionary alloc] init];
@@ -275,10 +277,14 @@
     
     
     NSMutableDictionary *defaultDict = [*objDict objectForKey:DEFAULT];
+    id allKeys = [*objDict allKeys];
+    if ([*objDict objectForKey:ORDER])
+        allKeys = [*objDict objectForKey:ORDER];
     
-    for (id key in [*objDict allKeys]) {
-        id value = [*objDict objectForKey:key];
+    for (id key in allKeys) {
         
+        id value = [*objDict objectForKey:key];
+       
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
             
@@ -286,6 +292,13 @@
                 
                 if ([[transformObjects objectForKey:COLOR] objectForKey:key]) {
                     /* change the color */
+                     NSLog(@"VAlueK = %@ =%@", key, type);
+                    NSLog(@"value = %@", dictValue);
+                    /*if ([type isEqualToString:VIEW]) {
+                        [inheritanceColor addObject:
+                         
+                         }*/
+                    
                     float color = [value floatValue] / 255;
                     [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
                     continue;
@@ -341,7 +354,6 @@
                         float translatedValue = initValue;
                         float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
                         float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
-                        NSLog(@"value1 key = %@ = %f %d %d", key, initValue, startXArtboard, startYArtboard);
                         
                         if ([key isEqualToString:XARTBOARD]) {
                             translatedValue = initValue - startXArtboard;
@@ -352,7 +364,7 @@
                             translatedValue = initValue - startYArtboard;
                             translatedValue = translatedValue * yScaleFactor;
                         }
-                        NSLog(@"---> = %f", translatedValue);
+                       
                         [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
                     } else
                         [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
@@ -493,7 +505,7 @@
         y = y - miny;
         [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
         [frame setObject:[NSNumber numberWithInt:y] forKey:YARTBOARD];
-        NSLog(@"New = %d %d", x, y);
+
     }
 
 
@@ -554,11 +566,7 @@
     id colorTag = [[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR];
     id defaultColor = [self deepCopy:[colorTag objectForKey:DEFAULT]];
     id colorToString = [self deepCopy:[colorTag objectForKey:TOSTRING]];
-    
-    int x = [[sizeFrame objectForKey:XARTBOARD] intValue];
-    int y = [[sizeFrame objectForKey:YARTBOARD] intValue];
-    NSLog(@"X = %d Y = %d", x, y);
-    NSLog(@"StartX = %d y = %d", startXArtboard, startYArtboard);
+
     int prevWidth = widthXDArtboard;
     int prevHeight = heightXDArtboard;
     widthXDArtboard = WIDTHXMLARTBOARD;
@@ -567,9 +575,7 @@
     int prevY = startYArtboard;
     startXArtboard = 0;
     startYArtboard = 0;
-    //startXArtboard = x + startXArtboard;
-    //startYArtboard = y + startYArtboard;
-    NSLog(@"StartX = %d y = %d", startXArtboard, startYArtboard);
+
     NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
     
     [self processGroup:[[object objectForKey:GROUP] objectForKey:CHILDREN]
@@ -589,7 +595,7 @@
     startYArtboard = prevY;
     int widthFrame = maxx - minx;
     int heightFrame = maxy - miny;
-    NSLog(@"Minx miny = %d %d", minx, miny);
+    
     [sizeFrame setObject:[NSNumber numberWithInt:minx] forKey:XARTBOARD];
     [sizeFrame setObject:[NSNumber numberWithInt:miny] forKey:YARTBOARD];
     [sizeFrame setObject:[NSNumber numberWithInt:widthFrame] forKey:WIDTH];

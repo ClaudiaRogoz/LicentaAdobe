@@ -37,6 +37,8 @@
      **/
     NSMutableDictionary *transformObjects;
     
+    NSMutableArray *inheritanceColor;
+    
     NSMutableArray *scaleImage;
     
     
