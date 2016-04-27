@@ -1090,8 +1090,6 @@
         
         NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
         NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-        [xmlData writeToFile:@"new.xml" atomically:YES];
-        NSLog(@"outXMLFile = %@", [self outXmlPath]);
         [xmlData writeToFile:[self outXmlPath] atomically:YES];
         
         return finalString;

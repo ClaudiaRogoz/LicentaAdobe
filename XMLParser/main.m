@@ -30,14 +30,50 @@ NSString *pathFormat(NSString **path, const char *arg) {
     return retPath;
 }
 
+
+void openExportProject(NSString * outXmlPath) {
+    
+    NSString *nameXcodeProj = [[outXmlPath lastPathComponent] stringByAppendingPathExtension:XCODEPROJ];
+    NSString *pathToXcodeProj = [[outXmlPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:nameXcodeProj];
+    
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = @"/usr/bin/open";
+    task.arguments = @[pathToXcodeProj];
+    
+    [task launch];
+    [task waitUntilExit];
+
+
+}
+
+void openDragDropPanel(NSString *outXmlPath) {
+
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:YES];
+    [panel setCanChooseDirectories:YES];
+    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
+    [panel setDirectoryURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@", outXmlPath ,RESOURCES]]];
+    NSInteger clicked = [panel runModal];
+    
+    if (clicked == NSFileHandlingPanelOKButton) {
+        for (NSURL *url in [panel URLs]) {
+            // do something with the url here.
+        }
+    }
+
+}
+
 int main(int argc, const char * argv[]) {
     
+    /* TODO for -i => import <importProj> <XDFile> */
+    /* TODO for -e => export <XDFile> <exportProj> */
     if (!strcmp(argv[1], HELP)) {
         NSLog(@"./XMLParser <pathToImportProject> <pathToExportProject>\n"
                 "\n eg: <pathToImportProject> = ~/Desktop/<ImportProj>/<ImportProj>"
                 "\n eg: <pathToImportProject> = ~/Desktop/<ExportProj>/<ExportProj>");
         return 0;
     }
+    
     
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
     
@@ -59,11 +95,9 @@ int main(int argc, const char * argv[]) {
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
+    NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *outFile = [NSString stringWithFormat:@"%@/%@", documentsDirectory, ARTBOARDXML];
+    NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, ARTBOARDXML];
     [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     
@@ -72,18 +106,11 @@ int main(int argc, const char * argv[]) {
     [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
     
     
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    [panel setCanChooseFiles:YES];
-    [panel setCanChooseDirectories:YES];
-    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
-    [panel setDirectoryURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@", outXmlPath ,RESOURCES]]];
-    NSInteger clicked = [panel runModal];
+    /* open export xcode project */
+    openExportProject(outXmlPath);
     
-    if (clicked == NSFileHandlingPanelOKButton) {
-        for (NSURL *url in [panel URLs]) {
-            // do something with the url here.
-        }
-    }
+    /* Notify the user to  Drag & Drop resources */
+    openDragDropPanel(outXmlPath);
     
     return 0;
 }

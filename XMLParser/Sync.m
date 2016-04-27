@@ -13,17 +13,29 @@
 @implementation Sync
 
 
++ (void) startSync:(NSString *) path {
+    NSError *error;
+    Sync *sync = [[Sync alloc] initWithError:&error];
+    
+    [sync monitorXDFile:path];
+    
+}
+
+- (id)initWithError:(NSError **)error
+{
+    return self;
+}
+
 - (void) initSync
 {
+    
     exportAgc = [[NSMutableDictionary alloc] init];
     offsetXmlFile = [[NSMutableDictionary alloc] init];
     objectOffset = [[NSMutableDictionary alloc] init];
 
+    /* TODO read from rules */
     exportAgc[@"shape"] = [[NSMutableDictionary alloc] init];
     
-    // an agc is of type shape if <=> style fill == solid
-    
-    //Rules needed to be achieved
     exportAgc[@"shape"][@"path"] = [[NSMutableArray alloc] init ];
     [exportAgc[@"shape"][@"path"] addObject:@"style.fill.type.solid"];
     [exportAgc[@"shape"][@"path"] addObject:@"shape.type.path"];
@@ -31,21 +43,17 @@
     exportAgc[@"shape"][@"rectangle"] = [[NSMutableArray alloc] init];
     [exportAgc[@"shape"][@"rectangle"] addObject:@"style.fill.type.solid" ];
     [exportAgc[@"shape"][@"rectangle"] addObject:@"shape.type.rect"];
-    
-    
-    //an agc is of type imageView if <=> style fill == pattern
+
     exportAgc[@"shape"][@"imageView"] = @"style.fill.type.pattern";
     exportAgc[@"group"] = [[NSArray alloc] init];
     
-    //for type = "text"
     exportAgc[@"text"] = @"textField";
     
-    objectOffset[@"<imageView"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"<label"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"<textField"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"<switch"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"<scene"] = [NSNumber numberWithInt: 1];
+
 
 }
+
 /* second = prev dictionary; first = current dictionary */
 - (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)jsonArtboards offsetGroup:(NSMutableDictionary *)offsetGroupDict numberGroup:(NSNumber *) nr
 {
@@ -537,21 +545,21 @@
         
         
         
-        //TODO update offset & propagate offset
+        //update offset & propagate offset
         unsigned long prevOffset = (unsigned long)range.location;
         
         [outputTempXml seekToEndOfFile];
         
-        //TODO copy to file + copy intra chunks beteween (key, key +1)
+        //copy to file + copy intra chunks beteween (key, key +1)
         if (prevKey == 0) {
             //copy all from beginning to the curent offset
-            //TODO change for any "n" -> only no 1 artboard works
+            //change for any "n" -> only no 1 artboard works
             [inputXml seekToFileOffset:[*offset_scene longValue]];
             long sizeToRead = minTagOffset - [*offset_scene longValue];
             NSData *inputData = [inputXml readDataOfLength:sizeToRead];
             NSString* newStr = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
             NSString* newStr1 =[[NSString alloc] initWithData:[cntTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
-            NSLog(@"At %@ writing to file %@ %@", n, newStr, newStr1);
+            
             [outputTempXml writeData:inputData];
             [outputTempXml seekToEndOfFile];
             //copy current Tag to outputXMlfile
@@ -578,10 +586,10 @@
             
             NSLog(@"NextOffset for %d will be = %lu", [key intValue] + 1, newNextOffset);
             
-        } else { //if (prevKey != lastIndex){
-            NSLog(@"PrevKey3 = %d", prevKey);
+        } else {
+            
             //copy all tags from the prevKey to this key
-            //TODO update each offset in between
+            //update each offset in between
             int skippedTagNo = prevKey +1;
             id gotoTag = [offset objectAtIndex:skippedTagNo -1];
             long tmpOffset = [*offset_scene longValue] +[gotoTag longValue];
@@ -623,7 +631,7 @@
 
 - (void) monitorXDFile:(NSString*) path
 {
-    NSLog(@"Offset: %@", offsetXmlFile);
+
     const char *pathString = [path cStringUsingEncoding:NSASCIIStringEncoding];
     int fildes = open(pathString, O_RDONLY);
     //int counter = 0;
@@ -642,7 +650,6 @@
                                           }
                                           else {
                                               
-                                              NSLog(@"File has changed!\n");
                                               NSError *error;
                                               NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
                                               [[NSFileManager defaultManager] removeItemAtPath:pathToTempXml error:&error];
@@ -656,7 +663,7 @@
                                               NSString *documentsDirectory = [paths objectAtIndex:0];
                                               
                                               NSTask *task = [[NSTask alloc] init];
-                                              task.launchPath = @"/usr/bin/unzip";
+                                              task.launchPath = UNZIP_PATH;
                                               task.arguments = @[path];
                                               task.currentDirectoryPath=documentsDirectory;
                                               

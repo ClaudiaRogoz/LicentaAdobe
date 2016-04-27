@@ -54,11 +54,9 @@
         NSLog(@"Got an error: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        
-        NSString *outFile = [NSString stringWithFormat:@"%@/%@", documentsDirectory, file];
+        NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, file];
         
         [[NSFileManager defaultManager] createFileAtPath:outFile contents:nil attributes:nil];
         [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
@@ -70,6 +68,8 @@
     
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
     NSMutableDictionary *artboardsD = [dictionary objectForKey:ARTBOARDS];
+    NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
+    NSError *error;
     int nr = 1;
     
     for (id key in [artboardsD allKeys]) {
@@ -85,13 +85,17 @@
         [tempArray setObject:[[NSMutableArray alloc] init] forKey:CHILDREN];
         [[tempArray objectForKey:CHILDREN] addObject:children];
         
-        NSString *artboardName = [NSString stringWithFormat:@"%@%d%@%@", ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
+        
+        /* create a temp directory where all the prev artboards can be stored */
+        /* used for sync */
+        [[NSFileManager defaultManager] createDirectoryAtPath:[mainBundle stringByAppendingPathComponent:PREV_ART_PATH] withIntermediateDirectories:NO attributes:nil error:&error];
+        
+        NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@", PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
+        
         [self writeToFile:tempArray file:artboardName];
         nr++;
     }
-    
-    
-    
+
     return rootArray;
     
 }
@@ -145,10 +149,7 @@
     defaultValues[TEXTFIELD][TEXT_COLOR_A] = [NSNumber numberWithInt:1];
     
     /*TODO remove*/
-    objectOffset[@"<imageView"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"<label"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"<textField"] = [NSNumber numberWithInt: 1];
-    objectOffset[@"<switch"] = [NSNumber numberWithInt: 1];
+    objectOffset[@"<scene"] = [NSNumber numberWithInt: 1];
     
     offsetXmlFile = [[NSMutableDictionary alloc] init];
     

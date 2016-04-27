@@ -41,7 +41,10 @@
 
 #define HELP    "-h"
 
+#define UNZIP_PATH  @"/usr/bin/unzip"
 #define ARTBOARD_FILE_PREFIX    @"artboard-artboard"
+#define PREV_ART_PATH   @"prev_artboards"
+#define XCODEPROJ       @"xcodeproj"
 
 #define SVG_INFO    @" d="
 #define SVG_FILL    @"fill: "
