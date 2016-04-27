@@ -59,7 +59,6 @@
 
 -(void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex{
     
-    NSLog(@"FilePath = %@", filePath);
     NSError *error;
     NSString *svgTemplate = [[NSBundle mainBundle] pathForResource:SVG_TEMPLATE ofType:SVG];
     NSMutableString *path = [NSMutableString stringWithContentsOfFile:svgTemplate encoding:NSUTF8StringEncoding error:&error];
@@ -292,12 +291,6 @@
                 
                 if ([[transformObjects objectForKey:COLOR] objectForKey:key]) {
                     /* change the color */
-                     NSLog(@"VAlueK = %@ =%@", key, type);
-                    NSLog(@"value = %@", dictValue);
-                    /*if ([type isEqualToString:VIEW]) {
-                        [inheritanceColor addObject:
-                         
-                         }*/
                     
                     float color = [value floatValue] / 255;
                     [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
@@ -310,16 +303,6 @@
                 
                     float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
                     float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
-                    /*if ([type isEqualToString:IMAGEVIEW]) {
-                        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-                        if ([scaleImage objectAtIndex:scaleNo]) {
-                            dict = [scaleImage objectAtIndex:scaleNo];
-                            [dict setObject:value forKey:key];
-                        }
-                        [scaleImage setObject:dict atIndexedSubscript:scaleNo];
-                        
-                    
-                    }*/
                     
                     if ([key isEqualToString:WIDTH]) {
                         translatedValue = [value floatValue] * xScaleFactor;
@@ -534,9 +517,9 @@
             *viewSubviews = [[*viewSubviews arrayByAddingObjectsFromArray:arrayObj] mutableCopy];
             continue;
         }
-        
+
         [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict ofType:type];
-        
+
         id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
         
         [self getViewSize:groupFrame minx:minx miny:miny maxx:maxx maxy:maxy maxh:maxh maxw:maxw];
@@ -558,13 +541,13 @@
     int minx = WIDTHXMLARTBOARD, miny = HEIGHTXMLARTBOARD;
     int maxx = 0, maxy = 0, maxh = 0, maxw = 0;
     NSMutableDictionary *viewDict = [self deepCopy:[newObjDict objectForKey:VIEW]];
-    
+
     [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict ofType:GROUP];
-    
+
     id frameRules = [viewDict objectForKey:RULES];
     id sizeFrame = [frameRules objectForKey:FRAME];
     id colorTag = [[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR];
-    id defaultColor = [self deepCopy:[colorTag objectForKey:DEFAULT]];
+    id defaultColor = [self deepCopy:[colorTag objectForKey:DEFAULT_GROUP]];
     id colorToString = [self deepCopy:[colorTag objectForKey:TOSTRING]];
 
     int prevWidth = widthXDArtboard;
@@ -662,6 +645,15 @@
     
 }
 
+-(void) copyDict:(NSDictionary*) defaultType toDict:(NSMutableDictionary **) genericDict {
+    
+    for (id key in [defaultType allKeys]) {
+        [*genericDict setObject:[defaultType objectForKey:key] forKey:key];
+    }
+    
+
+}
+
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
                                 agcDict:agcParams type:(NSString *)type {
     
@@ -680,7 +672,6 @@
         return objDict;
     }
     //get values from agc in order to transfer them into xml
-    
     for (id condition in cond) {
         id values = agcParams;
         
@@ -837,7 +828,7 @@
             if (mergeDict != nil) {
                 
                 [rulesInitDict setObject:mergeDict forKey:rule];
-               
+                
             }
             
         } else {
@@ -893,6 +884,69 @@
     
 }
 
+-(void) copyImage:(NSImage *)image toProject:(NSString *)fileName {
+
+    NSString *resourcesXmlProj = [NSString stringWithFormat:@"%@%@/%@",[self xmlPath], RESOURCES_PATH, fileName];
+    NSString *resourcesXmlRes = [NSString stringWithFormat:@"%@%@",[self xmlPath], RESOURCES_PATH];
+    
+    BOOL isDir;
+    NSError *error;
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:resourcesXmlRes
+                                              isDirectory:&isDir]) {
+        
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[self xmlPath] stringByAppendingPathComponent:@"Resources"] withIntermediateDirectories:NO attributes:nil error:&error];
+        
+    }
+    
+    NSBitmapImageRep *imgRep = [[image representations] objectAtIndex: 0];
+    NSData *data = [imgRep representationUsingType: NSPNGFileType properties: 0];
+    [data writeToFile: resourcesXmlProj atomically: NO];
+
+}
+
+-(void) processImage:(id) dict key:(id) key {
+    
+    id attr = [dict objectForKey:key];
+    
+    if ([attr isKindOfClass:[NSDictionary class]] && [attr objectForKey:ISIMAGE]) {
+        /* add image in the resources tag */
+        NSString * href = [attr objectForKey:ISIMAGE];
+        /* find width and height for image */
+        
+        NSImage *image = [[NSImage alloc]initWithContentsOfFile:href];
+        
+        /* create an image Tag using subTags */
+        NSMutableDictionary *imageDict = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:ISIMAGE] mutableCopy];
+        NSString *theFileName = [href lastPathComponent];
+        
+        imageDict[NAME] = theFileName;
+        imageDict[WIDTH] = [NSString stringWithFormat:@"%f", image.size.width];
+        imageDict[HEIGHT] = [NSString stringWithFormat:@"%f", image.size.height];
+        
+        NSArray *rootarray = [[self xmlPath] componentsSeparatedByString:@"/"];
+        rootarray = [rootarray subarrayWithRange:NSMakeRange(0, [rootarray count] -2)];
+        
+        /* TODO copy to the same file! for now just copy to our try file*/
+        
+        if (image) {
+            [self copyImage:image toProject:theFileName];
+        }
+        
+        NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
+        
+        [[dict objectForKey:HEADER]  setObject:theFileName forKey:ISIMAGE];
+        
+        /* insert this tag into resourcesDict
+         * only if this resource was not prev added */
+        if ([resourcesDict rangeOfString:str].location == NSNotFound) {
+            [resourcesDict appendString:str];
+        }
+        
+    }
+
+}
+
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
     
     NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
@@ -903,38 +957,8 @@
         
         id attr = [dict objectForKey:key];
         
-        if ([attr isKindOfClass:[NSDictionary class]] && [attr objectForKey:ISIMAGE]) {
-            /* add image in the resources tag */
-            NSString * href = [attr objectForKey:ISIMAGE];
-            /* find width and height for image */
-            
-            NSImage *image = [[NSImage alloc]initWithContentsOfFile:href];
-            /* create an image Tag using subTags */
-            NSMutableDictionary *imageDict = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:ISIMAGE] mutableCopy];
-            NSString *theFileName = [href lastPathComponent];
-           
-            imageDict[NAME] = theFileName;
-            
-            
-            imageDict[WIDTH] = [NSString stringWithFormat:@"%f", image.size.width];
-            imageDict[HEIGHT] = [NSString stringWithFormat:@"%f", image.size.height];
-            
-            NSArray *rootarray = [[self xmlPath] componentsSeparatedByString:@"/"];
-            rootarray = [rootarray subarrayWithRange:NSMakeRange(0, [rootarray count] -2)];
-            
-            /* TODO copy to the same file! for now just copy to our try file*/
-           
-            NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
-            
-            [[dict objectForKey:HEADER]  setObject:theFileName forKey:ISIMAGE];
-            
-            /* insert this tag into resourcesDict 
-             * only if this resource was not prev added */
-            if ([resourcesDict rangeOfString:str].location == NSNotFound) {
-                [resourcesDict appendString:str];
-            }
-            
-        }
+        [self processImage:dict key:key];
+        
         
         if ([key isEqualToString:RULES]) {
             
@@ -1067,7 +1091,8 @@
         NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
         NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
         [xmlData writeToFile:@"new.xml" atomically:YES];
-        //[xmlData writeToFile:[self outXmlPath] atomically:YES];
+        NSLog(@"outXMLFile = %@", [self outXmlPath]);
+        [xmlData writeToFile:[self outXmlPath] atomically:YES];
         
         return finalString;
         

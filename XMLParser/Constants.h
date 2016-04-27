@@ -39,7 +39,7 @@
 #define TESTBIGIMG      @"TestBigImage"
 
 
-
+#define HELP    "-h"
 
 #define ARTBOARD_FILE_PREFIX    @"artboard-artboard"
 
@@ -49,13 +49,14 @@
 #define SVG_FILL_LEN     7
 #define SVG_INFO_END    @"\""
 #define SVG_FILL_END    @";"
-
+#define RESOURCES_PATH  @"Resources"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
 #define SUBVIEWNO @"$subviewNo"
 
 #define DEFAULT @"default"
+#define DEFAULT_GROUP   @"defaultGroup"
 
 #define ARTBOARDSCENE @"$artboardsceneNo"
 #define LINES       @"$lineListNo"

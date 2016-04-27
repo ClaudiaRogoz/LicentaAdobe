@@ -90,11 +90,14 @@
 - (void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict;
 
 /* merges multiple dictionaries */
--(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue usingValues:(NSDictionary *)paramsValue;
+-(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
+              usingValues:(NSDictionary *)paramsValue type:(NSString *)type;
 
 /* given the rule that need to be achieved, othe dependency and the */
--(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict agcDict:agcParams;
--(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict finalDict:(NSMutableDictionary *)finalDict;
+-(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
+                                agcDict:agcParams type:(NSString *)type;
+-(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
+                           finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type;
 -(NSDictionary*) processWholeXmlFromAgc:(NSDictionary *)agcDict;
 -(NSString *) surroundWithHeader:(NSString *) header footer:(NSString *) footer string:(NSString *)str;
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name;

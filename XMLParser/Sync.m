@@ -13,7 +13,7 @@
 @implementation Sync
 
 
-- (void) init:(int) i
+- (void) initSync
 {
     exportAgc = [[NSMutableDictionary alloc] init];
     offsetXmlFile = [[NSMutableDictionary alloc] init];

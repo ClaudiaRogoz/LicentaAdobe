@@ -320,6 +320,14 @@
                 "key" : "backgroundColor",
                 "colorSpace" : "calibratedRGB"
             },
+            "defaultGroup" : {
+                "red" : 255,
+                "green" : 255,
+                "blue" : 255,
+                "alpha" : 0,
+                "key" : "backgroundColor",
+                "colorSpace" : "calibratedRGB"
+            },
             "order" : ["red", "green", "blue", "alpha", "colorSpace", "key"]
         },
         "mutableString" : {

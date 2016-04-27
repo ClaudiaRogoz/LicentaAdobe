@@ -12,7 +12,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			c4tEsan7dJdojTgQ0mzBClRJvQQ=
+			9VcDsVnbA0iTehUtqHMXIs0K+f0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -21,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			POUZBmhV27dQiJNVNL0jk7CEmVQ=
+			zAXT7aLrNOo241W6VIhLxYQGIIE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -30,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			WaLO+7OKHU3blZ3bPht7cgTKoEg=
+			xw34A7XglCX9G+wj6OL2toHPtd4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		X4tWJy7gF+q/RVNSTI9tYHFundo=
+		7qsZl+u30SQILxhboCnkbXmlXT4=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Resources/TestFrame.json</key>
 		<data>
-		a49y2UQDMsfAywTf9+9JaA9uvzA=
+		GtZNqfM30aD8WWMyI+/rkyv190A=
 		</data>
 		<key>Resources/TestGenerator.json</key>
 		<data>
@@ -162,11 +162,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			c4tEsan7dJdojTgQ0mzBClRJvQQ=
+			9VcDsVnbA0iTehUtqHMXIs0K+f0=
 			</data>
 			<key>hash2</key>
 			<data>
-			X6fWiv6hVi5DtbQa9zHdlFECLeWRNkNj3PyPWYsjsrg=
+			+j7TXiZDx5E9u7w4HOuVqLxDYg7sCbJTkmH7/QRX3nA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -175,11 +175,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			POUZBmhV27dQiJNVNL0jk7CEmVQ=
+			zAXT7aLrNOo241W6VIhLxYQGIIE=
 			</data>
 			<key>hash2</key>
 			<data>
-			DdpLtD298PVcw2aUS6bWPEboNdODcyWYZ5fZZAEJd0E=
+			iGeVO8osZ0mz8pV1/2b1wKTwLa8jeZp8eaWIixXtbtI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -188,11 +188,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			WaLO+7OKHU3blZ3bPht7cgTKoEg=
+			xw34A7XglCX9G+wj6OL2toHPtd4=
 			</data>
 			<key>hash2</key>
 			<data>
-			VFVvFo0MxoprchLJwViz9VVVhkKUIEcXxnAbY3rQnd4=
+			j+pofRfICtW8vztkVhEV5nXwtQ9IcYJHGjkslJhvVd8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -225,11 +225,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			X4tWJy7gF+q/RVNSTI9tYHFundo=
+			7qsZl+u30SQILxhboCnkbXmlXT4=
 			</data>
 			<key>hash2</key>
 			<data>
-			UNRcKXiwTo+ZA4TUbVvmTlZIIXJMyp17O2yVmKaVL+Y=
+			NcuJzg/KVodt5g3w1+MZ5vpIzvgmwb7uH8KYF1FhrEQ=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
@@ -302,11 +302,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			a49y2UQDMsfAywTf9+9JaA9uvzA=
+			GtZNqfM30aD8WWMyI+/rkyv190A=
 			</data>
 			<key>hash2</key>
 			<data>
-			Y/rsRdzW+eqNYcnIKA2YWr0KuSwirTT6+CL0tM//Mcg=
+			0E6kIBBTL/+2i5lomgulsvOO9vLp2nshaI3netNxaa0=
 			</data>
 		</dict>
 		<key>Resources/TestGenerator.json</key>

@@ -16,33 +16,43 @@
 #import "XMLGenerator.h"
 #include "Constants.h"
 
+NSString *pathFormat(NSString **path, const char *arg) {
+    
+    NSString *retPath;
+    
+    if ([*path hasSuffix:@"/"])
+        retPath = [NSString stringWithFormat:@"%s%@", arg, STORYBOARD];
+    else {
+        *path = [*path stringByAppendingString:@"/"];
+        retPath = [NSString stringWithFormat:@"%s/%@", arg, STORYBOARD];
+    }
+    
+    return retPath;
+}
+
 int main(int argc, const char * argv[]) {
     
-    
-    NSString *tmpPath = [NSString stringWithFormat:@"%s", argv[1]];
-    NSString *xmlPath;
-    if ([tmpPath hasSuffix:@"/"])
-        xmlPath = [NSString stringWithFormat:@"%s%@", argv[1], STORYBOARD];
-    else {
-        tmpPath = [tmpPath stringByAppendingString:@"/"];
-        xmlPath = [NSString stringWithFormat:@"%s/%@", argv[1], STORYBOARD];
-    }
-    NSString *tmpOutPath = [NSString stringWithFormat:@"%s", argv[2]];
-    NSString *outXmlPath;
-    if ([tmpOutPath hasSuffix:@"/"])
-        outXmlPath = [NSString stringWithFormat:@"%s%@", argv[2], STORYBOARD];
-    else {
-        tmpOutPath = [tmpOutPath stringByAppendingString:@"/"];
-        outXmlPath = [NSString stringWithFormat:@"%s/%@", argv[2], STORYBOARD];
+    if (!strcmp(argv[1], HELP)) {
+        NSLog(@"./XMLParser <pathToImportProject> <pathToExportProject>\n"
+                "\n eg: <pathToImportProject> = ~/Desktop/<ImportProj>/<ImportProj>"
+                "\n eg: <pathToImportProject> = ~/Desktop/<ExportProj>/<ExportProj>");
+        return 0;
     }
     
     NSString *xdPath = @"/Users/crogoz/Documents/Y/UntitledY.xd";//[NSString stringWithFormat:@"%s", argv[3]];
     
-    NSData *parser = [NSData dataWithContentsOfFile:xmlPath];
-   
+    NSString *inXmlPath= [NSString stringWithFormat:@"%s", argv[1]];
+    NSString *importPath = pathFormat(&inXmlPath, argv[1]);
+    
+    
+    NSData *parser = [NSData dataWithContentsOfFile:importPath];
+    
+    NSString *outXmlPath= [NSString stringWithFormat:@"%s", argv[2]];
+    NSString *exportPath = pathFormat(&outXmlPath, argv[2]);
+    
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    [XMLReader dictionaryForXMLData:parser resources:tmpPath xdPath:xdPath outFile:xmlPath error:&parseError];
+    [XMLReader dictionaryForXMLData:parser resources:inXmlPath xdPath:xdPath outFile:importPath error:&parseError];
     
     
     /* copy <agc file> to clipboard */
@@ -58,8 +68,22 @@ int main(int argc, const char * argv[]) {
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     
    
+    /* generate storyboard for xcode from xd */
+    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
     
-    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", tmpPath] writeTo:outXmlPath];
-
-    return NSApplicationMain(argc, argv);
+    
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:YES];
+    [panel setCanChooseDirectories:YES];
+    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
+    [panel setDirectoryURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@", outXmlPath ,RESOURCES]]];
+    NSInteger clicked = [panel runModal];
+    
+    if (clicked == NSFileHandlingPanelOKButton) {
+        for (NSURL *url in [panel URLs]) {
+            // do something with the url here.
+        }
+    }
+    
+    return 0;
 }
