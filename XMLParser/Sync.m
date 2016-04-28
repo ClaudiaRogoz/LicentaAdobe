@@ -16,7 +16,7 @@
 + (void) startSync:(NSString *) path {
     NSError *error;
     Sync *sync = [[Sync alloc] initWithError:&error];
-    
+    [sync initSync];
     [sync monitorXDFile:path];
     
 }
@@ -28,11 +28,17 @@
 
 - (void) initSync
 {
+    NSError *error;
+    NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
+    NSString *def = [thisBundle pathForResource:AGC_TEMPLATE ofType:JSON];
+    NSData *defData = [NSData dataWithContentsOfFile:def];
     
     exportAgc = [[NSMutableDictionary alloc] init];
     offsetXmlFile = [[NSMutableDictionary alloc] init];
     objectOffset = [[NSMutableDictionary alloc] init];
-
+   
+    attributes = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
+    
     /* TODO read from rules */
     exportAgc[@"shape"] = [[NSMutableDictionary alloc] init];
     
@@ -43,15 +49,15 @@
     exportAgc[@"shape"][@"rectangle"] = [[NSMutableArray alloc] init];
     [exportAgc[@"shape"][@"rectangle"] addObject:@"style.fill.type.solid" ];
     [exportAgc[@"shape"][@"rectangle"] addObject:@"shape.type.rect"];
-
+    
     exportAgc[@"shape"][@"imageView"] = @"style.fill.type.pattern";
     exportAgc[@"group"] = [[NSArray alloc] init];
     
     exportAgc[@"text"] = @"textField";
     
     objectOffset[@"<scene"] = [NSNumber numberWithInt: 1];
-
-
+    
+    
 }
 
 /* second = prev dictionary; first = current dictionary */
@@ -67,7 +73,7 @@
         
         id typeP = [prev objectForKey:TYPE];
         id typeN = [newD objectForKey:TYPE];
-        ;
+        
         // check if it is the same object (no adding, nor deleting, just modifyingn ops)
         if ([typeN isEqualToString:typeP]) {
             
@@ -296,7 +302,7 @@
 //dictionaries are teh same (same type).. check attributes
 //return the diffs through trList dictionary
 - (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr
-    outList:(NSMutableDictionary**)trList equal:(BOOL) eq json_info:(NSDictionary *) jsonInfo
+               outList:(NSMutableDictionary**)trList equal:(BOOL) eq json_info:(NSDictionary *) jsonInfo
 {
     if (prev == nil && newD == nil)
         return eq;
@@ -399,20 +405,20 @@
     NSFileHandle *inputXml = [NSFileHandle fileHandleForReadingAtPath: [self xmlPath]];
     if (inputXml == nil)
         NSLog(@"Failed to open file");
+    
+    
+    if ([tags count] == 0) {
+        //just copy from offset_start
+        NSLog(@"Here we are\n");
+        unsigned long fileSize = [inputXml seekToEndOfFile];
+        [inputXml seekToFileOffset:[*offset_scene longValue]];
         
-        
-        if ([tags count] == 0) {
-            //just copy from offset_start
-            NSLog(@"Here we are\n");
-            unsigned long fileSize = [inputXml seekToEndOfFile];
-            [inputXml seekToFileOffset:[*offset_scene longValue]];
-            
-            long sizeToRead = fileSize - [*offset_scene longValue];
-            NSData *inputData = [inputXml readDataOfLength:sizeToRead];
-            [outputTempXml seekToEndOfFile];
-            [outputTempXml writeData:inputData];
-            return;
-        }
+        long sizeToRead = fileSize - [*offset_scene longValue];
+        NSData *inputData = [inputXml readDataOfLength:sizeToRead];
+        [outputTempXml seekToEndOfFile];
+        [outputTempXml writeData:inputData];
+        return;
+    }
     
     
     NSMutableArray *offset = [offsetXmlFile objectForKey:n];
@@ -420,7 +426,6 @@
     long diffOffset = 0;
     int prevKey = 0;
     unsigned long nextXMlTag = 0;
-    // int lastIndex = [[tags objectForKey:[[tags allKeys] lastObject]] intValue];
     NSArray * sortedAllKeys = [tags allKeys];
     sortedAllKeys = [sortedAllKeys sortedArrayUsingComparator:^(id a, id b) {
         return [a compare:b];
@@ -557,8 +562,6 @@
             [inputXml seekToFileOffset:[*offset_scene longValue]];
             long sizeToRead = minTagOffset - [*offset_scene longValue];
             NSData *inputData = [inputXml readDataOfLength:sizeToRead];
-            NSString* newStr = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
-            NSString* newStr1 =[[NSString alloc] initWithData:[cntTag dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
             
             [outputTempXml writeData:inputData];
             [outputTempXml seekToEndOfFile];
@@ -628,20 +631,162 @@
     *offset_scene = [NSNumber numberWithLong:nextXMlTag];
 }
 
+-(NSString *) getProjHomePath {
+    
+    NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
+    for (int i = 0; i< PROJ_PATH; i++) {
+        mainBundle = [mainBundle stringByDeletingLastPathComponent];
+    }
+    return mainBundle;
+}
+
+-(void) unzipXD:(NSString *)path atPath:(NSString*) unzipped_xd {
+    
+    NSError *error;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:unzipped_xd])
+        [[NSFileManager defaultManager] removeItemAtPath:unzipped_xd error:&error];
+    
+    [[NSFileManager defaultManager] createDirectoryAtPath:unzipped_xd withIntermediateDirectories:NO attributes:nil error:&error];
+    
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = UNZIP_PATH;
+    task.arguments = @[path];
+    task.currentDirectoryPath=unzipped_xd;
+    
+    [task launch];
+    [task waitUntilExit];
+    
+}
+-(id) gotoAttribute:(NSMutableDictionary *) dict rules:(NSString *) rule {
+
+    NSArray *array = [rule componentsSeparatedByString:DOT];
+    id tempDict = dict;
+    
+    for (id key in array) {
+        if ([tempDict isKindOfClass:[NSDictionary class]])
+            tempDict = [tempDict objectForKey:key];
+        else tempDict = [tempDict objectAtIndex:[key intValue]];
+    
+    }
+    return tempDict;
+
+}
+
+-(NSMutableDictionary *) serializeFromPath:(NSString *)filePath {
+    
+    NSError *error;
+    NSString *jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
+    
+    return [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+}
+
+-(void) processArtboardPairs:(NSMutableArray *)filesInit enumerator:(NSDirectoryEnumerator *) enumeratorF agcinfo:(NSMutableDictionary *) jsonArtboards {
+    int i = 0;
+    
+    for (NSURL *urlF in enumeratorF) {
+        NSError *error;
+        NSNumber *isDirectory = nil;
+        if (! [urlF getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
+            // handle error
+        }
+        else if (! [isDirectory boolValue] &&
+                 ![[[urlF path] lastPathComponent] isEqualToString:@".DS_Store"]) {
+            
+            NSMutableDictionary *jsonDict1 = [self serializeFromPath:[urlF path]];
+            NSMutableDictionary *jsonDict2 = [self serializeFromPath:[filesInit objectAtIndex:i]];
+            
+            NSArray *first = [self gotoAttribute:jsonDict1 rules:CHILDREN_SUBVIEWS];
+            NSArray *second = [self gotoAttribute:jsonDict2 rules:CHILDREN_SUBVIEWS];
+            
+            NSString *artboardNoInfo = [NSString stringWithFormat:@"artboard%d", i +1];
+            
+            NSMutableDictionary * offsetGroupDict = [[NSMutableDictionary alloc] init];
+            offsetGroupDict[TX] = [NSNumber numberWithInt: 0];
+            offsetGroupDict[TY] = [NSNumber numberWithInt: 0];
+            
+            NSMutableDictionary* tagExport = [self compare2Artboards:first
+                                                               dict2:second
+                                                       artboard_info:[jsonArtboards objectForKey:artboardNoInfo]
+                                                         offsetGroup:offsetGroupDict
+                                                         numberGroup:[NSNumber numberWithInt:0]];
+            NSLog(@"To export = %@ %d", tagExport, i);
+            
+            ++i;
+            
+        }
+    }
+
+
+}
+
+- (void) findChangesForPath:(NSString *)unzipped_xd {
+    
+    NSString *mainBundle = [self getProjHomePath];
+    NSError *error;
+    NSURL *directoryURLF = [NSURL fileURLWithPath:[mainBundle stringByAppendingPathComponent:[NSString stringWithFormat:@".%@", PREV_ART_PATH]]];
+    NSURL *directoryURLI = [NSURL fileURLWithPath:unzipped_xd];
+    NSString *pathToArtboardAgc = [unzipped_xd stringByAppendingPathComponent: GRAPHIC_CONTENT ];
+    NSString *jsonString = [[NSString alloc] initWithContentsOfFile:pathToArtboardAgc encoding:NSUTF8StringEncoding error:NULL];
+    NSMutableDictionary *jsonArtboards = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+    
+    jsonArtboards = [jsonArtboards objectForKey:ARTBOARDS];
+    
+    widthAgcArtboard = [[[jsonArtboards objectForKey:FIRST_ARTBOARD] objectForKey:WIDTH] intValue];
+    heightAgcArtboard = [[[jsonArtboards objectForKey:FIRST_ARTBOARD]  objectForKey:HEIGHT] intValue];
+    
+    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
+    
+    NSDirectoryEnumerator *enumeratorI = [[NSFileManager defaultManager]
+                                          enumeratorAtURL:directoryURLI
+                                          includingPropertiesForKeys:keys
+                                          options:0
+                                          errorHandler:^(NSURL *url, NSError *error) {
+                                              return YES;
+                                          }];
+    
+    NSDirectoryEnumerator *enumeratorF = [[NSFileManager defaultManager]
+                                          enumeratorAtURL:directoryURLF
+                                          includingPropertiesForKeys:keys
+                                          options:0
+                                          errorHandler:^(NSURL *url, NSError *error) {
+                                              return YES;
+                                          }];
+    
+    NSMutableArray *filesInit = [[NSMutableArray alloc] init];
+    
+    for (NSURL *urlI in enumeratorI) {
+        
+        NSError *error;
+        NSNumber *isDirectory = nil;
+        if (! [urlI getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
+            // handle error
+        }
+        else if (! [isDirectory boolValue]) {
+            
+            if ([[[[urlI path] componentsSeparatedByString:@"/"] lastObject] isEqualToString:GRAPHIC]) {
+                [filesInit addObject:[urlI path]];
+            }
+        }
+        
+    }
+    
+    [self processArtboardPairs:filesInit enumerator:enumeratorF agcinfo:jsonArtboards];
+    
+}
 
 - (void) monitorXDFile:(NSString*) path
 {
-
+    
     const char *pathString = [path cStringUsingEncoding:NSASCIIStringEncoding];
     int fildes = open(pathString, O_RDONLY);
-    //int counter = 0;
+    NSLog(@"Filedes = %d", fildes);
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE,fildes, DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_ATTRIB | DISPATCH_VNODE_LINK | DISPATCH_VNODE_RENAME | DISPATCH_VNODE_REVOKE,
+    __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fildes, DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_ATTRIB | DISPATCH_VNODE_LINK | DISPATCH_VNODE_RENAME | DISPATCH_VNODE_REVOKE,
                                                               queue);
     dispatch_source_set_event_handler(source, ^
                                       {
                                           unsigned long flags = dispatch_source_get_data(source);
-                                          //Do some stuff
                                           
                                           if(flags & DISPATCH_VNODE_DELETE)
                                           {
@@ -650,149 +795,14 @@
                                           }
                                           else {
                                               
-                                              NSError *error;
-                                              NSString *pathToTempXml = @"/Users/crogoz/Desktop/XMLParser/myNewFile.xml";
-                                              [[NSFileManager defaultManager] removeItemAtPath:pathToTempXml error:&error];
                                               
-                                              //NSString *zipPath = [[NSBundle mainBundle] pathForResource:path ofType:@"xd"];
+                                              /* creates an unzip directory of the current XD project (**changes have been made ) */
+                                              NSString *mainBundle = [self getProjHomePath];
+                                              NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_UNZIP_PATH];
                                               
-                                              //TODO change unzip directory -> maybe temp directory ?
-                                              //NSString *destinationPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, //NSUserDomainMask, YES) objectAtIndex:0];
-                                              NSArray *paths = NSSearchPathForDirectoriesInDomains
-                                              (NSDocumentDirectory, NSUserDomainMask, YES);
-                                              NSString *documentsDirectory = [paths objectAtIndex:0];
+                                              [self unzipXD:path atPath:unzipped_xd];
                                               
-                                              NSTask *task = [[NSTask alloc] init];
-                                              task.launchPath = UNZIP_PATH;
-                                              task.arguments = @[path];
-                                              task.currentDirectoryPath=documentsDirectory;
-                                              
-                                              [task launch];
-                                              [task waitUntilExit];
-                                              
-                                              NSFileManager *fileManager = [[ NSFileManager alloc] init];
-                                              
-                                              NSString *pathFinal = @"/Users/crogoz/Documents/temp-artwork";
-                                              NSURL *directoryURLF = [NSURL fileURLWithPath:pathFinal];
-                                              
-                                              NSString *pathInit = @"/Users/crogoz/Documents/artwork";
-                                              NSURL *directoryURLI = [NSURL fileURLWithPath:pathInit];
-                                              
-                                              NSString *pathToArtboardAgc = @"/Users/crogoz/Documents/resources/graphics/graphicContent.agc";
-                                              NSString *jsonString = [[NSString alloc] initWithContentsOfFile:pathToArtboardAgc encoding:NSUTF8StringEncoding error:NULL];
-                                              
-                                              NSMutableDictionary *jsonArtboards = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
-                                              jsonArtboards = [jsonArtboards objectForKey:@"artboards"];
-                                              
-                                              widthAgcArtboard = [[[jsonArtboards objectForKey:@"artboard1"] objectForKey:@"width"] intValue];
-                                              heightAgcArtboard = [[[jsonArtboards objectForKey:@"artboard1"]  objectForKey:@"height"] intValue];
-                                              
-                                              NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
-                                              
-                                              
-                                              
-                                              NSDirectoryEnumerator *enumeratorI = [fileManager
-                                                                                    enumeratorAtURL:directoryURLI
-                                                                                    includingPropertiesForKeys:keys
-                                                                                    options:0
-                                                                                    errorHandler:^(NSURL *url, NSError *error) {
-                                                                                        return YES;
-                                                                                    }];
-                                              
-                                              NSDirectoryEnumerator *enumeratorF = [fileManager
-                                                                                    enumeratorAtURL:directoryURLF
-                                                                                    includingPropertiesForKeys:keys
-                                                                                    options:0
-                                                                                    errorHandler:^(NSURL *url, NSError *error) {
-                                                                                        return YES;
-                                                                                    }];
-                                              
-                                              NSMutableArray *filesInit = [[NSMutableArray alloc] init];
-                                              
-                                              for (NSURL *urlI in enumeratorI) {
-                                                  
-                                                  NSError *error;
-                                                  NSNumber *isDirectory = nil;
-                                                  if (! [urlI getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
-                                                      // handle error
-                                                  }
-                                                  else if (! [isDirectory boolValue]) {
-                                                      
-                                                      if ([[[[urlI path] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"graphicContent.agc"]) {
-                                                          NSLog(@"URL = %@", [urlI path]);
-                                                          [filesInit addObject:[urlI path]];
-                                                          
-                                                      }
-                                                  }
-                                                  
-                                              }
-                                              NSLog(@"Files = %@", filesInit);
-                                              
-                                              int i = 0;
-                                              NSNumber *offset_scene = [NSNumber numberWithInt:0];
-                                              
-                                              
-                                              for (NSURL *urlF in enumeratorF) {
-                                                  NSError *error;
-                                                  NSNumber *isDirectory = nil;
-                                                  if (! [urlF getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
-                                                      // handle error
-                                                  }
-                                                  else if (! [isDirectory boolValue] &&
-                                                           ![[urlF path] isEqualToString:@"/Users/crogoz/Documents/temp-artwork/.DS_Store"]) {
-                                                      //[filesInit addObject:[urlF path]];
-                                                      //TODO dictionaries to compare
-                                                      NSLog(@"Files = %@ %@", filesInit, urlF);
-                                                      NSLog(@"Check %@ with %@", [urlF path], [filesInit objectAtIndex:i]);
-                                                      
-                                                      NSString *filePath = [urlF path];
-                                                      NSString *jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
-                                                      
-                                                      NSError *jsonError;
-                                                      
-                                                      NSMutableDictionary *jsonDict1 = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
-                                                      
-                                                      filePath = [filesInit objectAtIndex:i];
-                                                      jsonString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
-                                                      
-                                                      NSMutableDictionary *jsonDict2 = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonError];
-                                                      
-                                                      NSMutableSet *keysInA = [NSMutableSet setWithArray:[jsonDict1 allKeys]];
-                                                      NSSet *keysInB = [NSSet setWithArray:[jsonDict2 allKeys]];
-                                                      [keysInA minusSet:keysInB];
-                                                      
-                                                      
-                                                      
-                                                      //TODO eventual in xml2agc
-                                                      NSArray *first = [[[[jsonDict1 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"] objectForKey:@"children"];
-                                                      NSArray *second = [[[[jsonDict2 objectForKey:@"children"] objectAtIndex:0] objectForKey:@"artboard"] objectForKey:@"children"];
-                                                      
-                                                      
-                                                      NSString *artboardNoInfo = [NSString stringWithFormat:@"artboard%d", i +1];
-                                                      
-                                                      NSMutableDictionary * offsetGroupDict = [[NSMutableDictionary alloc] init];
-                                                      offsetGroupDict[@"tx"] = [NSNumber numberWithInt: 0];
-                                                      offsetGroupDict[@"ty"] = [NSNumber numberWithInt: 0];
-                                                      NSMutableDictionary* tagExport = [self compare2Artboards:first dict2:second artboard_info:[jsonArtboards objectForKey:artboardNoInfo] offsetGroup:offsetGroupDict numberGroup:[NSNumber numberWithInt:0]];
-                                                      NSLog(@"To export = %@ %d", tagExport, i);
-                                                      
-                                                      //TODO export to XML file: For now: Use myXMLFileScenes.xml !!!
-                                                      
-                                                      [self updateXMLfile:tagExport tagNo:[NSNumber numberWithInt:++i] offsetScene:&offset_scene];
-                                                      
-                                                      NSLog(@"Update %d is done", i);
-                                                      //TODO: only for same objects-> different attributes
-                                                      //TODO: objects are added
-                                                      //TODO objects are deleted & added
-                                                      
-                                                  }
-                                                  
-                                              }
-                                              //add footer for xml file
-                                              [self updateXMLfile:[[NSMutableDictionary alloc] init] tagNo:0 offsetScene:&offset_scene];
-                                              
-                                              //NSLog(@"Offsets are = %@", )
-                                              NSLog(@"Offset: %@", offsetXmlFile);
+                                              [self findChangesForPath:(NSString *)unzipped_xd];
                                           }
                                       });
     

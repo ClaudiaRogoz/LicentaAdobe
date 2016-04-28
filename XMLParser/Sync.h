@@ -56,7 +56,7 @@
 @property NSString *xmlPath;
 
 
-
++ (void) startSync:(NSString *) path;
 /**
  *  sync algorithm; monitors a file given as parameter
  *  PARAMS:

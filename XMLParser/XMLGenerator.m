@@ -895,12 +895,12 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:resourcesXmlRes
                                               isDirectory:&isDir]) {
         
-        [[NSFileManager defaultManager] createDirectoryAtPath:[[self xmlPath] stringByAppendingPathComponent:@"Resources"] withIntermediateDirectories:NO attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[self xmlPath] stringByAppendingPathComponent:RESOURCES_PATH] withIntermediateDirectories:NO attributes:nil error:&error];
         
     }
     
-    NSBitmapImageRep *imgRep = [[image representations] objectAtIndex: 0];
-    NSData *data = [imgRep representationUsingType: NSPNGFileType properties: 0];
+    NSBitmapImageRep *imgRep = (NSBitmapImageRep *)[[image representations] objectAtIndex: 0];
+    NSData *data = [imgRep representationUsingType: NSPNGFileType properties: @{}];
     [data writeToFile: resourcesXmlProj atomically: NO];
 
 }

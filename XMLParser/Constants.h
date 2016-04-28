@@ -24,6 +24,9 @@
 #define SVG             @"svg"
 #define JSON            @"json"
 #define AGC             @"agc"
+#define XCODEPROJ       @"xcodeproj"
+#define ARTBOARD_FILE_PREFIX    @"artboard-artboard"
+
 
 /* Test files */
 #define TEST_PATH @"XMLParser/TestGenerator.json"
@@ -38,13 +41,19 @@
 #define TESTMULTTEXT_PATH       @"TestMulText"
 #define TESTBIGIMG      @"TestBigImage"
 
-
-#define HELP    "-h"
-
-#define UNZIP_PATH  @"/usr/bin/unzip"
-#define ARTBOARD_FILE_PREFIX    @"artboard-artboard"
+/* temporary paths */
+#define PROJ_PATH   4
+#define RESOURCES_PATH  @"Resources"
+#define XD_UNZIP_PATH      @".unzipped_xd"
 #define PREV_ART_PATH   @"prev_artboards"
-#define XCODEPROJ       @"xcodeproj"
+#define UNZIP_PATH  @"/usr/bin/unzip"
+#define OPEN_PATH   @"/usr/bin/open"
+#define BUILD_PATH       @"Build"
+#define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
+#define GRAPHIC         @"graphicContent.agc"
+
+/* args for app */
+#define HELP    "-h"
 
 #define SVG_INFO    @" d="
 #define SVG_FILL    @"fill: "
@@ -52,7 +61,6 @@
 #define SVG_FILL_LEN     7
 #define SVG_INFO_END    @"\""
 #define SVG_FILL_END    @";"
-#define RESOURCES_PATH  @"Resources"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
@@ -90,6 +98,7 @@
 #define GROUP       @"group"
 #define TYPE        @"type"
 #define ARTBOARDS   @"artboards"
+#define FIRST_ARTBOARD  @"artboard1"
 #define TRANSFORM   @"transform"
 #define TX          @"tx"
 #define TY          @"ty"
@@ -125,12 +134,13 @@
 #define VERSION_AGC @"1.5.0"
 #define HREF        @"href"
 #define REF         @"ref"
-#define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
+
 #define TEXTFIELD   @"textField"
 #define TEXT_COLOR_R    @"textField.style.fill.color.value.r"
 #define TEXT_COLOR_G    @"textField.style.fill.color.value.g"
 #define TEXT_COLOR_B    @"textField.style.fill.color.value.b"
 #define TEXT_COLOR_A    @"textField.style.fill.color.alpha"
+#define CHILDREN_SUBVIEWS   @"children.0.artboard.children"
 
 #define FRAME_DOT   @"rect."
 #define LENGTH_DOT  @"length."

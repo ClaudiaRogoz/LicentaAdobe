@@ -54,7 +54,8 @@
         NSLog(@"Got an error: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
+        NSString *mainBundle = [self getProjHomePath];
+        
         
         NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, file];
         
@@ -64,11 +65,20 @@
     }
 }
 
+-(NSString *) getProjHomePath {
+
+    NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
+    for (int i = 0; i< PROJ_PATH; i++) {
+        mainBundle = [mainBundle stringByDeletingLastPathComponent];
+    }
+    return mainBundle;
+}
+
 - (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
     
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
     NSMutableDictionary *artboardsD = [dictionary objectForKey:ARTBOARDS];
-    NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
+    NSString *mainBundle = [self getProjHomePath];
     NSError *error;
     int nr = 1;
     
@@ -88,10 +98,17 @@
         
         /* create a temp directory where all the prev artboards can be stored */
         /* used for sync */
-        [[NSFileManager defaultManager] createDirectoryAtPath:[mainBundle stringByAppendingPathComponent:PREV_ART_PATH] withIntermediateDirectories:NO attributes:nil error:&error];
+        NSString *artboardDirPath = [mainBundle stringByAppendingPathComponent:[NSString stringWithFormat:@".%@",PREV_ART_PATH]];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:artboardDirPath]) {
+            BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:artboardDirPath withIntermediateDirectories:NO attributes:nil error:&error];
+            
+            if (success == false) {
+                NSLog(@"[ERROR] cannot create path %@", [mainBundle stringByAppendingPathComponent:PREV_ART_PATH]);
+                return nil;
+            }
+        }
         
-        NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@", PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
-        
+        NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@",PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
         [self writeToFile:tempArray file:artboardName];
         nr++;
     }
