@@ -71,6 +71,7 @@
 @property NSString *agcPath;
 
 + (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString *)outXml;
++ (NSString *) generateXmlForTag:(NSDictionary*)agcDict;
 
 - (id)initWithError:(NSError **)error;
 
@@ -102,7 +103,7 @@
 -(NSString *) surroundWithHeader:(NSString *) header footer:(NSString *) footer string:(NSString *)str;
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name;
 -(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject;
--(void) generateXmlForTag:(NSDictionary*)agcDict;
+
 
 @end
 

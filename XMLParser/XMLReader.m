@@ -36,7 +36,7 @@
 
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName];
-    
+    NSLog(@"reader = %@", rootDictionary);
     [reader splitArtboards:rootDictionary];
     
     
@@ -84,7 +84,7 @@
     
     for (id key in [artboardsD allKeys]) {
         
-        NSMutableDictionary *tempArray = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: dictionary]];
+        NSMutableDictionary *tempArray = [self deepCopy: dictionary];
         
         id artboardNo = [artboardsD objectForKey:key];
         [tempArray  setValue:[[NSMutableDictionary alloc] init] forKey:ARTBOARDS];
@@ -290,6 +290,12 @@
 
 }
 
+-(id) deepCopy:(id) object {
+    
+    return [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: object]];
+    
+}
+
 -(NSNumber *)convertToNumber:(id) tempValue {
 
     NSNumber *nr = [[NSNumber alloc] init];
@@ -328,7 +334,7 @@
 
 -(void)createAgcFrameForElement:(NSString *)elementName attributes:(NSMutableDictionary *)attributeDict {
 
-    NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[RECTANGLE]]];
+    NSMutableDictionary *shapeAttr = [self deepCopy:attributes[RECTANGLE]];
     
     NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
     
@@ -482,7 +488,7 @@
                            childDict:(NSMutableDictionary *)childDict parentDict:(NSMutableDictionary**)parentDict
 {
     
-    NSMutableDictionary *correctAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[elementName]]];
+    NSMutableDictionary *correctAttr = [self deepCopy:attributes[elementName]];
     ;
     //First level attributes
     for (id key in attributes[elementName]){
@@ -549,7 +555,7 @@
     if ([xml2agcDictionary objectForKey:[inheritanceStack lastObject]] &&
         [[xml2agcDictionary objectForKey:[inheritanceStack lastObject]] isEqual: LIST]){
         elementName = [[NSString alloc] initWithFormat:@"%d",counterCh++];
-        id lastObject =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [dictionaryStack lastObject]]];
+        id lastObject =  [self deepCopy: [dictionaryStack lastObject]];
         
         if ([[inheritanceStack lastObject] isEqualToString: CHILDREN] && ![childDict objectForKey:TYPE]){
             [childDict setObject:ART_SCENE forKey:TYPE];
@@ -616,7 +622,7 @@
             
             NSString *entry = [NSString stringWithFormat:@"%@.", elementName];
             
-            NSMutableDictionary *shapeAttr = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: attributes[BACKGROUND]]];
+            NSMutableDictionary *shapeAttr = [self deepCopy:attributes[BACKGROUND]];
             
             [self transformAgcColor:entry searchAttr:shapeAttr dictAttr:attributeDict];
             

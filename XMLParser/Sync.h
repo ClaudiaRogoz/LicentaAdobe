@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Constants.h"
+#import "XMLGenerator.h"
 
 @interface Sync : NSObject
 {
@@ -57,6 +58,7 @@
 
 
 + (void) startSync:(NSString *) path;
+
 /**
  *  sync algorithm; monitors a file given as parameter
  *  PARAMS:
@@ -64,39 +66,6 @@
  **/
 - (void) monitorXDFile:(NSString*) path;
 
-/**
- *  compares 2 Artboards;
- *  returns $diff (as a dictionary) between the old dictioanry and the new dictionary
- *  PARAMS:
- *      first: old dictionary
- *      second: new dictionary
- *      jsonArtboards: template dictioanry
- *      offsetGroupDict:   offset dictionary
- **/
-- (NSMutableDictionary*) compare2Artboards:(NSArray *) first dict2:(NSArray *) second artboard_info:(NSMutableDictionary *)jsonArtboards offsetGroup:(NSMutableDictionary *)offsetGroupDict numberGroup:(NSNumber *) nr;
-
-/**
- *  checks whether 2 dictionaries are equal; the difference is given as a
- * dictionary in `trList` variable
- **/
-- (bool) checkAreEqual:(NSDictionary *)prev prevDict:(NSDictionary *)newD attr:(NSDictionary*)currAttr outList:(NSMutableDictionary**)trList equal:(BOOL) eq json_info:(NSDictionary *) jsonInfo;
-
-
-/**
- *  updates the XML file with the modified values
- *  used for sync
- *  PARAMS:
- *      tags: dictionary with variables and their equivalent values
- *      tagNo: the number of the current scene
- *      offset_scene: the updated offsets after the modifications
- **/
-- (void) updateXMLfile:(NSDictionary *)tags tagNo:(NSNumber *)n offsetScene:(NSNumber **) offset_scene;
-
-/**
- *  merges an xml tag with it's subtags;
- *  used for sync
- **/
-- (NSString *) appendModifiedString:(NSMutableDictionary *)dict minTagOffset:(NSNumber **)tagOffset;
 
 
 @end

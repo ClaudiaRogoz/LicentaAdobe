@@ -2,21 +2,21 @@
   "manifest-format-version" : 6,
   "state" : "modified",
   "uxdesign#userDidSetPrototypeName" : "false",
-  "id" : "91474F03-157C-45C0-8A8F-98D1C3911AA8",
+  "id" : "07159A99-4761-4E65-B32F-37C05A776F98",
   "children" : [
     {
       "path" : "artwork",
-      "id" : "9D3AF28D-2A80-4F67-A9E9-32F93EA17B9A",
+      "id" : "CD9CE4E8-3A6C-4898-A199-E0504B2D8556",
       "name" : "artwork",
       "children" : [
         {
           "path" : "pasteboard",
-          "id" : "4BED99DE-B9A5-4895-BB61-C55C33DE8FD0",
+          "id" : "C7379D6D-C61E-403B-A663-7EB4F64C9A2F",
           "name" : "pasteboard"
         },
         {
           "path" : "artboard-artboard1",
-          "id" : "62AA3F20-AC36-47CE-99C5-472FDF556F68",
+          "id" : "2F1B082C-7FA5-4032-8760-3DCB1F77AEB2",
           "name" : "iPhone 6 – 1",
           "uxdesign#bounds" : {
             "y" : 21,
@@ -27,11 +27,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "3F3032D6-AB4B-4F33-B587-0C0D7D0318BE",
+              "id" : "BC632E89-3F51-4ADB-9459-24D49D100EA3",
               "components" : [
                 {
-                  "length" : 1408,
-                  "id" : "AEB8CE0E-33A5-47EE-A169-DB2EF0E6DC2D",
+                  "length" : 1353,
+                  "id" : "196E2C54-9C7D-480C-B41C-A04EC88F26F2",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -44,7 +44,7 @@
         },
         {
           "path" : "artboard-artboard2",
-          "id" : "619D3F4D-0233-4719-BBD4-CEC0EE4E2B59",
+          "id" : "B79D44B3-B54F-4B72-A9F3-AED7B5240131",
           "name" : "iPhone 6 – 2",
           "uxdesign#bounds" : {
             "y" : 21,
@@ -55,11 +55,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "53C6B4C1-5C23-46FF-8C31-B6E0CBAC1A0E",
+              "id" : "B82D3744-5AAB-4D36-99DB-A4A0BE3C15BE",
               "components" : [
                 {
                   "length" : 1673,
-                  "id" : "93B0AA75-CF0A-46AE-9801-2905E995D180",
+                  "id" : "D5607730-7CF5-4480-A8DD-A035AC46BA64",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -74,16 +74,16 @@
     },
     {
       "path" : "resources",
-      "id" : "9517F51B-6DC2-48AB-9B42-3DE133794E0E",
+      "id" : "CA09BBA3-24BC-43B6-870F-F023C911A56A",
       "name" : "resources",
       "children" : [
         {
           "path" : "graphics",
-          "id" : "736FF80D-DD01-42DE-99B6-CEF82E0FFF13",
+          "id" : "0C885146-362E-4646-9FAC-01B2090339A0",
           "components" : [
             {
               "length" : 371,
-              "id" : "A54C9BFD-02A4-40F1-AC72-F5BE8BB66924",
+              "id" : "600232DA-CEDB-46D6-94D3-68AE53C85DB9",
               "rel" : "primary",
               "path" : "graphicContent.agc",
               "type" : "application\/vnd.adobe.agc+dcx",
@@ -96,11 +96,11 @@
     },
     {
       "path" : "interactions",
-      "id" : "D4DA22DA-7ABD-4248-94C7-6FE08927F236",
+      "id" : "B9064B0A-2520-4836-9834-DEC9E73AC50B",
       "components" : [
         {
           "length" : 17,
-          "id" : "D00DC6BC-3B09-4A7C-AC8B-02E331DE1152",
+          "id" : "8559AB0E-DD2B-40E1-994F-AF3D5AD88D06",
           "rel" : "primary",
           "path" : "interactions.json",
           "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -113,7 +113,7 @@
   "components" : [
     {
       "length" : 1323,
-      "id" : "A3951330-8DE9-49CD-9B63-5690FF52AD61",
+      "id" : "6D91CA55-07FA-464C-B1B0-8103081293A7",
       "rel" : "metadata",
       "path" : "META-INF\/metadata.xml",
       "type" : "application\/rdf+xml",

@@ -18,29 +18,20 @@
 
 @implementation XMLGenerator
 
+
+
 + (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString*)outXmlPath
 {
     NSError *error;
+    XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
+    [gen initWithSchemas];
     
     NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
-    NSString *def = [thisBundle pathForResource:DEF_PATH ofType:JSON];
-    NSString *rule = [thisBundle pathForResource:RULES_PATH ofType:JSON];
-    //NSString *test = [thisBundle pathForResource:TESTMULTTEXT_PATH ofType:JSON];
     NSString *test = [thisBundle pathForResource:@"TestFrame" ofType:JSON];
-    XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
-    NSData *defData = [NSData dataWithContentsOfFile:def];
     
-    
-    NSData *ruleData = [NSData dataWithContentsOfFile:rule];
-    
-    
-    NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
-    
-    NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
     [gen setXmlPath:xmlPath];
     [gen setOutXmlPath:outXmlPath];
-    [gen initializeWithDefs:defDictionary rules:ruleDictionary];
-    
+
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
     NSData *testData = [NSData dataWithContentsOfFile:test ];
@@ -48,6 +39,43 @@
 
     [gen getXmlForAgcObject:agcTemplate];
 
+    
+}
+
++(NSString *) generateXmlForTag:(NSDictionary*)agcDict {
+    
+    NSError *error;
+    
+    XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
+    [gen initWithSchemas];
+    
+    NSString *xmlTemplate = [gen getXmlForAgcObject:agcDict];
+    
+    if (!xmlTemplate) {
+        NSLog(@"[ERROR] No translation can be achieved at the moment for %@", [agcDict objectForKey:TYPE]);
+        return nil;
+    }
+    
+    NSLog(@"Done\n");
+    return xmlTemplate;
+}
+
+-(void) initWithSchemas {
+    
+    NSError *error;
+    
+    NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
+    NSString *def = [thisBundle pathForResource:DEF_PATH ofType:JSON];
+    NSString *rule = [thisBundle pathForResource:RULES_PATH ofType:JSON];
+    NSData *defData = [NSData dataWithContentsOfFile:def];
+ 
+    NSData *ruleData = [NSData dataWithContentsOfFile:rule];
+
+    NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
+    
+    NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
+    
+    [self initializeWithDefs:defDictionary rules:ruleDictionary];
     
 }
 
@@ -249,6 +277,7 @@
 
 -(void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict {
    
+    NSLog(@"DefValues = %@ %@", *initDict, paramDict);
     if ([defaultDict count] > 0)
         for (id key in [defaultDict allKeys]) {
             NSString *value = [defaultDict objectForKey:key];
@@ -1092,22 +1121,14 @@
         NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
         [xmlData writeToFile:[self outXmlPath] atomically:YES];
         
-        return finalString;
+        return xmlFile;
         
     }
     
     return nil;
 }
 
--(void) generateXmlForTag:(NSDictionary*)agcDict {
-    NSString *xmlTemplate = [self getXmlForAgcObject:agcDict];
-    
-    if (!xmlTemplate) {
-        NSLog(@"[ERROR] No translation can be achieved at the moment for %@", [agcDict objectForKey:TYPE]);
-        return;
-    }
-    
-}
+
 
 - (id)initWithError:(NSError **)error
 {
