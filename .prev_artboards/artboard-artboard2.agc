@@ -26,12 +26,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "213419"
+                      "uid" : "307715"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
                 }
               }
             },
@@ -59,12 +59,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "578004"
+                      "uid" : "136847"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
                 }
               }
             },
@@ -92,12 +92,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "24008"
+                      "uid" : "261788"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
                 }
               }
             },
@@ -433,12 +433,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "115715"
+                      "uid" : "668783"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
                 }
               }
             },

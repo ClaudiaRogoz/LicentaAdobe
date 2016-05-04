@@ -110,12 +110,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "606114"
+                      "uid" : "925553"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
                 }
               }
             },
