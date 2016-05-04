@@ -97,7 +97,7 @@
 /* -----------------------PUBLIC method------------------------*/
 
 /* used for xml2agc parsing */
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir xdPath:(NSString *)path outFile:(NSString *)out_file error:(NSError **)errorPointer;
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)errorPointer;
 
 /* -----------------------PRIVATE methods----------------------*/
 

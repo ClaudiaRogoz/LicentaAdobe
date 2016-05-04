@@ -24,11 +24,10 @@
 #pragma mark Public methods
 
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir xdPath:(NSString*)xdPath outFile:(NSString *)out_file error:(NSError **)error
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)error
 {
     XMLReader *reader = [[XMLReader alloc] initWithError:error];
     [reader setResourcesPath:resourcesDir];
-    [reader setXdPath:xdPath];
     [reader setXmlPath:out_file];
     
     NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];

@@ -122,6 +122,58 @@
               ],
               "rawText" : "Label"
             }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 0,
+                    "g" : 0,
+                    "b" : 0
+                  },
+                  "alpha" : 255
+                }
+              },
+              "font" : {
+                "size" : 17,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 377.2408,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 278.3733
+            },
+            "type" : "text",
+            "name" : "Label",
+            "text" : {
+              "frame" : {
+                "type" : "positioned"
+              },
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 0,
+                        "to" : 5,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "rawText" : "Label"
+            }
           }
         ]
       }
@@ -152,7 +204,7 @@
   "viewSource" : {
     "y" : "0",
     "x" : "0",
-    "width" : 800,
+    "width" : 400,
     "height" : 667
   },
   "version" : "1.5.0"

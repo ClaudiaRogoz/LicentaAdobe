@@ -23,22 +23,20 @@
 + (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString*)outXmlPath
 {
     NSError *error;
+    NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
+    NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
+    NSString *test = [thisBundle pathForResource:@"TestFrame" ofType:JSON];
+    NSData *testData = [NSData dataWithContentsOfFile:test ];
+    
     XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
     [gen initWithSchemas];
-    
-    NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
-    NSString *test = [thisBundle pathForResource:@"TestFrame" ofType:JSON];
-    
     [gen setXmlPath:xmlPath];
     [gen setOutXmlPath:outXmlPath];
 
-    NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
-    
-    NSData *testData = [NSData dataWithContentsOfFile:test ];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
-
+    
     [gen getXmlForAgcObject:agcTemplate];
-
+    
     
 }
 
@@ -56,7 +54,7 @@
         return nil;
     }
     
-    NSLog(@"Done\n");
+    
     return xmlTemplate;
 }
 
@@ -68,9 +66,9 @@
     NSString *def = [thisBundle pathForResource:DEF_PATH ofType:JSON];
     NSString *rule = [thisBundle pathForResource:RULES_PATH ofType:JSON];
     NSData *defData = [NSData dataWithContentsOfFile:def];
- 
+    
     NSData *ruleData = [NSData dataWithContentsOfFile:rule];
-
+    
     NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
     
     NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
@@ -80,9 +78,9 @@
 }
 
 -(id) deepCopy:(id) object {
-
+    
     return [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: object]];
-
+    
 }
 
 -(void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex{
@@ -115,9 +113,9 @@
     [[NSFileManager defaultManager] createFileAtPath:filePath
                                             contents:fileContents
                                           attributes:nil];
-
-
-
+    
+    
+    
 }
 
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
@@ -149,13 +147,14 @@
     
     
 }
+
 - (NSString *)hexStringForColor:(NSDictionary *)value {
     CGFloat red = [[value objectForKey:RED] floatValue] /255;
     CGFloat green = [[value objectForKey:GREEN] floatValue] /255;
     CGFloat blue = [[value objectForKey:BLUE] floatValue] /255;
     
     NSColor *color = [NSColor colorWithRed:red
-                                    green:green
+                                     green:green
                                       blue:blue
                                      alpha:1];
     
@@ -166,6 +165,34 @@
     
     NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X", (int)(r * 255), (int)(g * 255), (int)(b * 255)];
     return hexString;
+}
+
+-(NSString *) computeAgcTag: (NSString *) initValue dict:(NSDictionary *)agcDict {
+    
+    initValue = [initValue substringFromIndex:1];
+    NSArray *array = [initValue componentsSeparatedByString:DOT];
+    
+    id value = agcDict;
+    for (id key in array) {
+        
+        if ([key isEqualToString:COUNT]) {
+            
+            return [ NSString stringWithFormat:@"%d", (int)[value count]];
+        }
+        if ([key isEqualToString:LINES])
+            value = [value objectAtIndex:0];
+        else
+            value = [value objectForKey:key];
+        
+    }
+    
+    if ([value isKindOfClass:[NSDictionary class]]) {
+        /* only in case of color transformation to hex */
+        return [self hexStringForColor:(NSDictionary*)value];
+    }
+    
+    return value;
+
 }
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
@@ -180,13 +207,13 @@
         /* used for multiline labels */
         NSRange range = [initValue rangeOfString:GETMAX];
         NSArray *max2 = [[initValue substringFromIndex:range.location + GETMAX.length + 1] componentsSeparatedByString:SPACE];
-       
+        
         id first = [self computeValue:[max2 objectAtIndex:0] forDict:agcDict];
         id second = [self computeValue:[max2 objectAtIndex:1] forDict:agcDict];
         int ret = MAX([first intValue], [second intValue]);
         
         return [NSString stringWithFormat:@"%d", ret];
-    
+        
     } else if ([initValue hasPrefix:PATH]){
         
         NSRange range = [initValue rangeOfString:PATH];
@@ -204,31 +231,7 @@
         
     } else {
         //if it depends on an agc tag
-        initValue = [initValue substringFromIndex:1];
-        NSArray *array = [initValue componentsSeparatedByString:DOT];
-        
-        id value = agcDict;
-        for (id key in array) {
-            
-            if ([key isEqualToString:COUNT]) {
-                
-                return [ NSString stringWithFormat:@"%d", (int)[value count]];
-            }
-            if ([key isEqualToString:LINES])
-                value = [value objectAtIndex:0];
-            else
-                value = [value objectForKey:key];
-            
-            
-        }
-        
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            /* only in case of color transformation to hex */
-            return [self hexStringForColor:(NSDictionary*)value];
-        }
-        
-        return value;
-        
+        return [self computeAgcTag:initValue dict:agcDict];
     }
     
     return initValue;
@@ -252,7 +255,7 @@
     
     if ([varName hasPrefix:TOTRANSFORM] && [translationDict objectForKey:varName])
         varName = [translationDict objectForKey:varName];
-        
+    
     NSMutableString *tagStr = [NSMutableString stringWithFormat:@"<%@", varName];
     
     for (id object in order) {
@@ -264,20 +267,20 @@
         [tagStr appendFormat:@">"];
     
     if (betweenTags) {
-    
+        
         for (id object in betweenTags) {
             [tagStr appendFormat:@"%@", [dict objectForKey:object]];
         }
         [tagStr appendFormat:STRINGTAG];
-       
+        
     }
     
     return tagStr;
 }
 
 -(void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict {
+    
    
-    NSLog(@"DefValues = %@ %@", *initDict, paramDict);
     if ([defaultDict count] > 0)
         for (id key in [defaultDict allKeys]) {
             NSString *value = [defaultDict objectForKey:key];
@@ -287,17 +290,28 @@
     
     NSString *dependency = [[paramDict allKeys] objectAtIndex:0];
     paramDict = [paramDict objectForKey:dependency];
-   
+    
     for (id key in [*initDict allKeys]) {
         NSString *value = [*initDict objectForKey:key];
         
         BOOL toTransform = [value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM];
         if (toTransform) {
-          
+            
             [*initDict setObject:[paramDict objectForKey:key] forKey:key];
         }
     }
     
+}
+
+- (BOOL) isOfTypeColor:(NSString *) key {
+    return [[transformObjects objectForKey:COLOR] objectForKey:key] != nil;
+}
+
+-(BOOL) isOfTypeScale:(NSString *)key object:(NSString *) type {
+    return [[transformObjects objectForKey:SCALE] objectForKey:key] && [[transformObjects objectForKey:SCALE] objectForKey:type];
+}
+-(BOOL) isOfTypeSize:(NSString *)key {
+    return [[transformObjects objectForKey:SIZE] objectForKey:key] != nil;
 }
 
 -(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
@@ -312,13 +326,13 @@
     for (id key in allKeys) {
         
         id value = [*objDict objectForKey:key];
-       
+        
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
             
             if (value) {
                 
-                if ([[transformObjects objectForKey:COLOR] objectForKey:key]) {
+                if ([self isOfTypeColor:key]) {
                     /* change the color */
                     
                     float color = [value floatValue] / 255;
@@ -326,12 +340,11 @@
                     continue;
                 }
                 
-                if ([[transformObjects objectForKey:SCALE] objectForKey:key] &&
-                    [[transformObjects objectForKey:SCALE] objectForKey:type]) {
+                if ([self isOfTypeScale:key object:type]) {
                     float translatedValue;
-                
-                    float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
-                    float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
+                    
+                    float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
+                    float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
                     
                     if ([key isEqualToString:WIDTH]) {
                         translatedValue = [value floatValue] * xScaleFactor;
@@ -359,13 +372,13 @@
                     id tvalue = [[self splitVariable:value] objectAtIndex:0];
                     
                     
-                    if ([[transformObjects objectForKey:SIZE] objectForKey:key]) {
+                    if ([self isOfTypeSize:key]) {
                         /* changing size here */
                         
                         float initValue = [[dictValue objectForKey:tvalue] floatValue];
                         float translatedValue = initValue;
-                        float xScaleFactor = (float)WIDTHXMLARTBOARD/WIDTHXDARTBOARD;
-                        float yScaleFactor = (float)HEIGHTXMLARTBOARD/HEIGHTXDARTBOARD;
+                        float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
+                        float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
                         
                         if ([key isEqualToString:XARTBOARD]) {
                             translatedValue = initValue - startXArtboard;
@@ -376,7 +389,7 @@
                             translatedValue = initValue - startYArtboard;
                             translatedValue = translatedValue * yScaleFactor;
                         }
-                       
+                        
                         [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
                     } else
                         [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
@@ -400,7 +413,7 @@
                         [style setLineBreakMode:NSLineBreakByWordWrapping];
                         
                         NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:fontSize],
-                                                      NSParagraphStyleAttributeName: style};
+                                                     NSParagraphStyleAttributeName: style};
                         
                         CGRect lineFrame = [firstLine boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                                                    options:NSStringDrawingUsesLineFragmentOrigin
@@ -409,9 +422,9 @@
                         
                         float width = lineFrame.size.width  + 0.1 * lineFrame.size.width;
                         CGRect rect = [label boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                                               attributes:attributes
-                                                                  context:nil];
+                                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                                       attributes:attributes
+                                                          context:nil];
                         
                         [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
                         [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.1 * rect.size.width] forKey:WIDTH];
@@ -433,7 +446,7 @@
 -(id) getShapeType:(id)type object:(id)object {
     
     if ([type isKindOfClass:[NSDictionary class]]) {
-       
+        
         for (id key in [type allKeys]) {
             
             id value = [object mutableCopy];
@@ -441,7 +454,7 @@
             NSArray *gotoTag = [key componentsSeparatedByString:DOT];
             
             for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
-               
+                
                 value = [value objectForKey:elem];
                 
             }
@@ -460,9 +473,9 @@
                 gotoTag = [subKey componentsSeparatedByString:DOT];
                 
                 for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
-                
+                    
                     subValue = [subValue objectForKey:elem];
-                
+                    
                 }
                 
                 if (![subValue isEqualToString:[gotoTag lastObject]])
@@ -478,18 +491,18 @@
             break;
         }
     }
-
+    
     return type;
-
+    
 }
 
 -(void) getViewSize:(NSDictionary *)groupFrame minx:(int*)minx miny:(int*)miny maxx:(int*)maxx maxy:(int*)maxy maxh:(int*)maxh maxw:(int*)maxw {
-   
+    
     int x = [[groupFrame objectForKey:XARTBOARD] intValue];
     int y = [[groupFrame objectForKey:YARTBOARD] intValue];
     int w = [[groupFrame objectForKey:WIDTH] intValue];
     int h = [[groupFrame objectForKey:HEIGHT] intValue];
-
+    
     if (x <= *minx)  {
         *minx = x;
     }
@@ -517,10 +530,10 @@
         y = y - miny;
         [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
         [frame setObject:[NSNumber numberWithInt:y] forKey:YARTBOARD];
-
+        
     }
-
-
+    
+    
 }
 
 -(void) processGroup:(NSDictionary *)object newObjDict:(NSDictionary *)newObjDict subviews:(NSMutableArray **) viewSubviews finalDict:(NSMutableDictionary *)finalDict
@@ -546,9 +559,9 @@
             *viewSubviews = [[*viewSubviews arrayByAddingObjectsFromArray:arrayObj] mutableCopy];
             continue;
         }
-
+        
         [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict ofType:type];
-
+        
         id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
         
         [self getViewSize:groupFrame minx:minx miny:miny maxx:maxx maxy:maxy maxh:maxh maxw:maxw];
@@ -559,35 +572,35 @@
         [*viewSubviews addObject:subViewDict];
         
     }
-
-
-
+    
+    
+    
 }
 
 -(void) computeGroup:(NSMutableDictionary *)newObjDict agcDict:(NSMutableDictionary*)object finalDict:(NSMutableDictionary*)finalDict
              retDict:(NSMutableArray**)objDict {
-
-    int minx = WIDTHXMLARTBOARD, miny = HEIGHTXMLARTBOARD;
+    
+    int minx = WIDTH_XML_ARTBOARD, miny = HEIGHT_XML_ARTBOARD;
     int maxx = 0, maxy = 0, maxh = 0, maxw = 0;
     NSMutableDictionary *viewDict = [self deepCopy:[newObjDict objectForKey:VIEW]];
-
+    
     [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict ofType:GROUP];
-
+    
     id frameRules = [viewDict objectForKey:RULES];
     id sizeFrame = [frameRules objectForKey:FRAME];
     id colorTag = [[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR];
     id defaultColor = [self deepCopy:[colorTag objectForKey:DEFAULT_GROUP]];
     id colorToString = [self deepCopy:[colorTag objectForKey:TOSTRING]];
-
+    
     int prevWidth = widthXDArtboard;
     int prevHeight = heightXDArtboard;
-    widthXDArtboard = WIDTHXMLARTBOARD;
-    heightXDArtboard = HEIGHTXMLARTBOARD;
+    widthXDArtboard = WIDTH_XML_ARTBOARD;
+    heightXDArtboard = HEIGHT_XML_ARTBOARD;
     int prevX = startXArtboard;
     int prevY = startYArtboard;
     startXArtboard = 0;
     startYArtboard = 0;
-
+    
     NSMutableArray *viewSubviews = [[NSMutableArray alloc] init];
     
     [self processGroup:[[object objectForKey:GROUP] objectForKey:CHILDREN]
@@ -600,7 +613,7 @@
                   maxy:&maxy
                   maxh:&maxh
                   maxw:&maxw];
-
+    
     widthXDArtboard = prevWidth;
     heightXDArtboard = prevHeight;
     startXArtboard = prevX;
@@ -622,7 +635,7 @@
     [subViewTmp setObject:viewDict forKey:VIEW];
     
     [*objDict addObject:subViewTmp];
-
+    
 }
 
 -(NSString *) convertFont:(NSString *)styleFont {
@@ -636,11 +649,11 @@
         translatedStyle = FONT_BOLD;
     else translatedStyle = FONT_SYSTEM; /* use default system font for other xd fonts */
     return translatedStyle;
-
+    
 }
 
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
-   
+    
     for (id key in goToAgc) {
         
         id nodeValue;
@@ -653,7 +666,7 @@
             nodeValue = [*values objectForKey:artboard];
             
             /* obtain the startX and startY for the current scene */
-
+            
             startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
             startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
             
@@ -680,7 +693,7 @@
         [*genericDict setObject:[defaultType objectForKey:key] forKey:key];
     }
     
-
+    
 }
 
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
@@ -705,7 +718,7 @@
         id values = agcParams;
         
         NSArray *goToAgc = [self splitVariable:condition];
-       
+        
         [self getDict:&values fromConditions:goToAgc];
         
         NSMutableDictionary *dictValue = values;
@@ -713,14 +726,14 @@
         
         if (isEmpty && !dictValue) {
             //use default values!!!
-           
+            
             [self mergeDefaultValues:[objDict objectForKey:DEFAULT] withDict:&objDict usingDict:dict];
             return objDict;
             
         } else if (isEmpty) {
             //no subview found
             return nil;
-        
+            
         } else {
             
             id subRules = [dict objectForKey:condition];
@@ -728,7 +741,7 @@
             if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:LEN]) {
                 
                 int counter = (int)[dictValue count];
-               
+                
                 textLines = MAX(counter, [[objDict objectForKey:LEN] intValue]);
                 
                 [objDict setObject:[NSNumber numberWithInt:textLines] forKey:LEN];
@@ -745,7 +758,7 @@
                     firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
                     textLen = [firstLine intValue];
                 }
-
+                
                 continue;
             }
             if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:TYPE] &&
@@ -756,7 +769,7 @@
                 
                 [[dict objectForKey:condition] setObject:translatedStyle forKey:TYPE];
                 
-            
+                
             }
             if (![dictValue isKindOfClass:[NSArray class]]) {
                 
@@ -770,7 +783,7 @@
                 NSMutableDictionary *newObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [objDict mutableCopy]]];
                 objDict = [[NSMutableArray alloc] init];
                 
- 
+                
                 for (id object in dictValue) {
                     /* obtain the type of each object
                      * get the corresponding template*/
@@ -792,7 +805,7 @@
                     
                     if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
                         [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:&objDict];
-
+                        
                         continue;
                     }
                     
@@ -817,7 +830,7 @@
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
                            finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
     
-   
+    
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
     NSArray *keys, *cond;
@@ -825,7 +838,7 @@
     NSString *value, *stringValue;
     id rulesByOrder, val;
     
-
+    
     /* if an order is specified => follow it
      * otherwis use the default enumerator */
     if ([rulesTempDict objectForKey:ORDER])
@@ -836,7 +849,7 @@
     for (id rule in rulesByOrder) {
         
         keys = [self splitVariable:rule];
-       
+        
         if ([keys count] == 1) {
             
             //goto "subviews" dictionary
@@ -869,7 +882,7 @@
             }
             
             value = [self computeValue:[rulesTempDict objectForKey:rule] forDict:agcDict];
-           
+            
             if ([[value componentsSeparatedByString:@" "] count] == 1) {
                 id hasValue = [val objectForKey:[keys lastObject]];
                 
@@ -914,7 +927,7 @@
 }
 
 -(void) copyImage:(NSImage *)image toProject:(NSString *)fileName {
-
+    
     NSString *resourcesXmlProj = [NSString stringWithFormat:@"%@%@/%@",[self xmlPath], RESOURCES_PATH, fileName];
     NSString *resourcesXmlRes = [NSString stringWithFormat:@"%@%@",[self xmlPath], RESOURCES_PATH];
     
@@ -931,7 +944,7 @@
     NSBitmapImageRep *imgRep = (NSBitmapImageRep *)[[image representations] objectAtIndex: 0];
     NSData *data = [imgRep representationUsingType: NSPNGFileType properties: @{}];
     [data writeToFile: resourcesXmlProj atomically: NO];
-
+    
 }
 
 -(void) processImage:(id) dict key:(id) key {
@@ -973,7 +986,7 @@
         }
         
     }
-
+    
 }
 
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
@@ -985,37 +998,36 @@
     for (id key in [dict objectForKey:TOSTRING]) {
         
         id attr = [dict objectForKey:key];
-        
         [self processImage:dict key:key];
-        
         
         if ([key isEqualToString:RULES]) {
             
             [tmp appendString:[self parseToString:tmp dict:attr name:key]] ;
             
-            
         } else if ([key isEqualToString:HEADER]) {
             /* create a new top tag with dict[allKeys] objeectAtIndex[0] */
             [ tmp appendString: [self toString:attr name:name isLeaf:FALSE]];
             
-            
         } else if ([key isEqualToString:SUBVIEWS]){
+            
             [tmp appendString:XMLSUBVIEWS];
+            
             for (id subview in attr) {
                 
                 NSString *name = [[subview allKeys] objectAtIndex:0];
                 NSMutableDictionary *dict = [subview objectForKey:name];
-               
                 NSMutableString *str = [self parseToString:tmp dict:dict name:name];
+                
                 if ([name hasPrefix:TOTRANSFORM] && [translationDict objectForKey:name])
                     name = [translationDict objectForKey:name];
-                NSString* subFooter = [NSString stringWithFormat:@"\n</%@>", name];
                 
+                NSString* subFooter = [NSString stringWithFormat:@"\n</%@>", name];
+
                 [str appendString:subFooter];
                 [tmp appendString: str];
             }
-            [tmp appendString:XMLSUBVIEWSF];
             
+            [tmp appendString:XMLSUBVIEWSF];
             
         } else if ([[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]){
             BOOL inBetween = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]objectForKey:BETWEEN] == nil;
@@ -1023,8 +1035,7 @@
             /* just an ordinary leaf tag; create a one-line with the given attributes */
             NSString *ret = [self toString:attr name:key isLeaf:inBetween];
             [ tmp appendString: [NSString stringWithFormat:@"\n\t%@", ret]];
-            
-            
+   
         }
     }
     
@@ -1062,13 +1073,24 @@
     [*finalString appendString:XMLFOOTERC];
     [*finalString appendFormat:@"%d", XML_SCENE_Y];
     [*finalString appendString:XMLFOOTERD];
-
+    
     return true;
 }
 
--(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject {
+-(void) writeXmlString:(NSString *) xmlString {
+    NSError *err;
     
-    NSString *agcObject = [typeAgcObject objectForKey:TYPE];
+    NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
+    NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
+    if ([self outXmlPath])
+        [xmlData writeToFile:[self outXmlPath] atomically:YES];
+    
+}
+
+-(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject{
+    
     NSMutableString *xmlGen = [NSMutableString stringWithFormat:@""];
     NSMutableString *finalString;
     NSDictionary *dict;
@@ -1077,55 +1099,45 @@
     BOOL setInitial = false;
     long sceneOffset = XML_SCENE_X;
     int artboardsNo;
-    NSError *err;
     
-    if (!agcObject) {
-        // it was given the whole dictionary to process => goto @"content"; type = "view"
+    // it was given the whole dictionary to process => goto @"content"; type = "view"
+    artboardsNo = (int)[[typeAgcObject objectForKey:ARTBOARDS] count];
+    
+    initialArtboard = [[NSUUID UUID] UUIDString];
+    
+    while (sceneNo < artboardsNo) {
+        finalString = [[NSMutableString alloc] init];
         
-        artboardsNo = (int)[[typeAgcObject objectForKey:ARTBOARDS] count];
-       
-        initialArtboard = [[NSUUID UUID] UUIDString];
+        dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
+        sceneOffset = sceneOffset + XML_OFFSET_X;
         
-        while (sceneNo < artboardsNo) {
-            finalString = [[NSMutableString alloc] init];
-            
-            dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
-            sceneOffset = sceneOffset + XML_OFFSET_X;
-            
-            setInitial = [self generateSceneHeaderUsingString:&finalString
-                                          withInitialArtboard:initialArtboard
-                                                  sceneOffset:sceneOffset
-                                                    isInitialSet:setInitial
-                                                   dictionary:dict];
-            
-            
-            [xmlGen appendString:finalString];
-            ++sceneNo;
-           
-        }
-        
-        if ([resourcesDict length]) {
-            // append resources if it exists
-            resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
-            [stringFooter appendString:resources];
-        }
-        
-        [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
-        xmlHeader =  [self surroundWithHeader:XMLHEADERA footer:XMLHEADERB string:initialArtboard];
-        xmlFile = [self surroundWithHeader:xmlHeader footer:stringFooter string:xmlGen];
-        
-        NSData *data = [xmlFile dataUsingEncoding:NSUTF8StringEncoding];
+        setInitial = [self generateSceneHeaderUsingString:&finalString
+                                      withInitialArtboard:initialArtboard
+                                              sceneOffset:sceneOffset
+                                             isInitialSet:setInitial
+                                               dictionary:dict];
         
         
-        NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
-        NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-        [xmlData writeToFile:[self outXmlPath] atomically:YES];
-        
-        return xmlFile;
+        [xmlGen appendString:finalString];
+        ++sceneNo;
         
     }
     
-    return nil;
+    if ([resourcesDict length]) {
+        // append resources if it exists
+        resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
+        [stringFooter appendString:resources];
+    }
+    
+    [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
+    xmlHeader =  [self surroundWithHeader:XMLHEADERA footer:XMLHEADERB string:initialArtboard];
+    xmlFile = [self surroundWithHeader:xmlHeader footer:stringFooter string:xmlGen];
+    
+    [self writeXmlString:xmlFile];
+    
+    
+    return xmlGen;
+    
 }
 
 

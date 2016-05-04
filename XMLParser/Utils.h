@@ -5,6 +5,7 @@
 //  Created by crogoz on 20/04/16.
 //  Copyright © 2016 crogoz. All rights reserved.
 //
+#include "Sync.h"
 
 #ifndef Utils_h
 #define Utils_h
@@ -69,6 +70,54 @@ void openDragDropPanel(NSString *outXmlPath) {
         
     }
     
+}
+
+void import(char *path) {
+    
+    NSString *inXmlPath= [NSString stringWithFormat:@"%s", path];
+    NSString *importPath = pathFormat(&inXmlPath, path);
+    NSData *parser = [NSData dataWithContentsOfFile:importPath];
+    
+    // Parse the XML into a dictionary
+    NSError *parseError = nil;
+    [XMLReader dictionaryForXMLData:parser resources:inXmlPath outFile:importPath error:&parseError];
+    
+    
+    /* copy <agc file> to clipboard */
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
+    NSString *mainBundle = getProjHomePath();
+    
+    NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, ARTBOARDXML];
+    [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
+    [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
+    
+}
+
+void export(char *path) {
+    
+    NSString *outXmlPath= [NSString stringWithFormat:@"%s", path];
+    NSString *exportPath = pathFormat(&outXmlPath, path);
+    
+    /* generate storyboard for xcode from xd */
+    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
+    /* open export xcode project */
+    openExportProject(outXmlPath);
+    
+    /* Notify the user to  Drag & Drop resources */
+    openDragDropPanel(outXmlPath);
+}
+
+void synch(char *path) {
+    NSString *xdPath = @"/Users/crogoz/SampleSync.xd";
+    NSLog(@"-----Start sync");
+    [Sync startSync:xdPath];
+}
+
+void printOptions() {
+    NSLog(@"./XMLParser [-h|-i|-e|-sync] <pathToProject>\n"
+          "\n eg: <pathToProject> = ~/Desktop/<ImportProj>/<ImportProj>");
 }
 
 #endif /* Utils_h */

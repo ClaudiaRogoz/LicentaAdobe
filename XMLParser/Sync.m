@@ -111,8 +111,38 @@
     return [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
 }
 
+-(BOOL) isArtboard:(NSURL *)urlF {
+    
+    return (![[[urlF path] lastPathComponent] isEqualToString:DS_STORE]);
+
+}
+-(NSString *) artboardHeader:(int) i {
+    return [NSString stringWithFormat:@"%@%d", ART_SCENE, i+1];
+
+}
+
+-(NSDictionary *) getArtboardNo:(int) i forDict:(NSDictionary *)dict{
+    
+    return [dict objectForKey:[self artboardHeader:i]];
+
+}
+
+-(void) mergeDict:(NSDictionary **)dict withHeaderDict:(NSDictionary *) header artboardNo:(int) i{
+
+    id tempDict = *dict;
+    
+    NSMutableDictionary *artboardInfo = [[NSMutableDictionary alloc] init];
+    [artboardInfo setObject:header forKey:[self artboardHeader:i]];
+    
+    [tempDict setObject:artboardInfo forKey:ARTBOARDS];
+    
+}
+
 -(void) processArtboardPairs:(NSMutableArray *)filesInit enumerator:(NSDirectoryEnumerator *) enumeratorF agcinfo:(NSMutableDictionary *) jsonArtboards {
     int i = 0;
+    
+    NSString *resource = [filesInit lastObject];
+    NSMutableDictionary *jsonHeader = [[self serializeFromPath:resource] objectForKey:ARTBOARDS];
     
     for (NSURL *urlF in enumeratorF) {
         NSError *error;
@@ -120,19 +150,18 @@
         if (! [urlF getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
             // handle error
         }
-        else if (! [isDirectory boolValue] &&
-                 ![[[urlF path] lastPathComponent] isEqualToString:@".DS_Store"]) {
+        else if (![isDirectory boolValue] && [self isArtboard:urlF]) {
             
             if ([[NSFileManager defaultManager] contentsEqualAtPath:[urlF path] andPath:[filesInit objectAtIndex:i]])
                 continue;
             
-            NSLog(@"TODO at %d generate xml code", i);
-            
             /* update file */
             NSMutableDictionary *jsonDict = [self serializeFromPath:[filesInit objectAtIndex:i]];
-            //TODOTren [self mergeDict:jsonDict withHeaderDict:]
-            NSLog(@"JsonDict = %@", jsonDict);
+            
+            [self mergeDict:&jsonDict withHeaderDict:[self getArtboardNo:i forDict:jsonHeader] artboardNo:i];
+            
             NSString *xcodeString = [XMLGenerator generateXmlForTag:jsonDict];
+            
             NSLog(@"XcodeStr = %@", xcodeString);
             ++i;
             
@@ -205,7 +234,7 @@
         }
         
     }
-    
+    [filesInit addObject:resourcesPath];
     [self processArtboardPairs:filesInit enumerator:enumeratorF agcinfo:jsonArtboards];
     
 }
@@ -213,16 +242,19 @@
 - (void) monitorXDFile:(NSString*) path
 {
     
+    /* https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/GCDWorkQueues/GCDWorkQueues.html */
     const char *pathString = [path cStringUsingEncoding:NSASCIIStringEncoding];
     int fildes = open(pathString, O_RDONLY);
-    NSLog(@"Filedes = %d", fildes);
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
     __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fildes, DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_ATTRIB | DISPATCH_VNODE_LINK | DISPATCH_VNODE_RENAME | DISPATCH_VNODE_REVOKE,
                                                               queue);
+    
     dispatch_source_set_event_handler(source, ^
                                       {
                                           unsigned long flags = dispatch_source_get_data(source);
-                                          
+                                     
                                           if(flags & DISPATCH_VNODE_DELETE)
                                           {
                                               [self monitorXDFile:path];
@@ -231,6 +263,7 @@
                                           else {
 
                                               /* creates an unzip directory of the current XD project (**changes have been made ) */
+                                              
                                               NSString *mainBundle = [self getProjHomePath];
                                               NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_UNZIP_PATH];
                                               
@@ -242,6 +275,7 @@
     
     dispatch_source_set_cancel_handler(source, ^(void)
                                        {
+                                         
                                            close(fildes);
                                        });
     dispatch_resume(source);

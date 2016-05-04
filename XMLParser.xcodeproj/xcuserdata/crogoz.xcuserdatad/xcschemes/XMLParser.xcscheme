@@ -92,7 +92,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/crogoz/Desktop/Samples/Samples/"
+            argument = "-sync"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

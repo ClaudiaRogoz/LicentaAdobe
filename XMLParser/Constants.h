@@ -51,9 +51,13 @@
 #define BUILD_PATH       @"Build"
 #define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
 #define GRAPHIC         @"graphicContent.agc"
+#define DS_STORE        @".DS_Store"
 
 /* args for app */
 #define HELP    "-h"
+#define EXPORT  "-e"
+#define IMPORT  "-i"
+#define SYNC    "-sync"
 
 #define SVG_INFO    @" d="
 #define SVG_FILL    @"fill: "
@@ -214,10 +218,10 @@
 
 
 /* artboards's sizes */
-#define WIDTHXMLARTBOARD    600
-#define HEIGHTXMLARTBOARD   600
-#define WIDTHXDARTBOARD     375
-#define HEIGHTXDARTBOARD    667
+#define WIDTH_XML_ARTBOARD    600
+#define HEIGHT_XML_ARTBOARD   600
+#define WIDTH_XD_ARTBOARD     375
+#define HEIGHT_XD_ARTBOARD    667
 
 
 #define EPS 3 // just an epsilon value for pointSize calc
