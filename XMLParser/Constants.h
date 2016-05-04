@@ -46,6 +46,8 @@
 #define RESOURCES_PATH  @"Resources"
 #define XD_UNZIP_PATH      @".unzipped_xd"
 #define PREV_ART_PATH   @"prev_artboards"
+#define HASH_PATH       @"hashArtboards"
+#define OFFSET_PATH     @"offsetArtboards"
 #define UNZIP_PATH  @"/usr/bin/unzip"
 #define OPEN_PATH   @"/usr/bin/open"
 #define BUILD_PATH       @"Build"

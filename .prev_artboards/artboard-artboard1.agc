@@ -26,6 +26,38 @@
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
+                    "r" : 102,
+                    "g" : 96,
+                    "b" : 255
+                  },
+                  "alpha" : 255
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 333,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 90
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 118,
+              "height" : 72,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
                     "r" : 0,
                     "g" : 0,
                     "b" : 0
@@ -43,10 +75,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 351.6725,
+              "ty" : 376.1292,
               "c" : "0",
               "a" : "1",
-              "tx" : 94.62329
+              "tx" : 129.2397
             },
             "type" : "text",
             "name" : "Label",
@@ -78,7 +110,7 @@
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 0,
+                    "r" : 255,
                     "g" : 0,
                     "b" : 0
                   },
@@ -147,13 +179,13 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 377.2408,
+              "ty" : 264.9625,
               "c" : "0",
               "a" : "1",
-              "tx" : 278.3733
+              "tx" : 244.2397
             },
             "type" : "text",
-            "name" : "Label",
+            "name" : "Label210",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -164,7 +196,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 5,
+                        "to" : 8,
                         "x" : 0,
                         "from" : 0
                       }
@@ -172,7 +204,73 @@
                   ]
                 }
               ],
-              "rawText" : "Label"
+              "rawText" : "Label210"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "420591"
+                    }
+                  },
+                  "width" : 397,
+                  "height" : 247,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/rectangle-mask-1.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 491,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 165
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 150,
+              "height" : 142.2933
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "959924"
+                    }
+                  },
+                  "width" : 397,
+                  "height" : 247,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/rectangle-mask-1.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 510,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 212
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect"
             }
           }
         ]
@@ -204,7 +302,7 @@
   "viewSource" : {
     "y" : "0",
     "x" : "0",
-    "width" : 400,
+    "width" : 800,
     "height" : 667
   },
   "version" : "1.5.0"

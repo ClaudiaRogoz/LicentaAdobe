@@ -23,17 +23,22 @@
 + (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString*)outXmlPath
 {
     NSError *error;
-    NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
-    NSString *test = [thisBundle pathForResource:@"TestFrame" ofType:JSON];
-    NSData *testData = [NSData dataWithContentsOfFile:test ];
     
     XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
     [gen initWithSchemas];
     [gen setXmlPath:xmlPath];
     [gen setOutXmlPath:outXmlPath];
-
-    agcTemplate =  [NSJSONSerialization JSONObjectWithData:testData options:kNilOptions error:&error];
+    NSString *clipbData = [gen getClipboardData];
+    
+    if (!clipbData) {
+        NSLog(@"[ERROR] No XD data selected!");
+        return;
+    
+    }
+    NSData *xdData = [clipbData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    agcTemplate =  [NSJSONSerialization JSONObjectWithData:xdData options:kNilOptions error:&error];
     
     [gen getXmlForAgcObject:agcTemplate];
     
@@ -56,6 +61,11 @@
     
     
     return xmlTemplate;
+}
+
+-(NSString *) getClipboardData {
+     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+     return [pasteboard stringForType:SPARKLERCLIPBOARD];
 }
 
 -(void) initWithSchemas {
@@ -969,11 +979,12 @@
         NSArray *rootarray = [[self xmlPath] componentsSeparatedByString:@"/"];
         rootarray = [rootarray subarrayWithRange:NSMakeRange(0, [rootarray count] -2)];
         
-        /* TODO copy to the same file! for now just copy to our try file*/
-        
         if (image) {
             [self copyImage:image toProject:theFileName];
+        } else {
+            NSLog(@"[ERROR] Cannot find image at path %@;\nExport as png from XD.", href);
         }
+        
         
         NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
         

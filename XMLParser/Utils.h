@@ -109,15 +109,25 @@ void export(char *path) {
     openDragDropPanel(outXmlPath);
 }
 
-void synch(char *path) {
-    NSString *xdPath = @"/Users/crogoz/SampleSync.xd";
-    NSLog(@"-----Start sync");
-    [Sync startSync:xdPath];
+void synch(char *XDPath, char *XMLPath) {
+    NSString * xdPath= [NSString stringWithFormat:@"%s", XDPath];
+    NSString * xmlPath= [NSString stringWithFormat:@"%s", XMLPath];
+    [Sync startSync:xdPath withXcode:xmlPath];
 }
 
 void printOptions() {
-    NSLog(@"./XMLParser [-h|-i|-e|-sync] <pathToProject>\n"
-          "\n eg: <pathToProject> = ~/Desktop/<ImportProj>/<ImportProj>");
+    
+    NSLog(@"\nUsage:\n\t./XMLParser [arguments] [file paths ..]\n"
+          "\n\n\t./XMLParser -i <pathToXCodeProject>\n\t\ttranslates an XCode project into an XD project;"
+          "The XD info is put in Clipboard;\n\t\t the XD file will be updated using Cmd+V"
+          "\n\n\t./XMLParser -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;"
+          "The XD info is put into ClipBoard (using Cmd+V).\n\t\t Using this command, the XD is translated into Xcode;"
+          "\nArguments:\n"
+          "\n\t-h\t\tPrint help message (this message) and exit"
+          "\n\t-i\t\tImports an XCode project path given as argument (eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
+          "\n\t-e\t\tExports an XD project to an XCode project. \n\t\tThe Xcode project is given as an argument."
+          "\n\t\t(eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
+          "\n eg: <pathToProject> = ~/Desktop/<ImportProj>/<ImportProj>\n");
 }
 
 #endif /* Utils_h */

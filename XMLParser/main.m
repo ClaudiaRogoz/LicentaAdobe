@@ -32,10 +32,11 @@ int main(int argc, const char * argv[]) {
         export((char*)argv[2]);
     
     }else if (!strcmp(argv[1], SYNC)) {
-        synch((char *)argv[2]);
+        /*sync xdFile xcodeStoryboard */
+        synch((char *)argv[2], (char *)argv[3]);
         
     }else {
-        NSLog(@"Wrong options");
+        NSLog(@"[Error] Wrong options");
         printOptions();
     }
     

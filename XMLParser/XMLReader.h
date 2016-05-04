@@ -17,6 +17,11 @@
 
 @interface XMLReader : NSObject <NSXMLParserDelegate>
 {
+    
+    
+    /**
+     * array used for import; dictioanryStack[0] return the corresponding agc Dictionary;
+     **/
     NSMutableArray *dictionaryStack;
     
     
@@ -70,6 +75,11 @@
      *  used for sync
      **/
     NSMutableDictionary *objectOffset;
+    
+    /**
+     *
+     **/
+    NSMutableDictionary *hashArtboards;
     
     /* width/height of xcode artboards and xd artboards */
     int widthXMLArtboard;

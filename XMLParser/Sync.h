@@ -28,6 +28,9 @@
     int widthAgcArtboard;
     int heightAgcArtboard;
     
+    NSMutableDictionary *hashArtboards;
+    NSMutableDictionary *offsetArtboards;
+    
     /**
      * json template for agc elements written as a mutableDictionary
      **/
@@ -41,23 +44,12 @@
      **/
     NSMutableDictionary *exportAgc;
     
-    /**
-     * offsets of tags in the xml file; needed for sync
-     **/
-    NSMutableDictionary *offsetXmlFile;
-    
-    /**
-     *  which objects to monitor;
-     *  used for sync
-     **/
-    NSMutableDictionary *objectOffset;
-    
 }
 
 @property NSString *xmlPath;
 
 
-+ (void) startSync:(NSString *) path;
++ (void) startSync:(NSString *) path  withXcode:(NSString *) xmlPath;
 
 /**
  *  sync algorithm; monitors a file given as parameter

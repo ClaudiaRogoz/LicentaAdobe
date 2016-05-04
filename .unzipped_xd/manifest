@@ -2,40 +2,68 @@
   "manifest-format-version" : 6,
   "state" : "modified",
   "uxdesign#userDidSetPrototypeName" : "false",
-  "id" : "C3CC2513-D7C3-472A-8D70-229CAA4E2E3A",
+  "id" : "A9D061F1-73EE-4AB6-A323-8D944034FF39",
   "children" : [
     {
       "path" : "artwork",
-      "id" : "45D63258-0E6F-4A7E-873A-01B269ABEA0C",
+      "id" : "1808C8AD-4BF8-4391-88D1-85ADBD1C398D",
       "name" : "artwork",
       "children" : [
         {
           "path" : "pasteboard",
-          "id" : "4C23FE16-84E6-4FF4-A726-F3D8C7C588CD",
+          "id" : "29B68292-89CF-40AC-8A90-272203CC768A",
           "name" : "pasteboard"
         },
         {
           "path" : "artboard-artboard1",
-          "id" : "EB5CC156-FDC3-45E1-BCE7-14C5D5496C85",
+          "id" : "85362DD8-F050-4B8A-B037-091332630915",
           "name" : "iPhone 6 – 1",
           "uxdesign#bounds" : {
-            "y" : 21,
-            "x" : 856,
+            "y" : 23,
+            "x" : 1301,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "6F0BCC0B-8075-4865-B689-ED3C85343900",
+              "id" : "92395164-A914-445D-B261-788D5E8F4436",
               "components" : [
                 {
-                  "length" : 1354,
-                  "id" : "0AA8263B-09E4-40BC-BF8E-4F3B1377AFE7",
+                  "length" : 1955,
+                  "id" : "88FDA37F-068C-4188-AE7B-74A8F5C75604",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
                   "name" : "iPhone 6 – 1"
+                }
+              ],
+              "name" : "graphics"
+            }
+          ]
+        },
+        {
+          "path" : "artboard-artboard2",
+          "id" : "B5A0D992-21C5-4D59-A968-3A4E73F79309",
+          "name" : "iPhone 6 – 2",
+          "uxdesign#bounds" : {
+            "y" : 23,
+            "x" : 1746,
+            "width" : 375,
+            "height" : 667
+          },
+          "children" : [
+            {
+              "path" : "graphics",
+              "id" : "AA58A100-8CEF-4937-B44D-662800715C7E",
+              "components" : [
+                {
+                  "length" : 1955,
+                  "id" : "38E2E534-A125-4AD2-9D3B-D8D283C316E3",
+                  "rel" : "primary",
+                  "path" : "graphicContent.agc",
+                  "type" : "application\/vnd.adobe.agc+dcx",
+                  "name" : "iPhone 6 – 2"
                 }
               ],
               "name" : "graphics"
@@ -46,16 +74,16 @@
     },
     {
       "path" : "resources",
-      "id" : "BEF7E038-0D29-46C4-82FE-CFC87596D189",
+      "id" : "08AF7E23-FAB3-4262-BF9D-73C541434D32",
       "name" : "resources",
       "children" : [
         {
           "path" : "graphics",
-          "id" : "56623A2E-C59E-4D4C-83EB-DC1881DC437F",
+          "id" : "8774971D-FDA1-4883-8477-165822285698",
           "components" : [
             {
-              "length" : 292,
-              "id" : "57A3AEBE-5C16-497B-A84D-394D74C7BEF4",
+              "length" : 372,
+              "id" : "1DA7B9C1-B41F-4673-90FE-45E92B6FCBD6",
               "rel" : "primary",
               "path" : "graphicContent.agc",
               "type" : "application\/vnd.adobe.agc+dcx",
@@ -68,11 +96,11 @@
     },
     {
       "path" : "interactions",
-      "id" : "0A1B3C2C-1B89-4079-901E-BDCE32684ED7",
+      "id" : "20523EA7-23F1-4478-9922-5C0D1F27A027",
       "components" : [
         {
           "length" : 17,
-          "id" : "7D838D30-1C32-4194-AA61-8E1616D64C8C",
+          "id" : "E7F2AF15-4E67-4DA3-9F1E-CF1866950916",
           "rel" : "primary",
           "path" : "interactions.json",
           "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -85,7 +113,7 @@
   "components" : [
     {
       "length" : 1323,
-      "id" : "E5F6A2A4-EC4B-4205-8898-B2F5D9E9F916",
+      "id" : "58B57AA6-9995-4A73-9BB0-AECF1A9F788D",
       "rel" : "metadata",
       "path" : "META-INF\/metadata.xml",
       "type" : "application\/rdf+xml",

@@ -92,7 +92,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-sync"
+            argument = "-e"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

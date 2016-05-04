@@ -5,21 +5,14 @@ UPDATE (14 apr 2016)
 Build & Run App:
 	Xcode IDE
  
-	input: 
-		<xmlFile> which corresponds to Xcode Storyboard ( ...../<Proj_Name>/<Proj_name>
-)
-		<resources Directory> where are the resources <images> located
-
-	output: 
-		multiple <file>.agc that correspond to an artboard ( path: ~/Documents)
--------------------
-!!!!!IMPORTANT! I use "Untitled.xd" file to monitor! (this file is the xd file where the agc where dropped)
-		I use absolute path for "myXMLfileScenes.xml" = my project's Main.storyboard
-		When trying to import an xml file -> only viewController works, it could be extended to any type of scene
-		 (tableview, tabbar controller etc. ) -> only add to the xml2agcDictionary the mapping <tabbar controller> to 
-		<artboard>.  		 
-		When the file changes, the data is being rewritten to the intial files; just press "A" when prompeted with the question: "override ... ? " 
-————————————————————
+	args: ./XMLParser [-h|-i|-e|-s] <path>
+	where 
+		-h  = help
+		-i <path>; imports given xcode project; teh result needs to be Ctrl+V into an XD project;
+		-e <path>; exports an XD project into the given xcode path
+		-s ; syncs an xd project with an xcode project
+ 
+----------------
 Importing objects from Xcode: 
 
 	-> textField, Labels
@@ -27,35 +20,20 @@ Importing objects from Xcode:
 	-> switch ( I’ve saved the agc corresponding to a switch in the Button.agc file ; the switch code
 		will simply be attached to the current level in the artboard’s agc)
 
-	The mapping between the  xml ( initial format ) and agc ( final format)  is made with the use of several
-	NSDictionaries ( it is very easy to translate from xml to nsdictionary; 
-					translation from agc to nsdictionary is made with the use of jsonserialization class)
+----------------
+Exporting objects XD to Xcode
+	->text, group, images (the images are copied in the xcode project; they have to be manually inserted into
+SupportingFiles)
+	->paths can be exported as svg files (Problem: Xcode doesn;t support svg files=> TODO: convert to png)
 
-	TODO: read the xml2json from a file; maybe translation between 2 schemas ( one for agc and one for xml)
+----------------
 
-	defaultValues -> in case one child tag misses; ex. color ( the default colour in Xcode is 0. 0 .0 )
-	xml2agcDictionary -> map between xml tag and agc object
-					-> it is also contains the inverted map; used when we  have to replace an attribute;
-	attributes -> “template” for an agc object 
-
-	dictionaryStack -> used for the inheritance relationship between dictionaries
-	
-
-——————————————————————
-Importing artboards 
-
-				 
-Tried inserting several artboards in a single agc file, ;but XD won’t recognize it
--> Solution: split into several files (path: Documents directory ) 
--> TODO: DCX compression; move files to corresponding directories
-
-
-——————————————————————
+---------------
 WORKFLOW: 
 
 -> Basic object Import
 DONE: basic import based on several NSDictionaries
-TODO: create schemas for translations
+DONE: create schemas for translations
 
 -> Updates automatically ( from XD to XCode = from agc back to xml )
 DONE: Given the path of the XD file, my app receives notifications every time the XD file changes ( it has been written )
@@ -73,11 +51,5 @@ Prev_agc = current_agc
 -> Export basic objects
 See < TODO  Basic object Import>
 
-->Import/export transitions 
+->TODO Import/export transitions 
 
-----------------------
-
-LOG
-
--> TODO multiple scenes
-->TODO update diffOffset + copy scene if scene not modified :)

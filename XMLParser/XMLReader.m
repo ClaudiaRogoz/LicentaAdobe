@@ -34,15 +34,52 @@
 
 
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
-    [reader writeToFile:rootDictionary file:finalArtboardName];
-    NSLog(@"reader = %@", rootDictionary);
+    [reader writeToFile:rootDictionary file:finalArtboardName computeSha:-1];
+    
     [reader splitArtboards:rootDictionary];
     
+    /* writes hashDict & offsetDict to a hidden file; needed for sync */
+    NSString *hashFile = [NSString stringWithFormat:@"%@/%@%@%@",PREV_ART_PATH, HASH_PATH, DOT, JSON];
+    NSString *offsetFile = [NSString stringWithFormat:@"%@/%@%@%@",PREV_ART_PATH, OFFSET_PATH, DOT, JSON];
+    [reader writeToFile:[reader getHashdict] file:hashFile computeSha:-1];
+    [reader writeToFile:[reader getOffset] file:offsetFile computeSha:-1];
     
     return rootDictionary;
 }
 
-- (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file {
+- (NSMutableDictionary *) getOffset {
+    return offsetXmlFile;
+}
+- (NSMutableDictionary *) getHashdict {
+    return hashArtboards;
+}
+
+-(NSString*) computeSha1:(NSString*)input
+{
+    const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [NSData dataWithBytes:cstr length:input.length];
+    
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    
+    CC_SHA1(data.bytes, data.length, digest);
+    
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return output;
+    
+}
+
+- (void) addShaForString:(NSString *)jsonString artboardNo:(int)nr {
+  
+    NSString *jsonSha = [self computeSha1:jsonString];
+    [hashArtboards setObject:[NSNumber numberWithInt:nr] forKey:jsonSha];
+    
+}
+
+- (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file computeSha:(int)sha {
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
@@ -60,7 +97,9 @@
         
         [[NSFileManager defaultManager] createFileAtPath:outFile contents:nil attributes:nil];
         [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
-        
+        if (sha != -1) {
+            [self addShaForString:jsonString artboardNo:sha];
+        }
     }
 }
 
@@ -108,10 +147,9 @@
         }
         
         NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@",PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
-        [self writeToFile:tempArray file:artboardName];
+        [self writeToFile:tempArray file:artboardName computeSha:nr];
         nr++;
     }
-
     return rootArray;
     
 }
@@ -137,7 +175,8 @@
     inheritanceStack = [[NSMutableArray alloc] init];
     attributes = [[NSMutableDictionary alloc] init];
     toInsertObjects = [[NSMutableArray alloc] init];
-    
+    hashArtboards = [[NSMutableDictionary alloc] init];
+    objectOffset = [[NSMutableDictionary alloc] init];
     sceneNo = 0;
     xmlOffset = 0;
     counterArtboards = 1;
@@ -653,9 +692,12 @@
     attributeDict = [attributeDict mutableCopy];
     NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
     
-    /* updates width/height/x/y */
-    if (objectOffset[tagName] != nil){
-        
+    /*if (objectOffset[tagName] != nil){
+       
+    }*/
+    
+    if ([elementName isEqualToString:SCENE]) {
+        sceneNo++;
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
         unsigned long start = xmlOffset + 1;
         unsigned long end = [xmlData length];
@@ -665,12 +707,8 @@
         NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
         [arr addObject:[NSNumber numberWithLong: range.location]];
         xmlOffset = (unsigned long)range.location;
-    }
-    
-    if ([elementName isEqualToString:SCENE]) {
-        sceneNo++;
-        [offsetXmlFile setObject: [[NSMutableArray alloc] init] forKey:[NSNumber numberWithInt:sceneNo]];
-        
+
+        [offsetXmlFile setObject: [NSNumber numberWithLong:xmlOffset] forKey:[NSString stringWithFormat:@"%d", sceneNo]];
     }
     
     [self scaleAttrDict:&attributeDict attribute:elementName];
