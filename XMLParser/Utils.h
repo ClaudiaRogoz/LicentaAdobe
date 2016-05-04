@@ -92,6 +92,7 @@ void import(char *path) {
     NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, ARTBOARDXML];
     [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
+    NSLog(@"[Import DONE]");
     
 }
 
@@ -107,6 +108,7 @@ void export(char *path) {
     
     /* Notify the user to  Drag & Drop resources */
     openDragDropPanel(outXmlPath);
+    NSLog(@"[Export DONE]");
 }
 
 void synch(char *XDPath, char *XMLPath) {

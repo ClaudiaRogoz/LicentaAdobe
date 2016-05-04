@@ -92,11 +92,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-e"
+            argument = "-i"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/crogoz/Desktop/Try/Try"
+            argument = "/Users/crogoz/Desktop/Samples/Samples"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

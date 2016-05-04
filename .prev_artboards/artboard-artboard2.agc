@@ -26,12 +26,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "297852"
+                      "uid" : "213419"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
                 }
               }
             },
@@ -59,12 +59,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "769739"
+                      "uid" : "578004"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
                 }
               }
             },
@@ -92,12 +92,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "178634"
+                      "uid" : "24008"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
                 }
               }
             },
@@ -116,39 +116,6 @@
               "x" : "0",
               "width" : 150,
               "height" : 142.2933
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "544475"
-                    }
-                  },
-                  "width" : 397,
-                  "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/ladybug.jpg"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 249,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 529
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "x" : "0",
-              "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect"
             }
           },
           {
@@ -196,6 +163,7 @@
                   }
                 },
                 {
+                  "name" : "ellipse",
                   "visualBounds" : {
                     "y" : 208.25,
                     "x" : 342.4500122070312,
@@ -263,8 +231,7 @@
                     "type" : "path",
                     "path" : "M 14 0 C 21.73198509216309 0 28 6.268014430999756 28 14 C 28 21.73198509216309 21.73198509216309 28 14 28 C 6.268014430999756 28 0 21.73198509216309 0 14 C 0 6.268014430999756 6.268014430999756 0 14 0 Z"
                   },
-                  "type" : "shape",
-                  "name" : "ellipse"
+                  "type" : "shape"
                 }
               ]
             },
@@ -324,6 +291,7 @@
                   }
                 },
                 {
+                  "name" : "ellipse",
                   "visualBounds" : {
                     "y" : 208.25,
                     "x" : 342.4500122070312,
@@ -391,8 +359,7 @@
                     "type" : "path",
                     "path" : "M 14 0 C 21.73198509216309 0 28 6.268014430999756 28 14 C 28 21.73198509216309 21.73198509216309 28 14 28 C 6.268014430999756 28 0 21.73198509216309 0 14 C 0 6.268014430999756 6.268014430999756 0 14 0 Z"
                   },
-                  "type" : "shape",
-                  "name" : "ellipse"
+                  "type" : "shape"
                 }
               ]
             },
@@ -418,7 +385,7 @@
                     "g" : 0,
                     "b" : 0
                   },
-                  "alpha" : 1
+                  "alpha" : 255
                 }
               },
               "font" : {
@@ -457,6 +424,39 @@
                 }
               ],
               "rawText" : "Label"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "115715"
+                    }
+                  },
+                  "width" : 397,
+                  "height" : 247,
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 207,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 512
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0"
             }
           }
         ]

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C973402D1CC76FBD008F8E8D /* rectangle-mask-1.png in Resources */ = {isa = PBXBuildFile; fileRef = C973402C1CC76FBD008F8E8D /* rectangle-mask-1.png */; };
 		C9C3C12F1C9FE4EC002968EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3C12E1C9FE4EC002968EF /* main.m */; };
 		C9C3C1321C9FE4EC002968EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3C1311C9FE4EC002968EF /* AppDelegate.m */; };
 		C9C3C1351C9FE4EC002968EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3C1341C9FE4EC002968EF /* ViewController.m */; };
@@ -16,7 +15,7 @@
 		C9C3C13D1C9FE4EC002968EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9C3C13B1C9FE4EC002968EF /* LaunchScreen.storyboard */; };
 		C9C3C1481C9FE4EC002968EF /* SamplesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3C1471C9FE4EC002968EF /* SamplesTests.m */; };
 		C9C3C1531C9FE4EC002968EF /* SamplesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3C1521C9FE4EC002968EF /* SamplesUITests.m */; };
-		C9C3C1611C9FE540002968EF /* ladybug.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C9C3C1601C9FE540002968EF /* ladybug.jpg */; };
+		C9CD15CC1CDA3B9200712D09 /* ladybug.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C9CD15CB1CDA3B9200712D09 /* ladybug.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C973402C1CC76FBD008F8E8D /* rectangle-mask-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rectangle-mask-1.png"; sourceTree = "<group>"; };
 		C9C3C12A1C9FE4EC002968EF /* Samples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Samples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C3C12E1C9FE4EC002968EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C9C3C1301C9FE4EC002968EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,7 +52,7 @@
 		C9C3C14E1C9FE4EC002968EF /* SamplesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamplesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C3C1521C9FE4EC002968EF /* SamplesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SamplesUITests.m; sourceTree = "<group>"; };
 		C9C3C1541C9FE4EC002968EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9C3C1601C9FE540002968EF /* ladybug.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ladybug.jpg; sourceTree = "<group>"; };
+		C9CD15CB1CDA3B9200712D09 /* ladybug.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ladybug.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +119,7 @@
 		C9C3C12D1C9FE4EC002968EF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C973402C1CC76FBD008F8E8D /* rectangle-mask-1.png */,
-				C9C3C1601C9FE540002968EF /* ladybug.jpg */,
+				C9CD15CB1CDA3B9200712D09 /* ladybug.jpg */,
 				C9C3C12E1C9FE4EC002968EF /* main.m */,
 			);
 			name = "Supporting Files";
@@ -251,8 +248,7 @@
 			files = (
 				C9C3C13D1C9FE4EC002968EF /* LaunchScreen.storyboard in Resources */,
 				C9C3C13A1C9FE4EC002968EF /* Assets.xcassets in Resources */,
-				C9C3C1611C9FE540002968EF /* ladybug.jpg in Resources */,
-				C973402D1CC76FBD008F8E8D /* rectangle-mask-1.png in Resources */,
+				C9CD15CC1CDA3B9200712D09 /* ladybug.jpg in Resources */,
 				C9C3C1381C9FE4EC002968EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

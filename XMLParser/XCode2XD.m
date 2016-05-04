@@ -540,6 +540,7 @@
                 value = [value substringWithRange:NSMakeRange(1, i)];
                 
                 NSString *tempSaved = [NSString stringWithFormat:@"%@%@", SAVED_VALUE, value];
+                
                 id tempValue = nil;
                 if ([value isEqualToString:TEXT] && attributeDict[value])
                     tempValue = attributeDict[value];
@@ -791,8 +792,8 @@
     
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
     NSString *textValue = nil;
+    
     for (id key in xml2agcDictionary[tempReplace]){
-        
         
         NSArray *strings = [key componentsSeparatedByString:DOT];
         

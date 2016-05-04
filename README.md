@@ -1,17 +1,18 @@
-UPDATE (14 apr 2016)
-	Changed first argument to ...../<Proj_Name>/<Proj_name>
 
 --------------
 Build & Run App:
+
 	Xcode IDE
  
-	args: ./XMLParser [-h|-i|-e|-s] <path>
+	args: ./XDXCodeTranslator [-h|-i|-e|-s] [file Paths]
 	where 
 		-h  = help
 		-i <path>; imports given xcode project; teh result needs to be Ctrl+V into an XD project;
 		-e <path>; exports an XD project into the given xcode path
 		-s ; syncs an xd project with an xcode project
  
+-> an XCODE import sample can be found in the SamplesXcodeImport directory 
+->ISSUE: cannot import multiple views/multiline labels
 ----------------
 Importing objects from Xcode: 
 
