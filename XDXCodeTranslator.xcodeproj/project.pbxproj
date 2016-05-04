@@ -1,0 +1,681 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */; };
+		C96E8FCD1CC22FC100956B49 /* TestParagraphs.json in Resources */ = {isa = PBXBuildFile; fileRef = C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */; };
+		C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA11CB66A9B00A10C52 /* Defs.json */; };
+		C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9730EA41CB678D800A10C52 /* XMLGenerator.m */; };
+		C9730EA71CB687D100A10C52 /* Rules.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA61CB687D100A10C52 /* Rules.json */; };
+		C973402F1CC7740D008F8E8D /* Sync.m in Sources */ = {isa = PBXBuildFile; fileRef = C973402E1CC7740D008F8E8D /* Sync.m */; };
+		C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C97340321CC7BC78008F8E8D /* TestBigImage.json */; };
+		C97340371CC7C6EE008F8E8D /* TestFrame.json in Resources */ = {isa = PBXBuildFile; fileRef = C97340361CC7C6EE008F8E8D /* TestFrame.json */; };
+		C9748D2C1CC8C21500752B3F /* SvgTemplate.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9748D2B1CC8C21500752B3F /* SvgTemplate.svg */; };
+		C9748D2E1CC8D6A200752B3F /* TestPaths.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D2D1CC8D6A200752B3F /* TestPaths.json */; };
+		C9748D3A1CC8FC3400752B3F /* Xml2AgcTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D391CC8FC3400752B3F /* Xml2AgcTranslations.json */; };
+		C9748D3C1CC8FC6E00752B3F /* AGCTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D3B1CC8FC6E00752B3F /* AGCTemplate.json */; };
+		C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A41CC4C16100E487AB /* TestParaGroup.json */; };
+		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
+		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
+		C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C98141E51CB7BAAF00936604 /* TestGenerator.json */; };
+		C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186C91C8B664A0071A25F /* AppDelegate.m */; };
+		C99186CD1C8B664A0071A25F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CC1C8B664A0071A25F /* main.m */; };
+		C99186D01C8B664A0071A25F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CF1C8B664A0071A25F /* ViewController.m */; };
+		C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C99186D11C8B664A0071A25F /* Assets.xcassets */; };
+		C99186D51C8B664A0071A25F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99186D31C8B664A0071A25F /* Main.storyboard */; };
+		C99186E01C8B664A0071A25F /* XMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186DF1C8B664A0071A25F /* XMLParserTests.m */; };
+		C99186EB1C8B664A0071A25F /* XMLParserUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186EA1C8B664A0071A25F /* XMLParserUITests.m */; };
+		C99186FA1C8B66760071A25F /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186F91C8B66760071A25F /* XMLReader.m */; };
+		C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */ = {isa = PBXBuildFile; fileRef = C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */; };
+		C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */; };
+		C9AF2B4F1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */; };
+		C9AF2B541CBFBE76001C39C7 /* TestDropFile.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */; };
+		C9AF2B561CBFC696001C39C7 /* TestImageLabels.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B551CBFC696001C39C7 /* TestImageLabels.json */; };
+		C9B02E2A1CC6157000F25875 /* TestMulText.json in Resources */ = {isa = PBXBuildFile; fileRef = C9B02E291CC6157000F25875 /* TestMulText.json */; };
+		C9B0F4051C9C27660005903C /* Button.agc in Resources */ = {isa = PBXBuildFile; fileRef = C9B0F4041C9C27660005903C /* Button.agc */; };
+		C9B5FFB91CC133EF0014575C /* TestMultiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C9B5FFB81CC133EF0014575C /* TestMultiple.json */; };
+		C9C3C1631C9FE5EA002968EF /* myXMLfileScenes.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9C3C1621C9FE5EA002968EF /* myXMLfileScenes.xml */; };
+		C9C3C1651C9FF401002968EF /* Scene1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9C3C1641C9FF401002968EF /* Scene1.xml */; };
+		C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9DBD9171C995524006A9638 /* myXMLfileFood.xml */; };
+		C9DBD91A1C9967D0006A9638 /* myXMLfileDown.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9DBD9191C9967D0006A9638 /* myXMLfileDown.xml */; };
+		C9DBD91D1C996A8A006A9638 /* TestSingleText.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DBD91C1C996A8A006A9638 /* TestSingleText.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C99186DC1C8B664A0071A25F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C99186BD1C8B664A0071A25F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C99186C41C8B664A0071A25F;
+			remoteInfo = XMLParser;
+		};
+		C99186E71C8B664A0071A25F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C99186BD1C8B664A0071A25F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C99186C41C8B664A0071A25F;
+			remoteInfo = XMLParser;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfile.xml; sourceTree = "<group>"; };
+		C95EA96B1C8DC2F5004FFBA1 /* XCODELoaderSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCODELoaderSession.h; sourceTree = "<group>"; };
+		C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParagraphs.json; sourceTree = "<group>"; };
+		C9730EA11CB66A9B00A10C52 /* Defs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Defs.json; path = XMLParser/Defs.json; sourceTree = "<group>"; };
+		C9730EA31CB678D800A10C52 /* XMLGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLGenerator.h; sourceTree = "<group>"; };
+		C9730EA41CB678D800A10C52 /* XMLGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLGenerator.m; sourceTree = "<group>"; };
+		C9730EA61CB687D100A10C52 /* Rules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Rules.json; path = XMLParser/Rules.json; sourceTree = "<group>"; };
+		C973402E1CC7740D008F8E8D /* Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
+		C97340301CC7744C008F8E8D /* Sync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
+		C97340311CC78A77008F8E8D /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		C97340321CC7BC78008F8E8D /* TestBigImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestBigImage.json; sourceTree = "<group>"; };
+		C97340361CC7C6EE008F8E8D /* TestFrame.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestFrame.json; sourceTree = "<group>"; };
+		C9748D2B1CC8C21500752B3F /* SvgTemplate.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SvgTemplate.svg; path = ../SvgTemplate.svg; sourceTree = "<group>"; };
+		C9748D2D1CC8D6A200752B3F /* TestPaths.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestPaths.json; sourceTree = "<group>"; };
+		C9748D391CC8FC3400752B3F /* Xml2AgcTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Xml2AgcTranslations.json; sourceTree = "<group>"; };
+		C9748D3B1CC8FC6E00752B3F /* AGCTemplate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AGCTemplate.json; sourceTree = "<group>"; };
+		C97921A41CC4C16100E487AB /* TestParaGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParaGroup.json; sourceTree = "<group>"; };
+		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
+		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
+		C98141E51CB7BAAF00936604 /* TestGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TestGenerator.json; path = XMLParser/TestGenerator.json; sourceTree = "<group>"; };
+		C99186C51C8B664A0071A25F /* XDXCodeTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XDXCodeTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99186C81C8B664A0071A25F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C99186C91C8B664A0071A25F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C99186CC1C8B664A0071A25F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C99186CE1C8B664A0071A25F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C99186CF1C8B664A0071A25F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C99186D11C8B664A0071A25F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C99186D41C8B664A0071A25F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C99186D61C8B664A0071A25F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99186DB1C8B664A0071A25F /* XDXCodeTranslator.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XDXCodeTranslator.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99186DF1C8B664A0071A25F /* XMLParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMLParserTests.m; sourceTree = "<group>"; };
+		C99186E11C8B664A0071A25F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99186E61C8B664A0071A25F /* XDXCodeTranslator.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XDXCodeTranslator.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99186EA1C8B664A0071A25F /* XMLParserUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMLParserUITests.m; sourceTree = "<group>"; };
+		C99186EC1C8B664A0071A25F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99186F81C8B66760071A25F /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		C99186F91C8B66760071A25F /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileColor.xml; sourceTree = "<group>"; };
+		C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = XMLImages.xml; sourceTree = "<group>"; };
+		C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Test2LabelsInAgcGenerator.json; sourceTree = "<group>"; };
+		C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestDropFile.json; sourceTree = "<group>"; };
+		C9AF2B551CBFC696001C39C7 /* TestImageLabels.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestImageLabels.json; sourceTree = "<group>"; };
+		C9AF2B591CBFDF69001C39C7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C9B02E291CC6157000F25875 /* TestMulText.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestMulText.json; sourceTree = "<group>"; };
+		C9B0F4041C9C27660005903C /* Button.agc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Button.agc; sourceTree = "<group>"; };
+		C9B5FFB81CC133EF0014575C /* TestMultiple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestMultiple.json; sourceTree = "<group>"; };
+		C9C3C1621C9FE5EA002968EF /* myXMLfileScenes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileScenes.xml; sourceTree = "<group>"; };
+		C9C3C1641C9FF401002968EF /* Scene1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Scene1.xml; sourceTree = "<group>"; };
+		C9DBD9171C995524006A9638 /* myXMLfileFood.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileFood.xml; sourceTree = "<group>"; };
+		C9DBD9191C9967D0006A9638 /* myXMLfileDown.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileDown.xml; sourceTree = "<group>"; };
+		C9DBD91C1C996A8A006A9638 /* TestSingleText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestSingleText.m; path = ../TestSingleText.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C99186C21C8B664A0071A25F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99186D81C8B664A0071A25F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99186E31C8B664A0071A25F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C98A7BFF1CBE4DB70071E791 /* AgcResources */ = {
+			isa = PBXGroup;
+			children = (
+				C9748D2B1CC8C21500752B3F /* SvgTemplate.svg */,
+				C9B0F4041C9C27660005903C /* Button.agc */,
+			);
+			name = AgcResources;
+			sourceTree = "<group>";
+		};
+		C98A7C001CBE4DD10071E791 /* TranslationsSchemas */ = {
+			isa = PBXGroup;
+			children = (
+				C9730EA11CB66A9B00A10C52 /* Defs.json */,
+				C9730EA61CB687D100A10C52 /* Rules.json */,
+				C9748D391CC8FC3400752B3F /* Xml2AgcTranslations.json */,
+				C9748D3B1CC8FC6E00752B3F /* AGCTemplate.json */,
+			);
+			name = TranslationsSchemas;
+			sourceTree = "<group>";
+		};
+		C98A7C011CBE4EDD0071E791 /* TestFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C9C3C1641C9FF401002968EF /* Scene1.xml */,
+				C9C3C1621C9FE5EA002968EF /* myXMLfileScenes.xml */,
+				C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */,
+				C9DBD9191C9967D0006A9638 /* myXMLfileDown.xml */,
+				C9DBD9171C995524006A9638 /* myXMLfileFood.xml */,
+				C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */,
+				C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */,
+				C98141E51CB7BAAF00936604 /* TestGenerator.json */,
+				C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */,
+				C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */,
+				C9AF2B551CBFC696001C39C7 /* TestImageLabels.json */,
+				C9B5FFB81CC133EF0014575C /* TestMultiple.json */,
+				C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */,
+				C97921A41CC4C16100E487AB /* TestParaGroup.json */,
+				C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */,
+				C97921A81CC4F66500E487AB /* TestTextGroup.json */,
+				C9B02E291CC6157000F25875 /* TestMulText.json */,
+				C97340321CC7BC78008F8E8D /* TestBigImage.json */,
+				C97340361CC7C6EE008F8E8D /* TestFrame.json */,
+				C9748D2D1CC8D6A200752B3F /* TestPaths.json */,
+			);
+			name = TestFiles;
+			sourceTree = "<group>";
+		};
+		C99186BC1C8B664A0071A25F = {
+			isa = PBXGroup;
+			children = (
+				C98A7C011CBE4EDD0071E791 /* TestFiles */,
+				C98A7C001CBE4DD10071E791 /* TranslationsSchemas */,
+				C98A7BFF1CBE4DB70071E791 /* AgcResources */,
+				C99186C71C8B664A0071A25F /* XMLParser */,
+				C99186DE1C8B664A0071A25F /* XMLParserTests */,
+				C99186E91C8B664A0071A25F /* XMLParserUITests */,
+				C99186C61C8B664A0071A25F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C99186C61C8B664A0071A25F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C99186C51C8B664A0071A25F /* XDXCodeTranslator.app */,
+				C99186DB1C8B664A0071A25F /* XDXCodeTranslator.xctest */,
+				C99186E61C8B664A0071A25F /* XDXCodeTranslator.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C99186C71C8B664A0071A25F /* XMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				C99186F81C8B66760071A25F /* XMLReader.h */,
+				C99186F91C8B66760071A25F /* XMLReader.m */,
+				C99186C81C8B664A0071A25F /* AppDelegate.h */,
+				C99186C91C8B664A0071A25F /* AppDelegate.m */,
+				C99186CE1C8B664A0071A25F /* ViewController.h */,
+				C99186CF1C8B664A0071A25F /* ViewController.m */,
+				C99186D11C8B664A0071A25F /* Assets.xcassets */,
+				C99186D31C8B664A0071A25F /* Main.storyboard */,
+				C99186D61C8B664A0071A25F /* Info.plist */,
+				C99186CB1C8B664A0071A25F /* Supporting Files */,
+				C95EA96B1C8DC2F5004FFBA1 /* XCODELoaderSession.h */,
+				C9730EA31CB678D800A10C52 /* XMLGenerator.h */,
+				C9730EA41CB678D800A10C52 /* XMLGenerator.m */,
+				C9AF2B591CBFDF69001C39C7 /* Constants.h */,
+				C973402E1CC7740D008F8E8D /* Sync.m */,
+				C97340301CC7744C008F8E8D /* Sync.h */,
+				C97340311CC78A77008F8E8D /* Utils.h */,
+			);
+			path = XMLParser;
+			sourceTree = "<group>";
+		};
+		C99186CB1C8B664A0071A25F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C99186CC1C8B664A0071A25F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C99186DE1C8B664A0071A25F /* XMLParserTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9DBD91C1C996A8A006A9638 /* TestSingleText.m */,
+				C99186DF1C8B664A0071A25F /* XMLParserTests.m */,
+				C99186E11C8B664A0071A25F /* Info.plist */,
+			);
+			path = XMLParserTests;
+			sourceTree = "<group>";
+		};
+		C99186E91C8B664A0071A25F /* XMLParserUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C99186EA1C8B664A0071A25F /* XMLParserUITests.m */,
+				C99186EC1C8B664A0071A25F /* Info.plist */,
+			);
+			path = XMLParserUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C99186C41C8B664A0071A25F /* XDXCodeTranslator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C99186EF1C8B664A0071A25F /* Build configuration list for PBXNativeTarget "XDXCodeTranslator" */;
+			buildPhases = (
+				C99186C11C8B664A0071A25F /* Sources */,
+				C99186C21C8B664A0071A25F /* Frameworks */,
+				C99186C31C8B664A0071A25F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XDXCodeTranslator;
+			productName = XMLParser;
+			productReference = C99186C51C8B664A0071A25F /* XDXCodeTranslator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C99186DA1C8B664A0071A25F /* XDXCodeTranslatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C99186F21C8B664A0071A25F /* Build configuration list for PBXNativeTarget "XDXCodeTranslatorTests" */;
+			buildPhases = (
+				C99186D71C8B664A0071A25F /* Sources */,
+				C99186D81C8B664A0071A25F /* Frameworks */,
+				C99186D91C8B664A0071A25F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C99186DD1C8B664A0071A25F /* PBXTargetDependency */,
+			);
+			name = XDXCodeTranslatorTests;
+			productName = XMLParserTests;
+			productReference = C99186DB1C8B664A0071A25F /* XDXCodeTranslator.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C99186E51C8B664A0071A25F /* XDXCodeTranslatorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C99186F51C8B664A0071A25F /* Build configuration list for PBXNativeTarget "XDXCodeTranslatorUITests" */;
+			buildPhases = (
+				C99186E21C8B664A0071A25F /* Sources */,
+				C99186E31C8B664A0071A25F /* Frameworks */,
+				C99186E41C8B664A0071A25F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C99186E81C8B664A0071A25F /* PBXTargetDependency */,
+			);
+			name = XDXCodeTranslatorUITests;
+			productName = XMLParserUITests;
+			productReference = C99186E61C8B664A0071A25F /* XDXCodeTranslator.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C99186BD1C8B664A0071A25F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = crogoz;
+				TargetAttributes = {
+					C99186C41C8B664A0071A25F = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					C99186DA1C8B664A0071A25F = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = C99186C41C8B664A0071A25F;
+					};
+					C99186E51C8B664A0071A25F = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = C99186C41C8B664A0071A25F;
+					};
+				};
+			};
+			buildConfigurationList = C99186C01C8B664A0071A25F /* Build configuration list for PBXProject "XDXCodeTranslator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C99186BC1C8B664A0071A25F;
+			productRefGroup = C99186C61C8B664A0071A25F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C99186C41C8B664A0071A25F /* XDXCodeTranslator */,
+				C99186DA1C8B664A0071A25F /* XDXCodeTranslatorTests */,
+				C99186E51C8B664A0071A25F /* XDXCodeTranslatorUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C99186C31C8B664A0071A25F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */,
+				C9AF2B541CBFBE76001C39C7 /* TestDropFile.json in Resources */,
+				C9AF2B561CBFC696001C39C7 /* TestImageLabels.json in Resources */,
+				C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */,
+				C9748D2E1CC8D6A200752B3F /* TestPaths.json in Resources */,
+				C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */,
+				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
+				C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */,
+				C9DBD91A1C9967D0006A9638 /* myXMLfileDown.xml in Resources */,
+				C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */,
+				C9730EA71CB687D100A10C52 /* Rules.json in Resources */,
+				C9C3C1631C9FE5EA002968EF /* myXMLfileScenes.xml in Resources */,
+				C9C3C1651C9FF401002968EF /* Scene1.xml in Resources */,
+				C9AF2B4F1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json in Resources */,
+				C9B5FFB91CC133EF0014575C /* TestMultiple.json in Resources */,
+				C96E8FCD1CC22FC100956B49 /* TestParagraphs.json in Resources */,
+				C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */,
+				C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */,
+				C97340371CC7C6EE008F8E8D /* TestFrame.json in Resources */,
+				C9748D3A1CC8FC3400752B3F /* Xml2AgcTranslations.json in Resources */,
+				C99186D51C8B664A0071A25F /* Main.storyboard in Resources */,
+				C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */,
+				C9B0F4051C9C27660005903C /* Button.agc in Resources */,
+				C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */,
+				C9748D2C1CC8C21500752B3F /* SvgTemplate.svg in Resources */,
+				C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */,
+				C9B02E2A1CC6157000F25875 /* TestMulText.json in Resources */,
+				C9748D3C1CC8FC6E00752B3F /* AGCTemplate.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99186D91C8B664A0071A25F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99186E41C8B664A0071A25F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C99186C11C8B664A0071A25F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C973402F1CC7740D008F8E8D /* Sync.m in Sources */,
+				C99186D01C8B664A0071A25F /* ViewController.m in Sources */,
+				C99186CD1C8B664A0071A25F /* main.m in Sources */,
+				C99186FA1C8B66760071A25F /* XMLReader.m in Sources */,
+				C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */,
+				C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99186D71C8B664A0071A25F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9DBD91D1C996A8A006A9638 /* TestSingleText.m in Sources */,
+				C99186E01C8B664A0071A25F /* XMLParserTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99186E21C8B664A0071A25F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C99186EB1C8B664A0071A25F /* XMLParserUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C99186DD1C8B664A0071A25F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C99186C41C8B664A0071A25F /* XDXCodeTranslator */;
+			targetProxy = C99186DC1C8B664A0071A25F /* PBXContainerItemProxy */;
+		};
+		C99186E81C8B664A0071A25F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C99186C41C8B664A0071A25F /* XDXCodeTranslator */;
+			targetProxy = C99186E71C8B664A0071A25F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C99186D31C8B664A0071A25F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C99186D41C8B664A0071A25F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C99186ED1C8B664A0071A25F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C99186EE1C8B664A0071A25F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C99186F01C8B664A0071A25F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = XMLParser/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParser;
+				PRODUCT_NAME = XDXCodeTranslator;
+			};
+			name = Debug;
+		};
+		C99186F11C8B664A0071A25F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = XMLParser/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParser;
+				PRODUCT_NAME = XDXCodeTranslator;
+			};
+			name = Release;
+		};
+		C99186F31C8B664A0071A25F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = XMLParserTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParserTests;
+				PRODUCT_NAME = XDXCodeTranslator;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XDXCodeTranslator.app/Contents/MacOS/XDXCodeTranslator";
+			};
+			name = Debug;
+		};
+		C99186F41C8B664A0071A25F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = XMLParserTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParserTests;
+				PRODUCT_NAME = XDXCodeTranslator;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XDXCodeTranslator.app/Contents/MacOS/XDXCodeTranslator";
+			};
+			name = Release;
+		};
+		C99186F61C8B664A0071A25F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = XMLParserUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParserUITests;
+				PRODUCT_NAME = XDXCodeTranslator;
+				TEST_TARGET_NAME = XMLParser;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		C99186F71C8B664A0071A25F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = XMLParserUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParserUITests;
+				PRODUCT_NAME = XDXCodeTranslator;
+				TEST_TARGET_NAME = XMLParser;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C99186C01C8B664A0071A25F /* Build configuration list for PBXProject "XDXCodeTranslator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99186ED1C8B664A0071A25F /* Debug */,
+				C99186EE1C8B664A0071A25F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C99186EF1C8B664A0071A25F /* Build configuration list for PBXNativeTarget "XDXCodeTranslator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99186F01C8B664A0071A25F /* Debug */,
+				C99186F11C8B664A0071A25F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C99186F21C8B664A0071A25F /* Build configuration list for PBXNativeTarget "XDXCodeTranslatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99186F31C8B664A0071A25F /* Debug */,
+				C99186F41C8B664A0071A25F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C99186F51C8B664A0071A25F /* Build configuration list for PBXNativeTarget "XDXCodeTranslatorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99186F61C8B664A0071A25F /* Debug */,
+				C99186F71C8B664A0071A25F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C99186BD1C8B664A0071A25F /* Project object */;
+}

@@ -1135,7 +1135,7 @@
     }
     
     if ([resourcesDict length]) {
-        // append resources if it exists
+        // append resources
         resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
         [stringFooter appendString:resources];
     }

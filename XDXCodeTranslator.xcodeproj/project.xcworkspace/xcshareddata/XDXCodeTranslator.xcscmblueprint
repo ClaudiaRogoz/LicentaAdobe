@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DB79CEA8E1173BA786F3324DE665E347EA11C45E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "12B49710F520DE48284001746B37BDF6F3E30A2D" : 0,
+    "DB79CEA8E1173BA786F3324DE665E347EA11C45E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9558B5E1-D9DF-42C3-8549-7F376A499E7A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "12B49710F520DE48284001746B37BDF6F3E30A2D" : "..\/sparkler-shell",
+    "DB79CEA8E1173BA786F3324DE665E347EA11C45E" : "VisualAssetsManagementXD\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "XDXCodeTranslator",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "XDXCodeTranslator.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.corp.adobe.com:WebPA\/sparkler-shell.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "12B49710F520DE48284001746B37BDF6F3E30A2D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.corp.adobe.com:crogoz\/VisualAssetsManagementXD.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DB79CEA8E1173BA786F3324DE665E347EA11C45E"
+    }
+  ]
+}

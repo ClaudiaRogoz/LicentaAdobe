@@ -124,7 +124,7 @@
  *      xmlDictionary:  the dictioanry that needs to be written
  *      file:           the agc file path
  **/
-- (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file;
+- (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file computeSha:(int)sha;
 
 
 @end

@@ -117,10 +117,10 @@ void synch(char *XDPath, char *XMLPath) {
 
 void printOptions() {
     
-    NSLog(@"\nUsage:\n\t./XMLParser [arguments] [file paths ..]\n"
-          "\n\n\t./XMLParser -i <pathToXCodeProject>\n\t\ttranslates an XCode project into an XD project;"
+    NSLog(@"\nUsage:\n\t./XDXCodeTranslator [arguments] [file paths ..]\n"
+          "\n\n\t./XDXCodeTranslator -i <pathToXCodeProject>\n\t\ttranslates an XCode project into an XD project;"
           "The XD info is put in Clipboard;\n\t\t the XD file will be updated using Cmd+V"
-          "\n\n\t./XMLParser -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;"
+          "\n\n\t./XDXCodeTranslator -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;"
           "The XD info is put into ClipBoard (using Cmd+V).\n\t\t Using this command, the XD is translated into Xcode;"
           "\nArguments:\n"
           "\n\t-h\t\tPrint help message (this message) and exit"
