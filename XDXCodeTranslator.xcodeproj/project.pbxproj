@@ -10,7 +10,7 @@
 		C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */; };
 		C96E8FCD1CC22FC100956B49 /* TestParagraphs.json in Resources */ = {isa = PBXBuildFile; fileRef = C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */; };
 		C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA11CB66A9B00A10C52 /* Defs.json */; };
-		C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9730EA41CB678D800A10C52 /* XMLGenerator.m */; };
+		C9730EA51CB678D800A10C52 /* XD2XCode.m in Sources */ = {isa = PBXBuildFile; fileRef = C9730EA41CB678D800A10C52 /* XD2XCode.m */; };
 		C9730EA71CB687D100A10C52 /* Rules.json in Resources */ = {isa = PBXBuildFile; fileRef = C9730EA61CB687D100A10C52 /* Rules.json */; };
 		C973402F1CC7740D008F8E8D /* Sync.m in Sources */ = {isa = PBXBuildFile; fileRef = C973402E1CC7740D008F8E8D /* Sync.m */; };
 		C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C97340321CC7BC78008F8E8D /* TestBigImage.json */; };
@@ -30,7 +30,7 @@
 		C99186D51C8B664A0071A25F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99186D31C8B664A0071A25F /* Main.storyboard */; };
 		C99186E01C8B664A0071A25F /* XMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186DF1C8B664A0071A25F /* XMLParserTests.m */; };
 		C99186EB1C8B664A0071A25F /* XMLParserUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186EA1C8B664A0071A25F /* XMLParserUITests.m */; };
-		C99186FA1C8B66760071A25F /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186F91C8B66760071A25F /* XMLReader.m */; };
+		C99186FA1C8B66760071A25F /* XCode2XD.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186F91C8B66760071A25F /* XCode2XD.m */; };
 		C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */ = {isa = PBXBuildFile; fileRef = C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */; };
 		C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */; };
 		C9AF2B4F1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */; };
@@ -68,8 +68,8 @@
 		C95EA96B1C8DC2F5004FFBA1 /* XCODELoaderSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCODELoaderSession.h; sourceTree = "<group>"; };
 		C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParagraphs.json; sourceTree = "<group>"; };
 		C9730EA11CB66A9B00A10C52 /* Defs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Defs.json; path = XMLParser/Defs.json; sourceTree = "<group>"; };
-		C9730EA31CB678D800A10C52 /* XMLGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLGenerator.h; sourceTree = "<group>"; };
-		C9730EA41CB678D800A10C52 /* XMLGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLGenerator.m; sourceTree = "<group>"; };
+		C9730EA31CB678D800A10C52 /* XD2XCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XD2XCode.h; sourceTree = "<group>"; };
+		C9730EA41CB678D800A10C52 /* XD2XCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XD2XCode.m; sourceTree = "<group>"; };
 		C9730EA61CB687D100A10C52 /* Rules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Rules.json; path = XMLParser/Rules.json; sourceTree = "<group>"; };
 		C973402E1CC7740D008F8E8D /* Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
 		C97340301CC7744C008F8E8D /* Sync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
@@ -99,8 +99,8 @@
 		C99186E61C8B664A0071A25F /* XDXCodeTranslator.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XDXCodeTranslator.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99186EA1C8B664A0071A25F /* XMLParserUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMLParserUITests.m; sourceTree = "<group>"; };
 		C99186EC1C8B664A0071A25F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C99186F81C8B66760071A25F /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
-		C99186F91C8B66760071A25F /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		C99186F81C8B66760071A25F /* XCode2XD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCode2XD.h; sourceTree = "<group>"; };
+		C99186F91C8B66760071A25F /* XCode2XD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCode2XD.m; sourceTree = "<group>"; };
 		C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileColor.xml; sourceTree = "<group>"; };
 		C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = XMLImages.xml; sourceTree = "<group>"; };
 		C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Test2LabelsInAgcGenerator.json; sourceTree = "<group>"; };
@@ -215,8 +215,8 @@
 		C99186C71C8B664A0071A25F /* XMLParser */ = {
 			isa = PBXGroup;
 			children = (
-				C99186F81C8B66760071A25F /* XMLReader.h */,
-				C99186F91C8B66760071A25F /* XMLReader.m */,
+				C99186F81C8B66760071A25F /* XCode2XD.h */,
+				C99186F91C8B66760071A25F /* XCode2XD.m */,
 				C99186C81C8B664A0071A25F /* AppDelegate.h */,
 				C99186C91C8B664A0071A25F /* AppDelegate.m */,
 				C99186CE1C8B664A0071A25F /* ViewController.h */,
@@ -226,8 +226,8 @@
 				C99186D61C8B664A0071A25F /* Info.plist */,
 				C99186CB1C8B664A0071A25F /* Supporting Files */,
 				C95EA96B1C8DC2F5004FFBA1 /* XCODELoaderSession.h */,
-				C9730EA31CB678D800A10C52 /* XMLGenerator.h */,
-				C9730EA41CB678D800A10C52 /* XMLGenerator.m */,
+				C9730EA31CB678D800A10C52 /* XD2XCode.h */,
+				C9730EA41CB678D800A10C52 /* XD2XCode.m */,
 				C9AF2B591CBFDF69001C39C7 /* Constants.h */,
 				C973402E1CC7740D008F8E8D /* Sync.m */,
 				C97340301CC7744C008F8E8D /* Sync.h */,
@@ -421,9 +421,9 @@
 				C973402F1CC7740D008F8E8D /* Sync.m in Sources */,
 				C99186D01C8B664A0071A25F /* ViewController.m in Sources */,
 				C99186CD1C8B664A0071A25F /* main.m in Sources */,
-				C99186FA1C8B66760071A25F /* XMLReader.m in Sources */,
+				C99186FA1C8B66760071A25F /* XCode2XD.m in Sources */,
 				C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */,
-				C9730EA51CB678D800A10C52 /* XMLGenerator.m in Sources */,
+				C9730EA51CB678D800A10C52 /* XD2XCode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

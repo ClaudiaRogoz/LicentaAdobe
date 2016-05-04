@@ -7,10 +7,10 @@
 //
 
 #include <CommonCrypto/CommonDigest.h>
-#import "XMLReader.h"
+#import "XCode2XD.h"
 
 
-@interface XMLReader (Internal)
+@interface XCode2XD (Internal)
 
 - (id)initWithError:(NSError **)error;
 - (NSDictionary *)objectWithData:(NSData *)data;
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation XMLReader
+@implementation XCode2XD
 
 #pragma mark -
 #pragma mark Public methods
@@ -26,7 +26,7 @@
 
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)error
 {
-    XMLReader *reader = [[XMLReader alloc] initWithError:error];
+    XCode2XD *reader = [[XCode2XD alloc] initWithError:error];
     [reader setResourcesPath:resourcesDir];
     [reader setXmlPath:out_file];
     

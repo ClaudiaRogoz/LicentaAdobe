@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Constants.h"
-#import "XMLGenerator.h"
+#import "XD2XCode.h"
 
 @interface Sync : NSObject
 {

@@ -15,7 +15,7 @@
 @import AppKit;
 
 
-@interface XMLReader : NSObject <NSXMLParserDelegate>
+@interface XCode2XD : NSObject <NSXMLParserDelegate>
 {
     
     

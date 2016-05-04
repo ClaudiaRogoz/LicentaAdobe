@@ -12,8 +12,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#import "XMLReader.h"
-#import "XMLGenerator.h"
+#import "XCode2XD.h"
+#import "XD2XCode.h"
 #import "Utils.h"
 
 

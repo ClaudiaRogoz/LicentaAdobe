@@ -1,4 +1,4 @@
 dependencies: \
   /Users/crogoz/Desktop/VisualAssetsManagementXD/XMLParser/main.m \
-  XMLParser/XMLReader.h XMLParser/Constants.h XMLParser/XMLGenerator.h \
+  XMLParser/XCode2XD.h XMLParser/Constants.h XMLParser/XD2XCode.h \
   XMLParser/Utils.h XMLParser/Sync.h

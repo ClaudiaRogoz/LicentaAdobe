@@ -207,7 +207,7 @@
         NSMutableDictionary *jsonDict = [self serializeFromPath:newArtboards];
         [self mergeDict:&jsonDict withHeaderDict:[self getArtboardNo:nr forDict:jsonHeader] artboardNo:nr];
         
-        NSString *xcodeString = [XMLGenerator generateXmlForTag:jsonDict];
+        NSString *xcodeString = [XD2XCode generateXmlForTag:jsonDict];
         NSLog(@"XcodeStr = %@", xcodeString);
         [self replacePrevArtboard:newArtboards no:nr];
         

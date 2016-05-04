@@ -80,7 +80,7 @@ void import(char *path) {
     
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    [XMLReader dictionaryForXMLData:parser resources:inXmlPath outFile:importPath error:&parseError];
+    [XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath error:&parseError];
     
     
     /* copy <agc file> to clipboard */
@@ -101,7 +101,7 @@ void export(char *path) {
     NSString *exportPath = pathFormat(&outXmlPath, path);
     
     /* generate storyboard for xcode from xd */
-    [XMLGenerator readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
+    [XD2XCode readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
     /* open export xcode project */
     openExportProject(outXmlPath);
     

@@ -16,7 +16,7 @@
  *  Parses AGC code; Generates XML tags for XCODE
  **/
 
-@interface XMLGenerator : NSObject
+@interface XD2XCode : NSObject
 {
     /* translation schema between agc and xml
      * it is read from Defs.json */

@@ -6,7 +6,7 @@
 //  Copyright © 2016 crogoz. All rights reserved.
 //
 
-#import "XMLGenerator.h"
+#import "XD2XCode.h"
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
@@ -16,7 +16,7 @@
 @import AppKit;
 
 
-@implementation XMLGenerator
+@implementation XD2XCode
 
 
 
@@ -25,7 +25,7 @@
     NSError *error;
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     
-    XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
+    XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
     [gen initWithSchemas];
     [gen setXmlPath:xmlPath];
     [gen setOutXmlPath:outXmlPath];
@@ -49,7 +49,7 @@
     
     NSError *error;
     
-    XMLGenerator *gen = [[XMLGenerator alloc] initWithError:&error];
+    XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
     [gen initWithSchemas];
     
     NSString *xmlTemplate = [gen getXmlForAgcObject:agcDict];
