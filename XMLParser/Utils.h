@@ -41,6 +41,21 @@ NSString *pathFormat(NSString **path, const char *arg) {
     return retPath;
 }
 
+void printOptions() {
+    
+    NSLog(@"\nUsage:\n\t./XDXCodeTranslator [arguments] [file paths ..]\n"
+          "\n\n\t./XDXCodeTranslator -i <pathToXCodeProject>\n\t\ttranslates an XCode project into an XD project;"
+          "The XD info is put in Clipboard;\n\t\t the XD file will be updated using Cmd+V"
+          "\n\n\t./XDXCodeTranslator -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;"
+          "The XD info is put into ClipBoard (using Cmd+V).\n\t\t Using this command, the XD is translated into Xcode;"
+          "\nArguments:\n"
+          "\n\t-h\t\tPrint help message (this message) and exit"
+          "\n\t-i\t\tImports an XCode project path given as argument (eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
+          "\n\t-e\t\tExports an XD project to an XCode project. \n\t\tThe Xcode project is given as an argument."
+          "\n\t\t(eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
+          "\n eg: <pathToProject> = ~/Desktop/<ImportProj>/<ImportProj>\n");
+}
+
 
 void openExportProject(NSString * outXmlPath) {
     
@@ -78,6 +93,12 @@ void import(char *path) {
     NSString *importPath = pathFormat(&inXmlPath, path);
     NSData *parser = [NSData dataWithContentsOfFile:importPath];
     
+    if (!parser) {
+        NSLog(@"[ERROR] import path is not valid");
+        printOptions();
+        return;
+    
+    }
     // Parse the XML into a dictionary
     NSError *parseError = nil;
     [XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath error:&parseError];
@@ -100,7 +121,13 @@ void export(char *path) {
     
     NSString *outXmlPath= [NSString stringWithFormat:@"%s", path];
     NSString *exportPath = pathFormat(&outXmlPath, path);
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:exportPath];
     
+    if (!exists) {
+        NSLog(@"[ERROR] export path is not valid");
+        printOptions();
+        return;
+    }
     /* generate storyboard for xcode from xd */
     [XD2XCode readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
     /* open export xcode project */
@@ -117,19 +144,5 @@ void synch(char *XDPath, char *XMLPath) {
     [Sync startSync:xdPath withXcode:xmlPath];
 }
 
-void printOptions() {
-    
-    NSLog(@"\nUsage:\n\t./XDXCodeTranslator [arguments] [file paths ..]\n"
-          "\n\n\t./XDXCodeTranslator -i <pathToXCodeProject>\n\t\ttranslates an XCode project into an XD project;"
-          "The XD info is put in Clipboard;\n\t\t the XD file will be updated using Cmd+V"
-          "\n\n\t./XDXCodeTranslator -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;"
-          "The XD info is put into ClipBoard (using Cmd+V).\n\t\t Using this command, the XD is translated into Xcode;"
-          "\nArguments:\n"
-          "\n\t-h\t\tPrint help message (this message) and exit"
-          "\n\t-i\t\tImports an XCode project path given as argument (eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
-          "\n\t-e\t\tExports an XD project to an XCode project. \n\t\tThe Xcode project is given as an argument."
-          "\n\t\t(eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
-          "\n eg: <pathToProject> = ~/Desktop/<ImportProj>/<ImportProj>\n");
-}
 
 #endif /* Utils_h */

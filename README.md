@@ -12,7 +12,7 @@ Build & Run App:
 		-s ; syncs an xd project with an xcode project
  
 -> an XCODE import sample can be found in the SamplesXcodeImport directory 
--> ISSUE: cannot import multiple views/multiline labels
+-> ISSUE: cannot import multiple views
 ----------------
 Importing objects from Xcode: 
 
