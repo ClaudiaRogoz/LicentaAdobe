@@ -423,7 +423,8 @@
     CGSize frameSize = CGSizeMake(width, height);
     int textSize = [tempValue intValue];
     NSFont *font = [NSFont systemFontOfSize:textSize];
-    NSLog(@"height width = %d %d", height, width);
+    [attributes setObject:[NSNumber numberWithInt:textSize] forKey:SAVED_POINTSIZE];
+    NSLog(@"height width = %f %f", height, width);
     CGRect idealFrame = [text boundingRectWithSize:frameSize
                                            options:NSStringDrawingUsesLineFragmentOrigin
                                         attributes:@{ NSFontAttributeName:font }
@@ -706,7 +707,7 @@
     }
     
     NSLog(@"satrteEleem= %@ %@", elementName, attributeDict);
-    //if ([elementName isEqualToString:])
+
     if ([elementName isEqualToString:SCENE]) {
         sceneNo++;
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
@@ -749,6 +750,11 @@
                           parentDict:( NSMutableDictionary *)parentDict];
     
   
+}
+
+-(int) isLiteral:(unichar) value {
+
+    return value != ' ' || value == '\n' || value == '\t';
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -835,21 +841,83 @@
         [prevParent addEntriesFromDictionary:parentDict];
     }
     
+    /* create paragraphs (if needed) */
     if ([elementName isEqualToString:TEXTFIELD] || [elementName isEqualToString:LABEL]){
         
         NSArray *strings = [[xml2agcDictionary objectForKey:LENGTH_DOT] componentsSeparatedByString:DOT];
         
-        id value = parentDict;
-        for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
-            if ([value isKindOfClass:[NSMutableDictionary class]])
-                value = [value objectForKey: key];
-            else
-                value = value[0][key][0][0]; // For lines only
+        long length = textValue.length;
+        id numberOfLines = attributes[SAVED_LINES];
+        int nLines = 1;
+        if (attributes[SAVED_LINES]) {
+            nLines = [numberOfLines intValue];
+            NSArray *newParagraphs = [[xml2agcDictionary objectForKey:PARAGRAPHS_DOT] componentsSeparatedByString:DOT];
+            id value = parentDict;
+            NSLog(@"strings = %@", value);
+            for (id key in newParagraphs) {
+                if ([value isKindOfClass:[NSMutableDictionary class]])
+                    value = [value objectForKey:key];
+                else
+                    value = [value objectAtIndex:[key intValue]];
+            }
+            NSLog(@"Pars = %@", value);
+            for (int paragraph=1; paragraph < [numberOfLines intValue]; paragraph++) {
+                NSMutableDictionary *newPara = [self deepCopy:[xml2agcDictionary objectForKey:SAVED_LINES]];
+                NSLog(@"newPara = %@", [attributes objectForKey:SAVED_LINES]);
+                [value addObject:newPara];
             
+            }
+            
+            /* the length of a line should be ~length */
+            length = length / [attributes[SAVED_LINES] intValue];
+            length = length * WIDTH_XD_ARTBOARD/ WIDTH_XML_ARTBOARD;
         }
         
-        [value setObject:[NSNumber numberWithLong:textValue.length] forKey:[strings lastObject]];
+        NSLog(@"ParentDict = %d", length);
+        long from = 0;
         
+        NSFont *font = [NSFont systemFontOfSize:[attributes[SAVED_POINTSIZE]intValue]];
+        
+        CGRect idealFrame = [textValue boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                                    options:NSStringDrawingUsesLineFragmentOrigin
+                                                 attributes:@{ NSFontAttributeName:font }
+                                                    context:nil];
+        int yOffset = idealFrame.size.height;
+        for (int i = 0; i<nLines; i++) {
+            id value = parentDict;
+            for (id key in [strings subarrayWithRange:NSMakeRange(1, [strings count] - 2)]){
+                if ([value isKindOfClass:[NSMutableDictionary class]])
+                    value = [value objectForKey: key];
+                else
+                    value = value[i][key][0][0]; // For lines only
+            }
+            NSArray *fromTo = [[strings lastObject] componentsSeparatedByString:TOTRANSFORM];
+            
+            long to = from + length;
+            long left = to;
+            long right = to;
+            while (left > 0 && [self isLiteral:[textValue characterAtIndex:left - 1]] ) {
+                left--;
+            }
+            
+            while (right <= textValue.length && [self isLiteral:[textValue characterAtIndex:right - 1]] ) {
+                right++;
+            }
+            
+            to = (left < right && left != 0) ? left : right;
+            
+            NSLog(@"From to = %lu %lu %lu %lu", from, to, left, right);
+            NSLog(@"Size = %@", attributes[SAVED_POINTSIZE]);
+            
+            
+            NSLog(@"height = %f", idealFrame.size.height);
+            /* set from-to offsets */
+            [value setObject:[NSNumber numberWithLong:from] forKey:[fromTo firstObject]];
+            [value setObject:[NSNumber numberWithLong:to] forKey:[fromTo objectAtIndex:1]];
+            [value setObject:[NSNumber numberWithLong:yOffset * i] forKey:[fromTo lastObject]];
+            
+            from = to;
+        }
     }
     
     //default Values

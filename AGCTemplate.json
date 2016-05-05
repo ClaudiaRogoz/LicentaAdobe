@@ -57,6 +57,19 @@
             "rawText" :  "#text"
         }
     },
+    "#numberOfLines" : {
+        "lines" : [[
+                    {
+                    "x" : 0,
+                    "y" : 0,
+                    "from" : 0,
+                    "to" : 11
+                    
+                    }
+                    
+                    ]]
+        
+    },
     "textField" : {
         "type" : "text",
         "name" : "$text",

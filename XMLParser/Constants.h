@@ -130,6 +130,7 @@
 #define VERSION     @"version"
 #define IMAGEVIEW   @"imageView"
 #define IMAGEVIEW_INV   @"imageView."
+#define PARAGRAPHS_DOT  @"paragraphs."
 #define UID         @"uid"
 #define LIST        @"list"
 #define ART_SCENE   @"artboard"
@@ -177,6 +178,7 @@
 #define SAVED_VALUE @"#"
 #define SAVED_TEXT  @"#text"
 #define SAVED_LINES @"#numberOfLines"
+#define SAVED_POINTSIZE @"#pointSize"
 
 #define GETMAX      @"$MAX"
 #define PATH        @"$PATH"

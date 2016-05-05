@@ -51,8 +51,22 @@
         "pointSize" :   "textField.style.font.size"
     
     },
-    "length."   :   "textField.text.paragraphs.lines.to",
+    "length."   :   "textField.text.paragraphs.lines.from$to$y",
+    "paragraphs." : "text.paragraphs",
     "#textField" : {
         "textField.text.rawText"    :   "#text"
+    },
+    "#numberOfLines" : {
+        "lines" : [[
+                    {
+                    "x" : 0,
+                    "y" : 0,
+                    "from" : 0,
+                    "to" : 11
+                    
+                    }
+                    
+                    ]]
+        
     }
 }
