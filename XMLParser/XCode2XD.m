@@ -35,7 +35,6 @@
 
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName computeSha:-1];
-    
     [reader splitArtboards:rootDictionary];
     
     /* writes hashDict & offsetDict to a hidden file; needed for sync */
@@ -90,6 +89,7 @@
         NSLog(@"Got an error: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"Json Stri = %@", jsonString);
         NSString *mainBundle = [self getProjHomePath];
         
         
@@ -413,6 +413,8 @@
 -(NSDictionary*) getIdealFrameForPointSize:(id) tempValue {
 
     NSMutableDictionary *offset = [[NSMutableDictionary alloc] init];
+    NSLog(@"saved_text == %@ %d", attributes[SAVED_TEXT], [attributes[SAVED_LINES] intValue]);
+
     NSString *text = attributes[SAVED_TEXT];
     float width = [[[attributes objectForKey:FRAME_SIZE] objectForKey:WIDTH] floatValue];
     float height = [[[attributes objectForKey:FRAME_SIZE] objectForKey:HEIGHT] floatValue];
@@ -421,7 +423,7 @@
     CGSize frameSize = CGSizeMake(width, height);
     int textSize = [tempValue intValue];
     NSFont *font = [NSFont systemFontOfSize:textSize];
-    
+    NSLog(@"height width = %d %d", height, width);
     CGRect idealFrame = [text boundingRectWithSize:frameSize
                                            options:NSStringDrawingUsesLineFragmentOrigin
                                         attributes:@{ NSFontAttributeName:font }
@@ -488,7 +490,7 @@
             tempValue = [NSNumber numberWithInt: y];
             
         } else if ([attributeDict objectForKey:key] && [elementName isEqualToString:FONT_DESCR] && [[inheritanceStack lastObject] intValue]) {
-            
+            NSLog(@"tempValue = %@", tempValue);
             NSDictionary *pos = [self getIdealFrameForPointSize:tempValue];
             id tempDict = parentDict;
             
@@ -553,6 +555,7 @@
                 else if ([tempValue floatValue]){
                     tempValue = [NSNumber numberWithFloat:[tempValue floatValue]];
                 }
+                
                 attributes[tempSaved] = tempValue;
                 correctAttr[key] = tempValue;
                 
@@ -693,10 +696,17 @@
     attributeDict = [attributeDict mutableCopy];
     NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
     
-    /*if (objectOffset[tagName] != nil){
-       
-    }*/
+    /*initializes things for a neaw mutableString */
+    if ([elementName isEqualToString:@"string" ] || [elementName isEqualToString:@"mutableString" ]){
+        attributes[SAVED_TEXT] = [[NSString alloc] init];
+
+    }
+    if ([elementName isEqualToString:@"label"]) {
+        attributes[SAVED_LINES] = [attributeDict objectForKey:@"numberOfLines"];
+    }
     
+    NSLog(@"satrteEleem= %@ %@", elementName, attributeDict);
+    //if ([elementName isEqualToString:])
     if ([elementName isEqualToString:SCENE]) {
         sceneNo++;
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
@@ -787,6 +797,7 @@
     NSString *tempReplace = [NSString stringWithFormat:@"%@%@", SAVED_VALUE, elementName];
     
     if ([elementName isEqualToString:LABEL]){
+        
         tempReplace = [NSString stringWithFormat:@"%@%@", SAVED_VALUE, xml2agcDictionary[elementName]];
     }
     
@@ -806,6 +817,12 @@
             
         }
         textValue = [attributes objectForKey:[xml2agcDictionary[tempReplace] objectForKey:key]];
+        if (![attributes objectForKey:[xml2agcDictionary[tempReplace] objectForKey:key]]) {
+            NSLog(@"[ERROR] %@", parentDict);
+            NSLog(@"%@ " , [xml2agcDictionary[tempReplace] objectForKey:key]);
+            [dictionaryStack removeLastObject];
+            return;
+        }
         [value setObject:[attributes objectForKey:[xml2agcDictionary[tempReplace] objectForKey:key]] forKey:[strings lastObject]];
     }
     
@@ -905,7 +922,29 @@
 {
     
     // Build the text value
-    [textInProgress appendString:string];
+    NSLog(@"Text Value = %@ %@", string, inheritanceStack);
+    NSString *newString;
+    if (string != nil) /* we have a string tag (multiline label)*/ {
+        newString = [string stringByReplacingOccurrencesOfString:@"  " withString:@""];
+        newString = [newString stringByReplacingOccurrencesOfString:@" " withString:@""];
+        newString = [newString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        if ([newString length]) {
+            NSLog(@"Prev = %@", attributes[SAVED_TEXT]);
+            NSString *prevSavedText = attributes[SAVED_TEXT];
+            
+            if (prevSavedText) {
+                NSString *tmp = string;
+                string = [prevSavedText stringByAppendingString:tmp];
+            }
+            
+            [attributes setObject:string forKey:SAVED_TEXT];
+            [textInProgress appendString:string];
+            NSLog(@"attributes = %@", [dictionaryStack objectAtIndex:0]);
+        }
+        
+    }
+    NSLog(@"Attrib[text] = %@", attributes[SAVED_TEXT]);
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError

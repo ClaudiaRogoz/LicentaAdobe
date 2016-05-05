@@ -176,6 +176,8 @@
 #define TOTRANSFORM @"$"
 #define SAVED_VALUE @"#"
 #define SAVED_TEXT  @"#text"
+#define SAVED_LINES @"#numberOfLines"
+
 #define GETMAX      @"$MAX"
 #define PATH        @"$PATH"
 /* XML2AGC const */

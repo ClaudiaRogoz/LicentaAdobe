@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/AGCTemplate.json</key>
 		<data>
-		jYTfH+XyHoD+wd7fOhqHLZImcRA=
+		u9Yon+mzWCl+zs+XDDdTcJAi0aU=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Resources/Xml2AgcTranslations.json</key>
 		<data>
-		n3alQPKPxQc2lwCF29rOsYklxpc=
+		lgGRA5E17Cyay9x4Dstffq8Rmd8=
 		</data>
 		<key>Resources/myXMLfile.xml</key>
 		<data>
@@ -151,11 +151,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jYTfH+XyHoD+wd7fOhqHLZImcRA=
+			u9Yon+mzWCl+zs+XDDdTcJAi0aU=
 			</data>
 			<key>hash2</key>
 			<data>
-			z2EIU6A4xl4A8ldAzverrP1Njj4W+Oh6Xd+zYsJZzv4=
+			cbZvjzY5YNbPsdsDpL3BKQjJBmvFwF0lzpFN9NmHRdU=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
@@ -423,11 +423,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			n3alQPKPxQc2lwCF29rOsYklxpc=
+			lgGRA5E17Cyay9x4Dstffq8Rmd8=
 			</data>
 			<key>hash2</key>
 			<data>
-			BjkwMMJsi0wRQkTuTzGpTLII7a1xDyH6Qe18hfaUepM=
+			ytPlBQtMaBU1vb43+ekRaaRbuz63OA/lYr88fVHd070=
 			</data>
 		</dict>
 		<key>Resources/myXMLfile.xml</key>
