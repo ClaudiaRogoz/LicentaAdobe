@@ -81,7 +81,6 @@
 - (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file computeSha:(int)sha {
     
     NSError *error;
-    NSLog(@"XmlDictionary %@", xmlDictionary);
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
@@ -278,7 +277,7 @@
     if (![elementName isEqualToString:FRAME])
         return;
     
-    NSLog(@"Art %d %d", widthXMLArtboard, heightXMLArtboard);
+    //NSLog(@"[XY] = %d %d", widthXMLArtboard, heightXMLArtboard);
     if ([[inheritanceStack lastObject] isEqualToString:CHILDREN]) {
         
         /* all artboards must have the same size in a single app */
@@ -294,10 +293,11 @@
     }
     if (heightXMLArtboard == 0)
         yScaleFactor = 1;
+   // NSLog(@"XY = %d %d", widthXMLArtboard, heightXMLArtboard);
     for (id value in arrayWithSize) {
         float scaledValue = [[*attrScaleDict objectForKey:value] floatValue];
-        NSLog(@"For %@ %f %d %f ", elementName, scaledValue, sceneNo, xScaleFactor);
-        if ([value isEqualToString:XARTBOARD] ) {
+        //NSLog(@"ScaledValue = %f %d %f %f", scaledValue, sceneNo, xScaleFactor, yScaleFactor);
+        if ([value isEqualToString:XARTBOARD]) {
             
             scaledValue = scaledValue * xScaleFactor+ (sceneNo -1) * OFFSETBOARD;
         }
@@ -305,7 +305,7 @@
             scaledValue = scaledValue * xScaleFactor;
         else
             scaledValue = scaledValue * yScaleFactor;
-        NSLog(@"=> %f", scaledValue);
+        //NSLog(@"=> %f", scaledValue);
         [*attrScaleDict setValue:[NSNumber numberWithFloat:scaledValue] forKey:value];
     }
 }
@@ -350,9 +350,11 @@
         nr = [NSNumber numberWithInt:[tempValue intValue]];
     else if ([tempValue floatValue])
         nr = [NSNumber numberWithFloat:[tempValue floatValue]];
-    else if ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"])
+    else if ([tempValue isKindOfClass:[NSString class]] &&
+             ([tempValue isEqualToString:@"0.0"] || [tempValue isEqualToString:@"0"]))
         nr = [NSNumber numberWithInt:0];
-    
+    else
+        nr = [NSNumber numberWithInt:0];
     return nr;
 
 }
@@ -432,7 +434,12 @@
     int textSize = [tempValue intValue];
     NSFont *font = [NSFont systemFontOfSize:textSize];
     [attributes setObject:[NSNumber numberWithInt:textSize] forKey:SAVED_POINTSIZE];
+    //NSLog(@"Text = %@", text);
     
+    if ([text isKindOfClass:[NSNumber class]]) {
+        NSNumber *nr = [NSNumber numberWithInt:[text intValue]];
+        text = [nr stringValue];
+    }
     CGRect idealFrame = [text boundingRectWithSize:frameSize
                                            options:NSStringDrawingUsesLineFragmentOrigin
                                         attributes:@{ NSFontAttributeName:font }
@@ -538,7 +545,7 @@
 {
     
     NSMutableDictionary *correctAttr = [self deepCopy:attributes[elementName]];
-    ;
+    
     //First level attributes
     for (id key in attributes[elementName]){
         
@@ -704,14 +711,14 @@
 {
     attributeDict = [attributeDict mutableCopy];
     NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
-    NSLog(@"Started %@", elementName);
+   
     /*initializes things for a neaw mutableString */
-    if ([elementName isEqualToString:@"string" ] || [elementName isEqualToString:@"mutableString" ]){
+    if ([elementName isEqualToString:STRING] || [elementName isEqualToString:MUTABLE_STRING]){
         attributes[SAVED_TEXT] = [[NSString alloc] init];
 
     }
-    if ([elementName isEqualToString:@"label"]) {
-        attributes[SAVED_LINES] = [attributeDict objectForKey:@"numberOfLines"];
+    if ([elementName isEqualToString:LABEL]) {
+        attributes[SAVED_LINES] = [attributeDict objectForKey:NO_LINES];
     }
     if ([elementName isEqualToString:VIEW]) {
         if (!hasAView)
@@ -732,7 +739,7 @@
         NSMutableArray *arr = [offsetXmlFile objectForKey:[NSNumber numberWithInt:sceneNo]];
         [arr addObject:[NSNumber numberWithLong: range.location]];
         xmlOffset = (unsigned long)range.location;
-
+        hasAView = false;
         [offsetXmlFile setObject: [NSNumber numberWithLong:xmlOffset] forKey:[NSString stringWithFormat:@"%d", sceneNo]];
     }
     
@@ -823,8 +830,8 @@
     if ([textValue isKindOfClass:[NSNumber class]]) {
         NSNumber *nr = [NSNumber numberWithInt:[textValue intValue]];
         textValue = [nr stringValue];
-        NSLog(@"TextValue = %@", textValue);
     }
+    
     NSArray *strings = [[xml2agcDictionary objectForKey:LENGTH_DOT] componentsSeparatedByString:DOT];
     
     long length = textValue.length;
@@ -993,6 +1000,10 @@
             return;
         }
     }
+    if ([elementName isEqualToString:SCENE]) {
+        viewEnded = false;
+    }
+    
     if ([xml2agcDictionary[elementName] isEqualToString:ART_SCENE]) {
         
         NSString *artboardNo = [NSString stringWithFormat:@"artboard%d", counterArtboards++] ;

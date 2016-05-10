@@ -91,6 +91,7 @@
 #define CHILDREN    @"children"
 #define ARTBOARD    @"view"
 #define TOSTRING    @"toString"
+#define STRING      @"string"
 #define HEADER      @"header"
 #define SUBTAGS     @"subtags"
 #define SUBVIEWS    @"subviews"
@@ -179,7 +180,7 @@
 #define SAVED_TEXT  @"#text"
 #define SAVED_LINES @"#numberOfLines"
 #define SAVED_POINTSIZE @"#pointSize"
-
+#define NO_LINES    @"numberOfLines"
 #define GETMAX      @"$MAX"
 #define PATH        @"$PATH"
 /* XML2AGC const */
@@ -197,6 +198,7 @@
 #define XML_OFFSET_X    644
 
 /* template for headers */
+#define MUTABLE_STRING  @"mutableString"
 #define STRINGTAG   @"</mutableString>"
 #define XMLRESOURCES   @"<resources>"
 #define XMLRESOURCESF  @"</resources>"
