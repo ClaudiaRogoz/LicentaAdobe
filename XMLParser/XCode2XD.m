@@ -81,6 +81,7 @@
 - (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file computeSha:(int)sha {
     
     NSError *error;
+    NSLog(@"XmlDictionary %@", xmlDictionary);
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
@@ -181,6 +182,8 @@
     xmlOffset = 0;
     counterArtboards = 1;
     insertedRoot = false;
+    hasAView = false;
+    viewEnded = false;
     
     NSError *error;
     
@@ -275,6 +278,7 @@
     if (![elementName isEqualToString:FRAME])
         return;
     
+    NSLog(@"Art %d %d", widthXMLArtboard, heightXMLArtboard);
     if ([[inheritanceStack lastObject] isEqualToString:CHILDREN]) {
         
         /* all artboards must have the same size in a single app */
@@ -285,9 +289,14 @@
 
     float xScaleFactor = (float)WIDTHIPH6/widthXMLArtboard;
     float yScaleFactor = (float)HEIGHTIPH6/heightXMLArtboard;
-    
+    if (widthXMLArtboard == 0) {
+        xScaleFactor = 1;
+    }
+    if (heightXMLArtboard == 0)
+        yScaleFactor = 1;
     for (id value in arrayWithSize) {
         float scaledValue = [[*attrScaleDict objectForKey:value] floatValue];
+        NSLog(@"For %@ %f %d %f ", elementName, scaledValue, sceneNo, xScaleFactor);
         if ([value isEqualToString:XARTBOARD] ) {
             
             scaledValue = scaledValue * xScaleFactor+ (sceneNo -1) * OFFSETBOARD;
@@ -296,7 +305,7 @@
             scaledValue = scaledValue * xScaleFactor;
         else
             scaledValue = scaledValue * yScaleFactor;
-    
+        NSLog(@"=> %f", scaledValue);
         [*attrScaleDict setValue:[NSNumber numberWithFloat:scaledValue] forKey:value];
     }
 }
@@ -695,7 +704,7 @@
 {
     attributeDict = [attributeDict mutableCopy];
     NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
-    
+    NSLog(@"Started %@", elementName);
     /*initializes things for a neaw mutableString */
     if ([elementName isEqualToString:@"string" ] || [elementName isEqualToString:@"mutableString" ]){
         attributes[SAVED_TEXT] = [[NSString alloc] init];
@@ -704,7 +713,14 @@
     if ([elementName isEqualToString:@"label"]) {
         attributes[SAVED_LINES] = [attributeDict objectForKey:@"numberOfLines"];
     }
-
+    if ([elementName isEqualToString:VIEW]) {
+        if (!hasAView)
+            hasAView = true;
+        else {
+            return;
+        }
+    }
+    
     if ([elementName isEqualToString:SCENE]) {
         sceneNo++;
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
@@ -804,6 +820,11 @@
         return;
     }
     
+    if ([textValue isKindOfClass:[NSNumber class]]) {
+        NSNumber *nr = [NSNumber numberWithInt:[textValue intValue]];
+        textValue = [nr stringValue];
+        NSLog(@"TextValue = %@", textValue);
+    }
     NSArray *strings = [[xml2agcDictionary objectForKey:LENGTH_DOT] componentsSeparatedByString:DOT];
     
     long length = textValue.length;
@@ -965,7 +986,13 @@
         return;
         
     }
-    
+    if ([elementName isEqualToString:VIEW]) {
+        if (!viewEnded)
+            viewEnded = true;
+        else {
+            return;
+        }
+    }
     if ([xml2agcDictionary[elementName] isEqualToString:ART_SCENE]) {
         
         NSString *artboardNo = [NSString stringWithFormat:@"artboard%d", counterArtboards++] ;

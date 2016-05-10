@@ -95,6 +95,8 @@
     BOOL insertedRoot;
     int counterArtboards;
     int counterCh;
+    bool hasAView;
+    bool viewEnded;
     
     
 }
