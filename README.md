@@ -21,10 +21,11 @@ Pasii pentru rularea aplicatiei:
 
 	•	Import:
 		o	<calea catre executabil> -I <calea catre proiectul xcode de la care se importa>
-♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
-o	in iurma rularii se va obtine rezultatul [Import DONE], iar in Clipboard se va afla fisierul agc echivalent; In XD se va da paste la continut
-•	Export
-o	 Se selecteaza elementele vizuale din XD pe care dorim sa le exportam si le copiem in Clipboard
-o	 <calea catre executabil>    -e  <calea catre proiectul xcode la care se se va exporta>
-♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
-o	Se deschide automat reprezentarea echivalenta in Xcode
+			♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
+		o	in urma rularii se va obtine rezultatul [Import DONE], 
+			iar in Clipboard se va afla fisierul agc echivalent; In XD se va da paste la continut
+	•	Export
+		o	 Se selecteaza elementele vizuale din XD pe care dorim sa le exportam si le copiem in Clipboard
+		o	 <calea catre executabil>    -e  <calea catre proiectul xcode la care se se va exporta>
+			♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
+		o	Se deschide automat reprezentarea echivalenta in Xcode
