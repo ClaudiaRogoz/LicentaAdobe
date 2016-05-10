@@ -12,15 +12,15 @@
 
 Pasii pentru compilarea aplicatiei si obtinerea executabilului:
 
-•	Proiectul este descarcat de la adresa [1]
-•	Proiectul se deschide cu XCode si se compileaza
-•	In urma compilarii, se genereaza un executabil: 
-“VisualAssetsManagement/Build/Products/Debug/XDXCodeTranslator.app/Contents/MacOS/XDXCodeTranslator”
+	•	Proiectul este descarcat de la adresa [1]
+	•	Proiectul se deschide cu XCode si se compileaza
+	•	In urma compilarii, se genereaza un executabil: 
+	“VisualAssetsManagement/Build/Products/Debug/XDXCodeTranslator.app/Contents/MacOS/XDXCodeTranslator”
 
 Pasii pentru rularea aplicatiei:
 
-•	Import:
-o	<calea catre executabil> -I <calea catre proiectul xcode de la care se importa>
+	•	Import:
+		o	<calea catre executabil> -I <calea catre proiectul xcode de la care se importa>
 ♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
 o	in iurma rularii se va obtine rezultatul [Import DONE], iar in Clipboard se va afla fisierul agc echivalent; In XD se va da paste la continut
 •	Export
