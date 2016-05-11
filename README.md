@@ -22,6 +22,7 @@ Pasii pentru rularea aplicatiei:
 	•	Import:
 		o	<calea catre executabil> -I <calea catre proiectul xcode de la care se importa>
 			♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
+			♣	[EXEMPLU SAMPLE] ./XDXCodeTranslator  -i <caleVisualManagemenetXD>/SampleXcodeImport/Samples
 		o	in urma rularii se va obtine rezultatul [Import DONE], 
 			iar in Clipboard se va afla fisierul agc echivalent; In XD se va da paste la continut
 	•	Export

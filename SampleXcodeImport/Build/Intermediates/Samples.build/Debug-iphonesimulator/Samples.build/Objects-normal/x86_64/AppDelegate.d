@@ -1,2 +1,3 @@
-dependencies: /Users/crogoz/Desktop/Samples/Samples/AppDelegate.m \
-  /Users/crogoz/Desktop/Samples/Samples/AppDelegate.h
+dependencies: \
+  /Users/crogoz/Desktop/VisualAssetsManagementXD/SampleXcodeImport/Samples/AppDelegate.m \
+  /Users/crogoz/Desktop/VisualAssetsManagementXD/SampleXcodeImport/Samples/AppDelegate.h

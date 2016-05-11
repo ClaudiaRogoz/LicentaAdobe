@@ -8,9 +8,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 93,
-              "g" : 226,
-              "b" : 255
+              "r" : 0,
+              "g" : 0,
+              "b" : 0
             },
             "alpha" : 255
           }
@@ -26,7 +26,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "205107"
+                      "uid" : "564826"
                     }
                   },
                   "width" : 397,
@@ -46,10 +46,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "width" : 150,
-              "height" : 142.2933,
               "type" : "rect",
-              "x" : "0"
+              "x" : "0",
+              "width" : 150,
+              "height" : 142.2933
             }
           },
           {
@@ -59,7 +59,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "632924"
+                      "uid" : "421940"
                     }
                   },
                   "width" : 397,
@@ -79,10 +79,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "height" : 142.2933,
-              "type" : "rect",
               "x" : "0",
-              "width" : 150
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect"
             }
           },
           {
@@ -92,7 +92,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "26955"
+                      "uid" : "218497"
                     }
                   },
                   "width" : 397,
@@ -112,10 +112,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "type" : "rect",
-              "x" : "0",
               "width" : 150,
-              "height" : 142.2933
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0"
             }
           },
           {
@@ -163,7 +163,10 @@
                   }
                 },
                 {
-                  "name" : "ellipse",
+                  "shape" : {
+                    "type" : "path",
+                    "path" : "M 14 0 C 21.73198509216309 0 28 6.268014430999756 28 14 C 28 21.73198509216309 21.73198509216309 28 14 28 C 6.268014430999756 28 0 21.73198509216309 0 14 C 0 6.268014430999756 6.268014430999756 0 14 0 Z"
+                  },
                   "visualBounds" : {
                     "y" : 208.25,
                     "x" : 342.4500122070312,
@@ -219,6 +222,8 @@
                       "width" : 0.5
                     }
                   },
+                  "type" : "shape",
+                  "name" : "ellipse",
                   "transform" : {
                     "d" : 1,
                     "b" : 0,
@@ -226,12 +231,7 @@
                     "c" : 0,
                     "a" : 1,
                     "tx" : 30.70000076293945
-                  },
-                  "shape" : {
-                    "type" : "path",
-                    "path" : "M 14 0 C 21.73198509216309 0 28 6.268014430999756 28 14 C 28 21.73198509216309 21.73198509216309 28 14 28 C 6.268014430999756 28 0 21.73198509216309 0 14 C 0 6.268014430999756 6.268014430999756 0 14 0 Z"
-                  },
-                  "type" : "shape"
+                  }
                 }
               ]
             },
@@ -291,7 +291,10 @@
                   }
                 },
                 {
-                  "name" : "ellipse",
+                  "shape" : {
+                    "type" : "path",
+                    "path" : "M 14 0 C 21.73198509216309 0 28 6.268014430999756 28 14 C 28 21.73198509216309 21.73198509216309 28 14 28 C 6.268014430999756 28 0 21.73198509216309 0 14 C 0 6.268014430999756 6.268014430999756 0 14 0 Z"
+                  },
                   "visualBounds" : {
                     "y" : 208.25,
                     "x" : 342.4500122070312,
@@ -347,6 +350,8 @@
                       "width" : 0.5
                     }
                   },
+                  "type" : "shape",
+                  "name" : "ellipse",
                   "transform" : {
                     "d" : 1,
                     "b" : 0,
@@ -354,12 +359,7 @@
                     "c" : 0,
                     "a" : 1,
                     "tx" : 30.70000076293945
-                  },
-                  "shape" : {
-                    "type" : "path",
-                    "path" : "M 14 0 C 21.73198509216309 0 28 6.268014430999756 28 14 C 28 21.73198509216309 21.73198509216309 28 14 28 C 6.268014430999756 28 0 21.73198509216309 0 14 C 0 6.268014430999756 6.268014430999756 0 14 0 Z"
-                  },
-                  "type" : "shape"
+                  }
                 }
               ]
             },
@@ -377,13 +377,46 @@
           {
             "style" : {
               "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "281304"
+                    }
+                  },
+                  "width" : 397,
+                  "height" : 247,
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 207,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 512
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0",
+              "width" : 150
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
                 "type" : "solid",
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 0,
-                    "g" : 0,
-                    "b" : 0
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
                   },
                   "alpha" : 255
                 }
@@ -398,10 +431,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 574.0058,
+              "ty" : 476.1792,
               "c" : "0",
               "a" : "1",
-              "tx" : 588.9983
+              "tx" : 578.3733
             },
             "type" : "text",
             "name" : "Label",
@@ -429,34 +462,105 @@
           {
             "style" : {
               "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "340944"
-                    }
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
                   },
-                  "width" : 397,
-                  "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                  "alpha" : 255
                 }
+              },
+              "font" : {
+                "size" : 17,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 207,
+              "ty" : 532.8741,
               "c" : "0",
               "a" : "1",
-              "tx" : 512
+              "tx" : 598.9983
             },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect",
-              "x" : "0"
+            "type" : "text",
+            "name" : "Label",
+            "text" : {
+              "frame" : {
+                "type" : "positioned"
+              },
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 0,
+                        "to" : 6,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "rawText" : "Label"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 255
+                }
+              },
+              "font" : {
+                "size" : 17,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 513.9758,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 588.9983
+            },
+            "type" : "text",
+            "name" : "Label",
+            "text" : {
+              "frame" : {
+                "type" : "positioned"
+              },
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 0,
+                        "to" : 6,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "rawText" : "Label"
             }
           }
         ]

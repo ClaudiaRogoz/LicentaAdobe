@@ -1,2 +1,3 @@
-dependencies: /Users/crogoz/Desktop/Samples/Samples/ViewController.m \
-  /Users/crogoz/Desktop/Samples/Samples/ViewController.h
+dependencies: \
+  /Users/crogoz/Desktop/VisualAssetsManagementXD/SampleXcodeImport/Samples/ViewController.m \
+  /Users/crogoz/Desktop/VisualAssetsManagementXD/SampleXcodeImport/Samples/ViewController.h
