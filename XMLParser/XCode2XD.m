@@ -305,7 +305,6 @@
             scaledValue = scaledValue * xScaleFactor;
         else
             scaledValue = scaledValue * yScaleFactor;
-        //NSLog(@"=> %f", scaledValue);
         [*attrScaleDict setValue:[NSNumber numberWithFloat:scaledValue] forKey:value];
     }
 }
@@ -560,10 +559,10 @@
                 NSString *tempSaved = [NSString stringWithFormat:@"%@%@", SAVED_VALUE, value];
                 
                 id tempValue = nil;
-                if ([value isEqualToString:TEXT] && attributeDict[value])
+                if ([value isEqualToString:TEXT] && attributeDict[value]) {
                     tempValue = attributeDict[value];
-                
-                else if (!attributeDict[value])
+                    NSLog(@"Set for %@", tempValue);
+                } else if (!attributeDict[value])
                     tempValue = attributeDict[PLACEHOLDER];
                 
                 if ([tempValue intValue] )
@@ -711,7 +710,6 @@
 {
     attributeDict = [attributeDict mutableCopy];
     NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
-   
     /*initializes things for a neaw mutableString */
     if ([elementName isEqualToString:STRING] || [elementName isEqualToString:MUTABLE_STRING]){
         attributes[SAVED_TEXT] = [[NSString alloc] init];
@@ -719,11 +717,13 @@
     }
     if ([elementName isEqualToString:LABEL]) {
         attributes[SAVED_LINES] = [attributeDict objectForKey:NO_LINES];
+        NSLog(@"Text = %@\n Parent=%@ \n Inhgerit %@", [attributeDict objectForKey:@"text"], [dictionaryStack lastObject], [inheritanceStack lastObject]);
     }
     if ([elementName isEqualToString:VIEW]) {
         if (!hasAView)
             hasAView = true;
         else {
+            [inheritanceStack addObject:CHILDREN];
             return;
         }
     }
@@ -997,6 +997,7 @@
         if (!viewEnded)
             viewEnded = true;
         else {
+            [inheritanceStack removeLastObject];
             return;
         }
     }
