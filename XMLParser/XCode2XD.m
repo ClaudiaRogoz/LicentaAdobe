@@ -561,7 +561,7 @@
                 id tempValue = nil;
                 if ([value isEqualToString:TEXT] && attributeDict[value]) {
                     tempValue = attributeDict[value];
-                    NSLog(@"Set for %@", tempValue);
+                    //NSLog(@"Set for %@", tempValue);
                 } else if (!attributeDict[value])
                     tempValue = attributeDict[PLACEHOLDER];
                 
@@ -717,7 +717,7 @@
     }
     if ([elementName isEqualToString:LABEL]) {
         attributes[SAVED_LINES] = [attributeDict objectForKey:NO_LINES];
-        NSLog(@"Text = %@\n Parent=%@ \n Inhgerit %@", [attributeDict objectForKey:@"text"], [dictionaryStack lastObject], [inheritanceStack lastObject]);
+        //NSLog(@"Text = %@\n Parent=%@ \n Inhgerit %@", [attributeDict objectForKey:@"text"], [dictionaryStack lastObject], [inheritanceStack lastObject]);
     }
     if ([elementName isEqualToString:VIEW]) {
         if (!hasAView)
