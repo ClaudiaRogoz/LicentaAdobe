@@ -6,14 +6,7 @@
 //  Copyright © 2016 crogoz. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#include <sys/event.h>
-#include <sys/time.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#import "XCode2XD.h"
-#import "XD2XCode.h"
+
 #import "Utils.h"
 
 

@@ -7,10 +7,14 @@
         "shape.type.rect" : {
             "style.fill.type.pattern" : "imageView",
             "style.fill.type.solid"   : "$frame"
+        },
+        "shape.type.path" : {
+            "style.fill.type.pattern" : "$imageViewPath"
         }
     },
     "group"     :   "group",
     "$frame"    :   "label",
-    "$imageView"    :   "imageView"
+    "$imageView"    :   "imageView",
+    "$imageViewPath" : "imageView"
     
 }

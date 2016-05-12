@@ -5,7 +5,17 @@
 //  Created by crogoz on 20/04/16.
 //  Copyright © 2016 crogoz. All rights reserved.
 //
+#import <QuartzCore/QuartzCore.h>
+#import <Cocoa/Cocoa.h>
+#include <sys/event.h>
+#include <sys/time.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "Sync.h"
+#import "XCode2XD.h"
+#import "XD2XCode.h"
 
 #ifndef Utils_h
 #define Utils_h
@@ -89,6 +99,7 @@ void openDragDropPanel(NSString *outXmlPath) {
 
 void import(char *path) {
     
+    CFTimeInterval startTime = CACurrentMediaTime();
     NSString *inXmlPath= [NSString stringWithFormat:@"%s", path];
     NSString *importPath = pathFormat(&inXmlPath, path);
     NSData *parser = [NSData dataWithContentsOfFile:importPath];
@@ -113,12 +124,14 @@ void import(char *path) {
     NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, ARTBOARDXML];
     [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
-    NSLog(@"[Import DONE]");
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
     
 }
 
 void export(char *path) {
     
+    CFTimeInterval startTime = CACurrentMediaTime();
     NSString *outXmlPath= [NSString stringWithFormat:@"%s", path];
     NSString *exportPath = pathFormat(&outXmlPath, path);
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:exportPath];
@@ -130,12 +143,15 @@ void export(char *path) {
     }
     /* generate storyboard for xcode from xd */
     [XD2XCode readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    NSLog(@"[Export DONE] Time elapsed: %f", elapsedTime);
     /* open export xcode project */
     openExportProject(outXmlPath);
     
     /* Notify the user to  Drag & Drop resources */
     openDragDropPanel(outXmlPath);
-    NSLog(@"[Export DONE]");
+    
+    
 }
 
 void synch(char *XDPath, char *XMLPath) {

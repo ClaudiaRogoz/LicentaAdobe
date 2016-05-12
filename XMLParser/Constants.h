@@ -183,6 +183,10 @@
 #define NO_LINES    @"numberOfLines"
 #define GETMAX      @"$MAX"
 #define PATH        @"$PATH"
+#define GETWIDTH    @"$GETWIDTH"
+#define GETHEIGHT   @"$GETHEIGHT"
+#define WIDTH_IN_PATH   7
+#define HEIGHT_IN_PATH  8
 /* XML2AGC const */
 #define FRAME_X    @"$rect.x"
 #define FRAME_Y    @"$rect.y"

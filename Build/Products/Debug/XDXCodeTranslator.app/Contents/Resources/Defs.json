@@ -138,6 +138,40 @@
             },
             "toString" : ["header", "rules"]
         },
+        "$imageViewPath" : {
+            "header" : {
+                "userInteractionEnabled" : "NO",
+                "contentMode"  : "scaleToFill",
+                "horizontalHuggingPriority" : "251",
+                "verticalHuggingPriority" : "251",
+                "fixedFrame" : "YES",
+                "image" : "$",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id" : "$rand",
+                "toString" : ["userInteractionEnabled", "contentMode", "horizontalHuggingPriority",
+                              "verticalHuggingPriority", "fixedFrame",
+                              "image",
+                              "translatesAutoresizingMaskIntoConstraints", "id"]
+            },
+            "rules" : {
+                "$header.id" : "$rand",
+                "$header.image" : "$style.fill.pattern.href",
+                "rect" : {
+                    "$shape" : {
+                        "width" : "$GETWIDTH path",
+                        "height" : "$GETHEIGHT path",
+                        "key" : "frame"
+                    },
+                    "$transform" : {
+                        "x" : "$tx",
+                        "y" : "$ty"
+                    }
+                },
+                "toString" : ["rect"],
+                
+            },
+            "toString" : ["header", "rules"]
+        },
         "$frame" : {
             "header": {
                 "opaque" : "NO",

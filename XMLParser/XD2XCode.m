@@ -313,6 +313,33 @@
     
 }
 
+- (NSNumber *) getFrameSizeFromPath:(NSString *) value  dict:(NSMutableDictionary *)dictValue {
+    
+    if ([value hasPrefix:GETHEIGHT]) {
+        int offset = (int)[GETHEIGHT length] + 1;
+        NSString *path = [dictValue objectForKey:[value substringFromIndex:offset]];
+        NSLog(@"path %@", path);
+        NSArray *array = [path componentsSeparatedByString:@" "];
+        NSString *width = [array objectAtIndex:HEIGHT_IN_PATH];
+        NSLog(@"Height %@", width);
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        return [f numberFromString: width];
+        
+    }
+
+    int offset = (int)[GETWIDTH length] + 1;
+    NSString *path = [dictValue objectForKey:[value substringFromIndex:offset]];
+    NSLog(@"path %@", path);
+    NSArray *array = [path componentsSeparatedByString:@" "];
+    NSString *height = [array objectAtIndex:WIDTH_IN_PATH];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    return [f numberFromString:height];
+    
+
+}
+
 - (BOOL) isOfTypeColor:(NSString *) key {
     return [[transformObjects objectForKey:COLOR] objectForKey:key] != nil;
 }
@@ -322,6 +349,125 @@
 }
 -(BOOL) isOfTypeSize:(NSString *)key {
     return [[transformObjects objectForKey:SIZE] objectForKey:key] != nil;
+}
+
+- (BOOL) isTextFrame:(NSString *) tvalue templateDict:(NSMutableDictionary *) objDict {
+    return [tvalue isEqualToString:SIZE] && ![[objDict objectForKey:HEIGHT] isEqualToString:RAWTEXT];
+}
+
+- (float) changeSize:(float) initValue key:(NSString *)key {
+    
+    float translatedValue = initValue;
+    float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
+    float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
+    //NSLog(@"InitValue = %f", initValue);
+    if ([key isEqualToString:XARTBOARD]) {
+        translatedValue = initValue - startXArtboard;
+        translatedValue = translatedValue * xScaleFactor;
+    }
+    else if ([key isEqualToString:YARTBOARD]) {
+        translatedValue = initValue - startYArtboard;
+        translatedValue = translatedValue * yScaleFactor;
+    } else if ([key isEqualToString:WIDTH]) {
+        translatedValue = initValue * xScaleFactor;
+    }
+    else if ([key isEqualToString:HEIGHT]) {
+        translatedValue = initValue * yScaleFactor;
+    }
+
+    return translatedValue;
+}
+
+- (float) scaleSize:(float) initValue key: (NSString *) key {
+    
+    float translatedValue;
+    float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
+    float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
+    //NSLog(@"Init Value = %@", value);
+    if ([key isEqualToString:WIDTH]) {
+        translatedValue = initValue * xScaleFactor;
+    }
+    else if ([key isEqualToString:HEIGHT]) {
+        translatedValue = initValue * yScaleFactor;
+    }
+    return translatedValue;
+
+
+
+}
+
+- (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize {
+    
+    NSString *firstLine = [label substringToIndex:textLen];
+    
+    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    [style setLineBreakMode:NSLineBreakByWordWrapping];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:fontSize],
+                                 NSParagraphStyleAttributeName: style};
+    
+    CGRect lineFrame = [firstLine boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:attributes
+                                               context:nil];
+    
+    float width = lineFrame.size.width  + 0.1 * lineFrame.size.width;
+    return [label boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                      options:NSStringDrawingUsesLineFragmentOrigin
+                                   attributes:attributes
+                                      context:nil];
+
+
+}
+
+- (void) merge:(NSMutableDictionary *) dictValue withDict:(NSMutableDictionary **) objDict
+   withDefDict:(NSMutableDictionary *)defaultDict forValue:(NSString *) value key:(NSString *) key {
+    
+    
+    if (![value hasPrefix:TOTRANSFORM]) {
+        [*objDict setValue:value forKey:key]; /* no need for transformation */
+    } else if ([dictValue objectForKey:[[self splitVariable:value] objectAtIndex:0]]) {
+        
+        id tvalue = [[self splitVariable:value] objectAtIndex:0];
+        
+        if ([self isOfTypeSize:key]) {
+            /* changing size here */
+            
+            float initValue = [[dictValue objectForKey:tvalue] floatValue];
+            float translatedValue = [self changeSize:initValue key:key];
+            
+            [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
+        } else {
+            [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
+            
+        }
+        /* check if width/height needs to be computed (eg. text frame) */
+        if ( [self isTextFrame:tvalue templateDict:*objDict]) {
+            
+            /* then we must compute the width/height of the text frame*/
+            /*FIX ME: assumed that the text font is the NSFont */
+            /* we have the height = text; width = fontSize; */
+            
+            [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
+            
+            NSString *label = [*objDict objectForKey:HEIGHT];
+            int fontSize = [[*objDict objectForKey:WIDTH] intValue];
+            
+            CGRect rect = [self computeTextFrame:label usingFontSize:fontSize];
+            
+            [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
+            [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.1 * rect.size.width] forKey:WIDTH];
+            
+        }
+        
+        /*if we have a special operation to perform eg. getSize from path*/
+    } else if ([value hasPrefix:GETHEIGHT] || [value hasPrefix:GETWIDTH]) {
+        NSNumber *size = [self getFrameSizeFromPath:value dict:dictValue];
+        [*objDict setObject:size forKey:key];
+    } else {/* use default values */
+        [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
+    }
+
 }
 
 -(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
@@ -336,7 +482,7 @@
     for (id key in allKeys) {
         
         id value = [*objDict objectForKey:key];
-        
+
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
             
@@ -351,18 +497,9 @@
                 }
                 
                 if ([self isOfTypeScale:key object:type]) {
-                    float translatedValue;
                     
-                    float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
-                    float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
-                    //NSLog(@"Init Value = %@", value);
-                    if ([key isEqualToString:WIDTH]) {
-                        translatedValue = [value floatValue] * xScaleFactor;
-                    }
-                    else if ([key isEqualToString:HEIGHT]) {
-                        translatedValue = [value floatValue] * yScaleFactor;
-                    }
-                    //NSLog(@"==> %f", translatedValue);
+                    float initValue = [value floatValue];
+                    float translatedValue = [self changeSize:initValue key:key];
                     [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
                 }
@@ -375,77 +512,47 @@
                 if (!value)
                     continue;
                 
-                if (![value hasPrefix:TOTRANSFORM]) {
-                    
-                    [*objDict setValue:value forKey:key]; /* no need for transformation */
+                [self merge:dictValue withDict:objDict withDefDict:defaultDict forValue:value key:key];
+                /*if (![value hasPrefix:TOTRANSFORM]) {
+                    [*objDict setValue:value forKey:key];
                 } else if ([dictValue objectForKey:[[self splitVariable:value] objectAtIndex:0]]) {
                     
                     id tvalue = [[self splitVariable:value] objectAtIndex:0];
                     
-                    
                     if ([self isOfTypeSize:key]) {
-                        /* changing size here */
+
                         
                         float initValue = [[dictValue objectForKey:tvalue] floatValue];
-                        float translatedValue = initValue;
-                        float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
-                        float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
-                        //NSLog(@"InitValue = %f", initValue);
-                        if ([key isEqualToString:XARTBOARD]) {
-                            translatedValue = initValue - startXArtboard;
-                            translatedValue = translatedValue * xScaleFactor;
-                        }
-                        else if ([key isEqualToString:YARTBOARD]) {
-                            translatedValue = initValue - startYArtboard;
-                            translatedValue = translatedValue * yScaleFactor;
-                        }
+                        float translatedValue = [self changeSize:initValue key:key];
                         
-                        //NSLog(@"-->translated = %f", translatedValue);
                         [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
-                    } else
+                    } else {
                         [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
                     
-                    /* check if width/height needs to be computed (eg. text frame) */
-                    if ([tvalue isEqualToString:SIZE] && ![[*objDict objectForKey:HEIGHT] isEqualToString:RAWTEXT]) {
-                        
-                        /* then we must compute the width/height of the text frame*/
-                        /*FIX ME: assumed that the text font is the NSFont */
-                        /* we have the height = text; width = fontSize; */
+                    }
+
+                    if ( [self isTextFrame:tvalue templateDict:*objDict]) {
+
                         
                         [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
                         
                         NSString *label = [*objDict objectForKey:HEIGHT];
-                        
-                        NSString *firstLine = [label substringToIndex:textLen];
                         int fontSize = [[*objDict objectForKey:WIDTH] intValue];
                         
-                        
-                        NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-                        [style setLineBreakMode:NSLineBreakByWordWrapping];
-                        
-                        NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:fontSize],
-                                                     NSParagraphStyleAttributeName: style};
-                        
-                        CGRect lineFrame = [firstLine boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                                attributes:attributes
-                                                                   context:nil];
-                        
-                        float width = lineFrame.size.width  + 0.1 * lineFrame.size.width;
-                        CGRect rect = [label boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                                       attributes:attributes
-                                                          context:nil];
-                        
+                        CGRect rect = [self computeTextFrame:label usingFontSize:fontSize];
+                    
                         [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
                         [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.1 * rect.size.width] forKey:WIDTH];
                         
                     }
                     
-                    
-                } else {/* use default values */
+                   
+                } else if ([value hasPrefix:GETHEIGHT] || [value hasPrefix:GETWIDTH]) {
+                    NSNumber *size = [self getFrameSizeFromPath:value dict:dictValue];
+                    [*objDict setObject:size forKey:key];
+                } else {
                     [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
-                }
+                }*/
                 
             }
         }
@@ -672,7 +779,7 @@
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
     
     for (id key in goToAgc) {
-        
+        NSLog(@"Key = %@", key);
         id nodeValue;
         
         if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:SCENENO]) {
@@ -700,6 +807,7 @@
         }
         
         *values = nodeValue;
+        NSLog(@"NodeValue %@", nodeValue);
     }
     
 }
@@ -735,12 +843,12 @@
         id values = agcParams;
         
         NSArray *goToAgc = [self splitVariable:condition];
-        
+        NSLog(@"GoToAgc = %@", goToAgc);
         [self getDict:&values fromConditions:goToAgc];
         
         NSMutableDictionary *dictValue = values;
         BOOL isEmpty = ([dictValue count] == 0);
-        
+        NSLog(@"DictValue = %@", dictValue);
         if (isEmpty && !dictValue) {
             //use default values!!!
             
@@ -863,11 +971,11 @@
         rulesByOrder = [rulesTempDict objectForKey:ORDER];
     else rulesByOrder = rulesTempDict;
     
-    
+    NSLog(@"Found Type = %@", type);
     for (id rule in rulesByOrder) {
         
         keys = [self splitVariable:rule];
-        
+        NSLog(@"Kyes = %@", keys);
         if ([keys count] == 1) {
             
             //goto "subviews" dictionary
