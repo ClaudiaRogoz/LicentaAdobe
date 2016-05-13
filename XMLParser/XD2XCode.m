@@ -564,7 +564,7 @@
     int y = [[groupFrame objectForKey:YARTBOARD] intValue];
     int w = [[groupFrame objectForKey:WIDTH] intValue];
     int h = [[groupFrame objectForKey:HEIGHT] intValue];
-    NSLog(@"x %d y %d w %d h %d", x, y, w, h);
+    //NSLog(@"x %d y %d w %d h %d", x, y, w, h);
     if (x <= *minx)  {
         *minx = x;
     }
@@ -579,7 +579,7 @@
         *maxy = y + h;
         *maxh = h;
     }
-    NSLog(@"{Size:}maxx %d;maxy %d;maxw %d;maxh %d", *maxx, *maxy, *maxw, *maxh);
+    //NSLog(@"{Size:}maxx %d;maxy %d;maxw %d;maxh %d", *maxx, *maxy, *maxw, *maxh);
     
 }
 -(void) updateGroupOffsets:(NSMutableArray**)viewSubviews minx:(int) minx miny:(int)miny {
@@ -589,12 +589,12 @@
         id frame = [[[keyObject objectForKey:name ] objectForKey:RULES] objectForKey:FRAME];
         int x = [[frame objectForKey:XARTBOARD] intValue];
 
-        NSLog(@"[Update %d - %d = %d]", x, minx, x - minx);
+        //NSLog(@"[Update %d - %d = %d]", x, minx, x - minx);
 
         x = x - minx;
         int y = [[frame objectForKey:YARTBOARD] intValue];
         
-        NSLog(@"[Update %d - %d = %d]", y, miny, y - miny);
+        //NSLog(@"[Update %d - %d = %d]", y, miny, y - miny);
         y = y - miny;
         
         [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
@@ -632,7 +632,7 @@
         [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict ofType:type];
         
         id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
-        NSLog(@"Group frame = %@", groupFrame);
+        //NSLog(@"Group frame = %@", groupFrame);
         [self getViewSize:groupFrame minx:minx miny:miny maxx:maxx maxy:maxy maxh:maxh maxw:maxw];
         
         NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
@@ -653,7 +653,7 @@
         int y = [[frame objectForKey:YARTBOARD] intValue];
         int w = [[frame objectForKey:WIDTH] intValue];
         int h = [[frame objectForKey:HEIGHT] intValue];
-        NSLog(@"x %d y %d w %d h %d", x, y, w, h);
+        //NSLog(@"x %d y %d w %d h %d", x, y, w, h);
         if (x <= minx)  {
             minx = x;
         }
@@ -726,10 +726,9 @@
     startYArtboard = prevY;
     int widthFrame = *maxx - *minx;
     int heightFrame = *maxy - *miny;
-    NSLog(@"[WRITE]width = %@ height %@; maxx = %d; maxy = %d;minx = %d; miny = %d;offX = %d offY = %d", [NSNumber numberWithInt:widthFrame], [NSNumber numberWithInt:heightFrame], *maxx, *maxy, *minx, *miny, offsetGroupX, offsetGroupY);
     
-    [sizeFrame setObject:[NSNumber numberWithInt:*minx] forKey:XARTBOARD];
-    [sizeFrame setObject:[NSNumber numberWithInt:*miny] forKey:YARTBOARD];
+    [sizeFrame setObject:[NSNumber numberWithInt:offsetGroupX + *minx] forKey:XARTBOARD];
+    [sizeFrame setObject:[NSNumber numberWithInt:offsetGroupY + *miny] forKey:YARTBOARD];
     [sizeFrame setObject:[NSNumber numberWithInt:widthFrame] forKey:WIDTH];
     [sizeFrame setObject:[NSNumber numberWithInt:heightFrame] forKey:HEIGHT];
     [defaultColor setObject:colorToString forKey:TOSTRING];
