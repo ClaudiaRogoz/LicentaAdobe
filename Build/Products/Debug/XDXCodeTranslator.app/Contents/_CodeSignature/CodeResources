@@ -12,7 +12,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kh0UYf2uqnA+kyfFhgqCikjr2CU=
+			aOPsaVKolRGAYnQV2WgQY4i/GHc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -21,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Hhe5VAB2R+XkCkOu4UwxycP9jjw=
+			rDHgKJcn99PrzMHwZdrWb3vJ8Hw=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -30,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QU9xYMafjt8fkftIL/xYOZNhZHY=
+			IaOIHNh+8sJQATE/fmOOxqt8qLk=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -51,6 +51,10 @@
 		<key>Resources/Defs.json</key>
 		<data>
 		G6TLY176emUrsrRXpEMHylQvNiw=
+		</data>
+		<key>Resources/File.json</key>
+		<data>
+		ne/WJgeWFFNLJRqvlieuhBzC+wc=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
@@ -162,11 +166,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kh0UYf2uqnA+kyfFhgqCikjr2CU=
+			aOPsaVKolRGAYnQV2WgQY4i/GHc=
 			</data>
 			<key>hash2</key>
 			<data>
-			NRozr6H6n6IYgoDVe69rhg/SmNmMnHGaqorUAvmsXsQ=
+			9aiJ8uCc5INYtMn6aWu8FT+TYVnz2+2ib0IbUr4FmiI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -175,11 +179,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Hhe5VAB2R+XkCkOu4UwxycP9jjw=
+			rDHgKJcn99PrzMHwZdrWb3vJ8Hw=
 			</data>
 			<key>hash2</key>
 			<data>
-			piXWhhBndDendsd9gYyGu0lB5LfhjDddchBMuoo3b2E=
+			5qRA69SemyzYlwjnNy+/K5Y6H1zYi6WC6N38SAjlIww=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -188,11 +192,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QU9xYMafjt8fkftIL/xYOZNhZHY=
+			IaOIHNh+8sJQATE/fmOOxqt8qLk=
 			</data>
 			<key>hash2</key>
 			<data>
-			cUGnAU3xVQgyksqioRpqnMWzcE8fhDP04KpLFiu6q4c=
+			frvhNO1MPhywGGTN/b4zqfE0ezkRSjMcABSX3rQkhXg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -230,6 +234,17 @@
 			<key>hash2</key>
 			<data>
 			TQqifXBL/rmdqDsyMaG79XlnplZ86JXOWYWW5Imtpno=
+			</data>
+		</dict>
+		<key>Resources/File.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ne/WJgeWFFNLJRqvlieuhBzC+wc=
+			</data>
+			<key>hash2</key>
+			<data>
+			k064u1nD+jabfFota6D/iLX1ruJ2gs6DPPQtqabVPog=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>

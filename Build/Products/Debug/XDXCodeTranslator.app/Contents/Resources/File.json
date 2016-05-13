@@ -1,0 +1,31 @@
+
+
+
+
+
+
+"view" : {
+    "header": {
+        "key" : "view",
+        ...
+    },
+    "toString" : ["header", "rules"],
+    "rules" : {
+        
+        "$header.id" : "$rand",
+        "rect" : {
+            "$artboards.$artboardsceneNo" : {
+                "key" : "frame",
+                ....
+            }
+        }
+        ,
+        ...
+        "color" : {
+            "$children.$sceneNo.style.fill.color.value" : {
+                "key" : "backgroundColor",
+                ...
+            }
+        },
+        "toString" : ["rect", "autoresizingMask", "subviews", "color"],
+        "order" : ["$header.id", "rect", "autoresizingMask", "color", "subviews"]

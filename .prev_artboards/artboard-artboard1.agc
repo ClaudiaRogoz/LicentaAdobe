@@ -2,9 +2,56 @@
   "children" : [
     {
       "type" : "artboard",
+      "style" : {
+        "fill" : {
+          "type" : "solid",
+          "color" : {
+            "mode" : "RGB",
+            "value" : {
+              "r" : 13,
+              "g" : 60,
+              "b" : 15
+            },
+            "alpha" : 255
+          }
+        }
+      },
       "artboard" : {
         "ref" : "artboard1",
         "children" : [
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "707658"
+                    }
+                  },
+                  "width" : 397,
+                  "height" : 247,
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 31,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 0
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 375,
+              "height" : 590.295
+            }
+          },
           {
             "style" : {
               "fill" : {
@@ -16,27 +63,11 @@
                     "g" : 255,
                     "b" : 255
                   },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 35,
-                    "g" : 35,
-                    "b" : 35
-                  },
                   "alpha" : 255
                 }
               },
               "font" : {
-                "size" : 15,
+                "size" : 16,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -45,13 +76,12 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 275.8333,
+              "ty" : 398.2575,
               "c" : "0",
               "a" : "1",
-              "tx" : 27.42065
+              "tx" : 41.60547
             },
             "type" : "text",
-            "name" : "Username",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -62,223 +92,123 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 9,
+                        "to" : 30,
                         "x" : 0,
                         "from" : 0
                       }
                     ]
                   ]
-                }
-              ],
-              "rawText" : "Username"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 0,
-                    "g" : 0,
-                    "b" : 0
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 239.3208,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 172.3967
-            },
-            "type" : "text",
-            "name" : 987,
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
+                },
                 {
                   "lines" : [
                     [
                       {
-                        "y" : 0,
-                        "to" : 4,
+                        "y" : 19,
+                        "to" : 58,
                         "x" : 0,
-                        "from" : 0
+                        "from" : 30
                       }
                     ]
                   ]
-                }
-              ],
-              "rawText" : 987
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 35,
-                    "g" : 35,
-                    "b" : 35
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 15,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 980.8301,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 209.4909
-            },
-            "type" : "text",
-            "name" : "Password",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
+                },
                 {
                   "lines" : [
                     [
                       {
-                        "y" : 0,
-                        "to" : 9,
+                        "y" : 38,
+                        "to" : 90,
                         "x" : 0,
-                        "from" : 0
+                        "from" : 58
                       }
                     ]
                   ]
-                }
-              ],
-              "rawText" : "Password"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 0,
-                    "g" : 0,
-                    "b" : 0
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 248.8086,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 145.0857
-            },
-            "type" : "text",
-            "name" : "Label123",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
+                },
                 {
                   "lines" : [
                     [
                       {
-                        "y" : 0,
-                        "to" : 9,
+                        "y" : 57,
+                        "to" : 120,
                         "x" : 0,
-                        "from" : 0
+                        "from" : 90
                       }
                     ]
                   ]
-                }
-              ],
-              "rawText" : "Label123"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 0,
-                    "g" : 0,
-                    "b" : 0
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 340,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 142.0174
-            },
-            "type" : "text",
-            "name" : "NEwLabel",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
+                },
                 {
                   "lines" : [
                     [
                       {
-                        "y" : 0,
-                        "to" : 9,
+                        "y" : 76,
+                        "to" : 147,
                         "x" : 0,
-                        "from" : 0
+                        "from" : 120
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 95,
+                        "to" : 177,
+                        "x" : 0,
+                        "from" : 147
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 114,
+                        "to" : 205,
+                        "x" : 0,
+                        "from" : 177
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 133,
+                        "to" : 237,
+                        "x" : 0,
+                        "from" : 205
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 152,
+                        "to" : 268,
+                        "x" : 0,
+                        "from" : 237
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 171,
+                        "to" : 297,
+                        "x" : 0,
+                        "from" : 268
                       }
                     ]
                   ]
                 }
               ],
-              "rawText" : "NEwLabel"
+              "rawText" : "There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything… that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts."
             }
           }
         ]
@@ -310,7 +240,7 @@
   "viewSource" : {
     "y" : "0",
     "x" : "0",
-    "width" : 400,
+    "width" : 800,
     "height" : 667
   },
   "version" : "1.5.0"

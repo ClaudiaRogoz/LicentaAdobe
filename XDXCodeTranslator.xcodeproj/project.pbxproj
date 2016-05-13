@@ -23,6 +23,7 @@
 		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
 		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
 		C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C98141E51CB7BAAF00936604 /* TestGenerator.json */; };
+		C98339601CE51797001ED163 /* File.json in Resources */ = {isa = PBXBuildFile; fileRef = C983395F1CE51797001ED163 /* File.json */; };
 		C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186C91C8B664A0071A25F /* AppDelegate.m */; };
 		C99186CD1C8B664A0071A25F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CC1C8B664A0071A25F /* main.m */; };
 		C99186D01C8B664A0071A25F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CF1C8B664A0071A25F /* ViewController.m */; };
@@ -84,6 +85,7 @@
 		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
 		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
 		C98141E51CB7BAAF00936604 /* TestGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TestGenerator.json; path = XMLParser/TestGenerator.json; sourceTree = "<group>"; };
+		C983395F1CE51797001ED163 /* File.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = File.json; sourceTree = "<group>"; };
 		C984E2E51CE35B89004D3B92 /* AdobeCreativeSDKCommonUX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdobeCreativeSDKCommonUX.framework; path = "../../sparkler-shell/third_party/AdobeCreativeSDKFrameworks/AdobeCreativeSDKCommonUX.framework"; sourceTree = "<group>"; };
 		C99186C51C8B664A0071A25F /* XDXCodeTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XDXCodeTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99186C81C8B664A0071A25F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				C973402E1CC7740D008F8E8D /* Sync.m */,
 				C97340301CC7744C008F8E8D /* Sync.h */,
 				C97340311CC78A77008F8E8D /* Utils.h */,
+				C983395F1CE51797001ED163 /* File.json */,
 			);
 			path = XMLParser;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				C9AF2B561CBFC696001C39C7 /* TestImageLabels.json in Resources */,
 				C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */,
 				C9748D2E1CC8D6A200752B3F /* TestPaths.json in Resources */,
+				C98339601CE51797001ED163 /* File.json in Resources */,
 				C9DBD9181C995524006A9638 /* myXMLfileFood.xml in Resources */,
 				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
 				C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */,

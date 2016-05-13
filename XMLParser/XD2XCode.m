@@ -318,24 +318,26 @@
     if ([value hasPrefix:GETHEIGHT]) {
         int offset = (int)[GETHEIGHT length] + 1;
         NSString *path = [dictValue objectForKey:[value substringFromIndex:offset]];
-        NSLog(@"path %@", path);
+        
         NSArray *array = [path componentsSeparatedByString:@" "];
         NSString *width = [array objectAtIndex:HEIGHT_IN_PATH];
-        NSLog(@"Height %@", width);
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         f.numberStyle = NSNumberFormatterDecimalStyle;
-        return [f numberFromString: width];
+        NSNumber *nr = [f numberFromString: width];
+        float number = [self changeSize:[nr intValue] key:HEIGHT];
+        return [NSNumber numberWithInt:number];
         
     }
 
     int offset = (int)[GETWIDTH length] + 1;
     NSString *path = [dictValue objectForKey:[value substringFromIndex:offset]];
-    NSLog(@"path %@", path);
     NSArray *array = [path componentsSeparatedByString:@" "];
     NSString *height = [array objectAtIndex:WIDTH_IN_PATH];
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    return [f numberFromString:height];
+    NSNumber *nr = [f numberFromString: height];
+    float number = [self changeSize:[nr intValue] key:WIDTH];
+    return [NSNumber numberWithInt:number];
     
 
 }
@@ -360,7 +362,6 @@
     float translatedValue = initValue;
     float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
     float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
-    //NSLog(@"InitValue = %f", initValue);
     if ([key isEqualToString:XARTBOARD]) {
         translatedValue = initValue - startXArtboard;
         translatedValue = translatedValue * xScaleFactor;
@@ -376,24 +377,6 @@
     }
 
     return translatedValue;
-}
-
-- (float) scaleSize:(float) initValue key: (NSString *) key {
-    
-    float translatedValue;
-    float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
-    float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
-    //NSLog(@"Init Value = %@", value);
-    if ([key isEqualToString:WIDTH]) {
-        translatedValue = initValue * xScaleFactor;
-    }
-    else if ([key isEqualToString:HEIGHT]) {
-        translatedValue = initValue * yScaleFactor;
-    }
-    return translatedValue;
-
-
-
 }
 
 - (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize {
@@ -441,6 +424,7 @@
             [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
             
         }
+        
         /* check if width/height needs to be computed (eg. text frame) */
         if ( [self isTextFrame:tvalue templateDict:*objDict]) {
             
@@ -604,13 +588,15 @@
         id name = [[keyObject allKeys] objectAtIndex:0];
         id frame = [[[keyObject objectForKey:name ] objectForKey:RULES] objectForKey:FRAME];
         int x = [[frame objectForKey:XARTBOARD] intValue];
-       
-        //NSLog(@"[Update %d - %d = %d]", x, minx, x-minx);
+
+        NSLog(@"[Update %d - %d = %d]", x, minx, x - minx);
+
         x = x - minx;
-        
         int y = [[frame objectForKey:YARTBOARD] intValue];
-        //NSLog(@"[Update %d - %d = %d]", y, miny, y-miny);
+        
+        NSLog(@"[Update %d - %d = %d]", y, miny, y - miny);
         y = y - miny;
+        
         [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
         [frame setObject:[NSNumber numberWithInt:y] forKey:YARTBOARD];
         
@@ -637,7 +623,8 @@
             NSMutableDictionary *finalDict = [self deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
             NSMutableDictionary *newObj = [self deepCopy:finalDict];
             NSMutableArray* arrayObj = [[NSMutableArray alloc] init];
-            [self computeGroup:newObj agcDict:key finalDict:finalDict retDict:&arrayObj];
+            [self computeGroup:newObj agcDict:key finalDict:finalDict retDict:&arrayObj
+                          minx:minx miny:miny maxx: maxx maxy:maxy maxh: maxh maxw: maxw];
             *viewSubviews = [[*viewSubviews arrayByAddingObjectsFromArray:arrayObj] mutableCopy];
             continue;
         }
@@ -645,7 +632,7 @@
         [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict ofType:type];
         
         id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
-        
+        NSLog(@"Group frame = %@", groupFrame);
         [self getViewSize:groupFrame minx:minx miny:miny maxx:maxx maxy:maxy maxh:maxh maxw:maxw];
         
         NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
@@ -657,22 +644,54 @@
     
 }
 
--(void) computeGroup:(NSMutableDictionary *)newObjDict agcDict:(NSMutableDictionary*)object finalDict:(NSMutableDictionary*)finalDict retDict:(NSMutableArray**)objDict {
+-(NSMutableArray *) computeSubView:(NSMutableArray *) subview {
+    int minx = 060, miny = 600, maxx = 0, maxy = 0, maxw = 0, maxh = 0;
+    for (id keyObject in subview) {
+        id name = [[keyObject allKeys] objectAtIndex:0];
+        id frame = [[[keyObject objectForKey:name ] objectForKey:RULES] objectForKey:FRAME];
+        int x = [[frame objectForKey:XARTBOARD] intValue];
+        int y = [[frame objectForKey:YARTBOARD] intValue];
+        int w = [[frame objectForKey:WIDTH] intValue];
+        int h = [[frame objectForKey:HEIGHT] intValue];
+        NSLog(@"x %d y %d w %d h %d", x, y, w, h);
+        if (x <= minx)  {
+            minx = x;
+        }
+        if (y <= miny) {
+            miny = y;
+        }
+        if (x + w >= maxx) {
+            maxx = x + w;
+            maxw = w;
+        }
+        if ( y + h >= maxy) {
+            maxy = y + h;
+            maxh = h;
+        }
+    }
+    NSMutableArray *frame = [[NSMutableArray alloc] init];
+    [frame addObject:[NSNumber numberWithInt:minx]];
+    [frame addObject:[NSNumber numberWithInt:miny]];
+    [frame addObject:[NSNumber numberWithInt:maxw]];
+    [frame addObject:[NSNumber numberWithInt:maxh]];
     
-    int minx = WIDTH_XML_ARTBOARD, miny = HEIGHT_XML_ARTBOARD;
-    int maxx = 0, maxy = 0, maxh = 0, maxw = 0;
+    return frame;
+}
+
+-(void) computeGroup:(NSMutableDictionary *)newObjDict agcDict:(NSMutableDictionary*)object finalDict:(NSMutableDictionary*)finalDict retDict:(NSMutableArray**)objDict
+    minx:(int*) minx miny:(int *) miny maxx:(int*)maxx maxy:(int*)maxy maxh:(int *)maxh maxw:(int *)maxw {
+    
     NSMutableDictionary *viewDict = [self deepCopy:[newObjDict objectForKey:VIEW]];
     
     [self processTemplateDict:&viewDict agcDict:object finalDict:finalDict ofType:GROUP];
     int offsetGroupX = 0, offsetGroupY = 0;
     id transformGroup = [object objectForKey:TRANSFORM];
     if(transformGroup) {
-        NSLog(@"start = %d %d %d %d", startXArtboard, startYArtboard,[[transformGroup objectForKey:TX] intValue], [[transformGroup objectForKey:TY] intValue]);
         
         offsetGroupX = [[transformGroup objectForKey:TX] intValue] - startXArtboard;
         offsetGroupY = [[transformGroup objectForKey:TY] intValue] - startYArtboard;
     }
-    NSLog(@"ViewDict = %@", [object objectForKey:@"transform"]);
+
     id frameRules = [viewDict objectForKey:RULES];
     id sizeFrame = [frameRules objectForKey:FRAME];
     id colorTag = [[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:COLOR];
@@ -694,29 +713,29 @@
             newObjDict:newObjDict
               subviews:&viewSubviews
              finalDict:finalDict
-                  minx:&minx
-                  miny:&miny
-                  maxx:&maxx
-                  maxy:&maxy
-                  maxh:&maxh
-                  maxw:&maxw];
+                  minx:minx
+                  miny:miny
+                  maxx:maxx
+                  maxy:maxy
+                  maxh:maxh
+                  maxw:maxw];
     
     widthXDArtboard = prevWidth;
     heightXDArtboard = prevHeight;
     startXArtboard = prevX;
     startYArtboard = prevY;
-    int widthFrame = maxx - minx;
-    int heightFrame = maxy - miny;
-    NSLog(@"[WRITE]width = %@ height %@; maxx = %d; maxy = %d;minx = %d; miny = %d;", [NSNumber numberWithInt:widthFrame], [NSNumber numberWithInt:heightFrame], maxx, maxy, minx, miny);
-
-    [sizeFrame setObject:[NSNumber numberWithInt:offsetGroupX + minx] forKey:XARTBOARD];
-    [sizeFrame setObject:[NSNumber numberWithInt:offsetGroupY + miny] forKey:YARTBOARD];
+    int widthFrame = *maxx - *minx;
+    int heightFrame = *maxy - *miny;
+    NSLog(@"[WRITE]width = %@ height %@; maxx = %d; maxy = %d;minx = %d; miny = %d;offX = %d offY = %d", [NSNumber numberWithInt:widthFrame], [NSNumber numberWithInt:heightFrame], *maxx, *maxy, *minx, *miny, offsetGroupX, offsetGroupY);
+    
+    [sizeFrame setObject:[NSNumber numberWithInt:*minx] forKey:XARTBOARD];
+    [sizeFrame setObject:[NSNumber numberWithInt:*miny] forKey:YARTBOARD];
     [sizeFrame setObject:[NSNumber numberWithInt:widthFrame] forKey:WIDTH];
     [sizeFrame setObject:[NSNumber numberWithInt:heightFrame] forKey:HEIGHT];
     [defaultColor setObject:colorToString forKey:TOSTRING];
     [frameRules setObject:defaultColor forKey:COLOR];
     
-    [self updateGroupOffsets:&viewSubviews minx:minx miny:miny];
+    [self updateGroupOffsets:&viewSubviews minx:*minx miny:*miny];
     
     [[viewDict objectForKey:RULES ] setObject:viewSubviews forKey:SUBVIEWS];
     NSMutableDictionary *subViewTmp = [[NSMutableDictionary alloc] init ];
@@ -889,7 +908,9 @@
                     
                     if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
                        // NSLog(@"Group = %@", objDict);
-                        [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:&objDict];
+                        int minx = 600, miny = 600, maxx = 0, maxy = 0, maxw = 0, maxh = 0;
+                        [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:&objDict
+                         minx:&minx miny:&miny maxx: &maxx maxy:&maxy maxh: &maxh maxw: &maxw];
                         
                         continue;
                     }
@@ -915,7 +936,7 @@
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
                            finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
     
-    
+    noOfElements++;
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
     NSArray *keys, *cond;
@@ -930,7 +951,7 @@
         rulesByOrder = [rulesTempDict objectForKey:ORDER];
     else rulesByOrder = rulesTempDict;
     
-    NSLog(@"Found Type = %@", type);
+    //NSLog(@"Found Type = %@", type);
     for (id rule in rulesByOrder) {
         
         keys = [self splitVariable:rule];
@@ -1208,6 +1229,7 @@
         
     }
     
+    NSLog(@"There are %d artboards and ~ %d properties computed", sceneNo, noOfElements);
     if ([resourcesDict length]) {
         // append resources
         resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];

@@ -63,6 +63,9 @@
     
     /* needed for setting the initial storyboard */
     BOOL computed;
+    
+    /* for performance statistics */
+    int noOfElements;
 }
 
 /* agc & xml file paths */
