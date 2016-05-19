@@ -22,6 +22,7 @@
 		C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A41CC4C16100E487AB /* TestParaGroup.json */; };
 		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
 		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
+		C979A82A1CE9B9250003A510 /* SpDCXCompositeMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = C979A8291CE9B9250003A510 /* SpDCXCompositeMac.mm */; };
 		C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C98141E51CB7BAAF00936604 /* TestGenerator.json */; };
 		C98339601CE51797001ED163 /* File.json in Resources */ = {isa = PBXBuildFile; fileRef = C983395F1CE51797001ED163 /* File.json */; };
 		C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186C91C8B664A0071A25F /* AppDelegate.m */; };
@@ -34,6 +35,7 @@
 		C99186FA1C8B66760071A25F /* XCode2XD.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186F91C8B66760071A25F /* XCode2XD.m */; };
 		C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */ = {isa = PBXBuildFile; fileRef = C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */; };
 		C9A69B141CE613BD007DCF94 /* AdobeCreativeSDKCoreOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A69B131CE613BD007DCF94 /* AdobeCreativeSDKCoreOSX.framework */; };
+		C9A69B1A1CE61997007DCF94 /* AdobeCreativeSDKAssetModelOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A69B181CE61997007DCF94 /* AdobeCreativeSDKAssetModelOSX.framework */; };
 		C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */; };
 		C9AF2B4F1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */; };
 		C9AF2B541CBFBE76001C39C7 /* TestDropFile.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */; };
@@ -85,6 +87,9 @@
 		C97921A41CC4C16100E487AB /* TestParaGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParaGroup.json; sourceTree = "<group>"; };
 		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
 		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
+		C979A8261CE9B6770003A510 /* AdobeCreativeSDKCoreOSX-Internal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "AdobeCreativeSDKCoreOSX-Internal.framework"; sourceTree = "<group>"; };
+		C979A8281CE9B9250003A510 /* SpDCXCompositeMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpDCXCompositeMac.h; sourceTree = "<group>"; };
+		C979A8291CE9B9250003A510 /* SpDCXCompositeMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpDCXCompositeMac.mm; sourceTree = "<group>"; };
 		C98141E51CB7BAAF00936604 /* TestGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TestGenerator.json; path = XMLParser/TestGenerator.json; sourceTree = "<group>"; };
 		C983395F1CE51797001ED163 /* File.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = File.json; sourceTree = "<group>"; };
 		C984E2E51CE35B89004D3B92 /* AdobeCreativeSDKCommonUX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdobeCreativeSDKCommonUX.framework; path = "../../sparkler-shell/third_party/AdobeCreativeSDKFrameworks/AdobeCreativeSDKCommonUX.framework"; sourceTree = "<group>"; };
@@ -107,6 +112,8 @@
 		C99186F91C8B66760071A25F /* XCode2XD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCode2XD.m; sourceTree = "<group>"; };
 		C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileColor.xml; sourceTree = "<group>"; };
 		C9A69B131CE613BD007DCF94 /* AdobeCreativeSDKCoreOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCoreOSX.framework; sourceTree = "<group>"; };
+		C9A69B181CE61997007DCF94 /* AdobeCreativeSDKAssetModelOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKAssetModelOSX.framework; sourceTree = "<group>"; };
+		C9A69B1C1CE619A1007DCF94 /* AdobeCreativeSDKAssetModelOSX-Internal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "AdobeCreativeSDKAssetModelOSX-Internal.framework"; sourceTree = "<group>"; };
 		C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = XMLImages.xml; sourceTree = "<group>"; };
 		C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Test2LabelsInAgcGenerator.json; sourceTree = "<group>"; };
 		C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestDropFile.json; sourceTree = "<group>"; };
@@ -127,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9A69B1A1CE61997007DCF94 /* AdobeCreativeSDKAssetModelOSX.framework in Frameworks */,
 				C9A69B141CE613BD007DCF94 /* AdobeCreativeSDKCoreOSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +206,9 @@
 		C99186BC1C8B664A0071A25F = {
 			isa = PBXGroup;
 			children = (
+				C979A8261CE9B6770003A510 /* AdobeCreativeSDKCoreOSX-Internal.framework */,
+				C9A69B1C1CE619A1007DCF94 /* AdobeCreativeSDKAssetModelOSX-Internal.framework */,
+				C9A69B181CE61997007DCF94 /* AdobeCreativeSDKAssetModelOSX.framework */,
 				C9A69B131CE613BD007DCF94 /* AdobeCreativeSDKCoreOSX.framework */,
 				C984E2E51CE35B89004D3B92 /* AdobeCreativeSDKCommonUX.framework */,
 				C98A7C011CBE4EDD0071E791 /* TestFiles */,
@@ -223,6 +234,8 @@
 		C99186C71C8B664A0071A25F /* XMLParser */ = {
 			isa = PBXGroup;
 			children = (
+				C979A8281CE9B9250003A510 /* SpDCXCompositeMac.h */,
+				C979A8291CE9B9250003A510 /* SpDCXCompositeMac.mm */,
 				C99186F81C8B66760071A25F /* XCode2XD.h */,
 				C99186F91C8B66760071A25F /* XCode2XD.m */,
 				C99186C81C8B664A0071A25F /* AppDelegate.h */,
@@ -429,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C973402F1CC7740D008F8E8D /* Sync.m in Sources */,
+				C979A82A1CE9B9250003A510 /* SpDCXCompositeMac.mm in Sources */,
 				C99186D01C8B664A0071A25F /* ViewController.m in Sources */,
 				C99186CD1C8B664A0071A25F /* main.m in Sources */,
 				C99186FA1C8B66760071A25F /* XCode2XD.m in Sources */,
@@ -569,6 +583,12 @@
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)",
 				);
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					DMALIB,
+				);
 				INFOPLIST_FILE = XMLParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParser;
@@ -585,6 +605,8 @@
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)",
 				);
+				GCC_INPUT_FILETYPE = automatic;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = DMALIB;
 				INFOPLIST_FILE = XMLParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.XMLParser;

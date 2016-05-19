@@ -1,0 +1,55 @@
+#ifndef __XMPCompareAndMerge_incl_cpp__
+#define __XMPCompareAndMerge_incl_cpp__ 1
+
+// =================================================================================================
+// ADOBE SYSTEMS INCORPORATED
+// Copyright 2014 Adobe Systems Incorporated
+// All Rights Reserved
+//
+// NOTICE: Adobe permits you to use, modify, and distribute this file in accordance with the terms
+// of the Adobe license agreement accompanying it.
+// =================================================================================================
+
+#if AdobePrivate
+// =================================================================================================
+// Change history
+// ==============
+//
+// Writers:
+//  ADC	Amandeep Chawla
+//
+// mm/dd/yy who Description of changes, most recent on top.
+//
+// 04-11-14 ADC 1.0-m019 [3739647] Find a Strategy to resolve the issues of "multiple definitions" faced
+//						 by clients while integrating the new builds containing Compare and Merge.
+//
+// =================================================================================================
+#endif /* AdobePrivate */
+
+
+//  ================================================================================================
+/// \file XMPCompareAndMerge.incl_cpp
+/// \brief Overall client glue file for the XMPCompareAndMerge module.
+///
+/// This is an overall client source file of XMP CompareAndMerge glue, the only XMP CompareAndMerge 
+/// specific one that clients should build in projects. This ensures that all of the client-side glue
+/// code for the XMP toolkit gets compiled.
+///
+///
+/// \code
+///  #include "XMPCompareAndMerge/XMPCompareAndMerge.incl_cpp"
+/// \endcode
+
+
+#include "XMP.hpp" // ! This must be the first include!
+
+#include "XMPCompareAndMerge/XMPCompareAndMerge_Defines.h"
+#if ENABLE_XMP_COMPARE_AND_MERGE
+	#include "client-glue/XMPCompareAndMerge/ICompareAndMergeObjectFactory.incl_cpp"
+	#include "client-glue/XMPCompareAndMerge/IThreeWayMerge.incl_cpp"
+	#include "client-glue/XMPCompareAndMerge/IThreeWayMergeResult.incl_cpp"
+	#include "client-glue/XMPCompareAndMerge/IThreeWayResolvedConflict.incl_cpp"
+	#include "client-glue/XMPCompareAndMerge/IThreeWayUnResolvedConflict.incl_cpp"
+#endif
+
+#endif // __XMPCompareAndMerge_incl_cpp__

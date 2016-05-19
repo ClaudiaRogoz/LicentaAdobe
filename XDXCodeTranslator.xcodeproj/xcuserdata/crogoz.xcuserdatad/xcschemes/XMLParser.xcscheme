@@ -96,7 +96,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/crogoz/Desktop/Samples/Samples"
+            argument = "/Users/crogoz/Desktop/Try/Try"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

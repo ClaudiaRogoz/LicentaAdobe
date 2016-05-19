@@ -6,87 +6,37 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="N7O-zS-0GZ">
+        <scene sceneID="gMz-RE-Ft1">
             <objects>
-                <viewController id="7ab-d5-Sac" sceneMemberID="viewController">
+                <viewController id="Jue-Ps-0YO" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YV3-yw-Rq2"/>
-                        <viewControllerLayoutGuide type="bottom" id="k3c-Iw-zjo"/>
+                        <viewControllerLayoutGuide type="top" id="GT4-ia-ah7"/>
+                        <viewControllerLayoutGuide type="bottom" id="vZA-FY-EYE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yP8-V2-uWe">
+                    <view key="view" contentMode="scaleToFill" id="1pB-1r-Cdm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ladybug.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="5yM-hg-5OQ">
-                                <rect key="frame" x="0.0" y="28" width="600" height="531"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTw-aI-JKq">
-                                <rect key="frame" x="63" y="340" width="376" height="247"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6IZ-57-JyE">
+                                <rect key="frame" x="18" y="25" width="376" height="247"/>
                                 <string key="text">There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything… that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.17254900000000001" green="0.17254900000000001" blue="0.17254900000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ladybug.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="5W3-VF-CyB">
+                                <rect key="frame" x="132" y="308" width="240" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ladybug.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="qZk-qq-uWg">
+                                <rect key="frame" x="222" y="376" width="240" height="128"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.054477768456375836" green="0.23683934563758388" blue="0.062028104026845637" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0028575922818791948" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gBS-pp-KzS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LXD-B4-GtB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4339" y="481"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="w0d-kd-W77">
-            <objects>
-                <viewController id="hRv-3Z-Qeb" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ee6-Dt-zW4"/>
-                        <viewControllerLayoutGuide type="bottom" id="yMc-Dt-tgS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ud6-dY-0lQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ladybug.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="7b9-hc-7NE">
-                                <rect key="frame" x="48" y="28" width="240" height="128"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ladybug.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Bgx-Qa-tvQ">
-                                <rect key="frame" x="85" y="72" width="240" height="128"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ladybug.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gEt-ci-09s">
-                                <rect key="frame" x="138" y="140" width="240" height="128"/>
-                            </imageView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UGQ-U7-9Pf">
-                                <rect key="frame" x="71" y="424" width="51" height="31"/>
-                            </switch>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ladybug.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-Dl-ho2">
-                                <rect key="frame" x="180" y="187" width="240" height="128"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06t-46-aYH">
-                                <rect key="frame" x="279" y="412" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sS-o3-CLh">
-                                <rect key="frame" x="312" y="463" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWW-c1-xFb">
-                                <rect key="frame" x="296" y="441" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ce3-4r-PYb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4992" y="481"/>
+            <point key="canvasLocation" x="3439" y="536"/>
         </scene>
     </scenes>
     <resources>

@@ -8,7 +8,7 @@
 
 
 #import "Utils.h"
-
+#import "SpDCXCompositeMac.h"
 
 int main(int argc, const char * argv[]) {
     
@@ -33,5 +33,7 @@ int main(int argc, const char * argv[]) {
         printOptions();
     }
     
+    
+    SpDCXCompositeMac *d = [[SpDCXCompositeMac alloc] init];
     return NSApplicationMain(argc, argv);
 }

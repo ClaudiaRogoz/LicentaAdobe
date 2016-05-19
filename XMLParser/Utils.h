@@ -7,6 +7,8 @@
 //
 #import <QuartzCore/QuartzCore.h>
 #import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
 #include <sys/event.h>
 #include <sys/time.h>
 #include <fcntl.h>

@@ -1,0 +1,75 @@
+// =================================================================================================
+// ADOBE SYSTEMS INCORPORATED
+// Copyright 2014 Adobe Systems Incorporated
+// All Rights Reserved
+//
+// NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
+// of the Adobe license agreement accompanying it.
+// =================================================================================================
+
+#if AdobePrivate
+// =================================================================================================
+// Change history
+// ==============
+//
+// Writers:
+//  ADC	Amandeep Chawla
+//	HK	Honey Kansal
+//
+// mm-dd-yy who Description of changes, most recent first.
+//
+// 03-03-14 ADC 1.0-m013 Implemented GetMergedMetadata function of ThreeWayMerge.
+// 02-24-14 HK  1.0-m009 Added new internal XMP DOM interfaces + fixed memory leaks + implemented qualifiers for new XMP DOM.
+// 02-18-14 ADC 1.0-m004 Three Way Conflict Identification Feature.
+//
+// =================================================================================================
+#endif	// AdobePrivate
+
+#include "XMPCompareAndMerge/Interfaces/IThreeWayMergeResult.h"
+#include "XMPCompareAndMerge/Interfaces/IThreeWayResolvedConflict.h"
+#include "XMPCompareAndMerge/Interfaces/IThreeWayUnResolvedConflict.h"
+#include "XMPCore/Interfaces/IXMPMetadata.h"
+
+#include "XMPCommon/Interfaces/IError.h"
+
+namespace NS_XMPCOMPAREANDMERGE {
+
+	eThreeWayMergeStatus IThreeWayMergeResult_v1::GetMergedStatus() const {
+		CALL_EQUIVALENT_VIRTUAL_FUNCTION_RETURNING_ENUM_NO_ARGS( eThreeWayMergeStatus, GetMergedStatus );
+	}
+
+	spIThreeWayResolvedConflictList_latest IThreeWayMergeResult_v1::GetResolvedConflicts() const {
+		pIError_latest error( NULL );
+		spIThreeWayResolvedConflictList_latest list = CreateUncheckedSharedPtrWithDefaultDelete( new IThreeWayResolvedConflictList_latest() );
+		SizeT nCount = GetCountOfResolvedConflicts( error );
+		if ( error )
+			throw CreateUncheckedSharedPointer( error );
+		for (SizeT i = 0; i < nCount; i++ ) {
+			pIThreeWayResolvedConflict_latest conflict = GetResolvedConflict( i, error );
+			if ( error )
+				throw CreateUncheckedSharedPointer( error );
+			list->push_back( CreateSharedPointer< IThreeWayResolvedConflict_latest >( conflict ) );
+		}
+		return list;
+	}
+
+	spIThreeWayUnResolvedConflictList_latest IThreeWayMergeResult_v1::GetUnResolvedConflicts() const {
+		pIError_latest error( NULL );
+		spIThreeWayUnResolvedConflictList_latest list = CreateUncheckedSharedPtrWithDefaultDelete( new IThreeWayUnResolvedConflictList_latest() );
+		SizeT nCount = GetCountOfUnResolvedConflicts( error );
+		if ( error )
+			throw CreateUncheckedSharedPointer( error );
+		for (SizeT i = 0; i < nCount; i++ ) {
+			pIThreeWayUnResolvedConflict_latest conflict = GetUnResolvedConflict( i, error );
+			if ( error )
+				throw CreateUncheckedSharedPointer( error );
+			list->push_back( CreateSharedPointer< IThreeWayUnResolvedConflict_latest >( conflict ) );
+		}
+		return list;
+	}
+
+	VIRTUAL_IF_SOURCE_COMPILED spIXMPMetadata_latest IThreeWayMergeResult_v1::GetMergedMetadata() const {
+		CALL_EQUIVALENT_VIRTUAL_FUNCTION_NO_ARGS( IXMPMetadata, GetMergedMetadata );
+	}
+
+}

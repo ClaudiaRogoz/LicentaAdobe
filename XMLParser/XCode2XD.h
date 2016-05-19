@@ -97,8 +97,8 @@
     int counterCh;
     bool hasAView;
     bool viewEnded;
-    
-    
+    unsigned long lastScene;
+
 }
 
 /* where we find all external resources: eg. images */

@@ -2,68 +2,40 @@
   "manifest-format-version" : 6,
   "state" : "modified",
   "uxdesign#userDidSetPrototypeName" : "false",
-  "id" : "A9D061F1-73EE-4AB6-A323-8D944034FF39",
+  "id" : "F2AE2225-CD13-4E60-877E-2707E01FBE44",
   "children" : [
     {
       "path" : "artwork",
-      "id" : "1808C8AD-4BF8-4391-88D1-85ADBD1C398D",
+      "id" : "6A5E339A-6B07-4B21-99A2-63E10C697681",
       "name" : "artwork",
       "children" : [
         {
           "path" : "pasteboard",
-          "id" : "29B68292-89CF-40AC-8A90-272203CC768A",
+          "id" : "02419BA4-AA39-4823-835C-86715C4A1A9F",
           "name" : "pasteboard"
         },
         {
           "path" : "artboard-artboard1",
-          "id" : "85362DD8-F050-4B8A-B037-091332630915",
+          "id" : "29F623E0-B2A0-4FBD-BF58-CF4D18C0D611",
           "name" : "iPhone 6 – 1",
           "uxdesign#bounds" : {
-            "y" : 23,
-            "x" : 1301,
+            "y" : 47,
+            "x" : -86,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "92395164-A914-445D-B261-788D5E8F4436",
+              "id" : "B2EBB2E3-FE19-4F30-BCF6-48959694B644",
               "components" : [
                 {
-                  "length" : 1955,
-                  "id" : "88FDA37F-068C-4188-AE7B-74A8F5C75604",
+                  "length" : 892,
+                  "id" : "B77E1106-63FF-49A2-853D-324DA7B8030B",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
                   "name" : "iPhone 6 – 1"
-                }
-              ],
-              "name" : "graphics"
-            }
-          ]
-        },
-        {
-          "path" : "artboard-artboard2",
-          "id" : "B5A0D992-21C5-4D59-A968-3A4E73F79309",
-          "name" : "iPhone 6 – 2",
-          "uxdesign#bounds" : {
-            "y" : 23,
-            "x" : 1746,
-            "width" : 375,
-            "height" : 667
-          },
-          "children" : [
-            {
-              "path" : "graphics",
-              "id" : "AA58A100-8CEF-4937-B44D-662800715C7E",
-              "components" : [
-                {
-                  "length" : 1955,
-                  "id" : "38E2E534-A125-4AD2-9D3B-D8D283C316E3",
-                  "rel" : "primary",
-                  "path" : "graphicContent.agc",
-                  "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "iPhone 6 – 2"
                 }
               ],
               "name" : "graphics"
@@ -74,16 +46,16 @@
     },
     {
       "path" : "resources",
-      "id" : "08AF7E23-FAB3-4262-BF9D-73C541434D32",
+      "id" : "63E52921-EDD7-4019-B985-B5E23E3511FA",
       "name" : "resources",
       "children" : [
         {
           "path" : "graphics",
-          "id" : "8774971D-FDA1-4883-8477-165822285698",
+          "id" : "C449E92D-2697-4A77-BDBC-B1360BA25753",
           "components" : [
             {
-              "length" : 372,
-              "id" : "1DA7B9C1-B41F-4673-90FE-45E92B6FCBD6",
+              "length" : 311,
+              "id" : "BBA3B885-27B6-495F-955C-83192298D15F",
               "rel" : "primary",
               "path" : "graphicContent.agc",
               "type" : "application\/vnd.adobe.agc+dcx",
@@ -96,11 +68,11 @@
     },
     {
       "path" : "interactions",
-      "id" : "20523EA7-23F1-4478-9922-5C0D1F27A027",
+      "id" : "32012B6B-E885-4C4E-A945-AD76D331907B",
       "components" : [
         {
           "length" : 17,
-          "id" : "E7F2AF15-4E67-4DA3-9F1E-CF1866950916",
+          "id" : "A9057CC4-6EC4-4FBE-B69A-2DBEE7E719BB",
           "rel" : "primary",
           "path" : "interactions.json",
           "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -113,7 +85,7 @@
   "components" : [
     {
       "length" : 1323,
-      "id" : "58B57AA6-9995-4A73-9BB0-AECF1A9F788D",
+      "id" : "020FE564-FFA2-4AC2-9D9E-10FEF4A75029",
       "rel" : "metadata",
       "path" : "META-INF\/metadata.xml",
       "type" : "application\/rdf+xml",
@@ -121,6 +93,6 @@
     }
   ],
   "type" : "application\/vnd.adobe.sparkler.project+dcx",
-  "name" : "Comet Document",
-  "uxdesign#version" : "0.5"
+  "uxdesign#version" : "0.10",
+  "name" : "Adobe Experience Design File"
 }

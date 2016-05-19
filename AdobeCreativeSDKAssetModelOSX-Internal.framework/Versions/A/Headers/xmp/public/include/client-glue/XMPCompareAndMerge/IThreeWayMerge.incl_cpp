@@ -1,0 +1,49 @@
+// =================================================================================================
+// ADOBE SYSTEMS INCORPORATED
+// Copyright 2014 Adobe Systems Incorporated
+// All Rights Reserved
+//
+// NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
+// of the Adobe license agreement accompanying it.
+// =================================================================================================
+
+#if AdobePrivate
+// =================================================================================================
+// Change history
+// ==============
+//
+// Writers:
+//  ADC	Amandeep Chawla
+//	HK	Honey Kansal
+//
+// mm-dd-yy who Description of changes, most recent first.
+//
+// 03-03-14 ADC 1.0-m013 Implemented GetMergedMetadata function of ThreeWayMerge.
+// 02-24-14 HK  1.0-m009 Added new internal XMP DOM interfaces + fixed memory leaks + implemented qualifiers for new XMP DOM.
+// 02-18-14 ADC 1.0-m004 Three Way Conflict Identification Feature.
+//
+// =================================================================================================
+#endif	// AdobePrivate
+
+#include "XMPCompareAndMerge/Interfaces/IThreeWayMerge.h"
+#include "XMPCompareAndMerge/Interfaces/ICompareAndMergeObjectFactory.h"
+#include "XMPCompareAndMerge/Interfaces/IThreeWayMergeResult.h"
+#include "XMPCompareAndMerge/Interfaces/ICompareAndMergeObjectFactory.h"
+
+#include "XMPCommon/Utilities/TSmartPtrs.h"
+#include "XMPCommon/Interfaces/IError.h"
+
+namespace NS_XMPCOMPAREANDMERGE {
+	spIThreeWayMerge_latest IThreeWayMerge_latest::CreateThreeWayMerge() {
+		return ICompareAndMergeObjectFactory_latest::GetInstance()->CreateThreeWayMerge();
+	}
+
+	spIThreeWayMergeResult_latest IThreeWayMerge_latest::Merge( const spcIXMPMetadata_latest & base , const spcIXMPMetadata_latest & latest , const spcIXMPMetadata_latest & user ) {
+		CALL_EQUIVALENT_VIRTUAL_FUNCTION( IThreeWayMergeResult, Merge, base.get(), latest.get(), user.get() );
+	}
+
+	bool IThreeWayMerge_v1::RegisterConflictResolutionStrategy( const spIThreeWayConflictResolutionStrategy_latest & strategy ) {
+		CALL_EQUIVALENT_VIRTUAL_FUNCTION_RETURNING_BOOL( RegisterConflictResolutionStrategy, strategy.get() );
+	}
+
+}

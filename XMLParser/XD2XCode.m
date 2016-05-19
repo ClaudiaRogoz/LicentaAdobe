@@ -36,6 +36,7 @@
         return;
     
     }
+    
     NSData *xdData = [clipbData dataUsingEncoding:NSUTF8StringEncoding];
     
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:xdData options:kNilOptions error:&error];
@@ -632,7 +633,6 @@
         [self processTemplateDict:&typeObjDict agcDict:key finalDict:finalDict ofType:type];
         
         id groupFrame = [[typeObjDict objectForKey:RULES] objectForKey:FRAME];
-        //NSLog(@"Group frame = %@", groupFrame);
         [self getViewSize:groupFrame minx:minx miny:miny maxx:maxx maxy:maxy maxh:maxh maxw:maxw];
         
         NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
@@ -653,7 +653,6 @@
         int y = [[frame objectForKey:YARTBOARD] intValue];
         int w = [[frame objectForKey:WIDTH] intValue];
         int h = [[frame objectForKey:HEIGHT] intValue];
-        //NSLog(@"x %d y %d w %d h %d", x, y, w, h);
         if (x <= minx)  {
             minx = x;
         }
@@ -906,7 +905,6 @@
                     
                     
                     if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
-                       // NSLog(@"Group = %@", objDict);
                         int minx = 600, miny = 600, maxx = 0, maxy = 0, maxw = 0, maxh = 0;
                         [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:&objDict
                          minx:&minx miny:&miny maxx: &maxx maxy:&maxy maxh: &maxh maxw: &maxw];
@@ -950,7 +948,6 @@
         rulesByOrder = [rulesTempDict objectForKey:ORDER];
     else rulesByOrder = rulesTempDict;
     
-    //NSLog(@"Found Type = %@", type);
     for (id rule in rulesByOrder) {
         
         keys = [self splitVariable:rule];

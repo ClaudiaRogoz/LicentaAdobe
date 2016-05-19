@@ -27,7 +27,9 @@
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)error
 {
     XCode2XD *reader = [[XCode2XD alloc] initWithError:error];
+    resourcesDir = [resourcesDir stringByAppendingPathComponent:STORYBOARD];
     [reader setResourcesPath:resourcesDir];
+    NSLog(@"ReaourcesPath = %@", resourcesDir);
     [reader setXmlPath:out_file];
     
     NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];
@@ -40,12 +42,24 @@
     /* writes hashDict & offsetDict to a hidden file; needed for sync */
     NSString *hashFile = [NSString stringWithFormat:@"%@/%@%@%@",PREV_ART_PATH, HASH_PATH, DOT, JSON];
     NSString *offsetFile = [NSString stringWithFormat:@"%@/%@%@%@",PREV_ART_PATH, OFFSET_PATH, DOT, JSON];
+    NSMutableDictionary *offsets = [reader getOffset];
+    int length = (int)[[offsets allKeys] count];
+    [offsets setObject:[reader getLastScene] forKey:[NSString stringWithFormat:@"%d", length + 1]];
     [reader writeToFile:[reader getHashdict] file:hashFile computeSha:-1];
-    [reader writeToFile:[reader getOffset] file:offsetFile computeSha:-1];
+    [reader writeToFile:offsets file:offsetFile computeSha:-1];
     
     return rootDictionary;
 }
 
+- (NSNumber *) getLastScene {
+   
+    NSLog(@"Self = %@", [self resourcesPath]);
+    NSString *allScenes = [NSString stringWithContentsOfFile:[self resourcesPath] encoding:NSASCIIStringEncoding error:NULL];
+    NSRange range = [allScenes rangeOfString:@"</scenes>" ];
+    lastScene = (unsigned long)range.location - 2;
+    return [NSNumber numberWithLong:lastScene];
+
+}
 - (NSMutableDictionary *) getOffset {
     return offsetXmlFile;
 }
@@ -709,7 +723,7 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSMutableDictionary *)attributeDict
 {
     attributeDict = [attributeDict mutableCopy];
-    NSString *tagName = [NSString stringWithFormat:@"<%@", elementName];
+    NSString *tagName = [NSString stringWithFormat:@"<%@ ", elementName];
     /*initializes things for a neaw mutableString */
     if ([elementName isEqualToString:STRING] || [elementName isEqualToString:MUTABLE_STRING]){
         attributes[SAVED_TEXT] = [[NSString alloc] init];
@@ -1003,6 +1017,9 @@
     }
     if ([elementName isEqualToString:SCENE]) {
         viewEnded = false;
+        hasAView = false;
+        
+        
     }
     
     if ([xml2agcDictionary[elementName] isEqualToString:ART_SCENE]) {

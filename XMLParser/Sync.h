@@ -36,13 +36,21 @@
      **/
     NSMutableDictionary *attributes;
     
-    NSData *xmlData;
+    NSDictionary* shaList;
+    NSArray *offsetScenes;
     
     /**
      * rules needed for agc2xml export;
      * using these rules we obtain the type of the agc element
      **/
     NSMutableDictionary *exportAgc;
+    NSMutableArray *arrayOfScenes;
+    NSString *xmlContent;
+    NSString *xmlHeader;
+    NSString *xmlFooter;
+    
+    unsigned long lastOffset;
+    int currentScene;
     
 }
 

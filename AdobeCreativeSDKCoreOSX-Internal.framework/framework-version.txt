@@ -1,0 +1,3 @@
+   Name: CreativeSDKCoreOSX
+Version: 0.3.2149
+ Branch: origin/master/8957a7f

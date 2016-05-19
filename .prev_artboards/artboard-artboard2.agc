@@ -8,9 +8,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 0,
-              "g" : 0,
-              "b" : 0
+              "r" : 172,
+              "g" : 109,
+              "b" : 109
             },
             "alpha" : 255
           }
@@ -22,279 +22,19 @@
           {
             "style" : {
               "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "807490"
-                    }
-                  },
-                  "width" : 397,
-                  "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 31,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 430
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "type" : "rect",
-              "x" : "0",
-              "width" : 150,
-              "height" : 142.2933
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "122019"
-                    }
-                  },
-                  "width" : 397,
-                  "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 80,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 453
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "x" : "0",
-              "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "654803"
-                    }
-                  },
-                  "width" : 397,
-                  "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 155,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 486
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect",
-              "x" : "0"
-            }
-          },
-          {
-            "group" : {
-              "children" : [
-                {
-                  "style" : {
-                    "fill" : {
-                      "type" : "solid",
-                      "color" : {
-                        "mode" : "RGB",
-                        "value" : {
-                          "r" : 87,
-                          "g" : 255,
-                          "b" : 72
-                        }
-                      }
-                    },
-                    "stroke" : {
-                      "type" : "solid",
-                      "color" : {
-                        "mode" : "RGB",
-                        "value" : {
-                          "r" : 229,
-                          "g" : 229,
-                          "b" : 229
-                        }
-                      },
-                      "width" : 1.5
-                    }
-                  },
-                  "transform" : {
-                    "d" : 1,
-                    "b" : 0,
-                    "ty" : 0,
-                    "c" : 0,
-                    "a" : 1,
-                    "tx" : 0
-                  },
-                  "type" : "shape",
-                  "name" : "path",
-                  "shape" : {
-                    "type" : "path",
-                    "path" : "M 23.5 0 L 43.5 0 C 52.09999847412109 0 59 6.900000095367432 59 15.5 L 59 15.5 C 59 24.10000038146973 52.09999847412109 31 43.5 31 L 23.5 31 C 14.89999961853027 31 8 24.10000038146973 8 15.5 L 8 15.5 C 8 6.900000095367432 14.89999961853027 0 23.5 0 Z"
-                  }
-                },
-                {
-                  "shape" : {
-                    "type" : "path",
-                    "path" : "M 14 0 C 21.73198509216309 0 28 6.268014430999756 28 14 C 28 21.73198509216309 21.73198509216309 28 14 28 C 6.268014430999756 28 0 21.73198509216309 0 14 C 0 6.268014430999756 6.268014430999756 0 14 0 Z"
-                  },
-                  "visualBounds" : {
-                    "y" : 208.25,
-                    "x" : 342.4500122070312,
-                    "width" : 34.5,
-                    "height" : 34.5
-                  },
-                  "style" : {
-                    "fill" : {
-                      "type" : "solid",
-                      "color" : {
-                        "mode" : "RGB",
-                        "value" : {
-                          "r" : 255,
-                          "g" : 255,
-                          "b" : 255
-                        }
-                      }
-                    },
-                    "filters" : [
-                      {
-                        "type" : "dropShadow",
-                        "global" : true,
-                        "params" : {
-                          "dropShadows" : [
-                            {
-                              "r" : 1.5,
-                              "dy" : 3,
-                              "dx" : 0,
-                              "color" : {
-                                "mode" : "RGB",
-                                "value" : {
-                                  "r" : 0,
-                                  "g" : 0,
-                                  "b" : 0
-                                },
-                                "alpha" : 0.1607843137254902
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ],
-                    "stroke" : {
-                      "type" : "solid",
-                      "color" : {
-                        "mode" : "RGB",
-                        "value" : {
-                          "r" : 229,
-                          "g" : 229,
-                          "b" : 229
-                        }
-                      },
-                      "width" : 0.5
-                    }
-                  },
-                  "type" : "shape",
-                  "name" : "ellipse",
-                  "transform" : {
-                    "d" : 1,
-                    "b" : 0,
-                    "ty" : 1.5,
-                    "c" : 0,
-                    "a" : 1,
-                    "tx" : 30.70000076293945
-                  }
-                }
-              ]
-            },
-            "transform" : {
-              "d" : 1,
-              "b" : 0,
-              "ty" : 471.3467,
-              "c" : 0,
-              "a" : 1,
-              "tx" : 444.375
-            },
-            "type" : "group",
-            "name" : "group"
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "919902"
-                    }
-                  },
-                  "width" : 397,
-                  "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 207,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 512
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "height" : 142.2933,
-              "type" : "rect",
-              "x" : "0",
-              "width" : 150
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
                 "type" : "solid",
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
+                    "r" : 149,
+                    "g" : 151,
+                    "b" : 154
                   },
                   "alpha" : 255
                 }
               },
               "font" : {
-                "size" : 17,
+                "size" : 20,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -303,13 +43,13 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 476.1792,
+              "ty" : 247.0083,
               "c" : "0",
               "a" : "1",
-              "tx" : 578.3733
+              "tx" : 624.2578
             },
             "type" : "text",
-            "name" : "Label",
+            "name" : "label",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -328,7 +68,7 @@
                   ]
                 }
               ],
-              "rawText" : "Label"
+              "rawText" : "label"
             }
           },
           {
@@ -338,15 +78,15 @@
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
+                    "r" : 149,
+                    "g" : 151,
+                    "b" : 154
                   },
                   "alpha" : 255
                 }
               },
               "font" : {
-                "size" : 17,
+                "size" : 20,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -355,13 +95,13 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 532.8741,
+              "ty" : 205.8767,
               "c" : "0",
               "a" : "1",
-              "tx" : 598.9983
+              "tx" : 564.6533
             },
             "type" : "text",
-            "name" : "Label",
+            "name" : ",mzcadgk;jfv;hdv",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -372,7 +112,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 6,
+                        "to" : 17,
                         "x" : 0,
                         "from" : 0
                       }
@@ -380,59 +120,7 @@
                   ]
                 }
               ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 508.4175,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 588.9983
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
+              "rawText" : ",mzcadgk;jfv;hdv"
             }
           }
         ]

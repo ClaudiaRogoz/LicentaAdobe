@@ -8,9 +8,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 13,
-              "g" : 60,
-              "b" : 15
+              "r" : 0,
+              "g" : 0,
+              "b" : 0
             },
             "alpha" : 255
           }
@@ -22,46 +22,13 @@
           {
             "style" : {
               "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "707658"
-                    }
-                  },
-                  "width" : 397,
-                  "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Samples\/ladybug.jpg"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 31,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 0
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "type" : "rect",
-              "x" : "0",
-              "width" : 375,
-              "height" : 590.295
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
                 "type" : "solid",
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
+                    "r" : 43,
+                    "g" : 43,
+                    "b" : 43
                   },
                   "alpha" : 255
                 }
@@ -76,10 +43,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 398.2575,
+              "ty" : 48.0825,
               "c" : "0",
               "a" : "1",
-              "tx" : 41.60547
+              "tx" : 13.63672
             },
             "type" : "text",
             "text" : {
@@ -210,6 +177,72 @@
               ],
               "rawText" : "There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything… that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts."
             }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "58002"
+                    }
+                  },
+                  "width" : 0,
+                  "height" : 0,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Base.lproj\/Main.storyboardladybug.jpg"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 342,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 82
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "588694"
+                    }
+                  },
+                  "width" : 0,
+                  "height" : 0,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Base.lproj\/Main.storyboardladybug.jpg"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 417,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 138
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0"
+            }
           }
         ]
       }
@@ -240,7 +273,7 @@
   "viewSource" : {
     "y" : "0",
     "x" : "0",
-    "width" : 800,
+    "width" : 400,
     "height" : 667
   },
   "version" : "1.5.0"

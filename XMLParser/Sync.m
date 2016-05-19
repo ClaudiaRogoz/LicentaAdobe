@@ -11,15 +11,17 @@
 
 @import AppKit;
 
+const NSString *xmlScene = @"<scene";
+const NSString *xmlEndScene = @"</scene";
+
 @implementation Sync
 
 
 + (void) startSync:(NSString *) path withXcode:(NSString *) xmlPath {
     NSError *error;
     Sync *sync = [[Sync alloc] initWithError:&error];
-    [sync initSync];
+    [sync initSync: xmlPath];
     [sync monitorXDFile:path];
-    
 }
 
 - (id)initWithError:(NSError **)error
@@ -27,7 +29,7 @@
     return self;
 }
 
-- (void) initSync
+- (void) initSync:(NSString*) xmlFile
 {
     NSError *error;
     NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
@@ -38,12 +40,28 @@
     NSData *defData = [NSData dataWithContentsOfFile:def];
     NSData *hashData = [NSData dataWithContentsOfFile:hashFile];
     NSData *offsetData = [NSData dataWithContentsOfFile:offsetFile];
-    
+    arrayOfScenes = [[NSMutableArray alloc] init];
     exportAgc = [[NSMutableDictionary alloc] init];
     
-    hashArtboards = [NSJSONSerialization JSONObjectWithData:hashData options:NSJSONReadingMutableContainers error:&error];
-    offsetArtboards = [NSJSONSerialization JSONObjectWithData:offsetData options:NSJSONReadingMutableContainers error:&error];
+    xmlContent = [NSString stringWithContentsOfFile:xmlFile encoding:NSUTF8StringEncoding error:&error];
+
+    xmlHeader = [[NSString alloc] init];
+    xmlFooter = [[NSString alloc] init];
+    [self setXmlPath:xmlFile];
+        hashArtboards = [NSJSONSerialization JSONObjectWithData:hashData options:NSJSONReadingMutableContainers error:&error];
+        offsetArtboards = [NSJSONSerialization JSONObjectWithData:offsetData options:NSJSONReadingMutableContainers error:&error];
+        int lastScene = (int)[[offsetArtboards allKeys] count];
+        NSString * sceneStr = [NSString stringWithFormat:@"%d", lastScene];
+        lastOffset = [[offsetArtboards objectForKey:sceneStr] longValue];
     
+    [offsetArtboards removeObjectForKey:sceneStr];
+    NSString *firstScene = [NSString stringWithFormat:@"1"];
+    unsigned long firstOffset = [[offsetArtboards objectForKey:firstScene] longValue];
+    unsigned long xmlSize = [xmlContent length];
+    
+    xmlHeader = [xmlContent substringWithRange:NSMakeRange(0, firstOffset)];
+    xmlFooter = [xmlContent substringWithRange:NSMakeRange(lastOffset, xmlSize - lastOffset)];
+    NSLog(@"Header %@\nFooter %@------------------------------------\n", xmlHeader, xmlFooter);
     attributes = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
     
     /* TODO read from rules (inverted rules maybe) */
@@ -137,9 +155,8 @@
     id tempDict = *dict;
     
     NSMutableDictionary *artboardInfo = [[NSMutableDictionary alloc] init];
-    NSLog(@"header = %@", [self artboardHeader:i]);
+    
     [artboardInfo setObject:header forKey:[self artboardHeader:i]];
-    NSLog(@"Artb = %@", artboardInfo);
     [tempDict setObject:artboardInfo forKey:ARTBOARDS];
     
 }
@@ -162,13 +179,54 @@
     
 }
 
--(void) copySceneFromOffset:(long)prevArtOffset {
-
+- (void) writeXmlString:(NSString*) xmlString {
+    
+    NSError *err;
+    
+    NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
+    NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
+    if ([self xmlPath])
+        [xmlData writeToFile:[self xmlPath] atomically:YES];
+    
 
 }
 
--(void) replacePrevArtboard:(NSString *)newArtboards no:(int)nr {
+- (void) updateXmlFile {
     
+    NSString *finalXml = xmlHeader;
+    NSLog(@"Updating... %@", xmlHeader);
+    unsigned long offset;
+    for (int i= 0; i < [arrayOfScenes count]; i++) {
+        offset = [finalXml length];
+        NSLog(@"Length = %lu", offset);
+        NSString *iStr = [NSString stringWithFormat:@"%d", i];
+        NSString *xmlScene = [arrayOfScenes objectAtIndex:i];
+        [shaList setValue:[self computeSha1:xmlScene] forKey:iStr] ;
+        [offsetArtboards setObject:[NSNumber numberWithLong:offset]forKey:iStr];
+        finalXml = [finalXml stringByAppendingString:xmlScene];
+        
+        
+    }
+    lastOffset = [finalXml length];
+    finalXml = [finalXml stringByAppendingString:xmlFooter];
+    NSLog(@"finalXml = %@", finalXml);
+    [self writeXmlString:finalXml];
+    
+}
+
+-(void) replacePrevArtboard:(NSString *)newArtboards no:(int)nr {
+    /*NSError *error;
+    
+    NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@",PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newArtboards
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [jsonString writeToFile:artboardName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    */
 }
 
 -(void) processArtboardPairs:(NSMutableArray *)filesInit enumerator:(NSDirectoryEnumerator *) enumeratorF agcinfo:(NSMutableDictionary *) jsonArtboards {
@@ -186,7 +244,7 @@
         /*goto artboard (found in hashArtboard) & check contentsAreEqual */
         /*just copy from teh corresponding offset into xml */
         nr ++;
-        NSLog(@"newArt = %@", newArtboards);
+        
         
         NSString *content = [NSString stringWithContentsOfFile:newArtboards usedEncoding:&encoding error:&error];
         NSString *jsonHash = [self computeSha1:content];
@@ -194,12 +252,22 @@
         if (hashArtboards && [hashArtboards objectForKey:jsonHash]) {
             int prevArtNo = [[hashArtboards objectForKey:jsonHash] intValue];
             long prevArtOffset = [[offsetArtboards objectForKey:[NSNumber numberWithInt:prevArtNo]] longValue];
+            long nextArtOffset;
+            id nextOffset = [offsetArtboards objectForKey:[NSNumber numberWithInt:prevArtNo + 1]];
+            
+            if (nextOffset)
+                nextArtOffset = [nextOffset longValue];
+            else {
+                nextArtOffset = lastOffset;
+                
+            }
+            
             NSString *prevArtboard = [NSString stringWithFormat:@"%@/.%@/%@%d%@%@", mainBundle, PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
             if ([[NSFileManager defaultManager] contentsEqualAtPath:prevArtboard andPath:newArtboards]) {
                 /*copy from prev_artboard to newStoryboard the currentScene */
                 NSLog(@"Just Copy Artboard");
-                [self copySceneFromOffset:prevArtOffset];
-                
+                NSString *substr = [xmlContent substringWithRange:NSMakeRange(prevArtOffset, nextArtOffset - prevArtOffset)];
+                [arrayOfScenes insertObject:substr atIndex:nr];
                 continue;
             }
         }
@@ -208,36 +276,15 @@
         [self mergeDict:&jsonDict withHeaderDict:[self getArtboardNo:nr forDict:jsonHeader] artboardNo:nr];
         
         NSString *xcodeString = [XD2XCode generateXmlForTag:jsonDict];
-        NSLog(@"XcodeStr = %@", xcodeString);
+        //NSLog(@"XcodeStr = %@", xcodeString);
+        //TODO
+        //NSLog(@"NewArtboards = %@", newArtboards);
         [self replacePrevArtboard:newArtboards no:nr];
-        
+        [arrayOfScenes insertObject:xcodeString atIndex:nr];
     }
-    /*for (NSURL *urlF in enumeratorF) {
-        NSError *error;
-        NSNumber *isDirectory = nil;
-        if (! [urlF getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
-            // handle error
-        }
-        else if (![isDirectory boolValue] && [self isArtboard:urlF]) {
-            
-            if ([[NSFileManager defaultManager] contentsEqualAtPath:[urlF path] andPath:[filesInit objectAtIndex:i]])
-                continue;
-            
-            // update file
-            NSMutableDictionary *jsonDict = [self serializeFromPath:[filesInit objectAtIndex:i]];
-            
-            [self mergeDict:&jsonDict withHeaderDict:[self getArtboardNo:i forDict:jsonHeader] artboardNo:i];
-            
-            NSString *xcodeString = [XMLGenerator generateXmlForTag:jsonDict];
-            
-            NSLog(@"XcodeStr = %@", xcodeString);
-            ++i;
-            
-        }
-    }*/
-
-
 }
+
+
 - (BOOL) isResourcesPath:(NSString*) path {
     for (int i = 0; i< 2; i++) {
     
@@ -331,13 +378,15 @@
                                           else {
 
                                               /* creates an unzip directory of the current XD project (**changes have been made ) */
-                                              
+                                              //arrayOfScenes = [[NSMutableArray alloc] init];
                                               NSString *mainBundle = [self getProjHomePath];
                                               NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_UNZIP_PATH];
                                               
                                               [self unzipXD:path atPath:unzipped_xd];
-                                              
+                                              NSLog(@"UNxip");
                                               [self findChangesForPath:(NSString *)unzipped_xd];
+                                              NSLog(@"Sync 1 is Done");
+                                              [self updateXmlFile];
                                           }
                                       });
     
