@@ -27,7 +27,6 @@
 		C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A41CC4C16100E487AB /* TestParaGroup.json */; };
 		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
 		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
-		C979A82A1CE9B9250003A510 /* SpDCXCompositeMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = C979A8291CE9B9250003A510 /* SpDCXCompositeMac.mm */; };
 		C98141E61CB7BAAF00936604 /* TestGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C98141E51CB7BAAF00936604 /* TestGenerator.json */; };
 		C99186CA1C8B664A0071A25F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186C91C8B664A0071A25F /* AppDelegate.m */; };
 		C99186CD1C8B664A0071A25F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186CC1C8B664A0071A25F /* main.m */; };
@@ -99,8 +98,6 @@
 		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
 		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
 		C979A8261CE9B6770003A510 /* AdobeCreativeSDKCoreOSX-Internal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "AdobeCreativeSDKCoreOSX-Internal.framework"; sourceTree = "<group>"; };
-		C979A8281CE9B9250003A510 /* SpDCXCompositeMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpDCXCompositeMac.h; sourceTree = "<group>"; };
-		C979A8291CE9B9250003A510 /* SpDCXCompositeMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpDCXCompositeMac.mm; sourceTree = "<group>"; };
 		C98141E51CB7BAAF00936604 /* TestGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TestGenerator.json; path = XMLParser/TestGenerator.json; sourceTree = "<group>"; };
 		C984E2E51CE35B89004D3B92 /* AdobeCreativeSDKCommonUX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdobeCreativeSDKCommonUX.framework; path = "../../sparkler-shell/third_party/AdobeCreativeSDKFrameworks/AdobeCreativeSDKCommonUX.framework"; sourceTree = "<group>"; };
 		C99186C51C8B664A0071A25F /* XDXCodeTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XDXCodeTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,8 +244,6 @@
 		C99186C71C8B664A0071A25F /* XMLParser */ = {
 			isa = PBXGroup;
 			children = (
-				C979A8281CE9B9250003A510 /* SpDCXCompositeMac.h */,
-				C979A8291CE9B9250003A510 /* SpDCXCompositeMac.mm */,
 				C99186F81C8B66760071A25F /* XCode2XD.h */,
 				C99186F91C8B66760071A25F /* XCode2XD.m */,
 				C99186C81C8B664A0071A25F /* AppDelegate.h */,
@@ -460,7 +455,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C973402F1CC7740D008F8E8D /* Sync.m in Sources */,
-				C979A82A1CE9B9250003A510 /* SpDCXCompositeMac.mm in Sources */,
 				C92A1DB71CEE09D000A90F7E /* XDCreator.m in Sources */,
 				C99186D01C8B664A0071A25F /* ViewController.m in Sources */,
 				C99186CD1C8B664A0071A25F /* main.m in Sources */,

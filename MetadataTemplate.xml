@@ -6,9 +6,9 @@
             xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
             xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
             xmp:CreatorTool="XD"
-            xmp:CreateDate="2016-05-19T15:33:41.830+03:00"
-            xmp:ModifyDate="2016-05-19T15:33:41.830+03:00"
-            xmp:MetadataDate="2016-05-19T15:33:41.830+03:00"
+            xmp:CreateDate=" "
+            xmp:ModifyDate=" "
+            xmp:MetadataDate=" "
             dc:format="application/vnd.adobe.sparkler.project+dcx"
             xmpMM:DocumentID="990075EE-CCD8-4FB3-AD4E-05DEBED57059"
             xmpMM:OriginalDocumentID="990075EE-CCD8-4FB3-AD4E-05DEBED57059"
@@ -18,12 +18,12 @@
                     <rdf:li
                     stEvt:action="created"
                     stEvt:instanceID="990075EE-CCD8-4FB3-AD4E-05DEBED57059"
-                    stEvt:when="2016-05-19T15:33:41.830+03:00"
+                    stEvt:when=" "
                     stEvt:softwareAgent="XD"/>
                     <rdf:li
                     stEvt:action="saved"
                     stEvt:instanceID="8143D516-FF1C-4214-A7D4-C254449577B5"
-                    stEvt:when="2016-05-19T15:33:41.830+03:00"
+                    stEvt:when=" "
                     stEvt:softwareAgent="XD"/>
                 </rdf:Seq>
             </xmpMM:History>

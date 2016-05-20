@@ -15,7 +15,8 @@
 
 @interface XDCreator : NSObject {
 
-    
+    NSString *docId;
+    NSString *instId;
 
 }
 

@@ -19,7 +19,7 @@
 #define AGC_TEMPLATE    @"AGCTemplate"
 #define XML2AGC_TEMPLATE    @"Xml2AgcTranslations"
 #define RESOURCESDICT   @"ResourcesValue"
-
+#define META_TEMPLATE   @"MetadataTemplate"
 
 /* files format */
 #define SVG             @"svg"
@@ -155,6 +155,11 @@
 #define MODIFYDATE  @"ModifyDate="
 #define METADATADATE    @"MetadataDate="
 #define WHENDATE        @"when="
+#define DOC_ID      @"DocumentID="
+#define ORIG_LID    @"OriginalDocumentID="
+#define INST_ID     @"InstanceID="
+#define INSTANCE_ID @"instanceID="
+
 #define MANIFEST    @"manifest"
 #define META_INF    @"META_INF"
 #define METADATA    @"metadata.xml"

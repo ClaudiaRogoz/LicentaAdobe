@@ -29,32 +29,80 @@
 
 }
 
-- (void) setMetaDataDate:(NSString *) path {
+- (int) getRangeofString:(NSString *) search inString:(NSString *) init  offset:(int) offset {
     
-    NSError *error;
-    NSArray *modifyDates = @[CREATEDATE, MODIFYDATE, METADATADATE, WHENDATE];
-    NSString *timeStamp = [self createTimeStamp];
-    NSString *template = [[NSBundle mainBundle] pathForResource:[METADATA stringByDeletingPathExtension] ofType:XML];
+
+    NSRange range = [init rangeOfString:search
+                                options:0
+                                  range:NSMakeRange(offset, [init length]- offset)];
     
-    //read File into Str
-    NSString *metaInfo = [NSString stringWithContentsOfFile:template encoding:NSUTF8StringEncoding error:NULL];
-    
-    //modify timeStamp &
-    for (id date in modifyDates) {
-        NSRange range = [metaInfo rangeOfString:date];
-        if (range.location == NSNotFound) {
-            NSLog(@"[ERROR] Word not found");
-            return;
-        }
-        
-        for(int i = 0; i< range.length; i++) {
-            int offset = (int)[date length];
-            [metaInfo stringByReplacingCharactersInRange:NSMakeRange(range.location + offset + 2, 1) withString:timeStamp];
-        
-        }
+    if (range.location == NSNotFound) {
+        NSLog(@"[ERROR] %@ not found", search);
+        return - 1;
     }
     
+    return (int)range.location;
+
+}
+
+- (NSString *) replaceString:(NSString *) repStr inString:(NSString *) metaInfo usingSearchArray:(NSArray *) array lastObject:(BOOL) lastObject {
+    
+    int range = 0;
+    int counter = 0;
+    XDCreator *xdc = [[XDCreator alloc] init];
+    
+    for (id date in array) {
+        counter ++;
+        range = [xdc getRangeofString:date inString:metaInfo offset:range + 1];
+        int offset = (int)[date length];
+        
+        if (lastObject && counter != [array count])
+            continue;
+        
+        metaInfo = [metaInfo stringByReplacingCharactersInRange:NSMakeRange(range + offset + 1, 1) withString:repStr];
+        
+    }
+    
+    return metaInfo;
+    
+}
+
+- (void) generateMetaInf:(NSString *) documentID instance:(NSString *) instanceID path:(NSString *) path {
+    NSError *error;
+    NSArray *modifyDates = @[CREATEDATE, MODIFYDATE, METADATADATE, WHENDATE, WHENDATE];
+    NSArray *uniqIds = @[DOC_ID, ORIG_LID, INSTANCE_ID];
+    NSArray *instanceIds = @[INST_ID];
+    NSString *timeStamp = [self createTimeStamp];
+    NSString *template = [[NSBundle mainBundle] pathForResource:META_TEMPLATE ofType:XML];
+    NSString *metaInfo = [NSString stringWithContentsOfFile:template encoding:NSUTF8StringEncoding error:NULL];
+
+    metaInfo = [self replaceString:timeStamp inString:metaInfo usingSearchArray:modifyDates lastObject:false];
+    metaInfo = [self replaceString:documentID inString:metaInfo usingSearchArray:uniqIds lastObject:false];
+    metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:instanceIds  lastObject:false];
+    metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:@[INSTANCE_ID, INSTANCE_ID] lastObject:true];
+    
     [metaInfo writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+
+}
+
+- (void) generateManifest:(NSString *) documentID path:(NSString *) path{
+    
+    NSError *error;
+    NSString *tempName = [[NSBundle mainBundle] pathForResource:MANIFEST ofType:JSON];
+    NSData *data = [NSData dataWithContentsOfFile:tempName];
+    NSMutableDictionary *template = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    
+}
+
+- (void) setMetaData:(NSString *) path manifest:(NSString *) manifest {
+    
+
+    NSString *document = [self generateUniqueId];
+    NSString *instance = [self generateUniqueId];
+
+    [self generateMetaInf:document instance:instance path:path];
+    [self generateManifest:document path:manifest];
+    
     
 }
 
@@ -132,7 +180,7 @@
     
     XDCreator *xdc = [[XDCreator alloc] init];
 
-    [xdc setMetaDataDate:metaInfoContent];
+    [xdc setMetaData:metaInfoContent manifest:manifestContent];
 }
 
 + (void) createMimetype:(NSString *) xdPath {

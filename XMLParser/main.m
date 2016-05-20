@@ -8,7 +8,6 @@
 
 
 #import "Utils.h"
-#import "SpDCXCompositeMac.h"
 
 int main(int argc, const char * argv[]) {
     
