@@ -196,11 +196,11 @@ const NSString *xmlEndScene = @"</scene";
 - (void) updateXmlFile {
     
     NSString *finalXml = xmlHeader;
-    NSLog(@"Updating... %@", xmlHeader);
+   // NSLog(@"Updating... %@", xmlHeader);
     unsigned long offset;
     for (int i= 0; i < [arrayOfScenes count]; i++) {
         offset = [finalXml length];
-        NSLog(@"Length = %lu", offset);
+        //NSLog(@"Length = %lu", offset);
         NSString *iStr = [NSString stringWithFormat:@"%d", i];
         NSString *xmlScene = [arrayOfScenes objectAtIndex:i];
         [shaList setValue:[self computeSha1:xmlScene] forKey:iStr] ;
@@ -211,13 +211,13 @@ const NSString *xmlEndScene = @"</scene";
     }
     lastOffset = [finalXml length];
     finalXml = [finalXml stringByAppendingString:xmlFooter];
-    NSLog(@"finalXml = %@", finalXml);
+    //NSLog(@"finalXml = %@", finalXml);
     [self writeXmlString:finalXml];
     
 }
 
--(void) replacePrevArtboard:(NSString *)newArtboards no:(int)nr {
-    /*NSError *error;
+-(void) replacePrevArtboard:(NSMutableDictionary *)newArtboards no:(int)nr {
+    NSError *error;
     
     NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@",PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newArtboards
@@ -226,7 +226,7 @@ const NSString *xmlEndScene = @"</scene";
     
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     [jsonString writeToFile:artboardName atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    */
+    
 }
 
 -(void) processArtboardPairs:(NSMutableArray *)filesInit enumerator:(NSDirectoryEnumerator *) enumeratorF agcinfo:(NSMutableDictionary *) jsonArtboards {
@@ -248,7 +248,7 @@ const NSString *xmlEndScene = @"</scene";
         
         NSString *content = [NSString stringWithContentsOfFile:newArtboards usedEncoding:&encoding error:&error];
         NSString *jsonHash = [self computeSha1:content];
-        
+        NSLog(@"content");
         if (hashArtboards && [hashArtboards objectForKey:jsonHash]) {
             int prevArtNo = [[hashArtboards objectForKey:jsonHash] intValue];
             long prevArtOffset = [[offsetArtboards objectForKey:[NSNumber numberWithInt:prevArtNo]] longValue];
@@ -265,7 +265,7 @@ const NSString *xmlEndScene = @"</scene";
             NSString *prevArtboard = [NSString stringWithFormat:@"%@/.%@/%@%d%@%@", mainBundle, PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
             if ([[NSFileManager defaultManager] contentsEqualAtPath:prevArtboard andPath:newArtboards]) {
                 /*copy from prev_artboard to newStoryboard the currentScene */
-                NSLog(@"Just Copy Artboard");
+                //NSLog(@"Just Copy Artboard");
                 NSString *substr = [xmlContent substringWithRange:NSMakeRange(prevArtOffset, nextArtOffset - prevArtOffset)];
                 [arrayOfScenes insertObject:substr atIndex:nr];
                 continue;
@@ -278,8 +278,8 @@ const NSString *xmlEndScene = @"</scene";
         NSString *xcodeString = [XD2XCode generateXmlForTag:jsonDict];
         //NSLog(@"XcodeStr = %@", xcodeString);
         //TODO
-        //NSLog(@"NewArtboards = %@", newArtboards);
-        [self replacePrevArtboard:newArtboards no:nr];
+        NSLog(@"NewArtboards = %@", jsonDict);
+        [self replacePrevArtboard:jsonDict no:nr];
         [arrayOfScenes insertObject:xcodeString atIndex:nr];
     }
 }
@@ -378,14 +378,14 @@ const NSString *xmlEndScene = @"</scene";
                                           else {
 
                                               /* creates an unzip directory of the current XD project (**changes have been made ) */
-                                              //arrayOfScenes = [[NSMutableArray alloc] init];
+                                              arrayOfScenes = [[NSMutableArray alloc] init];
                                               NSString *mainBundle = [self getProjHomePath];
                                               NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_UNZIP_PATH];
                                               
                                               [self unzipXD:path atPath:unzipped_xd];
-                                              NSLog(@"UNxip");
+                                              
                                               [self findChangesForPath:(NSString *)unzipped_xd];
-                                              NSLog(@"Sync 1 is Done");
+                                              NSLog(@"[Sync DONE]");
                                               [self updateXmlFile];
                                           }
                                       });

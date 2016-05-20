@@ -52,9 +52,13 @@
 		<data>
 		G6TLY176emUrsrRXpEMHylQvNiw=
 		</data>
-		<key>Resources/File.json</key>
+		<key>Resources/MetadataTemplate.xml</key>
 		<data>
-		ne/WJgeWFFNLJRqvlieuhBzC+wc=
+		Xsm79xboe3Dt8G5X0ngU1zh2cA0=
+		</data>
+		<key>Resources/ResourcesValue.json</key>
+		<data>
+		5Z+UKE6dIqAUqmM9CiODPVyxsag=
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
@@ -127,6 +131,10 @@
 		<key>Resources/Xml2AgcTranslations.json</key>
 		<data>
 		IH+oN63pFTUYyE5rq4LyrIvls3k=
+		</data>
+		<key>Resources/manifest.json</key>
+		<data>
+		zkzWdwHIGOYLt1jkJf8fgfT+ng8=
 		</data>
 		<key>Resources/myXMLfile.xml</key>
 		<data>
@@ -236,15 +244,26 @@
 			TQqifXBL/rmdqDsyMaG79XlnplZ86JXOWYWW5Imtpno=
 			</data>
 		</dict>
-		<key>Resources/File.json</key>
+		<key>Resources/MetadataTemplate.xml</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ne/WJgeWFFNLJRqvlieuhBzC+wc=
+			Xsm79xboe3Dt8G5X0ngU1zh2cA0=
 			</data>
 			<key>hash2</key>
 			<data>
-			k064u1nD+jabfFota6D/iLX1ruJ2gs6DPPQtqabVPog=
+			+KCFmHGe8UlbXS/YP2sczQ4RJX1CsuhDBWFQ17lLKtk=
+			</data>
+		</dict>
+		<key>Resources/ResourcesValue.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5Z+UKE6dIqAUqmM9CiODPVyxsag=
+			</data>
+			<key>hash2</key>
+			<data>
+			BGuOSgXempUEL4LP8VaaUotalW3cCKUjtUeYSM77BDI=
 			</data>
 		</dict>
 		<key>Resources/Rules.json</key>
@@ -443,6 +462,17 @@
 			<key>hash2</key>
 			<data>
 			TewaQ+Rd+8x+5asE/BKbYajtezxx4I5IzjkepMaJRQg=
+			</data>
+		</dict>
+		<key>Resources/manifest.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zkzWdwHIGOYLt1jkJf8fgfT+ng8=
+			</data>
+			<key>hash2</key>
+			<data>
+			mHTEdpnUuN5f4Pa/gUQ1GwAtvoHIYVhq3caB4wJe+Pc=
 			</data>
 		</dict>
 		<key>Resources/myXMLfile.xml</key>

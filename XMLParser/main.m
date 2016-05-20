@@ -19,7 +19,7 @@ int main(int argc, const char * argv[]) {
         return 0;
     
     }else if (!strcmp(argv[1], IMPORT)) {
-        import((char*)argv[2]);
+        import((char*)argv[2], (char*)argv[3]);
     
     }else if (!strcmp(argv[1], EXPORT)) {
         export((char*)argv[2]);
@@ -33,7 +33,5 @@ int main(int argc, const char * argv[]) {
         printOptions();
     }
     
-    
-    SpDCXCompositeMac *d = [[SpDCXCompositeMac alloc] init];
     return NSApplicationMain(argc, argv);
 }

@@ -99,10 +99,11 @@ void openDragDropPanel(NSString *outXmlPath) {
     
 }
 
-void import(char *path) {
+void import(char *path, char *xdPath) {
     
     CFTimeInterval startTime = CACurrentMediaTime();
     NSString *inXmlPath= [NSString stringWithFormat:@"%s", path];
+    NSString *inXDPath = [NSString stringWithFormat:@"%s", xdPath];
     NSString *importPath = pathFormat(&inXmlPath, path);
     NSData *parser = [NSData dataWithContentsOfFile:importPath];
     
@@ -114,7 +115,7 @@ void import(char *path) {
     }
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    [XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath error:&parseError];
+    [XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath xdPath:inXDPath error:&parseError];
     
     
     /* copy <agc file> to clipboard */

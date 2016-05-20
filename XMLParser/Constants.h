@@ -18,12 +18,14 @@
 #define SVG_TEMPLATE    @"SvgTemplate"
 #define AGC_TEMPLATE    @"AGCTemplate"
 #define XML2AGC_TEMPLATE    @"Xml2AgcTranslations"
+#define RESOURCESDICT   @"ResourcesValue"
 
 
 /* files format */
 #define SVG             @"svg"
 #define JSON            @"json"
 #define AGC             @"agc"
+#define XML             @"xml"
 #define XCODEPROJ       @"xcodeproj"
 #define ARTBOARD_FILE_PREFIX    @"artboard-artboard"
 
@@ -54,6 +56,8 @@
 #define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
 #define GRAPHIC         @"graphicContent.agc"
 #define DS_STORE        @".DS_Store"
+
+#define GRAPHICS    @"graphics"
 
 /* args for app */
 #define HELP    "-h"
@@ -105,6 +109,8 @@
 #define GROUP       @"group"
 #define TYPE        @"type"
 #define ARTBOARDS   @"artboards"
+#define ARTWORK     @"artwork"
+#define VIEWPORT       @"viewportHeight"
 #define FIRST_ARTBOARD  @"artboard1"
 #define TRANSFORM   @"transform"
 #define TX          @"tx"
@@ -138,10 +144,21 @@
 #define SHAPE       @"shape"
 #define LABEL       @"label"
 #define SCALE       @"scale"
-
+#define INTERACTIONS    @"interactions"
 #define VERSION_AGC @"1.5.0"
+#define VERSION_INTERACTIONS    @"0.3"
 #define HREF        @"href"
 #define REF         @"ref"
+
+/*used for metadata creation */
+#define CREATEDATE  @"CreateDate="
+#define MODIFYDATE  @"ModifyDate="
+#define METADATADATE    @"MetadataDate="
+#define WHENDATE        @"when="
+#define MANIFEST    @"manifest"
+#define META_INF    @"META_INF"
+#define METADATA    @"metadata.xml"
+
 
 #define TEXTFIELD   @"textField"
 #define TEXT_COLOR_R    @"textField.style.fill.color.value.r"
@@ -245,6 +262,8 @@
 #define WIDTHIPH6 375
 #define HEIGHTIPH6 667
 #define SPARKLERCLIPBOARD   @"com.adobe.sparkler.design"
+#define MIMETYPE_CONTENT            @"application/vnd.adobe.sparkler.project+dcx"
+#define MIMETYPE            @"mimetype"
 #define ARTBOARDXML         @"artboardFromXml.agc"
 
 

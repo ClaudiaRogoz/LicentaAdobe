@@ -99,6 +99,10 @@
             argument = "/Users/crogoz/Desktop/Try/Try"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/crogoz/Xd.xd"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

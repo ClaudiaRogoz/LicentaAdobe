@@ -24,11 +24,13 @@
 #pragma mark Public methods
 
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)error
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file xdPath:(NSString *) xdPath error:(NSError **)error
 {
     XCode2XD *reader = [[XCode2XD alloc] initWithError:error];
     resourcesDir = [resourcesDir stringByAppendingPathComponent:STORYBOARD];
     [reader setResourcesPath:resourcesDir];
+    [reader setXdPath:xdPath];
+    
     NSLog(@"ReaourcesPath = %@", resourcesDir);
     [reader setXmlPath:out_file];
     
@@ -37,6 +39,7 @@
 
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName computeSha:-1];
+    NSLog(@"rootDictionary = %@", rootDictionary);
     [reader splitArtboards:rootDictionary];
     
     /* writes hashDict & offsetDict to a hidden file; needed for sync */
@@ -126,10 +129,29 @@
     return mainBundle;
 }
 
+- (void) spliIntoXDformat:(NSMutableDictionary *) tempArray {
+    
+}
+
+- (void) cleanupXDTempDir {
+
+    
+
+}
+
+
+
 - (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
     
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
+    /* TODO write artboardsD into resources/graphicContent */
+    /* TODO */
     NSMutableDictionary *artboardsD = [dictionary objectForKey:ARTBOARDS];
+    [XDCreator createResourcesContent:artboardsD xdPath: [self xdPath]];
+    [XDCreator createInteractionContent:[[NSMutableDictionary alloc] init] xdPath:[self xdPath]];
+    [XDCreator createMimetype:[self xdPath]];
+    [XDCreator createManifest:[dictionary mutableCopy] xdPath:[self xdPath]];
+    
     NSString *mainBundle = [self getProjHomePath];
     NSError *error;
     int nr = 1;
@@ -137,16 +159,19 @@
     for (id key in [artboardsD allKeys]) {
         
         NSMutableDictionary *tempArray = [self deepCopy: dictionary];
-        
-        id artboardNo = [artboardsD objectForKey:key];
-        [tempArray  setValue:[[NSMutableDictionary alloc] init] forKey:ARTBOARDS];
-        [[tempArray objectForKey:ARTBOARDS]  setValue:artboardNo forKey:key];
+        NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@",PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
         
         id children =  [[dictionary objectForKey:CHILDREN] objectAtIndex:(nr -1)];
         
         [tempArray setObject:[[NSMutableArray alloc] init] forKey:CHILDREN];
         [[tempArray objectForKey:CHILDREN] addObject:children];
         
+        
+        NSLog(@"TempArray = %@", tempArray);
+        [XDCreator createArtworkContent:tempArray artboardNo:nr xdPath:[self xdPath]];
+        id artboardNo = [artboardsD objectForKey:key];
+        [tempArray  setValue:[[NSMutableDictionary alloc] init] forKey:ARTBOARDS];
+        [[tempArray objectForKey:ARTBOARDS]  setValue:artboardNo forKey:key];
         
         /* create a temp directory where all the prev artboards can be stored */
         /* used for sync */
@@ -160,7 +185,6 @@
             }
         }
         
-        NSString *artboardName = [NSString stringWithFormat:@"%@/%@%d%@%@",PREV_ART_PATH, ARTBOARD_FILE_PREFIX, nr, DOT, AGC];
         [self writeToFile:tempArray file:artboardName computeSha:nr];
         nr++;
     }

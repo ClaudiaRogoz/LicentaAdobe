@@ -10,7 +10,8 @@
 #import <Foundation/Foundation.h>
 
 #import "Constants.h"
-
+#import "Helper.h"
+#include "XDCreator.h"
 
 @import AppKit;
 
@@ -81,6 +82,12 @@
      **/
     NSMutableDictionary *hashArtboards;
     
+    
+    NSMutableArray *agcArtboards;
+    NSMutableDictionary *viewSource;
+    NSMutableDictionary *resources;
+    NSMutableDictionary *meta;
+    
     /* width/height of xcode artboards and xd artboards */
     int widthXMLArtboard;
     int heightXMLArtboard;
@@ -109,7 +116,7 @@
 /* -----------------------PUBLIC method------------------------*/
 
 /* used for xml2agc parsing */
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file error:(NSError **)errorPointer;
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data resources:(NSString*)resourcesDir outFile:(NSString *)out_file  xdPath:(NSString *) xdPath error:(NSError **)errorPointer;
 
 /* -----------------------PRIVATE methods----------------------*/
 
