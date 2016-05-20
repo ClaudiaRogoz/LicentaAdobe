@@ -139,6 +139,7 @@
 #define IMAGEVIEW_INV   @"imageView."
 #define PARAGRAPHS_DOT  @"paragraphs."
 #define UID         @"uid"
+#define ID          @"id"
 #define LIST        @"list"
 #define ART_SCENE   @"artboard"
 #define SHAPE       @"shape"
@@ -249,7 +250,7 @@
 #define XARTBOARD       @"x"
 #define YARTBOARD       @"y"
 #define FRAMED       @"$frame"
-
+#define FILE_SIZE       @"$LENGTH"
 
 /* artboards's sizes */
 #define WIDTH_XML_ARTBOARD    600

@@ -1,0 +1,31 @@
+{
+    "path" : "$ARTBOARD_PREFIX",
+    "id" : "$",
+    "uxdesign#viewport" : {
+        "height" : "$"
+    },
+    "name" : "iPhone 6 – 1",
+    "uxdesign#bounds" : {
+        "y" : "$",
+        "x" : "$",
+        "width" : "$",
+        "height" : "$"
+    },
+    "children" : [
+                  {
+                  "path" : "graphics",
+                  "id" : "$",
+                  "components" : [
+                                  {
+                                  "length" : "$LENGTH artwork/artboard-artboard1/graphics",
+                                  "id" : "$",
+                                  "rel" : "primary",
+                                  "path" : "graphicContent.agc",
+                                  "type" : "application\/vnd.adobe.agc+dcx",
+                                  "name" : "iPhone 6 – 1"
+                                  }
+                                  ],
+                  "name" : "graphics"
+                  }
+                  ]
+}

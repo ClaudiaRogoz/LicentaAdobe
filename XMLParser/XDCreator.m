@@ -68,6 +68,7 @@
 }
 
 - (void) generateMetaInf:(NSString *) documentID instance:(NSString *) instanceID path:(NSString *) path {
+   
     NSError *error;
     NSArray *modifyDates = @[CREATEDATE, MODIFYDATE, METADATADATE, WHENDATE, WHENDATE];
     NSArray *uniqIds = @[DOC_ID, ORIG_LID, INSTANCE_ID];
@@ -85,23 +86,60 @@
 
 }
 
-- (void) generateManifest:(NSString *) documentID path:(NSString *) path{
+- (void) processTemplate:(id*)template usingArtboards:(NSMutableDictionary *) dict {
+
+    NSError *error;
+
+    if ([*template isKindOfClass:[NSDictionary class]]) {
+        for (id key in [*template allKeys]) {
+            id value = [*template objectForKey:key];
+            if ([value isKindOfClass:[NSString class]]){
+                if ([value isEqualToString:TOTRANSFORM]) {
+                        [*template setObject:[self generateUniqueId] forKey:key];
+                    
+                } else if ([value hasPrefix:FILE_SIZE]) {
+                    NSString *dirName = [value substringFromIndex:[FILE_SIZE length] + 1];
+                    NSString *dirStr = [[[self xdPath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:dirName];
+                    NSString *contentsAtPath = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirStr error:&error] lastObject];
+                    NSString *fullPath = [dirStr stringByAppendingPathComponent:contentsAtPath];
+                    unsigned long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:nil] fileSize];
+                    [*template setObject:[NSNumber numberWithLong:fileSize] forKey:key];
+                }
+            } else {
+                [self processTemplate:&value usingArtboards:dict];
+            }
+        }
+        
+    } else if ([*template isKindOfClass:[NSArray class]]) {
+        for(id key in *template) {
+            id tempKey = key;
+            [self processTemplate:&tempKey usingArtboards:dict];
+        }
+    }
+    
+}
+
+- (void) generateManifest:(NSString *) documentID path:(NSString *) path dict:(NSMutableDictionary *) dict {
     
     NSError *error;
     NSString *tempName = [[NSBundle mainBundle] pathForResource:MANIFEST ofType:JSON];
     NSData *data = [NSData dataWithContentsOfFile:tempName];
     NSMutableDictionary *template = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    [template setObject:documentID forKey:ID];
+    id temp = [template objectForKey:CHILDREN];
+    [self processTemplate:&temp usingArtboards:dict];
+    NSLog(@"Temp = %@", temp);
     
 }
 
-- (void) setMetaData:(NSString *) path manifest:(NSString *) manifest {
+- (void) setMetaData:(NSString *) path manifest:(NSString *) manifest dict:dict{
     
 
     NSString *document = [self generateUniqueId];
     NSString *instance = [self generateUniqueId];
 
     [self generateMetaInf:document instance:instance path:path];
-    [self generateManifest:document path:manifest];
+    [self generateManifest:document path:manifest dict:dict];
     
     
 }
@@ -179,8 +217,8 @@
     NSString *metaInfoContent = [self createStorage:metaInfo usingXDPath:xdPath];
     
     XDCreator *xdc = [[XDCreator alloc] init];
-
-    [xdc setMetaData:metaInfoContent manifest:manifestContent];
+    [xdc setXdPath:xdPath];
+    [xdc setMetaData:metaInfoContent manifest:manifestContent dict:dict];
 }
 
 + (void) createMimetype:(NSString *) xdPath {

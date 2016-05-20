@@ -129,18 +129,6 @@
     return mainBundle;
 }
 
-- (void) spliIntoXDformat:(NSMutableDictionary *) tempArray {
-    
-}
-
-- (void) cleanupXDTempDir {
-
-    
-
-}
-
-
-
 - (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
     
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
@@ -188,6 +176,7 @@
         [self writeToFile:tempArray file:artboardName computeSha:nr];
         nr++;
     }
+    
     return rootArray;
     
 }

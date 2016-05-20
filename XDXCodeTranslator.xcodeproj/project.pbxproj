@@ -24,6 +24,7 @@
 		C97741D81CEEEDAB0034EBD3 /* MetadataTemplate.xml in Resources */ = {isa = PBXBuildFile; fileRef = C97741D71CEEEDAB0034EBD3 /* MetadataTemplate.xml */; };
 		C97741DC1CEEFEB60034EBD3 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = C97741DB1CEEFEB60034EBD3 /* manifest.json */; };
 		C97741DE1CEF0C3C0034EBD3 /* ResourcesValue.json in Resources */ = {isa = PBXBuildFile; fileRef = C97741DD1CEF0C3C0034EBD3 /* ResourcesValue.json */; };
+		C97741E01CEF35440034EBD3 /* PathManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = C97741DF1CEF35440034EBD3 /* PathManifest.json */; };
 		C97921A51CC4C16100E487AB /* TestParaGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A41CC4C16100E487AB /* TestParaGroup.json */; };
 		C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */; };
 		C97921A91CC4F66500E487AB /* TestTextGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = C97921A81CC4F66500E487AB /* TestTextGroup.json */; };
@@ -94,6 +95,7 @@
 		C97741D71CEEEDAB0034EBD3 /* MetadataTemplate.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MetadataTemplate.xml; sourceTree = "<group>"; };
 		C97741DB1CEEFEB60034EBD3 /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		C97741DD1CEF0C3C0034EBD3 /* ResourcesValue.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ResourcesValue.json; sourceTree = "<group>"; };
+		C97741DF1CEF35440034EBD3 /* PathManifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PathManifest.json; sourceTree = "<group>"; };
 		C97921A41CC4C16100E487AB /* TestParaGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParaGroup.json; sourceTree = "<group>"; };
 		C97921A61CC4CCC300E487AB /* TestTextGroupShapes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroupShapes.json; sourceTree = "<group>"; };
 		C97921A81CC4F66500E487AB /* TestTextGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestTextGroup.json; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				C97741D71CEEEDAB0034EBD3 /* MetadataTemplate.xml */,
 				C97741DB1CEEFEB60034EBD3 /* manifest.json */,
 				C97741DD1CEF0C3C0034EBD3 /* ResourcesValue.json */,
+				C97741DF1CEF35440034EBD3 /* PathManifest.json */,
 			);
 			name = AgcResources;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */,
 				C9748D2C1CC8C21500752B3F /* SvgTemplate.svg in Resources */,
 				C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */,
+				C97741E01CEF35440034EBD3 /* PathManifest.json in Resources */,
 				C9B02E2A1CC6157000F25875 /* TestMulText.json in Resources */,
 				C9748D3C1CC8FC6E00752B3F /* AGCTemplate.json in Resources */,
 			);

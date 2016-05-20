@@ -2,94 +2,33 @@
     "manifest-format-version" : 6,
     "state" : "modified",
     "uxdesign#userDidSetPrototypeName" : "false",
-    "id" : "990075EE-CCD8-4FB3-AD4E-05DEBED57059",
+    "id" : "$",
     "children" : [
                   {
                   "path" : "artwork",
-                  "id" : "C82B9EE6-B9DA-46E7-A629-FBBBCDA83E25",
+                  "id" : "$",
                   "name" : "artwork",
                   "children" : [
                                 {
                                 "path" : "pasteboard",
-                                "id" : "B0B48B85-AE63-48CA-92BE-3112D7FE0C78",
+                                "id" : "$",
                                 "name" : "pasteboard"
-                                },
-                                {
-                                "path" : "artboard-artboard1",
-                                "id" : "6F6116B0-FF6A-445F-87E7-77B5725000BD",
-                                "uxdesign#viewport" : {
-                                "height" : 667
-                                },
-                                "name" : "iPhone 6 – 1",
-                                "uxdesign#bounds" : {
-                                "y" : 94,
-                                "x" : 212,
-                                "width" : 375,
-                                "height" : 667
-                                },
-                                "children" : [
-                                              {
-                                              "path" : "graphics",
-                                              "id" : "F530DCE2-1D2A-44AE-9FC0-B7317D4B0AA6",
-                                              "components" : [
-                                                              {
-                                                              "length" : 877,
-                                                              "id" : "46D8CE95-4CDB-4DAA-8075-110EDA8061D0",
-                                                              "rel" : "primary",
-                                                              "path" : "graphicContent.agc",
-                                                              "type" : "application\/vnd.adobe.agc+dcx",
-                                                              "name" : "iPhone 6 – 1"
-                                                              }
-                                                              ],
-                                              "name" : "graphics"
-                                              }
-                                              ]
-                                },
-                                {
-                                "path" : "artboard-artboard2",
-                                "id" : "D0ED04A3-0241-49D0-AC11-4069AFA08A26",
-                                "uxdesign#viewport" : {
-                                "height" : 667
-                                },
-                                "name" : "iPhone 6 – 2",
-                                "uxdesign#bounds" : {
-                                "y" : 94,
-                                "x" : 657,
-                                "width" : 375,
-                                "height" : 667
-                                },
-                                "children" : [
-                                              {
-                                              "path" : "graphics",
-                                              "id" : "3664C9A0-18EC-403E-8BAC-F2548A894042",
-                                              "components" : [
-                                                              {
-                                                              "length" : 312,
-                                                              "id" : "74838F0F-238B-46B2-8C55-69B17349EDA3",
-                                                              "rel" : "primary",
-                                                              "path" : "graphicContent.agc",
-                                                              "type" : "application\/vnd.adobe.agc+dcx",
-                                                              "name" : "iPhone 6 – 2"
-                                                              }
-                                                              ],
-                                              "name" : "graphics"
-                                              }
-                                              ]
                                 }
+                                
                                 ]
                   },
                   {
                   "path" : "resources",
-                  "id" : "8ED33025-4D3F-4244-826C-D3C05D6F510E",
+                  "id" : "$",
                   "name" : "resources",
                   "children" : [
                                 {
                                 "path" : "graphics",
-                                "id" : "A7E2313F-33FF-43F0-8C71-4FC80C84CC55",
+                                "id" : "$",
                                 "components" : [
                                                 {
-                                                "length" : 431,
-                                                "id" : "5E24F013-1F0E-404B-A376-B6DBEB23EAC2",
+                                                "length" : "$LENGTH resources/graphics",
+                                                "id" : "$",
                                                 "rel" : "primary",
                                                 "path" : "graphicContent.agc",
                                                 "type" : "application\/vnd.adobe.agc+dcx",
@@ -102,11 +41,11 @@
                   },
                   {
                   "path" : "interactions",
-                  "id" : "13DD61A9-988D-4519-9A05-63F725EF791F",
+                  "id" : "$",
                   "components" : [
                                   {
-                                  "length" : 17,
-                                  "id" : "DB036651-0F31-43DE-8CDC-01D2A95FAA53",
+                                  "length" : "$LENGTH interactions",
+                                  "id" : "$",
                                   "rel" : "primary",
                                   "path" : "interactions.json",
                                   "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -118,8 +57,8 @@
                   ],
     "components" : [
                     {
-                    "length" : 1323,
-                    "id" : "8DC0ECD4-770A-454E-8F0F-8F4056F1EE1E",
+                    "length" : "$LENGTH META-INF/metadata.xml",
+                    "id" : "$",
                     "rel" : "metadata",
                     "path" : "META-INF\/metadata.xml",
                     "type" : "application\/rdf+xml",
