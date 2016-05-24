@@ -1,0 +1,9 @@
+{
+    "length" : "$LENGTH resources/$image",
+    "id" : "$",
+    "rel" : "primary",
+    "path" : "$image",
+    "type" : "image\/png",
+    "name" : "resources",
+    "order" : ["id", "path", "length", "rel", "type", "name"]
+}

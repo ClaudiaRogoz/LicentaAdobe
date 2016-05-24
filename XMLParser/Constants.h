@@ -117,6 +117,7 @@
 #define NAME        @"name"
 #define LEN         @"len"
 #define ORDER       @"order"
+#define IMAGE_RESOURCE  @"$image"
 #define BETWEEN     @"inBetween"
 #define GROUP       @"group"
 #define TYPE        @"type"

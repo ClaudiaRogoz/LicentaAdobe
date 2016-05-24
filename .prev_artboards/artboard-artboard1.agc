@@ -130,12 +130,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "808755"
+                      "uid" : "833431"
                     }
                   },
-                  "width" : 0,
-                  "height" : 0,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Base.lproj\/Main.storyboardart2.png"
+                  "width" : 158,
+                  "height" : 120,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
                 }
               }
             },

@@ -28,10 +28,10 @@
 {
     XCode2XD *reader = [[XCode2XD alloc] initWithError:error];
     resourcesDir = [resourcesDir stringByAppendingPathComponent:STORYBOARD];
+    
     [reader setResourcesPath:resourcesDir];
     [reader setXdPath:xdPath];
     
-    NSLog(@"ReaourcesPath = %@", resourcesDir);
     [reader setXmlPath:out_file];
     
     NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];
@@ -39,7 +39,6 @@
 
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName computeSha:-1];
-    NSLog(@"rootDictionary = %@", rootDictionary);
     [reader splitArtboards:rootDictionary];
     
     /* writes hashDict & offsetDict to a hidden file; needed for sync */
@@ -56,7 +55,6 @@
 
 - (NSNumber *) getLastScene {
    
-    NSLog(@"Self = %@", [self resourcesPath]);
     NSString *allScenes = [NSString stringWithContentsOfFile:[self resourcesPath] encoding:NSASCIIStringEncoding error:NULL];
     NSRange range = [allScenes rangeOfString:@"</scenes>" ];
     lastScene = (unsigned long)range.location - 2;
@@ -154,8 +152,6 @@
         [tempArray setObject:[[NSMutableArray alloc] init] forKey:CHILDREN];
         [[tempArray objectForKey:CHILDREN] addObject:children];
         
-        
-        NSLog(@"TempArray = %@", tempArray);
         [XDCreator createArtworkContent:tempArray artboardNo:nr xdPath:[self xdPath]];
         id artboardNo = [artboardsD objectForKey:key];
         [tempArray  setValue:[[NSMutableDictionary alloc] init] forKey:ARTBOARDS];
@@ -570,6 +566,7 @@
 
 }
 
+
 -(void)transformAttributesForElement:(NSString *)elementName attributeDict:(NSMutableDictionary*)attributeDict
                            childDict:(NSMutableDictionary *)childDict parentDict:(NSMutableDictionary**)parentDict
 {
@@ -609,8 +606,8 @@
             /* transfrom for lower levels; propagate attributes */
         } else if ([elementName isEqualToString:IMAGEVIEW] && [key isEqualToString:STYLE_VALUE]){
             
-            NSString *imageName = [NSString stringWithFormat:@"%@%@",
-                                   [self resourcesPath], [attributeDict objectForKey:ISIMAGE]];
+            NSString *directory = [[[self resourcesPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+            NSString *imageName = [Helper findFile: [attributeDict objectForKey:ISIMAGE] inPath:directory];
             NSArray *strings = [[xml2agcDictionary objectForKey:IMAGEVIEW_INV] componentsSeparatedByString:DOT];
             
             id value = correctAttr;
@@ -626,7 +623,7 @@
             NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
             
             if (image == nil) {
-                NSLog(@"[ERROR]Image is nil");
+                NSLog(@"[ERROR]Image %@ is nil", imageName);
             }
             
             [value setObject:[NSNumber numberWithInt:image.size.width] forKey:WIDTH];

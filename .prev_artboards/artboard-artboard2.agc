@@ -174,6 +174,72 @@
               ],
               "rawText" : "Label"
             }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "263062"
+                    }
+                  },
+                  "width" : 158,
+                  "height" : 120,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 403,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 567
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "271305"
+                    }
+                  },
+                  "width" : 375,
+                  "height" : 667,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art3.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 134,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 571
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0"
+            }
           }
         ]
       }

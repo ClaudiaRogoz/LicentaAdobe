@@ -60,6 +60,10 @@
 		<data>
 		+1zwoJRrSBNYxwd9tIVSonAnOHs=
 		</data>
+		<key>Resources/ResourcesManifest.json</key>
+		<data>
+		q6hjCJ3VxYC/Z9LrzguVBoV5PqE=
+		</data>
 		<key>Resources/ResourcesValue.json</key>
 		<data>
 		5Z+UKE6dIqAUqmM9CiODPVyxsag=
@@ -268,6 +272,17 @@
 			<key>hash2</key>
 			<data>
 			kGOt7VeLybUYIixy9A2D1RUfAweKSUDKOe/xzzg29cw=
+			</data>
+		</dict>
+		<key>Resources/ResourcesManifest.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			q6hjCJ3VxYC/Z9LrzguVBoV5PqE=
+			</data>
+			<key>hash2</key>
+			<data>
+			+1pA5mUphGpCyoK5uTrxER3xWwgGD91mnTMBI0GKpwQ=
 			</data>
 		</dict>
 		<key>Resources/ResourcesValue.json</key>

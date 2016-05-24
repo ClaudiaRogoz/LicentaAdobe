@@ -21,6 +21,7 @@
 + (NSString *) getProjHomePath;
 + (id) deepCopy:(id) object;
 + (void) createXdFile:(NSString *) xdPath;
++ (NSString *)findFile:(NSString *)name inPath:(NSString *) initPath;
 
 @end
 

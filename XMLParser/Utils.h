@@ -56,13 +56,13 @@ NSString *pathFormat(NSString **path, const char *arg) {
 void printOptions() {
     
     NSLog(@"\nUsage:\n\t./XDXCodeTranslator [arguments] [file paths ..]\n"
-          "\n\n\t./XDXCodeTranslator -i <pathToXCodeProject>\n\t\ttranslates an XCode project into an XD project;"
+          "\n\n\t./XDXCodeTranslator -i <pathToXCodeProject> <pathToXdFile>\n\t\ttranslates an XCode project into an XD project;"
           "The XD info is put in Clipboard;\n\t\t the XD file will be updated using Cmd+V"
           "\n\n\t./XDXCodeTranslator -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;"
           "The XD info is put into ClipBoard (using Cmd+V).\n\t\t Using this command, the XD is translated into Xcode;"
           "\nArguments:\n"
           "\n\t-h\t\tPrint help message (this message) and exit"
-          "\n\t-i\t\tImports an XCode project path given as argument (eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
+          "\n\t-i\t\tImports an XCode project path given as argument (eg. ~/<XcodeProjectName>/<XcodeProjectName>)\n\t\tpathToXdFile=absolute path to an existing xd file or a new one."
           "\n\t-e\t\tExports an XD project to an XCode project. \n\t\tThe Xcode project is given as an argument."
           "\n\t\t(eg. ~/<XcodeProjectName>/<XcodeProjectName>)"
           "\n eg: <pathToProject> = ~/Desktop/<ImportProj>/<ImportProj>\n");

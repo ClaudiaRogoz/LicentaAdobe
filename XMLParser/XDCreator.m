@@ -81,17 +81,26 @@
     metaInfo = [self replaceString:documentID inString:metaInfo usingSearchArray:uniqIds lastObject:false];
     metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:instanceIds  lastObject:false];
     metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:@[INSTANCE_ID, INSTANCE_ID] lastObject:true];
-    NSLog(@"Writing %@ at %@", metaInfo, path);
     [metaInfo writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
 
 }
 
+- (BOOL) isSize:(NSString *) key {
+    return [key isEqualToString:HEIGHT] || [key isEqualToString:WIDTH]
+            || [key isEqualToString:XARTBOARD] || [key isEqualToString:YARTBOARD];
+
+}
 - (void) processTemplate:(id*)template usingArtboards:(NSMutableDictionary *) dict {
 
     NSError *error;
 
     if ([*template isKindOfClass:[NSDictionary class]]) {
-        for (id key in [*template allKeys]) {
+        NSArray *allKeys = [*template allKeys];
+        if ([*template objectForKey:ORDER]) {
+            allKeys = [*template objectForKey:ORDER];
+        }
+        
+        for (id key in allKeys) {
             id value = [*template objectForKey:key];
             if ([value isKindOfClass:[NSString class]]){
                 if ([value isEqualToString:TOTRANSFORM]) {
@@ -102,14 +111,20 @@
                     NSString *dirStr = [[[self xdPath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:dirName];
                     NSString *contentsAtPath = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirStr error:&error] lastObject];
                     NSString *fullPath = [dirStr stringByAppendingPathComponent:contentsAtPath];
-                    NSLog(@"FullPath = %@", fullPath);
                     unsigned long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:nil] fileSize];
                     [*template setObject:[NSNumber numberWithLong:fileSize] forKey:key];
                 } else if ([value isEqualToString:ARTBOARD_PREFIX]) {
                     [*template setObject:[NSString stringWithFormat:@"%@-%@",ART_SCENE, artboardNumber] forKey:key];
                 
-                } else if ([key isEqualToString:HEIGHT] || [key isEqualToString:WIDTH] || [key isEqualToString:XARTBOARD] || [key isEqualToString:YARTBOARD]) {
+                } else if ([self isSize:key]) {
                     [*template setObject:[dict objectForKey:key] forKey:key];
+                } else if ([value isEqualToString:IMAGE_RESOURCE]) {
+                    NSString *imageName = [*template objectForKey:ID];
+                    NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
+                    
+                    if (image == nil) {
+                        NSLog(@"[ERROR]Image %@ is nil", imageName);
+                    }
                 }
                 
             } else {
@@ -139,24 +154,17 @@
     id tempComponents = [template objectForKey:COMPONENTS];
     [self processTemplate:&tempComponents usingArtboards:dict];
     
-    //TODO add artboard-artboardX children
     NSString *pathName = [[NSBundle mainBundle] pathForResource:PATH_MANIFEST ofType:JSON];
     NSData *pathData = [NSData dataWithContentsOfFile:pathName];
     NSMutableDictionary *pathComponent = [NSJSONSerialization JSONObjectWithData:pathData options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"Dict = %@", dict);
     NSMutableDictionary *childComponents= [tempChildren objectAtIndex:0];
     for (id artboard in artboardsDict) {
         artboardNumber = artboard;
-        NSLog(@"Artbaord no = %@", artboard);
         NSMutableDictionary *tempPath = [Helper deepCopy:pathComponent];
         [self processTemplate:&tempPath usingArtboards:[artboardsDict objectForKey:artboard]];
-        NSLog(@"tempPath = %@", tempPath);
         [[childComponents objectForKey:CHILDREN] addObject:tempPath];
     }
-    
-    NSLog(@"ChildrenZ = %@", tempChildren);
-    NSLog(@"Components = %@", tempComponents);
-    NSLog(@"template = %@", template);
+
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:template
                                                        options:NSJSONWritingPrettyPrinted
@@ -182,7 +190,7 @@
 - (NSDictionary *) readResourcesFile {
     NSError *error;
     NSString *resourceValue = [[NSBundle mainBundle] pathForResource:RESOURCESDICT ofType:JSON];
-    NSLog(@"Resources = %@", resourceValue);
+    
     NSString *jsonString = [NSString stringWithContentsOfFile:resourceValue encoding:NSUTF8StringEncoding error:&error];
     NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
 
@@ -293,7 +301,6 @@
 
 + (void) createResourcesContent:(NSMutableDictionary *) artboards xdPath:(NSString *) xdPath {
     
-    NSLog(@"Artboards = %@", artboards);
     /*version, children = [], resources, meta, artboards = {.. + viewportHeight = viewSource.height}*/
     NSArray *resourcesList = @[RESOURCES, GRAPHICS, GRAPHIC];
     NSDictionary * dict = [[[XDCreator alloc] init] readResourcesFile];
@@ -306,7 +313,6 @@
          [resDict setObject:dict forKey:RESOURCES];
     
     for (id artboard  in artboards) {
-        NSLog(@"Artboard = %@", artboard);
         id value = [artboards objectForKey:artboard];
         [value setObject:[value objectForKey:HEIGHT] forKey:VIEWPORT];
     }
