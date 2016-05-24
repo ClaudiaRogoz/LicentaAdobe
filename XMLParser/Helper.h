@@ -19,8 +19,8 @@
 + (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file computeSha:(int)sha
                 hash:(NSMutableDictionary *) hashArtboards;
 + (NSString *) getProjHomePath;
-
 + (id) deepCopy:(id) object;
++ (void) createXdFile:(NSString *) xdPath;
 
 @end
 

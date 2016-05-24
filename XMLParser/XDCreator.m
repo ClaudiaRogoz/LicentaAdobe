@@ -206,6 +206,19 @@
     }
 }
 
++ (void) releaseStorage:(NSString *) xdPath {
+   
+    NSString *dir = [xdPath stringByDeletingLastPathComponent];
+    NSArray *xdResources = @[ZIP_ARTWORK, ZIP_INTERACTIONS, ZIP_META, ZIP_MIME, ZIP_RESOURCES, ZIP_MANIFEST];
+    for (id resource in xdResources) {
+        NSString *fullPath = [dir stringByAppendingPathComponent:resource];
+        [[NSFileManager defaultManager] removeItemAtPath:fullPath error:nil];
+    
+    }
+
+}
+
+
 + (NSString *) createStorage:(NSArray *) list usingXDPath:(NSString *)xdPath {
     
     

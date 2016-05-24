@@ -51,6 +51,7 @@
 #define HASH_PATH       @"hashArtboards"
 #define OFFSET_PATH     @"offsetArtboards"
 #define UNZIP_PATH  @"/usr/bin/unzip"
+#define ZIP_PATH    @"/usr/bin/zip"
 #define OPEN_PATH   @"/usr/bin/open"
 #define BUILD_PATH       @"Build"
 #define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
@@ -64,6 +65,16 @@
 #define EXPORT  "-e"
 #define IMPORT  "-i"
 #define SYNC    "-sync"
+
+/*args for creating xd file*/
+#define ZIP_RECURSIVE   @"-r"
+#define ZIP_DIR         @"--no-dir-entries"
+#define ZIP_ARTWORK   @"artwork/"
+#define ZIP_INTERACTIONS    @"interactions/"
+#define ZIP_META    @"META-INF/" 
+#define ZIP_MIME    @"mimetype"
+#define ZIP_RESOURCES   @"resources/"
+#define ZIP_MANIFEST    @"manifest"
 
 #define SVG_INFO    @" d="
 #define SVG_FILL    @"fill: "

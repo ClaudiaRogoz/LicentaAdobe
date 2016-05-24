@@ -78,4 +78,16 @@
     }
 }
 
++ (void) createXdFile:(NSString *) xdPath {
+    
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = ZIP_PATH;
+    task.arguments = @[ZIP_RECURSIVE, ZIP_DIR, xdPath, ZIP_ARTWORK, ZIP_INTERACTIONS, ZIP_META, ZIP_MIME, ZIP_RESOURCES, ZIP_MANIFEST];
+    task.currentDirectoryPath=[xdPath stringByDeletingLastPathComponent];
+    
+    [task launch];
+    [task waitUntilExit];
+
+}
+
 @end
