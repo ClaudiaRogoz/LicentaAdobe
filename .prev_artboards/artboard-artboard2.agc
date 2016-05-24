@@ -182,12 +182,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "603418"
+                      "uid" : "834650"
                     }
                   },
                   "width" : 158,
                   "height" : 120,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art2.png"
                 }
               }
             },
@@ -215,12 +215,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "510638"
+                      "uid" : "140299"
                     }
                   },
                   "width" : 375,
                   "height" : 667,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art3.png"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art3.png"
                 }
               }
             },

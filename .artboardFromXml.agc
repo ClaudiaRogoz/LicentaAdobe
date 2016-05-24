@@ -173,12 +173,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "389741"
+                      "uid" : "126948"
                     }
                   },
                   "width" : 158,
                   "height" : 120,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art2.png"
                 }
               }
             },
@@ -436,12 +436,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "603418"
+                      "uid" : "834650"
                     }
                   },
                   "width" : 158,
                   "height" : 120,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art2.png"
                 }
               }
             },
@@ -469,12 +469,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "510638"
+                      "uid" : "140299"
                     }
                   },
                   "width" : 375,
                   "height" : 667,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art3.png"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art3.png"
                 }
               }
             },
@@ -683,12 +683,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "894494"
+                      "uid" : "941856"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/ladybug.jpg"
                 }
               }
             },
@@ -716,12 +716,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "759107"
+                      "uid" : "481413"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/ladybug.jpg"
                 }
               }
             },

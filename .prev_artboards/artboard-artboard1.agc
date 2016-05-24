@@ -130,12 +130,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "389741"
+                      "uid" : "126948"
                     }
                   },
                   "width" : 158,
                   "height" : 120,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art2.png"
                 }
               }
             },

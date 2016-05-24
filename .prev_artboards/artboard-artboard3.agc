@@ -185,12 +185,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "894494"
+                      "uid" : "941856"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/ladybug.jpg"
                 }
               }
             },
@@ -218,12 +218,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "759107"
+                      "uid" : "481413"
                     }
                   },
                   "width" : 397,
                   "height" : 247,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/ladybug.jpg"
+                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/ladybug.jpg"
                 }
               }
             },
