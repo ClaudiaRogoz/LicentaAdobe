@@ -2,14 +2,14 @@
     "path" : "$ARTBOARD_PREFIX",
     "id" : "$",
     "uxdesign#viewport" : {
-        "height" : "$"
+        "height" : "$GETHEIGHT"
     },
     "name" : "iPhone 6 – 1",
     "uxdesign#bounds" : {
-        "y" : "$",
-        "x" : "$",
-        "width" : "$",
-        "height" : "$"
+        "y" : "$x",
+        "x" : "$y",
+        "width" : "$GETWIDTH",
+        "height" : "$GETHEIGHT"
     },
     "children" : [
                   {
@@ -27,5 +27,5 @@
                                   ],
                   "name" : "graphics"
                   }
-                  ]
+    ]
 }

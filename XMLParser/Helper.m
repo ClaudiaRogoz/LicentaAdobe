@@ -38,6 +38,13 @@
     
 }
 
++ (id) deepCopy:(id) object {
+    
+    return [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: object]];
+    
+}
+
+
 + (void) addShaForString:(NSString *)jsonString artboardNo:(int)nr hash:(NSMutableDictionary *) hashArtboards {
     
     NSString *jsonSha = [self computeSha1:jsonString];

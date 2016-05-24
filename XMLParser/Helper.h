@@ -20,6 +20,8 @@
                 hash:(NSMutableDictionary *) hashArtboards;
 + (NSString *) getProjHomePath;
 
++ (id) deepCopy:(id) object;
+
 @end
 
 #endif /* Helper_h */

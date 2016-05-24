@@ -28,7 +28,7 @@
 #define XML             @"xml"
 #define XCODEPROJ       @"xcodeproj"
 #define ARTBOARD_FILE_PREFIX    @"artboard-artboard"
-
+#define ARTBOARD_PREFIX_ @"artboard-"
 
 /* Test files */
 #define TEST_PATH @"XMLParser/TestGenerator.json"
@@ -93,6 +93,7 @@
 #define VIEW        @"view"
 #define RULES       @"rules"
 #define CHILDREN    @"children"
+#define COMPONENTS  @"components"
 #define ARTBOARD    @"view"
 #define TOSTRING    @"toString"
 #define STRING      @"string"
@@ -162,7 +163,8 @@
 #define INSTANCE_ID @"instanceID="
 
 #define MANIFEST    @"manifest"
-#define META_INF    @"META_INF"
+#define PATH_MANIFEST   @"PathManifest"
+#define META_INF    @"META-INF"
 #define METADATA    @"metadata.xml"
 
 
@@ -208,6 +210,8 @@
 #define PATH        @"$PATH"
 #define GETWIDTH    @"$GETWIDTH"
 #define GETHEIGHT   @"$GETHEIGHT"
+#define GETX        @"$x"
+#define GETY        @"$y"
 #define WIDTH_IN_PATH   7
 #define HEIGHT_IN_PATH  8
 /* XML2AGC const */
@@ -251,6 +255,7 @@
 #define YARTBOARD       @"y"
 #define FRAMED       @"$frame"
 #define FILE_SIZE       @"$LENGTH"
+#define ARTBOARD_PREFIX @"$ARTBOARD_PREFIX"
 
 /* artboards's sizes */
 #define WIDTH_XML_ARTBOARD    600

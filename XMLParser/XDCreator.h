@@ -18,6 +18,7 @@
     NSString *docId;
     NSString *instId;
 
+    NSString *artboardNumber;
 }
 
 + (void) createResourcesContent:(NSMutableDictionary *) artboards xdPath:(NSString *) xdPath;

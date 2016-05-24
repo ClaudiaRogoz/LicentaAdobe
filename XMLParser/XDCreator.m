@@ -81,7 +81,7 @@
     metaInfo = [self replaceString:documentID inString:metaInfo usingSearchArray:uniqIds lastObject:false];
     metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:instanceIds  lastObject:false];
     metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:@[INSTANCE_ID, INSTANCE_ID] lastObject:true];
-    
+    NSLog(@"Writing %@ at %@", metaInfo, path);
     [metaInfo writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
 
 }
@@ -102,9 +102,16 @@
                     NSString *dirStr = [[[self xdPath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:dirName];
                     NSString *contentsAtPath = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirStr error:&error] lastObject];
                     NSString *fullPath = [dirStr stringByAppendingPathComponent:contentsAtPath];
+                    NSLog(@"FullPath = %@", fullPath);
                     unsigned long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:nil] fileSize];
                     [*template setObject:[NSNumber numberWithLong:fileSize] forKey:key];
+                } else if ([value isEqualToString:ARTBOARD_PREFIX]) {
+                    [*template setObject:[NSString stringWithFormat:@"%@-%@",ART_SCENE, artboardNumber] forKey:key];
+                
+                } else if ([key isEqualToString:HEIGHT] || [key isEqualToString:WIDTH] || [key isEqualToString:XARTBOARD] || [key isEqualToString:YARTBOARD]) {
+                    [*template setObject:[dict objectForKey:key] forKey:key];
                 }
+                
             } else {
                 [self processTemplate:&value usingArtboards:dict];
             }
@@ -122,13 +129,41 @@
 - (void) generateManifest:(NSString *) documentID path:(NSString *) path dict:(NSMutableDictionary *) dict {
     
     NSError *error;
+    NSDictionary *artboardsDict = [dict objectForKey:ARTBOARDS];
     NSString *tempName = [[NSBundle mainBundle] pathForResource:MANIFEST ofType:JSON];
     NSData *data = [NSData dataWithContentsOfFile:tempName];
     NSMutableDictionary *template = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     [template setObject:documentID forKey:ID];
-    id temp = [template objectForKey:CHILDREN];
-    [self processTemplate:&temp usingArtboards:dict];
-    NSLog(@"Temp = %@", temp);
+    id tempChildren = [template objectForKey:CHILDREN];
+    [self processTemplate:&tempChildren usingArtboards:dict];
+    id tempComponents = [template objectForKey:COMPONENTS];
+    [self processTemplate:&tempComponents usingArtboards:dict];
+    
+    //TODO add artboard-artboardX children
+    NSString *pathName = [[NSBundle mainBundle] pathForResource:PATH_MANIFEST ofType:JSON];
+    NSData *pathData = [NSData dataWithContentsOfFile:pathName];
+    NSMutableDictionary *pathComponent = [NSJSONSerialization JSONObjectWithData:pathData options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"Dict = %@", dict);
+    NSMutableDictionary *childComponents= [tempChildren objectAtIndex:0];
+    for (id artboard in artboardsDict) {
+        artboardNumber = artboard;
+        NSLog(@"Artbaord no = %@", artboard);
+        NSMutableDictionary *tempPath = [Helper deepCopy:pathComponent];
+        [self processTemplate:&tempPath usingArtboards:[artboardsDict objectForKey:artboard]];
+        NSLog(@"tempPath = %@", tempPath);
+        [[childComponents objectForKey:CHILDREN] addObject:tempPath];
+    }
+    
+    NSLog(@"ChildrenZ = %@", tempChildren);
+    NSLog(@"Components = %@", tempComponents);
+    NSLog(@"template = %@", template);
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:template
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [jsonString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
 }
 

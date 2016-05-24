@@ -8,9 +8,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 65,
-              "g" : 42,
-              "b" : 28
+              "r" : 0,
+              "g" : 0,
+              "b" : 0
             },
             "alpha" : 255
           }
@@ -26,15 +26,15 @@
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 149,
-                    "g" : 151,
-                    "b" : 154
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
                   },
                   "alpha" : 255
                 }
               },
               "font" : {
-                "size" : 20,
+                "size" : 17,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -43,13 +43,13 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 154.74,
+              "ty" : 495.0775,
               "c" : "0",
               "a" : "1",
-              "tx" : 82.86133
+              "tx" : 133.9983
             },
             "type" : "text",
-            "name" : "agfadgfeade",
+            "name" : "Label",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -60,7 +60,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 12,
+                        "to" : 6,
                         "x" : 0,
                         "from" : 0
                       }
@@ -68,7 +68,7 @@
                   ]
                 }
               ],
-              "rawText" : "agfadgfeade"
+              "rawText" : "Label"
             }
           },
           {
@@ -78,15 +78,15 @@
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 149,
-                    "g" : 151,
-                    "b" : 154
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
                   },
                   "alpha" : 255
                 }
               },
               "font" : {
-                "size" : 20,
+                "size" : 17,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -95,13 +95,13 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 354.84,
+              "ty" : 240.5058,
               "c" : "0",
               "a" : "1",
-              "tx" : 143.2861
+              "tx" : 197.9348
             },
             "type" : "text",
-            "name" : "dwqfqe",
+            "name" : "alalabala",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -112,7 +112,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 7,
+                        "to" : 10,
                         "x" : 0,
                         "from" : 0
                       }
@@ -120,7 +120,7 @@
                   ]
                 }
               ],
-              "rawText" : "dwqfqe"
+              "rawText" : "alalabala"
             }
           }
         ]
