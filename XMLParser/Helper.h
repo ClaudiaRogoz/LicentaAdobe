@@ -22,6 +22,8 @@
 + (id) deepCopy:(id) object;
 + (void) createXdFile:(NSString *) xdPath;
 + (NSString *)findFile:(NSString *)name inPath:(NSString *) initPath;
++ (void) unzipXD:(NSString *)path atPath:(NSString*) unzipped_xd;
++ (NSMutableArray *) findAllFiles: (NSString *)name inPath:(NSString *) initPath;
 
 @end
 

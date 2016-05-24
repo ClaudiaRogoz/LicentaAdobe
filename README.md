@@ -30,3 +30,8 @@ Pasii pentru rularea aplicatiei:
 		o	 <calea catre executabil>    -e  <calea catre proiectul xcode la care se se va exporta>
 			♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
 		o	Se deschide automat reprezentarea echivalenta in Xcode
+
+2. TODO : 
+	- add unzip to Helper classi
+	- create import schema: transform to json -> apply export schema
+	- sync/ export multiple project

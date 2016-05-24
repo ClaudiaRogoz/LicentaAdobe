@@ -26,15 +26,15 @@
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 149,
-                    "g" : 151,
-                    "b" : 154
+                    "r" : 43,
+                    "g" : 43,
+                    "b" : 43
                   },
                   "alpha" : 255
                 }
               },
               "font" : {
-                "size" : 20,
+                "size" : 16,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -43,13 +43,12 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 338.165,
+              "ty" : 48.0825,
               "c" : "0",
               "a" : "1",
-              "tx" : 903.0127
+              "tx" : 813.6367
             },
             "type" : "text",
-            "name" : "efvdsvgsrbrgw",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -60,152 +59,207 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 14,
+                        "to" : 30,
                         "x" : 0,
                         "from" : 0
                       }
                     ]
                   ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 19,
+                        "to" : 58,
+                        "x" : 0,
+                        "from" : 30
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 38,
+                        "to" : 90,
+                        "x" : 0,
+                        "from" : 58
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 57,
+                        "to" : 120,
+                        "x" : 0,
+                        "from" : 90
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 76,
+                        "to" : 147,
+                        "x" : 0,
+                        "from" : 120
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 95,
+                        "to" : 177,
+                        "x" : 0,
+                        "from" : 147
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 114,
+                        "to" : 205,
+                        "x" : 0,
+                        "from" : 177
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 133,
+                        "to" : 237,
+                        "x" : 0,
+                        "from" : 205
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 152,
+                        "to" : 268,
+                        "x" : 0,
+                        "from" : 237
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 171,
+                        "to" : 297,
+                        "x" : 0,
+                        "from" : 268
+                      }
+                    ]
+                  ]
                 }
               ],
-              "rawText" : "efvdsvgsrbrgw"
+              "rawText" : "There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything… that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts."
             }
           },
           {
             "style" : {
               "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 149,
-                    "g" : 151,
-                    "b" : 154
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "894494"
+                    }
                   },
-                  "alpha" : 255
+                  "width" : 397,
+                  "height" : 247,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/ladybug.jpg"
                 }
-              },
-              "font" : {
-                "size" : 20,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 260.3483,
+              "ty" : 342,
               "c" : "0",
               "a" : "1",
-              "tx" : 916.1377
+              "tx" : 882
             },
-            "type" : "text",
-            "name" : "efvdsvgsrbrgw",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 14,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "efvdsvgsrbrgw"
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect"
             }
           },
           {
             "style" : {
               "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 149,
-                    "g" : 151,
-                    "b" : 154
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "759107"
+                    }
                   },
-                  "alpha" : 255
+                  "width" : 397,
+                  "height" : 247,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/ladybug.jpg"
                 }
-              },
-              "font" : {
-                "size" : 20,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 528.26,
+              "ty" : 417,
               "c" : "0",
               "a" : "1",
-              "tx" : 951.1377
+              "tx" : 938
             },
-            "type" : "text",
-            "name" : "efvdsvgsrbrgw",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 14,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "efvdsvgsrbrgw"
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0"
             }
           }
         ]
       }
     }
   ],
-  "meta" : {
-    "ux" : {
-      "groupItems" : false
-    }
-  },
   "resources" : {
-    "gradients" : {
-
-    },
-    "clipPaths" : {
-
-    }
+    "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard4" : {
+    "artboard2" : {
       "y" : 0,
-      "name" : "iPhone 6 – 4",
+      "name" : "iPhone 6 – 2",
+      "viewportHeight" : 667,
       "width" : 375,
-      "x" : 1200,
+      "x" : 400,
       "height" : 667
     }
-  },
-  "viewSource" : {
-    "y" : "0",
-    "x" : "0",
-    "width" : 1600,
-    "height" : 667
   },
   "version" : "1.5.0"
 }

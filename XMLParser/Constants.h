@@ -47,6 +47,7 @@
 #define PROJ_PATH   4
 #define RESOURCES_PATH  @"Resources"
 #define XD_UNZIP_PATH      @".unzipped_xd"
+#define XD_EXPORT_PATH     @".export_xd"
 #define PREV_ART_PATH   @"prev_artboards"
 #define HASH_PATH       @"hashArtboards"
 #define OFFSET_PATH     @"offsetArtboards"

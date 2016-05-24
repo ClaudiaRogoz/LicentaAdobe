@@ -21,7 +21,7 @@ int main(int argc, const char * argv[]) {
         import((char*)argv[2], (char*)argv[3]);
     
     }else if (!strcmp(argv[1], EXPORT)) {
-        export((char*)argv[2]);
+        export((char*)argv[2], (char*)argv[3]);
     
     }else if (!strcmp(argv[1], SYNC)) {
         /*sync xdFile xcodeStoryboard */

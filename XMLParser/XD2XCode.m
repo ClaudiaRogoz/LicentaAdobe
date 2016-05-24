@@ -20,16 +20,20 @@
 
 
 
-+ (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString*)outXmlPath
++ (void)readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath
 {
     NSError *error;
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
-    
+    NSString *xmlPath = [[outXmlPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
+
     [gen initWithSchemas];
+    [gen setXdPath:xdPath];
     [gen setXmlPath:xmlPath];
     [gen setOutXmlPath:outXmlPath];
-    NSString *clipbData = [gen getClipboardData];
+    
+    agcTemplate = [gen getXdDictionary];
+    /*NSString *clipbData = [gen getClipboardData];
     
     if (!clipbData) {
         NSLog(@"[ERROR] No XD data selected!");
@@ -40,7 +44,7 @@
     NSData *xdData = [clipbData dataUsingEncoding:NSUTF8StringEncoding];
     
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:xdData options:kNilOptions error:&error];
-    
+    */
     [gen getXmlForAgcObject:agcTemplate];
     
     
@@ -64,6 +68,69 @@
     return xmlTemplate;
 }
 
+-(void) addChild:(NSMutableDictionary *)child to:(NSMutableDictionary **) agcDict {
+
+    [[*agcDict objectForKey:CHILDREN ] addObject:child];
+
+}
+
+- (void) addArtboardsToAgc:(NSMutableDictionary **) agcDict usingPath:(NSString *) path{
+    
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSMutableDictionary *artboards =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSArray *array = [artboards objectForKey:ARTBOARDS];
+    NSLog(@"array = %@", array);
+    [*agcDict setObject:array forKey:ARTBOARDS];
+
+
+}
+
+-(NSString *) appendPathComponents:(NSArray *) array topath:(NSString *) path {
+
+    NSString *finalPath = [NSString stringWithFormat:@"%@", path];
+    for (id component in array) {
+        finalPath = [finalPath stringByAppendingPathComponent:component];
+    
+    }
+    
+    return finalPath;
+
+}
+- (NSMutableDictionary *) getXdDictionary {
+    
+    NSError *error;
+    NSString *mainBundle = [self getProjHomePath];
+    NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_EXPORT_PATH];
+    [Helper unzipXD:[self xdPath] atPath:unzipped_xd];
+    
+    NSMutableDictionary * agcTemplate = [[NSMutableDictionary alloc] init];
+    NSString *artworkDir = [unzipped_xd stringByAppendingPathComponent:ARTWORK];
+    NSMutableArray *findAllFiles = [Helper findAllFiles:GRAPHIC inPath:artworkDir];
+    NSString *firstFile = [findAllFiles objectAtIndex:0];
+    [findAllFiles removeObjectAtIndex:0];
+    
+    NSData *data = [NSData dataWithContentsOfFile:firstFile];
+    agcTemplate =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    for (id file in findAllFiles) {
+        
+        data = [NSData dataWithContentsOfFile:file];
+        NSMutableDictionary *temp = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        id value = [[temp objectForKey:CHILDREN] objectAtIndex:0];
+        [self addChild:[self deepCopy:value] to:&agcTemplate];
+    }
+    NSLog(@"agc = %@", agcTemplate);
+    NSString *resources = [self appendPathComponents:@[ZIP_RESOURCES, GRAPHICS, GRAPHIC] topath:unzipped_xd];
+    [self addArtboardsToAgc:&agcTemplate usingPath:resources];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:agcTemplate
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [jsonString writeToFile:@"/Users/crogoz/new.agc" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    return agcTemplate;
+}
+
 -(NSString *) getClipboardData {
      NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
      return [pasteboard stringForType:SPARKLERCLIPBOARD];
@@ -83,9 +150,27 @@
     NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
     
     NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
-    
+    [self releaseResources];
     [self initializeWithDefs:defDictionary rules:ruleDictionary];
     
+    
+}
+
+- (void) releaseResources {
+    
+    NSString *mainBundle = [self getProjHomePath];
+    NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_EXPORT_PATH];
+    NSLog(@"Removing %@ ....", unzipped_xd);
+    NSLog(@"%hhd", [[NSFileManager defaultManager] removeItemAtPath:unzipped_xd error:nil]);
+}
+
+-(NSString *) getProjHomePath {
+    
+    NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
+    for (int i = 0; i< PROJ_PATH; i++) {
+        mainBundle = [mainBundle stringByDeletingLastPathComponent];
+    }
+    return mainBundle;
 }
 
 -(id) deepCopy:(id) object {

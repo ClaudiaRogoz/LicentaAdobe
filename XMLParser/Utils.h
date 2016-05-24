@@ -132,11 +132,12 @@ void import(char *path, char *xdPath) {
     
 }
 
-void export(char *path) {
+void export(char *xdPath, char *xmlPath) {
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    NSString *outXmlPath= [NSString stringWithFormat:@"%s", path];
-    NSString *exportPath = pathFormat(&outXmlPath, path);
+    NSString *inXdPath = [NSString stringWithFormat:@"%s", xdPath];
+    NSString *outXmlPath= [NSString stringWithFormat:@"%s", xmlPath];
+    NSString *exportPath = pathFormat(&outXmlPath, xmlPath);
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:exportPath];
     
     if (!exists) {
@@ -145,7 +146,7 @@ void export(char *path) {
         return;
     }
     /* generate storyboard for xcode from xd */
-    [XD2XCode readTemplateUsingXML:[NSString stringWithFormat:@"%@", outXmlPath] writeTo:exportPath];
+    [XD2XCode readTemplateUsingXML:inXdPath writeTo:exportPath];
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Export DONE] Time elapsed: %f", elapsedTime);
     /* open export xcode project */

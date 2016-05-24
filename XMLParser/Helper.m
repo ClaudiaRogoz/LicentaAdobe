@@ -44,6 +44,42 @@
     
 }
 
++ (NSMutableArray *) findAllFiles: (NSString *)name inPath:(NSString *) initPath {
+    
+    NSMutableArray *allFiles = [[NSMutableArray alloc] init];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *directory = initPath;;
+    
+    NSURL *directoryURL = [NSURL fileURLWithPath:directory];
+    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
+    
+    NSDirectoryEnumerator *enumerator = [fileManager
+                                         enumeratorAtURL:directoryURL
+                                         includingPropertiesForKeys:keys
+                                         options:0
+                                         errorHandler:^(NSURL *url, NSError *error) {
+                                             // Handle the error.
+                                             // Return YES if the enumeration should continue after the error.
+                                             return YES;
+                                         }];
+    
+    for (NSURL *url in enumerator) {
+        NSError *error;
+        NSNumber *isDirectory = nil;
+        if (! [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
+            // handle error
+        }
+        else if (! [isDirectory boolValue]) {
+            if ([[[url path] lastPathComponent] isEqualToString:name])
+                [allFiles addObject: [url path]];
+        }
+    }
+    
+    return allFiles;
+
+
+}
+
 + (NSString *)findFile:(NSString *)name inPath:(NSString *) initPath
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -120,6 +156,25 @@
     [task launch];
     [task waitUntilExit];
 
+}
+
++ (void) unzipXD:(NSString *)path atPath:(NSString*) unzipped_xd {
+    
+    NSError *error;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:unzipped_xd])
+        [[NSFileManager defaultManager] removeItemAtPath:unzipped_xd error:&error];
+    
+    [[NSFileManager defaultManager] createDirectoryAtPath:unzipped_xd withIntermediateDirectories:NO attributes:nil error:&error];
+    
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = UNZIP_PATH;
+    task.arguments = @[path];
+    task.currentDirectoryPath=unzipped_xd;
+    
+    [task launch];
+    [task waitUntilExit];
+    
 }
 
 @end

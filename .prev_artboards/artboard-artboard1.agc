@@ -130,7 +130,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "833431"
+                      "uid" : "389741"
                     }
                   },
                   "width" : 158,
@@ -150,10 +150,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
+              "height" : 142.2933,
               "type" : "rect",
               "x" : "0",
-              "width" : 150,
-              "height" : 142.2933
+              "width" : 150
             }
           },
           {
@@ -216,12 +216,12 @@
     "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard1" : {
+    "artboard3" : {
       "y" : 0,
-      "name" : "iPhone 6 – 1",
+      "name" : "iPhone 6 – 3",
       "viewportHeight" : 667,
       "width" : 375,
-      "x" : 0,
+      "x" : 800,
       "height" : 667
     }
   },

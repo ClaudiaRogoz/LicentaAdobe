@@ -182,7 +182,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "263062"
+                      "uid" : "603418"
                     }
                   },
                   "width" : 158,
@@ -202,10 +202,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
+              "type" : "rect",
               "x" : "0",
               "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect"
+              "height" : 142.2933
             }
           },
           {
@@ -215,7 +215,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "271305"
+                      "uid" : "510638"
                     }
                   },
                   "width" : 375,
@@ -235,10 +235,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
+              "x" : "0",
               "width" : 150,
               "height" : 142.2933,
-              "type" : "rect",
-              "x" : "0"
+              "type" : "rect"
             }
           }
         ]
@@ -249,12 +249,12 @@
     "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard2" : {
+    "artboard1" : {
       "y" : 0,
-      "name" : "iPhone 6 – 2",
+      "name" : "iPhone 6 – 1",
       "viewportHeight" : 667,
       "width" : 375,
-      "x" : 400,
+      "x" : 0,
       "height" : 667
     }
   },
