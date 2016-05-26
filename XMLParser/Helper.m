@@ -80,6 +80,42 @@
 
 }
 
++ (NSString *) getImagePath:(NSString *) name inDirectory:(NSString *)directory {
+    
+    /* get file path from the pbxproj file */
+    NSError *error;
+    NSLog(@"name = %@", name);
+    NSString *rootPath = [directory stringByDeletingLastPathComponent];
+    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil];
+    NSString *xcodeProj = [[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.xcodeproj'"]] firstObject];
+    rootPath = [rootPath stringByAppendingPathComponent:xcodeProj];
+    dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil];
+    NSString *pbxProj = [[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pbxproj'"]] firstObject];
+    NSString *projPath = [rootPath stringByAppendingPathComponent:pbxProj];
+    NSString *str = [NSString stringWithContentsOfFile:projPath encoding:NSUTF8StringEncoding error:&error];
+    NSString *searchPath = [NSString stringWithFormat:@"%@%@%@", PBXPROJ_IMAGE_NAME, name, PBXPROJ_IMAGE_PATH];
+    NSRange imagePath = [str rangeOfString:searchPath];
+    if (imagePath.length == 0) {
+        return rootPath;
+    }
+    unsigned long length = [searchPath length] + imagePath.location;
+    NSRange endPath = [str rangeOfString:DELIMITER options:0 range:NSMakeRange(length, [str length] - length)];
+    NSString *path = [str substringWithRange:NSMakeRange(length, endPath.location - length)];
+    int prev_times = 0;
+    /*the path is relative to the pbxproj file => transform to absolute path*/
+    imagePath = [path rangeOfString:PREV_PATH];
+    while (imagePath.location != NSNotFound) {
+        path = [path substringFromIndex:imagePath.location + [PREV_PATH length]];
+        prev_times++;
+        imagePath = [path rangeOfString:PREV_PATH];
+        rootPath = [rootPath stringByDeletingLastPathComponent];
+    }
+    
+    path = [rootPath stringByAppendingPathComponent:path];
+    
+    return path;
+}
+
 + (NSString *)findFile:(NSString *)name inPath:(NSString *) initPath
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -111,35 +147,8 @@
     }
     
     /* get file path from the pbxproj file */
-    NSError *error;
-    NSString *rootPath = [directory stringByDeletingLastPathComponent];
-    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil];
-    NSString *xcodeProj = [[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.xcodeproj'"]] firstObject];
-    rootPath = [rootPath stringByAppendingPathComponent:xcodeProj];
-    dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil];
-    NSString *pbxProj = [[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pbxproj'"]] firstObject];
-    NSString *projPath = [rootPath stringByAppendingPathComponent:pbxProj];
-    NSString *str = [NSString stringWithContentsOfFile:projPath encoding:NSUTF8StringEncoding error:&error];
-    NSString *searchPath = [NSString stringWithFormat:@"%@%@%@", PBXPROJ_IMAGE_NAME, name, PBXPROJ_IMAGE_PATH];
-    NSRange imagePath = [str rangeOfString:searchPath];
-    unsigned long length = [searchPath length] + imagePath.location;
-    NSRange endPath = [str rangeOfString:DELIMITER options:0 range:NSMakeRange(length, [str length] - length)];
-    NSString *path = [str substringWithRange:NSMakeRange(length, endPath.location - length)];
-    int prev_times = 0;
-    /*the path is relative to the pbxproj file => transform to absolute path*/
-    imagePath = [path rangeOfString:PREV_PATH];
-    while (imagePath.location != NSNotFound) {
-        path = [path substringFromIndex:imagePath.location + [PREV_PATH length]];
-        prev_times++;
-        imagePath = [path rangeOfString:PREV_PATH];
-        rootPath = [rootPath stringByDeletingLastPathComponent];
-    }
-
-    NSString *absolutePath = [path substringFromIndex:[PREV_PATH length] * prev_times];
-    NSLog(@"AbsolutePath = %@ %@", rootPath, path);
-    path = [rootPath stringByAppendingPathComponent:path];
     
-    return path;
+    return [self getImagePath:name inDirectory:directory];
 }
 
 + (void) addShaForString:(NSString *)jsonString artboardNo:(int)nr hash:(NSMutableDictionary *) hashArtboards {

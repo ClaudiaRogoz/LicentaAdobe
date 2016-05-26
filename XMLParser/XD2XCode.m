@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
+#include "XDCreator.h"
 
 
 @import AppKit;
@@ -33,20 +33,6 @@
     [gen setOutXmlPath:outXmlPath];
     
     agcTemplate = [gen getXdDictionary];
-    
-    /*NSString *clipbData = [gen getClipboardData];
-    
-    if (!clipbData) {
-        NSLog(@"[ERROR] No XD data selected!");
-        return;
-    
-    }
-    
-    NSData *xdData = [clipbData dataUsingEncoding:NSUTF8StringEncoding];
-    
-    agcTemplate =  [NSJSONSerialization JSONObjectWithData:xdData options:kNilOptions error:&error];
-    */
-    NSLog(@"agcTemplate = %@", agcTemplate);
     [gen getXmlForAgcObject:agcTemplate];
     
     
@@ -70,9 +56,9 @@
     return xmlTemplate;
 }
 
--(void) addChild:(NSMutableDictionary *)child to:(NSMutableDictionary **) agcDict {
+-(void) addChild:(NSMutableDictionary *)child to:(NSMutableDictionary **) agcDict atIndex:(int) nr{
 
-    [[*agcDict objectForKey:CHILDREN ] addObject:child];
+    [[*agcDict objectForKey:CHILDREN ] insertObject:child atIndex:nr];
 
 }
 
@@ -81,10 +67,10 @@
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSMutableDictionary *artboards =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    NSArray *array = [artboards objectForKey:ARTBOARDS];
-    NSLog(@"array = %@", array);
+    NSLog(@"SortedKeys = %@", [artboards objectForKey:ARTBOARDS]);
+    id array = [artboards objectForKey:ARTBOARDS];
     [*agcDict setObject:array forKey:ARTBOARDS];
-
+    
 
 }
 
@@ -111,7 +97,7 @@
     NSMutableArray *findAllFiles = [Helper findAllFiles:GRAPHIC inPath:artworkDir];
     NSString *firstFile = [findAllFiles objectAtIndex:0];
     [findAllFiles removeObjectAtIndex:0];
-    
+    NSLog(@"findAllFIkes = %@", findAllFiles);
     NSData *data = [NSData dataWithContentsOfFile:firstFile];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     for (id file in findAllFiles) {
@@ -119,9 +105,12 @@
         data = [NSData dataWithContentsOfFile:file];
         NSMutableDictionary *temp = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         id value = [[temp objectForKey:CHILDREN] objectAtIndex:0];
-        [self addChild:[self deepCopy:value] to:&agcTemplate];
+        NSString *artboardNo = [[value objectForKey:ART_SCENE] objectForKey:REF];
+        int number = [[artboardNo substringFromIndex:[ART_SCENE length]] intValue];
+        
+        [self addChild:[self deepCopy:value] to:&agcTemplate atIndex:number -1];
     }
-    NSLog(@"agc = %@", agcTemplate);
+
     NSString *resources = [self appendPathComponents:@[ZIP_RESOURCES, GRAPHICS, GRAPHIC] topath:unzipped_xd];
     [self addArtboardsToAgc:&agcTemplate usingPath:resources];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:agcTemplate
@@ -1181,7 +1170,7 @@
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
     
     NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
-    NSLog(@"name = %@", name);
+    
     
     /* now we only have to translate the currentDict */
     for (id key in [dict objectForKey:TOSTRING]) {

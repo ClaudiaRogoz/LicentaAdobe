@@ -276,9 +276,7 @@ const NSString *xmlEndScene = @"</scene";
         [self mergeDict:&jsonDict withHeaderDict:[self getArtboardNo:nr forDict:jsonHeader] artboardNo:nr];
         
         NSString *xcodeString = [XD2XCode generateXmlForTag:jsonDict];
-        //NSLog(@"XcodeStr = %@", xcodeString);
-        //TODO
-        NSLog(@"NewArtboards = %@", jsonDict);
+        
         [self replacePrevArtboard:jsonDict no:nr];
         [arrayOfScenes insertObject:xcodeString atIndex:nr];
     }

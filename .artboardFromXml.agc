@@ -20,12 +20,19 @@
       "width" : 375,
       "x" : 0,
       "height" : 667
+    },
+    "artboard2" : {
+      "y" : 0,
+      "name" : "iPhone 6 – 2",
+      "width" : 375,
+      "x" : 400,
+      "height" : 667
     }
   },
   "viewSource" : {
     "y" : "0",
     "x" : "0",
-    "width" : 400,
+    "width" : 800,
     "height" : 667
   },
   "children" : [
@@ -37,9 +44,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 52,
-              "g" : 28,
-              "b" : 49
+              "r" : 53,
+              "g" : 29,
+              "b" : 50
             },
             "alpha" : 255
           }
@@ -72,10 +79,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 390.5808,
+              "ty" : 372.7942,
               "c" : "0",
               "a" : "1",
-              "tx" : 165.2222
+              "tx" : 165.2483
             },
             "type" : "text",
             "name" : "Label",
@@ -124,10 +131,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 575.1175,
+              "ty" : 557.3308,
               "c" : "0",
               "a" : "1",
-              "tx" : 74.59717
+              "tx" : 74.62329
             },
             "type" : "text",
             "name" : "Label",
@@ -176,10 +183,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 103.7708,
+              "ty" : 85.98417,
               "c" : "0",
               "a" : "1",
-              "tx" : 153.9722
+              "tx" : 153.9983
             },
             "type" : "text",
             "name" : "Label",
@@ -211,7 +218,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "89246"
+                      "uid" : "446907"
                     }
                   },
                   "width" : 158,
@@ -223,18 +230,18 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 402,
+              "ty" : 403,
               "c" : "0",
               "a" : "1",
-              "tx" : 166
+              "tx" : 167
             },
             "type" : "shape",
             "shape" : {
               "y" : "0",
+              "type" : "rect",
               "x" : "0",
               "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect"
+              "height" : 142.2933
             }
           },
           {
@@ -244,7 +251,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "40399"
+                      "uid" : "601936"
                     }
                   },
                   "width" : 375,
@@ -256,18 +263,232 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 133,
+              "ty" : 134,
               "c" : "0",
               "a" : "1",
-              "tx" : 170
+              "tx" : 171
             },
             "type" : "shape",
             "shape" : {
               "y" : "0",
+              "x" : "0",
               "width" : 150,
               "height" : 142.2933,
-              "type" : "rect",
-              "x" : "0"
+              "type" : "rect"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type" : "artboard",
+      "style" : {
+        "fill" : {
+          "type" : "solid",
+          "color" : {
+            "mode" : "RGB",
+            "value" : {
+              "r" : 30,
+              "g" : 255,
+              "b" : 255
+            },
+            "alpha" : 255
+          }
+        }
+      },
+      "artboard" : {
+        "ref" : "artboard2",
+        "children" : [
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "870022"
+                    }
+                  },
+                  "width" : 375,
+                  "height" : 667,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art3.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 0,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 412
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 345.625,
+              "height" : 202.3233,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 43,
+                    "g" : 43,
+                    "b" : 43
+                  },
+                  "alpha" : 255
+                }
+              },
+              "font" : {
+                "size" : 16,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 315.9942,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 466.1367
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "positioned"
+              },
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 0,
+                        "to" : 30,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 19,
+                        "to" : 58,
+                        "x" : 0,
+                        "from" : 30
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 38,
+                        "to" : 90,
+                        "x" : 0,
+                        "from" : 58
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 57,
+                        "to" : 120,
+                        "x" : 0,
+                        "from" : 90
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 76,
+                        "to" : 147,
+                        "x" : 0,
+                        "from" : 120
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 95,
+                        "to" : 177,
+                        "x" : 0,
+                        "from" : 147
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 114,
+                        "to" : 205,
+                        "x" : 0,
+                        "from" : 177
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 133,
+                        "to" : 237,
+                        "x" : 0,
+                        "from" : 205
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 152,
+                        "to" : 268,
+                        "x" : 0,
+                        "from" : 237
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 171,
+                        "to" : 297,
+                        "x" : 0,
+                        "from" : 268
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "rawText" : "There are days which occur in this climate, at almost any season of the year, wherein the world reaches its perfection, when the air, the heavenly bodies, and the earth, make a harmony, as if nature would indulge her offspring; when, in these bleak upper sides of the planet, nothing is to desire that we have heard of the happiest latitudes, and we bask in the shining hours of Utah and Colorado; when everything… that has life gives sign of satisfaction, and the cattle that lie on the ground seem to have great and tranquil thoughts."
             }
           }
         ]

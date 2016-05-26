@@ -28,7 +28,7 @@
 + (NSString *) createStorage:(NSArray *) list usingXDPath:(NSString *)xdPath;
 + (void) createManifest:(NSMutableDictionary *) dict xdPath:(NSString *) xdPath;
 + (void) releaseStorage:(NSString *) xdPath;
-
++ (void) writeData:(NSMutableDictionary *) dict toPath:(NSString *) path;
 @property NSString *xdPath;
 
 

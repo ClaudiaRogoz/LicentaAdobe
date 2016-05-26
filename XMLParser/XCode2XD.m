@@ -572,7 +572,7 @@
 {
     
     NSMutableDictionary *correctAttr = [self deepCopy:attributes[elementName]];
-    NSLog(@"ElementName = %@ %@", elementName, attributeDict);
+   
     //First level attributes
     for (id key in attributes[elementName]){
         
@@ -609,7 +609,7 @@
             NSString *directory = [[[self resourcesPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
             NSString *imageName = [Helper findFile: [attributeDict objectForKey:ISIMAGE] inPath:directory];
             NSArray *strings = [[xml2agcDictionary objectForKey:IMAGEVIEW_INV] componentsSeparatedByString:DOT];
-            NSLog(@"imageName = %@ %@ %@", imageName, [attributeDict objectForKey:ISIMAGE], directory);
+            
             
             id value = correctAttr;
             for (id key in [strings subarrayWithRange:NSMakeRange(0, [strings count] -1)]){
