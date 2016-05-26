@@ -276,6 +276,10 @@
 #define WIDTH_XD_ARTBOARD     375
 #define HEIGHT_XD_ARTBOARD    667
 
+#define PBXPROJ_IMAGE_NAME  @"name = "
+#define PBXPROJ_IMAGE_PATH  @"; path = "
+#define DELIMITER           @";"
+#define PREV_PATH           @"../"
 
 #define EPS 3 // just an epsilon value for pointSize calc
 

@@ -33,6 +33,7 @@
     [gen setOutXmlPath:outXmlPath];
     
     agcTemplate = [gen getXdDictionary];
+    
     /*NSString *clipbData = [gen getClipboardData];
     
     if (!clipbData) {
@@ -45,6 +46,7 @@
     
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:xdData options:kNilOptions error:&error];
     */
+    NSLog(@"agcTemplate = %@", agcTemplate);
     [gen getXmlForAgcObject:agcTemplate];
     
     
@@ -1179,7 +1181,7 @@
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
     
     NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
-    
+    NSLog(@"name = %@", name);
     
     /* now we only have to translate the currentDict */
     for (id key in [dict objectForKey:TOSTRING]) {

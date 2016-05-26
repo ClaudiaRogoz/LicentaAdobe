@@ -8,9 +8,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 53,
-              "g" : 29,
-              "b" : 50
+              "r" : 30,
+              "g" : 255,
+              "b" : 255
             },
             "alpha" : 255
           }
@@ -18,230 +18,9 @@
       },
       "artboard" : {
         "ref" : "artboard2",
-        "children" : [
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 372.7942,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 565.2483
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 557.3308,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 474.6233
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 85.98417,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 553.9983
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "759306"
-                    }
-                  },
-                  "width" : 158,
-                  "height" : 120,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art2.png"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 403,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 567
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "type" : "rect",
-              "x" : "0",
-              "width" : 150,
-              "height" : 142.2933
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "512794"
-                    }
-                  },
-                  "width" : 375,
-                  "height" : 667,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art3.png"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 134,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 571
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "x" : "0",
-              "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect"
-            }
-          }
-        ]
+        "children" : {
+
+        }
       }
     }
   ],
@@ -249,12 +28,12 @@
     "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard1" : {
+    "artboard2" : {
       "y" : 0,
-      "name" : "iPhone 6 – 1",
+      "name" : "iPhone 6 – 2",
       "viewportHeight" : 667,
       "width" : 375,
-      "x" : 0,
+      "x" : 400,
       "height" : 667
     }
   },

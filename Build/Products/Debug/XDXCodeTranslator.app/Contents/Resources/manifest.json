@@ -66,6 +66,6 @@
                     }
                     ],
     "type" : "application\/vnd.adobe.sparkler.project+dcx",
-    "uxdesign#version" : "0.10",
+    "uxdesign#version" : "0.9",
     "name" : "Adobe Experience Design File"
 }

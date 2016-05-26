@@ -8,9 +8,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 0,
-              "g" : 0,
-              "b" : 0
+              "r" : 52,
+              "g" : 28,
+              "b" : 49
             },
             "alpha" : 255
           }
@@ -43,10 +43,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 495.0775,
+              "ty" : 390.5808,
               "c" : "0",
               "a" : "1",
-              "tx" : 133.9983
+              "tx" : 165.2222
             },
             "type" : "text",
             "name" : "Label",
@@ -95,13 +95,13 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 240.5058,
+              "ty" : 575.1175,
               "c" : "0",
               "a" : "1",
-              "tx" : 197.9348
+              "tx" : 74.59717
             },
             "type" : "text",
-            "name" : "alalabala",
+            "name" : "Label",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -112,7 +112,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 10,
+                        "to" : 6,
                         "x" : 0,
                         "from" : 0
                       }
@@ -120,7 +120,59 @@
                   ]
                 }
               ],
-              "rawText" : "alalabala"
+              "rawText" : "Label"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 255
+                }
+              },
+              "font" : {
+                "size" : 17,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 103.7708,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 153.9722
+            },
+            "type" : "text",
+            "name" : "Label",
+            "text" : {
+              "frame" : {
+                "type" : "positioned"
+              },
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 0,
+                        "to" : 6,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "rawText" : "Label"
             }
           },
           {
@@ -130,82 +182,63 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "699250"
+                      "uid" : "89246"
                     }
                   },
                   "width" : 158,
                   "height" : 120,
-                  "href" : "\/Users\/crogoz\/Desktop\/VisualAssetsManagementXD\/SampleXcodeImport\/Try\/Try\/Resources\/art2.png"
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
                 }
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 309,
+              "ty" : 402,
               "c" : "0",
               "a" : "1",
-              "tx" : 194
+              "tx" : 166
             },
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "height" : 142.2933,
-              "type" : "rect",
               "x" : "0",
-              "width" : 150
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect"
             }
           },
           {
             "style" : {
               "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "40399"
+                    }
                   },
-                  "alpha" : 255
+                  "width" : 375,
+                  "height" : 667,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art3.png"
                 }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 111.5525,
+              "ty" : 133,
               "c" : "0",
               "a" : "1",
-              "tx" : 245.2483
+              "tx" : 170
             },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0"
             }
           }
         ]
@@ -216,12 +249,12 @@
     "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard3" : {
+    "artboard1" : {
       "y" : 0,
-      "name" : "iPhone 6 – 3",
+      "name" : "iPhone 6 – 1",
       "viewportHeight" : 667,
       "width" : 375,
-      "x" : 800,
+      "x" : 0,
       "height" : 667
     }
   },
