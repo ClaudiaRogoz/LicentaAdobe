@@ -248,7 +248,7 @@ const NSString *xmlEndScene = @"</scene";
         
         NSString *content = [NSString stringWithContentsOfFile:newArtboards usedEncoding:&encoding error:&error];
         NSString *jsonHash = [self computeSha1:content];
-        NSLog(@"content");
+        
         if (hashArtboards && [hashArtboards objectForKey:jsonHash]) {
             int prevArtNo = [[hashArtboards objectForKey:jsonHash] intValue];
             long prevArtOffset = [[offsetArtboards objectForKey:[NSNumber numberWithInt:prevArtNo]] longValue];

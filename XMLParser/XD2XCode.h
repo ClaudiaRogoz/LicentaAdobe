@@ -66,6 +66,8 @@
     
     /* for performance statistics */
     int noOfElements;
+    
+    NSMutableDictionary *sceneMapping;
 }
 
 /* agc & xml file paths */

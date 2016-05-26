@@ -59,7 +59,6 @@
 -(void) addChild:(NSMutableDictionary *)child to:(NSMutableDictionary **) agcDict atIndex:(int) nr{
 
     [[*agcDict objectForKey:CHILDREN ] insertObject:child atIndex:nr];
-
 }
 
 - (void) addArtboardsToAgc:(NSMutableDictionary **) agcDict usingPath:(NSString *) path{
@@ -67,7 +66,7 @@
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSMutableDictionary *artboards =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"SortedKeys = %@", [artboards objectForKey:ARTBOARDS]);
+    //NSLog(@"SortedKeys = %@", [artboards objectForKey:ARTBOARDS]);
     id array = [artboards objectForKey:ARTBOARDS];
     [*agcDict setObject:array forKey:ARTBOARDS];
     
@@ -100,6 +99,7 @@
     NSLog(@"findAllFIkes = %@", findAllFiles);
     NSData *data = [NSData dataWithContentsOfFile:firstFile];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    int scene = 1;
     for (id file in findAllFiles) {
         
         data = [NSData dataWithContentsOfFile:file];
@@ -109,16 +109,13 @@
         int number = [[artboardNo substringFromIndex:[ART_SCENE length]] intValue];
         
         [self addChild:[self deepCopy:value] to:&agcTemplate atIndex:number -1];
+        [sceneMapping setObject:[NSNumber numberWithInt:scene] forKey:[NSNumber numberWithInt:number -1]];
+        scene ++;
     }
 
     NSString *resources = [self appendPathComponents:@[ZIP_RESOURCES, GRAPHICS, GRAPHIC] topath:unzipped_xd];
     [self addArtboardsToAgc:&agcTemplate usingPath:resources];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:agcTemplate
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    [jsonString writeToFile:@"/Users/crogoz/new.agc" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+
     return agcTemplate;
 }
 
@@ -141,6 +138,7 @@
     NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
     
     NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
+    
     [self releaseResources];
     [self initializeWithDefs:defDictionary rules:ruleDictionary];
     
@@ -211,6 +209,7 @@
     resourcesDict = [[NSMutableString alloc] init];
     scaleImage = [[NSMutableArray alloc] init];
     inheritanceColor = [[NSMutableArray alloc] init];
+    sceneMapping = [[NSMutableDictionary alloc] init];
     
     scaleNo = 0;
     
@@ -231,6 +230,7 @@
     transformObjects[COLOR][BLUE] = [NSNumber numberWithInt:1];
     
     sceneNo = 0;
+    
     
     
 }
@@ -641,7 +641,6 @@
     int y = [[groupFrame objectForKey:YARTBOARD] intValue];
     int w = [[groupFrame objectForKey:WIDTH] intValue];
     int h = [[groupFrame objectForKey:HEIGHT] intValue];
-    //NSLog(@"x %d y %d w %d h %d", x, y, w, h);
     if (x <= *minx)  {
         *minx = x;
     }
@@ -656,7 +655,6 @@
         *maxy = y + h;
         *maxh = h;
     }
-    //NSLog(@"{Size:}maxx %d;maxy %d;maxw %d;maxh %d", *maxx, *maxy, *maxw, *maxh);
     
 }
 -(void) updateGroupOffsets:(NSMutableArray**)viewSubviews minx:(int) minx miny:(int)miny {
@@ -666,12 +664,9 @@
         id frame = [[[keyObject objectForKey:name ] objectForKey:RULES] objectForKey:FRAME];
         int x = [[frame objectForKey:XARTBOARD] intValue];
 
-        //NSLog(@"[Update %d - %d = %d]", x, minx, x - minx);
-
         x = x - minx;
         int y = [[frame objectForKey:YARTBOARD] intValue];
         
-        //NSLog(@"[Update %d - %d = %d]", y, miny, y - miny);
         y = y - miny;
         
         [frame setObject:[NSNumber numberWithInt:x] forKey:XARTBOARD];
@@ -1086,7 +1081,7 @@
 
 -(NSDictionary*) processWholeXmlFromAgc:(NSDictionary *)agcDict {
     
-    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:@"content"]]];
+    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:CONTENT]]];
     
     
     NSMutableDictionary *viewDict = [finalDict objectForKey:ARTBOARD];
@@ -1270,6 +1265,7 @@
 -(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject{
     
     NSMutableString *xmlGen = [NSMutableString stringWithFormat:@""];
+    NSMutableArray *arrayOfScenes = [[NSMutableArray alloc] init];
     NSMutableString *finalString;
     NSDictionary *dict;
     NSMutableString *stringFooter = [NSMutableString stringWithFormat:XMLSCENESF];
@@ -1294,13 +1290,20 @@
                                               sceneOffset:sceneOffset
                                              isInitialSet:setInitial
                                                dictionary:dict];
-        
-        
+        NSLog(@"Nr = %d", [[sceneMapping objectForKey:[NSNumber numberWithInt:sceneNo]]intValue]);
+        [arrayOfScenes insertObject:finalString atIndex:[[sceneMapping objectForKey:[NSNumber numberWithInt:sceneNo]]intValue]];
         [xmlGen appendString:finalString];
         ++sceneNo;
         
     }
     
+    NSString *tempStr = [NSMutableString stringWithFormat:@""];
+    for (int i = 0; i< [arrayOfScenes count] ; i++) {
+        NSLog(@"Val = %@", [arrayOfScenes objectAtIndex:i]);
+        tempStr = [tempStr stringByAppendingString:[arrayOfScenes objectAtIndex:i]];
+    }
+    xmlGen = [tempStr mutableCopy];
+    NSLog(@"tempStr = %@", tempStr);
     NSLog(@"There are %d artboards and ~ %d properties computed", sceneNo, noOfElements);
     if ([resourcesDict length]) {
         // append resources

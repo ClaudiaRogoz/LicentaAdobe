@@ -58,7 +58,7 @@
 #define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
 #define GRAPHIC         @"graphicContent.agc"
 #define DS_STORE        @".DS_Store"
-
+#define CONTENT         @"content"
 #define GRAPHICS    @"graphics"
 
 /* args for app */

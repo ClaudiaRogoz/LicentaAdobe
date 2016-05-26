@@ -21,7 +21,7 @@
     
     
     /**
-     * array used for import; dictioanryStack[0] return the corresponding agc Dictionary;
+     * array used for import; dictioanryStack[0] return the corresponding agc Dictionary; used as a stack
      **/
     NSMutableArray *dictionaryStack;
     
@@ -78,13 +78,13 @@
     NSMutableDictionary *objectOffset;
     
     /**
-     *
+     * used for sync
      **/
     NSMutableDictionary *hashArtboards;
     
     
-    NSMutableArray *agcArtboards;
-    NSMutableDictionary *viewSource;
+    //NSMutableArray *agcArtboards;
+    //NSMutableDictionary *viewSource;
     NSMutableDictionary *resources;
     NSMutableDictionary *meta;
     
@@ -100,10 +100,15 @@
     unsigned long xmlOffset;
     
     BOOL insertedRoot;
+    /* number of artboards/scenes */
     int counterArtboards;
+    
     int counterCh;
+    /* needed for scenes with multiple views */
     bool hasAView;
     bool viewEnded;
+    
+    /*obtains the ending offset of the last scene in the xml file */
     unsigned long lastScene;
 
 }

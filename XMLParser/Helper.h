@@ -16,13 +16,29 @@
 
 }
 
+/* writes a dictionary to an .agc/.json file; also, if sha is True, 
+ * it also computes the sha value of the file*/
 + (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file computeSha:(int)sha
                 hash:(NSMutableDictionary *) hashArtboards;
+
+
+/* obtains the root directory of the current app*/
 + (NSString *) getProjHomePath;
+
+/* creates a deepcopy of an element given as parameter*/
 + (id) deepCopy:(id) object;
+
+/* creates an XD file at the path given as parameter;
+ * creates the internal structure of the XD file (artwork/, mimetype, manifest ...)*/
 + (void) createXdFile:(NSString *) xdPath;
+
+/* returns the absolute path of a file */
 + (NSString *)findFile:(NSString *)name inPath:(NSString *) initPath;
+
+/* unzipps an XD file at a path given as parameter*/
 + (void) unzipXD:(NSString *)path atPath:(NSString*) unzipped_xd;
+
+/* returns all the files in a given directory */
 + (NSMutableArray *) findAllFiles: (NSString *)name inPath:(NSString *) initPath;
 
 @end

@@ -28,7 +28,11 @@
     int widthAgcArtboard;
     int heightAgcArtboard;
     
+    /*dictionary containing mappings between artboards and their shas*/
     NSMutableDictionary *hashArtboards;
+    
+     /*dictionary containing mappings between scenes
+      * and their offset (in the xml file )*/
     NSMutableDictionary *offsetArtboards;
     
     /**
@@ -49,7 +53,10 @@
     NSString *xmlHeader;
     NSString *xmlFooter;
     
+    /*the ending offset of the last scene in the xml file*/
     unsigned long lastOffset;
+    
+    /* the number of the current scene/artboard*/
     int currentScene;
     
 }

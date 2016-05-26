@@ -8,9 +8,9 @@
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 53,
-              "g" : 29,
-              "b" : 50
+              "r" : 40,
+              "g" : 94,
+              "b" : 45
             },
             "alpha" : 255
           }
@@ -22,167 +22,11 @@
           {
             "style" : {
               "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 372.7942,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 165.2483
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 557.3308,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 74.62329
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 85.98417,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 153.9983
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
                 "type" : "pattern",
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "446907"
+                      "uid" : "353816"
                     }
                   },
                   "width" : 158,
@@ -194,10 +38,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 403,
+              "ty" : 148,
               "c" : "0",
               "a" : "1",
-              "tx" : 167
+              "tx" : 42
             },
             "type" : "shape",
             "shape" : {
@@ -206,39 +50,6 @@
               "x" : "0",
               "width" : 150,
               "height" : 142.2933
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "601936"
-                    }
-                  },
-                  "width" : 375,
-                  "height" : 667,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art3.png"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 134,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 171
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "x" : "0",
-              "width" : 150,
-              "height" : 142.2933,
-              "type" : "rect"
             }
           }
         ]
@@ -249,12 +60,12 @@
     "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard1" : {
+    "artboard3" : {
       "y" : 0,
-      "name" : "iPhone 6 – 1",
+      "name" : "iPhone 6 – 3",
       "viewportHeight" : 667,
       "width" : 375,
-      "x" : 0,
+      "x" : 800,
       "height" : 667
     }
   },

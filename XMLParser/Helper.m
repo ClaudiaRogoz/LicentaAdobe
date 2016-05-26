@@ -84,7 +84,6 @@
     
     /* get file path from the pbxproj file */
     NSError *error;
-    NSLog(@"name = %@", name);
     NSString *rootPath = [directory stringByDeletingLastPathComponent];
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil];
     NSString *xcodeProj = [[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.xcodeproj'"]] firstObject];
