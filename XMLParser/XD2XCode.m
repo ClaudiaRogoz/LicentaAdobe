@@ -108,12 +108,18 @@
         data = [NSData dataWithContentsOfFile:file];
         NSMutableDictionary *temp = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         id value = [[temp objectForKey:CHILDREN] objectAtIndex:0];
+        id noArtboard = [temp objectForKey:REF];
+        id artboard = [[agcTemplate objectForKey:ARTBOARDS] objectForKey:noArtboard];
+        int place = [[artboard objectForKey:XARTBOARD] intValue]/ OFFSETBOARD;
+        NSLog(@"Place = %d", place);
         [self addChild:[self deepCopy:value] to:&agcTemplate];
 
     }
-    //NSLog(@"artboards = %@", agcTemplate);
-    NSLog(@"SceneOrder = %@", sceneOrder);
-
+    
+    /*NSString *interactionsDir = [unzipped_xd stringByAppendingPathComponent:INTERACTIONS];
+    data = [NSData dataWithContentsOfFile:interactionsDir];
+    interactionsDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    */
     return agcTemplate;
 }
 
@@ -207,7 +213,7 @@
     resourcesDict = [[NSMutableString alloc] init];
     scaleImage = [[NSMutableArray alloc] init];
     inheritanceColor = [[NSMutableArray alloc] init];
-    sceneOrder = [[NSMutableArray alloc] init];
+    uuidMap = [[NSMutableDictionary alloc] init];
     scaleNo = 0;
     
     transformObjects = [[NSMutableDictionary alloc] init];
@@ -284,6 +290,20 @@
     
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
+        id interactions = [interactionsDict objectForKey:INTERACTIONS];
+        NSString *uuid = [[NSUUID UUID] UUIDString];
+        id agcId = [agcDict objectForKey:ID];
+        if (agcId != nil)
+            [uuidMap setObject:uuid forKey:agcId];
+        
+        if ([interactions objectForKey:agcId]) {
+            toTransform = true;
+            destinationId = [[interactions objectForKey:agcId] objectForKey:DESTINATION]; //TODO get the corresponding value
+            
+        } else {
+            toTransform = false;
+        }
+        
         return [[NSUUID UUID] UUIDString];
         
     } else if ([initValue hasPrefix:GETMAX]) {
@@ -1279,39 +1299,20 @@
     
     initialArtboard = [[NSUUID UUID] UUIDString];
     
-    /*for (int i = 0; i < artboardsNo; i++ ) {
-        //TODO
-        sceneNo = [[sceneOrder objectAtIndex:i] intValue] - 1;
-        NSLog(@"Working With Scene = %d %@", sceneNo, typeAgcObject);
-        finalString = [[NSMutableString alloc] init];
-        
-        dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
-        //sceneOffset = sceneOffset + XML_OFFSET_X;
-        sceneOffset = XML_SCENE_X + sceneNo * XML_OFFSET_X;
-        NSLog(@"SceneOffset = %lu", sceneOffset);
-        setInitial = [self generateSceneHeaderUsingString:&finalString
-                                      withInitialArtboard:initialArtboard
-                                              sceneOffset:sceneOffset
-                                             isInitialSet:setInitial
-                                               dictionary:dict];
-        [xmlGen appendString:finalString];
-    
-    }*/
-    
-   while (sceneNo < artboardsNo) {
+    while (sceneNo < artboardsNo) {
         finalString = [[NSMutableString alloc] init];
         
         dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
         id artScene = [[typeAgcObject objectForKey:ARTBOARDS] objectForKey:[NSString stringWithFormat:@"%@%d", ART_SCENE, sceneNo + 1]];
-       NSLog(@"ArtScene = %@ %d", artScene, sceneNo);
+       //NSLog(@"ArtScene = %@ %d", artScene, sceneNo);
        int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
-       sceneOffset = XML_SCENE_X + offset * XML_OFFSET_X;
-       NSLog(@"Offset = %d", offset);
+       //sceneOffset = XML_SCENE_X + offset * XML_OFFSET_X;
+       //NSLog(@"Offset = %d", offset);
        if (offset == 0)
            setInitial = false;
        else setInitial = true;
-       //sceneOffset = sceneOffset + XML_OFFSET_X;
-       NSLog(@"Offset = %lu", sceneOffset);
+       sceneOffset = sceneOffset + XML_OFFSET_X;
+      // NSLog(@"Offset = %lu", sceneOffset);
         setInitial = [self generateSceneHeaderUsingString:&finalString
                                       withInitialArtboard:initialArtboard
                                               sceneOffset:sceneOffset

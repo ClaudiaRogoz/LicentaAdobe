@@ -67,7 +67,13 @@
     /* for performance statistics */
     int noOfElements;
     
-    NSMutableArray *sceneOrder;
+    /* used for interactions */
+    NSMutableDictionary *uuidMap;
+    NSMutableDictionary *interactionsDict;
+    
+    bool toTransform;
+    NSString *destinationId;
+    
 }
 
 /* agc & xml file paths */

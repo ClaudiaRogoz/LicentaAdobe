@@ -164,6 +164,7 @@
 #define VERSION_INTERACTIONS    @"0.3"
 #define HREF        @"href"
 #define REF         @"ref"
+#define DESTINATION @"destination"
 
 /*used for metadata creation */
 #define CREATEDATE  @"CreateDate="
