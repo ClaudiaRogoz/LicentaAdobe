@@ -56,9 +56,9 @@
     return xmlTemplate;
 }
 
--(void) addChild:(NSMutableDictionary *)child to:(NSMutableDictionary **) agcDict atIndex:(int) nr{
+-(void) addChild:(NSMutableDictionary *)child to:(NSMutableDictionary **) agcDict{
 
-    [[*agcDict objectForKey:CHILDREN ] insertObject:child atIndex:nr];
+    [[*agcDict objectForKey:CHILDREN ] addObject:child];
 }
 
 - (void) addArtboardsToAgc:(NSMutableDictionary **) agcDict usingPath:(NSString *) path{
@@ -66,10 +66,8 @@
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSMutableDictionary *artboards =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    //NSLog(@"SortedKeys = %@", [artboards objectForKey:ARTBOARDS]);
     id array = [artboards objectForKey:ARTBOARDS];
     [*agcDict setObject:array forKey:ARTBOARDS];
-    
 
 }
 
@@ -96,25 +94,25 @@
     NSMutableArray *findAllFiles = [Helper findAllFiles:GRAPHIC inPath:artworkDir];
     NSString *firstFile = [findAllFiles objectAtIndex:0];
     [findAllFiles removeObjectAtIndex:0];
-    NSLog(@"findAllFIkes = %@", findAllFiles);
+    
+    NSString *resources = [self appendPathComponents:@[ZIP_RESOURCES, GRAPHICS, GRAPHIC] topath:unzipped_xd];
+    [self addArtboardsToAgc:&agcTemplate usingPath:resources];
+    
     NSData *data = [NSData dataWithContentsOfFile:firstFile];
     agcTemplate =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    int scene = 1;
+    
+    [self addArtboardsToAgc:&agcTemplate usingPath:resources];
+    
     for (id file in findAllFiles) {
         
         data = [NSData dataWithContentsOfFile:file];
         NSMutableDictionary *temp = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         id value = [[temp objectForKey:CHILDREN] objectAtIndex:0];
-        NSString *artboardNo = [[value objectForKey:ART_SCENE] objectForKey:REF];
-        int number = [[artboardNo substringFromIndex:[ART_SCENE length]] intValue];
-        
-        [self addChild:[self deepCopy:value] to:&agcTemplate atIndex:number -1];
-        [sceneMapping setObject:[NSNumber numberWithInt:scene] forKey:[NSNumber numberWithInt:number -1]];
-        scene ++;
-    }
+        [self addChild:[self deepCopy:value] to:&agcTemplate];
 
-    NSString *resources = [self appendPathComponents:@[ZIP_RESOURCES, GRAPHICS, GRAPHIC] topath:unzipped_xd];
-    [self addArtboardsToAgc:&agcTemplate usingPath:resources];
+    }
+    //NSLog(@"artboards = %@", agcTemplate);
+    NSLog(@"SceneOrder = %@", sceneOrder);
 
     return agcTemplate;
 }
@@ -209,8 +207,7 @@
     resourcesDict = [[NSMutableString alloc] init];
     scaleImage = [[NSMutableArray alloc] init];
     inheritanceColor = [[NSMutableArray alloc] init];
-    sceneMapping = [[NSMutableDictionary alloc] init];
-    
+    sceneOrder = [[NSMutableArray alloc] init];
     scaleNo = 0;
     
     transformObjects = [[NSMutableDictionary alloc] init];
@@ -367,7 +364,6 @@
 
 -(void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict {
     
-   
     if ([defaultDict count] > 0)
         for (id key in [defaultDict allKeys]) {
             NSString *value = [defaultDict objectForKey:key];
@@ -439,6 +435,7 @@
     float translatedValue = initValue;
     float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
     float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
+    
     if ([key isEqualToString:XARTBOARD]) {
         translatedValue = initValue - startXArtboard;
         translatedValue = translatedValue * xScaleFactor;
@@ -452,7 +449,7 @@
     else if ([key isEqualToString:HEIGHT]) {
         translatedValue = initValue * yScaleFactor;
     }
-
+    
     return translatedValue;
 }
 
@@ -831,6 +828,7 @@
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
     
     for (id key in goToAgc) {
+        //NSLog(@"key = %@", key);
         id nodeValue;
         
         if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:SCENENO]) {
@@ -839,7 +837,7 @@
         } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:ARTBOARDSCENE]) {
             NSString *artboard = [NSString stringWithFormat:@"artboard%d", sceneNo +1];
             nodeValue = [*values objectForKey:artboard];
-            
+            NSLog(@"SceneNo = %d", sceneNo);
             /* obtain the startX and startY for the current scene */
             startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
             startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
@@ -857,6 +855,7 @@
         }
         
         *values = nodeValue;
+        //NSLog(@"*values = %@", *values);
     }
     
 }
@@ -892,9 +891,11 @@
         id values = agcParams;
         
         NSArray *goToAgc = [self splitVariable:condition];
+        //NSLog(@"goToAgc = %@", goToAgc);
         [self getDict:&values fromConditions:goToAgc];
         
         NSMutableDictionary *dictValue = values;
+       // NSLog(@"DictValues = %@", dictValue);
         BOOL isEmpty = ([dictValue count] == 0);
         if (isEmpty && !dictValue) {
             //use default values!!!
@@ -1036,7 +1037,7 @@
                 cond = [rulesDict objectForKey:ORDER];
             else
                 cond = [rulesDict allKeys];
-            
+           // NSLog(@"Rule %@ cond %@ %@ %@", rule, cond, [rulesTempDict objectForKey:rule], agcDict);
             mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict type:type];
             
             if (mergeDict != nil) {
@@ -1265,7 +1266,6 @@
 -(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject{
     
     NSMutableString *xmlGen = [NSMutableString stringWithFormat:@""];
-    NSMutableArray *arrayOfScenes = [[NSMutableArray alloc] init];
     NSMutableString *finalString;
     NSDictionary *dict;
     NSMutableString *stringFooter = [NSMutableString stringWithFormat:XMLSCENESF];
@@ -1279,31 +1279,49 @@
     
     initialArtboard = [[NSUUID UUID] UUIDString];
     
-    while (sceneNo < artboardsNo) {
+    /*for (int i = 0; i < artboardsNo; i++ ) {
+        //TODO
+        sceneNo = [[sceneOrder objectAtIndex:i] intValue] - 1;
+        NSLog(@"Working With Scene = %d %@", sceneNo, typeAgcObject);
         finalString = [[NSMutableString alloc] init];
         
         dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
-        sceneOffset = sceneOffset + XML_OFFSET_X;
-        
+        //sceneOffset = sceneOffset + XML_OFFSET_X;
+        sceneOffset = XML_SCENE_X + sceneNo * XML_OFFSET_X;
+        NSLog(@"SceneOffset = %lu", sceneOffset);
         setInitial = [self generateSceneHeaderUsingString:&finalString
                                       withInitialArtboard:initialArtboard
                                               sceneOffset:sceneOffset
                                              isInitialSet:setInitial
                                                dictionary:dict];
-        NSLog(@"Nr = %d", [[sceneMapping objectForKey:[NSNumber numberWithInt:sceneNo]]intValue]);
-        [arrayOfScenes insertObject:finalString atIndex:[[sceneMapping objectForKey:[NSNumber numberWithInt:sceneNo]]intValue]];
+        [xmlGen appendString:finalString];
+    
+    }*/
+    
+   while (sceneNo < artboardsNo) {
+        finalString = [[NSMutableString alloc] init];
+        
+        dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
+        id artScene = [[typeAgcObject objectForKey:ARTBOARDS] objectForKey:[NSString stringWithFormat:@"%@%d", ART_SCENE, sceneNo + 1]];
+       NSLog(@"ArtScene = %@ %d", artScene, sceneNo);
+       int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
+       sceneOffset = XML_SCENE_X + offset * XML_OFFSET_X;
+       NSLog(@"Offset = %d", offset);
+       if (offset == 0)
+           setInitial = false;
+       else setInitial = true;
+       //sceneOffset = sceneOffset + XML_OFFSET_X;
+       NSLog(@"Offset = %lu", sceneOffset);
+        setInitial = [self generateSceneHeaderUsingString:&finalString
+                                      withInitialArtboard:initialArtboard
+                                              sceneOffset:sceneOffset
+                                             isInitialSet:setInitial
+                                               dictionary:dict];
         [xmlGen appendString:finalString];
         ++sceneNo;
         
     }
     
-    NSString *tempStr = [NSMutableString stringWithFormat:@""];
-    for (int i = 0; i< [arrayOfScenes count] ; i++) {
-        NSLog(@"Val = %@", [arrayOfScenes objectAtIndex:i]);
-        tempStr = [tempStr stringByAppendingString:[arrayOfScenes objectAtIndex:i]];
-    }
-    xmlGen = [tempStr mutableCopy];
-    NSLog(@"tempStr = %@", tempStr);
     NSLog(@"There are %d artboards and ~ %d properties computed", sceneNo, noOfElements);
     if ([resourcesDict length]) {
         // append resources

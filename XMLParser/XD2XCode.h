@@ -67,7 +67,7 @@
     /* for performance statistics */
     int noOfElements;
     
-    NSMutableDictionary *sceneMapping;
+    NSMutableArray *sceneOrder;
 }
 
 /* agc & xml file paths */
