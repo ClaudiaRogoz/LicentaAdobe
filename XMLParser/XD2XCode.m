@@ -296,8 +296,7 @@
 }
 
 -(NSString *) getDestinationFor:(NSString *) agcId interactions:(NSMutableDictionary *)interactions {
-    NSLog(@"Interactions = %@", [interactions objectForKey:agcId]);
-    NSLog(@"Interactions = %@", [[[[interactions objectForKey:agcId] objectAtIndex:0] objectForKey:PROPERTIES] objectForKey:DESTINATION]);
+    
     return [[[[interactions objectForKey:agcId] objectAtIndex:0] objectForKey:PROPERTIES] objectForKey:DESTINATION];
 }
 
@@ -309,15 +308,15 @@
         id interactions = [interactionsDict objectForKey:INTERACTIONS];
         NSString *uuid = [[NSUUID UUID] UUIDString];
         id agcId = [agcDict objectForKey:ID];
-        NSLog(@"AGCId = %@", agcId);
+       
         if (agcId != nil) {
             [uuidMap setObject:uuid forKey:agcId];
-            NSLog(@"UUIDMApZZ = %@ %@", uuid, agcId);
+           
         }
         if ([interactions objectForKey:agcId]) {
             transformInteraction = true;
             destinationId = [self getDestinationFor:agcId interactions:interactions];
-            NSLog(@"Map = %@ for %@", destinationId, uuid);
+            
         } else {
             transformInteraction = false;
         }
@@ -1249,12 +1248,18 @@
         
         
         NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
-        NSLog(@"STRSTR %@",str);
-        [[dict objectForKey:HEADER]  setObject:theFileName forKey:ISIMAGE];
+        NSLog(@"STRSTR %@ %@",str, dict);
+        id header = [dict objectForKey:HEADER];
+        id state = [dict objectForKey:STATE];
+        if (header)
+            [header  setObject:theFileName forKey:ISIMAGE];
+        if (state)
+            [state setObject:theFileName forKey:ISIMAGE];
         
         /* insert this tag into resourcesDict
          * only if this resource was not prev added */
         if ([resourcesDict rangeOfString:str].location == NSNotFound) {
+            NSLog(@"INSERTED");
             [resourcesDict appendString:str];
         }
         
@@ -1339,7 +1344,7 @@
         [*finalString appendString: sceneID];
         [uuidMap setObject:sceneID forKey:sceneId];
     }
-    //TODO use the uuid generated to make the mapping (needed for interactions between artboards !!!!)
+
     [*finalString appendString: SCENEHEADERC];
     [*finalString appendString: [[NSUUID UUID] UUIDString]];
     [*finalString appendString: SCENEHEADERD];
@@ -1412,13 +1417,11 @@
        NSLog(@"ArtScene = %d %@", sceneNo, [[typeAgcObject objectForKey:CHILDREN] objectAtIndex:sceneNo]);
         id sceneId = [[[typeAgcObject objectForKey:CHILDREN] objectAtIndex:sceneNo] objectForKey:ID];
        int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
-       //sceneOffset = XML_SCENE_X + offset * XML_OFFSET_X;
-       //NSLog(@"Offset = %d", offset);
+
        if (offset == 0)
            setInitial = false;
        else setInitial = true;
        sceneOffset = sceneOffset + XML_OFFSET_X;
-      // NSLog(@"Offset = %lu", sceneOffset);
         setInitial = [self generateSceneHeaderUsingString:&finalString
                                       withInitialArtboard:initialArtboard
                                               sceneOffset:sceneOffset
