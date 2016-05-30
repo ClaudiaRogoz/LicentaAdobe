@@ -15,6 +15,8 @@
     "group"     :   "group",
     "$frame"    :   "label",
     "$imageView"    :   "imageView",
-    "$imageViewPath" : "imageView"
+    "$imageViewPath" : "imageView",
+    "$imageState" : "state",
+    "$labelState" : "state"
     
 }

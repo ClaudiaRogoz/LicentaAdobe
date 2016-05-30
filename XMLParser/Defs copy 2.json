@@ -103,7 +103,7 @@
                 "toString" : ["rect"],
                 "order" : ["rect", "$header.image", "$header.id"]
             },
-            "toString" : ["header", "rules"],
+            "toString" : ["header", "rules"]
             
         },
         "imageView" : {
@@ -316,6 +316,56 @@
         }
     },
     "buttonInteraction" : {
+       "label" : {
+          "button" : {
+                "header" : {
+                    "opaque" : "NO",
+                    "userInteractionEnabled" : "NO",
+                    "contentMode" : "left",
+                    "verticalHuggingPriority" : "251",
+                    "horizontalHuggingPriority" : "251",
+                    "contentHorizontalAlignment" : "center",
+                    "contentVerticalAlignment" : "center",
+                    "lineBreakMode" : "middleTruncation",
+                    "translatesAutoresizingMaskIntoConstraints" : "NO",
+                    "id" : "$rand",
+                    "toString" : ["opaque", "contentMode", "fixedFrame", "contentHorizontalAlignment", "contentVerticalAlignment",
+                                  "lineBreakMode", "translatesAutoresizingMaskIntoConstraints", "id"]
+                },
+                "rules" : {
+                    "$header.id" : "$rand",
+                    "rect" : {
+                        "$rules.rect" : {
+                            "height" : "$height",
+                            "width" : "$width",
+                            "x" : "$x",
+                            "y" : "$y"
+                        }
+                        
+                    },
+                    "fontDescription" : {
+                      "$rules.fontDescription" : {
+                        "key" : "fontDescription",
+                        "type" : "$type",
+                        "pointSize" : "$pointSize"
+                      }
+                    },
+                    "labelState" : {
+                        "$rules.mutableString" : {
+                            "title" : "$text"
+                        }
+                    },
+                    "connections" : {
+                        
+                    },
+                    "order" : ["$header.id", "rect", "labelState", "connections"],
+                    "toString" : ["rect", "labelState", "connections"]
+                    
+                },
+                "toString" : ["header", "rules"]
+            }
+          
+        },
         "imageView" : {
             "button" : {
                 "header" : {
@@ -436,6 +486,12 @@
             "image" : "$imageName",
             "toString" : ["key", "image"]
             
+        },
+        "labelState" : {
+            "key" : "normal",
+            "title" : "$title",
+            "toString" : ["key", "title"]
+          
         },
         "connections" : {
             "segue" : {

@@ -110,7 +110,7 @@
 #define TOSTRING    @"toString"
 #define STRING      @"string"
 #define HEADER      @"header"
-#define STATE       @"state"
+#define STATE       @"$imageState"
 #define SUBTAGS     @"subtags"
 #define SUBVIEWS    @"subviews"
 #define ISIMAGE     @"image"

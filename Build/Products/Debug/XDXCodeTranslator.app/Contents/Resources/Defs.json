@@ -341,7 +341,7 @@
                         }
                         
                     },
-                    "state" : {
+                    "$imageState" : {
                         "$header" : {
                             "image" : "$image"
                         }
@@ -349,8 +349,8 @@
                     "connections" : {
                         
                     },
-                    "order" : ["$header.id", "rect", "state", "connections"],
-                    "toString" : ["rect", "state", "connections"]
+                    "order" : ["$header.id", "rect", "$imageState", "connections"],
+                    "toString" : ["rect", "$imageState", "connections"]
                     
                 },
                 "toString" : ["header", "rules"]
@@ -431,7 +431,7 @@
             "toString" : ["name", "width", "height"]
             
         },
-        "state" : {
+        "$imageState" : {
             "key" : "normal",
             "image" : "$imageName",
             "toString" : ["key", "image"]
