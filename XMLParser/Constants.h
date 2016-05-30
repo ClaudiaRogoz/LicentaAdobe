@@ -144,6 +144,7 @@
 #define VIEWSOURCE  @"viewSource"
 #define META        @"meta"
 #define UX          @"ux"
+#define NODE        @"node"
 #define TEXT        @"text"
 #define PLACEHOLDER @"placeholder"
 #define RESOURCES   @"resources"
@@ -159,12 +160,18 @@
 #define SHAPE       @"shape"
 #define LABEL       @"label"
 #define SCALE       @"scale"
+
+#define BUTTON_SEGUE    @"buttonInteraction"
+#define BUTTON          @"button"
 #define INTERACTIONS    @"interactions"
+#define CONNECTIONS     @"connections"
+#define SEGUE           @"segue"
 #define VERSION_AGC @"1.5.0"
 #define VERSION_INTERACTIONS    @"0.3"
 #define HREF        @"href"
 #define REF         @"ref"
 #define DESTINATION @"destination"
+#define PROPERTIES  @"properties"
 
 /*used for metadata creation */
 #define CREATEDATE  @"CreateDate="

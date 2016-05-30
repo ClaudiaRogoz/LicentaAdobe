@@ -71,8 +71,11 @@
     NSMutableDictionary *uuidMap;
     NSMutableDictionary *interactionsDict;
     
-    bool toTransform;
+    bool transformInteraction;
     NSString *destinationId;
+    
+    bool transformSize;
+    NSString *changeType;
     
 }
 
