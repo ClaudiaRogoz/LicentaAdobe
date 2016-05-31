@@ -41,6 +41,8 @@
 /* returns all the files in a given directory */
 + (NSMutableArray *) findAllFiles: (NSString *)name inPath:(NSString *) initPath;
 
++ (NSString *) convertSvgToPng:(NSString *) svgName;
+
 @end
 
 #endif /* Helper_h */

@@ -32,6 +32,12 @@ Pasii pentru rularea aplicatiei:
 		o	Se deschide automat reprezentarea echivalenta in Xcode
 
 2. TODO : 
-	- add unzip to Helper classi
 	- create import schema: transform to json -> apply export schema
 	- sync/ export multiple project
+    - multiline labels (pretty format)
+    - import transitions
+    - test multiple projects
+    - create demo
+    - arrange paths (offset, width/height)
+    - group (compute offset & frame size)
+    

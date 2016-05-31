@@ -18,7 +18,6 @@
 		C973402F1CC7740D008F8E8D /* Sync.m in Sources */ = {isa = PBXBuildFile; fileRef = C973402E1CC7740D008F8E8D /* Sync.m */; };
 		C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C97340321CC7BC78008F8E8D /* TestBigImage.json */; };
 		C97340371CC7C6EE008F8E8D /* TestFrame.json in Resources */ = {isa = PBXBuildFile; fileRef = C97340361CC7C6EE008F8E8D /* TestFrame.json */; };
-		C9748D2C1CC8C21500752B3F /* SvgTemplate.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9748D2B1CC8C21500752B3F /* SvgTemplate.svg */; };
 		C9748D2E1CC8D6A200752B3F /* TestPaths.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D2D1CC8D6A200752B3F /* TestPaths.json */; };
 		C9748D3A1CC8FC3400752B3F /* Xml2AgcTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D391CC8FC3400752B3F /* Xml2AgcTranslations.json */; };
 		C9748D3C1CC8FC6E00752B3F /* AGCTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = C9748D3B1CC8FC6E00752B3F /* AGCTemplate.json */; };
@@ -39,6 +38,7 @@
 		C99186EB1C8B664A0071A25F /* XMLParserUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186EA1C8B664A0071A25F /* XMLParserUITests.m */; };
 		C99186FA1C8B66760071A25F /* XCode2XD.m in Sources */ = {isa = PBXBuildFile; fileRef = C99186F91C8B66760071A25F /* XCode2XD.m */; };
 		C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */ = {isa = PBXBuildFile; fileRef = C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */; };
+		C9A677DD1CFDDB4D00526147 /* SvgTemplate.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9A677DC1CFDDB4D00526147 /* SvgTemplate.svg */; };
 		C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */; };
 		C9AF2B4F1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */; };
 		C9AF2B541CBFBE76001C39C7 /* TestDropFile.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */; };
@@ -88,7 +88,6 @@
 		C97340311CC78A77008F8E8D /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		C97340321CC7BC78008F8E8D /* TestBigImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestBigImage.json; sourceTree = "<group>"; };
 		C97340361CC7C6EE008F8E8D /* TestFrame.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestFrame.json; sourceTree = "<group>"; };
-		C9748D2B1CC8C21500752B3F /* SvgTemplate.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SvgTemplate.svg; path = ../SvgTemplate.svg; sourceTree = "<group>"; };
 		C9748D2D1CC8D6A200752B3F /* TestPaths.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestPaths.json; sourceTree = "<group>"; };
 		C9748D391CC8FC3400752B3F /* Xml2AgcTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Xml2AgcTranslations.json; sourceTree = "<group>"; };
 		C9748D3B1CC8FC6E00752B3F /* AGCTemplate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AGCTemplate.json; sourceTree = "<group>"; };
@@ -118,6 +117,7 @@
 		C99186F81C8B66760071A25F /* XCode2XD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCode2XD.h; sourceTree = "<group>"; };
 		C99186F91C8B66760071A25F /* XCode2XD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCode2XD.m; sourceTree = "<group>"; };
 		C992FFBC1C9703DB007A57A4 /* myXMLfileColor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfileColor.xml; sourceTree = "<group>"; };
+		C9A677DC1CFDDB4D00526147 /* SvgTemplate.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SvgTemplate.svg; sourceTree = "<group>"; };
 		C9A8B5F01C9AA5F2007BF6B9 /* XMLImages.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = XMLImages.xml; sourceTree = "<group>"; };
 		C9AF2B4E1CBF7F7C001C39C7 /* Test2LabelsInAgcGenerator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Test2LabelsInAgcGenerator.json; sourceTree = "<group>"; };
 		C9AF2B531CBFBE76001C39C7 /* TestDropFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestDropFile.json; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		C98A7BFF1CBE4DB70071E791 /* AgcResources */ = {
 			isa = PBXGroup;
 			children = (
-				C9748D2B1CC8C21500752B3F /* SvgTemplate.svg */,
+				C9A677DC1CFDDB4D00526147 /* SvgTemplate.svg */,
 				C9B0F4041C9C27660005903C /* Button.agc */,
 				C97741D71CEEEDAB0034EBD3 /* MetadataTemplate.xml */,
 				C97741DB1CEEFEB60034EBD3 /* manifest.json */,
@@ -419,11 +419,11 @@
 				C992FFBD1C9703DB007A57A4 /* myXMLfileColor.xml in Resources */,
 				C9B0F4051C9C27660005903C /* Button.agc in Resources */,
 				C97921A71CC4CCC300E487AB /* TestTextGroupShapes.json in Resources */,
-				C9748D2C1CC8C21500752B3F /* SvgTemplate.svg in Resources */,
 				C9730EA21CB66A9B00A10C52 /* Defs.json in Resources */,
 				C97741E01CEF35440034EBD3 /* PathManifest.json in Resources */,
 				C9B02E2A1CC6157000F25875 /* TestMulText.json in Resources */,
 				C9748D3C1CC8FC6E00752B3F /* AGCTemplate.json in Resources */,
+				C9A677DD1CFDDB4D00526147 /* SvgTemplate.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

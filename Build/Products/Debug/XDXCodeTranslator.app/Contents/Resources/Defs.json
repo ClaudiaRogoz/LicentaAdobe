@@ -92,16 +92,15 @@
             },
             "rules" : {
                 "$header.id" : "$rand",
-                "$header.image" : "$PATH $shape.path $name $style.fill.color.value",
+                "$header.image" : "$PATH $shape.path $name $style.fill.color.value $transform",
                 "rect" : {
                     "$transform" : {
-                        "key" : "frame",
-                        "x" : "$tx",
-                        "y" : "$ty"
+                        "key" : "frame"
+                        
                     }
                 },
                 "toString" : ["rect"],
-                "order" : ["rect", "$header.image", "$header.id"]
+                "order" : ["$header.image", "rect", "$header.id"]
             },
             "toString" : ["header", "rules"],
             
@@ -157,7 +156,7 @@
             },
             "rules" : {
                 "$header.id" : "$rand",
-                "$header.image" : "$style.fill.pattern.href",
+                "$header.image" : "$IMAGEPATH name",
                 "rect" : {
                     "$shape" : {
                         "width" : "$GETWIDTH path",

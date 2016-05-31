@@ -23,6 +23,7 @@
 
 /* files format */
 #define SVG             @"svg"
+#define PNG             @"png"
 #define JSON            @"json"
 #define AGC             @"agc"
 #define XML             @"xml"
@@ -53,6 +54,7 @@
 #define OFFSET_PATH     @"offsetArtboards"
 #define UNZIP_PATH  @"/usr/bin/unzip"
 #define ZIP_PATH    @"/usr/bin/zip"
+#define CONVERT_PATH    @"/usr/local/bin/convert"
 #define OPEN_PATH   @"/usr/bin/open"
 #define BUILD_PATH       @"Build"
 #define GRAPHIC_CONTENT @"/resources/graphics/graphicContent.agc"
@@ -79,10 +81,16 @@
 
 #define SVG_INFO    @" d="
 #define SVG_FILL    @"fill: "
+#define SVG_VIEWBOX @"viewBox="
+#define SVG_TRANSLATE   @"transform=\"translate"
 #define SVG_INFO_LEN     4
 #define SVG_FILL_LEN     7
 #define SVG_INFO_END    @"\""
 #define SVG_FILL_END    @";"
+#define CONVERT_DENSITY @"-density"
+#define CONVERT_VALUE   @"1200"
+#define CONVERT_BKG     @"-background"
+#define CONVERT_NONE    @"none"
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"
@@ -201,6 +209,9 @@
 #define LENGTH_DOT  @"length."
 #define COLOR       @"color"
 #define RED         @"red"
+#define XML_RED     @"r"
+#define XML_GREEN   @"g"
+#define XML_BLUE    @"b"
 #define GREEN       @"green"
 #define BLUE        @"blue"
 
@@ -232,6 +243,7 @@
 #define PATH        @"$PATH"
 #define GETWIDTH    @"$GETWIDTH"
 #define GETHEIGHT   @"$GETHEIGHT"
+#define IMAGEPATH   @"$IMAGEPATH"
 #define GETX        @"$x"
 #define GETY        @"$y"
 #define WIDTH_IN_PATH   7

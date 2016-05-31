@@ -11,8 +11,6 @@
 
 int main(int argc, const char * argv[]) {
     
-    /* TODO for -i => import <importProj> <XDFile> */
-    /* TODO for -e => export <XDFile> <exportProj> */
     if (!strcmp(argv[1], HELP)) {
         printOptions();
         return 0;

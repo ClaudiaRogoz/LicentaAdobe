@@ -174,10 +174,12 @@
     
 }
 
--(void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex{
+-(void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex
+           usingViewBox:(NSString *) viewBox translation: (NSString *) translation {
     
     NSError *error;
     NSString *svgTemplate = [[NSBundle mainBundle] pathForResource:SVG_TEMPLATE ofType:SVG];
+    NSLog(@"svgTemplate = %@", svgTemplate);
     NSMutableString *path = [NSMutableString stringWithContentsOfFile:svgTemplate encoding:NSUTF8StringEncoding error:&error];
     long len = [path length];
     
@@ -198,8 +200,24 @@
     finalRange = [path rangeOfString:SVG_INFO_END options:0 range:NSMakeRange(start, end)];
     [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:pathString];
     
-    NSData *fileContents = [path dataUsingEncoding:NSUTF8StringEncoding];
+    /* viewBox replacement */
+    range = [path rangeOfString:SVG_VIEWBOX];
+    start = range.location + [SVG_VIEWBOX length] + 1;
+    end = [path length] - start;
+    finalRange = [path rangeOfString:SVG_INFO_END options:0 range:NSMakeRange(start, end)];
+    [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:viewBox];
     
+    /* translation replacement */
+    range = [path rangeOfString:SVG_TRANSLATE];
+    start = range.location + [SVG_TRANSLATE length];
+    end = [path length] - start;
+    finalRange = [path rangeOfString:SVG_INFO_END options:0 range:NSMakeRange(start, end)];
+    [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:translation];
+    
+    end = [path length] - start;
+   
+    NSData *fileContents = [path dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"Writing to .... %@", filePath);
     /* write to file */
     [[NSFileManager defaultManager] createFileAtPath:filePath
                                             contents:fileContents
@@ -242,21 +260,11 @@
 }
 
 - (NSString *)hexStringForColor:(NSDictionary *)value {
-    CGFloat red = [[value objectForKey:RED] floatValue] /255;
-    CGFloat green = [[value objectForKey:GREEN] floatValue] /255;
-    CGFloat blue = [[value objectForKey:BLUE] floatValue] /255;
     
-    NSColor *color = [NSColor colorWithRed:red
-                                     green:green
-                                      blue:blue
-                                     alpha:1];
-    
-    const CGFloat *components = CGColorGetComponents(color.CGColor);
-    CGFloat r = components[0];
-    CGFloat g = components[1];
-    CGFloat b = components[2];
-    
-    NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X", (int)(r * 255), (int)(g * 255), (int)(b * 255)];
+    int r = [[value objectForKey:XML_RED] intValue];
+    int g = [[value objectForKey:XML_GREEN] intValue];
+    int b = [[value objectForKey:XML_BLUE] intValue];
+    NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X", (int)(r ), (int)(g ), (int)(b )];
     return hexString;
 }
 
@@ -281,7 +289,7 @@
     
     if ([value isKindOfClass:[NSDictionary class]]) {
         /* only in case of color transformation to hex */
-        return [self hexStringForColor:(NSDictionary*)value];
+        return [self hexStringForColor:value];
     }
     
     return value;
@@ -293,9 +301,17 @@
     return [[[[interactions objectForKey:agcId] objectAtIndex:0] objectForKey:PROPERTIES] objectForKey:DESTINATION];
 }
 
+
+- (void) computePath {
+    //TODO
+    
+
+
+}
+
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
     
-    
+    NSLog(@"InitVaqlue = %@", initValue);
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
         id interactions = [interactionsDict objectForKey:INTERACTIONS];
@@ -332,16 +348,67 @@
         
         NSRange range = [initValue rangeOfString:PATH];
         NSArray *paths = [[initValue substringFromIndex:range.location + PATH.length + 1] componentsSeparatedByString:SPACE];
-        
+        NSString *randName = [[[NSUUID UUID] UUIDString] substringToIndex:8];
         NSString *pathStr = [self computeValue:[paths objectAtIndex:0] forDict:agcDict];
-        NSString *fileName = [self computeValue:[paths objectAtIndex:1] forDict:agcDict];
+        NSString *fileName = [[self computeValue:[paths objectAtIndex:1] forDict:agcDict] stringByAppendingString:randName];
         NSString *hexColor = [self computeValue:[paths objectAtIndex:2] forDict:agcDict];
+        id transform = [agcDict objectForKey:[[paths objectAtIndex:3]substringFromIndex:1]];
+        int transformTx = [[transform objectForKey:TX] intValue];
+        int transformTy = [[transform objectForKey:TY] intValue];
         
         fileName = [fileName stringByAppendingFormat:@"%@%@", DOT, SVG];
+        fileName = [[self getProjHomePath] stringByAppendingPathComponent:fileName];
         
-        [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor];
+        id maxMinPath = [[[[[[[[[pathStr componentsSeparatedByString:@"L"] componentsJoinedByString:@" "]
+                                componentsSeparatedByString:@"M"] componentsJoinedByString:@" "]
+                                componentsSeparatedByString:@"C"] componentsJoinedByString:@" "]
+                                componentsSeparatedByString:@"Z"] componentsJoinedByString:@""]
+                                componentsSeparatedByString:@" "];
+
+        float minx = INT_MAX - 1;
+        float maxx = INT_MIN + 1;
+        float miny = INT_MAX - 1;
+        float maxy = INT_MIN + 1;
+        for (int i = 0; i< [maxMinPath count]; ) {
+
+            if ([[maxMinPath objectAtIndex:i] isEqualToString:@""] &&
+                i + 1 < [maxMinPath count] &&
+                [[maxMinPath objectAtIndex:i + 1] isEqualToString:@""]) {
+                i += 2;
+                continue;
+            } else if ([[maxMinPath objectAtIndex:i] isEqualToString:@""]) {
+                i += 1;
+                continue;
+            }
+            float x = [[maxMinPath objectAtIndex:i] floatValue];
+            float y = [[maxMinPath objectAtIndex:i +1] floatValue];
+            
+            if (x <= minx)  {
+                minx = x;
+            }
+            if (y <= miny) {
+                miny = y;
+            }
+            if (x >= maxx) {
+                maxx = x ;
+                
+            }
+            if ( y >= maxy) {
+                maxy = y;
+                
+            }
+            i += 2;
+
+        }
+
+        NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", minx + transformTx, miny + transformTy, maxx - minx, maxy - miny];
+        NSString *translate = [NSString stringWithFormat:@"(%d %d)", transformTx, transformTy];
         
-        return  fileName;
+        [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor usingViewBox:viewBox translation: translate];
+        
+        /* convert the svg file into a png file */
+        NSString *pngName = [Helper convertSvgToPng:fileName];
+        return  pngName;
         
     } else if ([initValue isEqualToString:[NSString stringWithFormat:@"$%@", DESTINATION]]){
         return destinationId;
@@ -870,7 +937,7 @@
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
     
     for (id key in goToAgc) {
-        //NSLog(@"key = %@", key);
+        
         id nodeValue;
         
         if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:SCENENO]) {
@@ -897,7 +964,7 @@
         }
         
         *values = nodeValue;
-        //NSLog(@"*values = %@", *values);
+       
     }
     
 }
@@ -1034,6 +1101,7 @@
                      * esp for type = shape
                      **/
                     type = [self getShapeType:type object:object];
+                    
                     if (![type isKindOfClass:[NSString class]])
                         continue;
                     
