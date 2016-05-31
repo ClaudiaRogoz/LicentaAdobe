@@ -87,8 +87,7 @@
     NSError *error;
     NSString *mainBundle = [self getProjHomePath];
     NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_EXPORT_PATH];
-    NSLog(@"export %@", unzipped_xd);
-    NSLog(@"xdPaqth = %@", [self xdPath]);
+
     [Helper unzipXD:[self xdPath] atPath:unzipped_xd];
     
     NSMutableDictionary * agcTemplate = [[NSMutableDictionary alloc] init];
@@ -110,23 +109,17 @@
         data = [NSData dataWithContentsOfFile:file];
         NSMutableDictionary *temp = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         id value = [[temp objectForKey:CHILDREN] objectAtIndex:0];
-        //id noArtboard = [temp objectForKey:REF];
-        //id artboard = [[agcTemplate objectForKey:ARTBOARDS] objectForKey:noArtboard];
-        //int place = [[artboard objectForKey:XARTBOARD] intValue]/ OFFSETBOARD;
-        NSLog(@"Place = %@", value);
+
         [self addChild:[self deepCopy:value] to:&agcTemplate];
 
     }
     
     NSString *interactionsJson = [INTERACTIONS stringByAppendingPathComponent:[INTERACTIONS stringByAppendingPathExtension:JSON]];
     NSString *interactionsDir = [unzipped_xd stringByAppendingPathComponent:interactionsJson];
-    NSLog(@"Interactions = %@", interactionsDir);
+
     data = [NSData dataWithContentsOfFile:interactionsDir];
     interactionsDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    //TODO process homeArtboard!!!
-    //interactionsDict = [interactionsDict objectForKey:INTERACTIONS];
-    
-    NSLog(@"intera = %@", interactionsDict);
+
     
     
     return agcTemplate;
@@ -384,7 +377,7 @@
     
     for (id object in order) {
         id value = [dict objectForKey:object];
-        NSLog(@"value = %@ %@", value, uuidMap);
+
         if ([uuidMap objectForKey:value]) {
             value = [uuidMap objectForKey:value];
         }
@@ -423,7 +416,7 @@
         NSString *value = [*initDict objectForKey:key];
         
         BOOL toTransform = [value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM];
-        NSLog(@"valuee = %@", value);
+
         if (toTransform) {
             
             [*initDict setObject:[paramDict objectForKey:key] forKey:key];
@@ -503,8 +496,6 @@
 }
 
 - (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize {
-    
-    NSLog(@"Label = %@ %d", label, textLen);
 
     NSString *firstLine = [label substringToIndex:textLen];
     
@@ -888,7 +879,7 @@
         } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:ARTBOARDSCENE]) {
             NSString *artboard = [NSString stringWithFormat:@"artboard%d", sceneNo +1];
             nodeValue = [*values objectForKey:artboard];
-            NSLog(@"SceneNo = %d", sceneNo);
+           
             /* obtain the startX and startY for the current scene */
             startXArtboard = [[nodeValue objectForKey:XARTBOARD] intValue];
             startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
@@ -933,38 +924,37 @@
     }
     
     if (!cond && [rule isEqualToString:CONNECTIONS]) {
-        NSLog(@"InteractionsConn %@", destinationId);
+
         id tempSegue = [objDict objectForKey:SEGUE];
-        NSLog(@"tempSegue = %@", tempSegue);
+
         id segue = [self deepCopy:tempSegue];
         for (id key in [segue allKeys]) {
             if (![[segue objectForKey:key] isKindOfClass:[NSString class]] || ![[segue objectForKey:key] hasPrefix:TOTRANSFORM])
                 continue;
             id value = [self computeValue:[segue objectForKey:key] forDict:[[NSDictionary alloc] init]];
             
-            NSLog(@"Seguw = %@ %@", key, value);
             [tempSegue setObject:value forKey:key];
-            NSLog(@"temp = %@", tempSegue);
+
         }
-        NSLog(@"tt = %@", tempSegue);
+
     }
-    NSLog(@"ObjDict = %@", objDict);
+    
     // now changing based on params
     if (!cond) {
         //just generate the tag; no other transformations are needed
         return objDict;
     }
-    NSLog(@"Still here");
+    
     //get values from agc in order to transfer them into xml
     for (id condition in cond) {
         id values = agcParams;
         
         NSArray *goToAgc = [self splitVariable:condition];
-        //NSLog(@"goToAgc = %@", goToAgc);
+        
         [self getDict:&values fromConditions:goToAgc];
         
         NSMutableDictionary *dictValue = values;
-       // NSLog(@"DictValues = %@", dictValue);
+       
         BOOL isEmpty = ([dictValue count] == 0);
         if (isEmpty && !dictValue) {
             //use default values!!!
@@ -991,7 +981,7 @@
                 
                 id tmp = dictValue;
                 id firstLine;
-                NSLog(@"textLines = %@", tmp);
+                
                 if (textLines == counter && [condition isEqualToString:TEXT_LINES]) {
                     firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
                     textLen = [firstLine intValue];
@@ -1079,7 +1069,7 @@
     
     [self processTemplateDict:templateDict agcDict:button finalDict:button ofType:type];
     transformSize = true;
-    NSLog(@"TempDct = %@ type = %@", *templateDict, type);
+
 }
 
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
@@ -1158,14 +1148,13 @@
         
     }
     if (transformInteraction) {
-        NSLog(@"Create connections toDestination = %@ %@ type = %@", destinationId, *templateDict, type);
-        //TODO transform to button
+        
         id value = *templateDict;
         id button = [[agcToXmlTemplate objectForKey:BUTTON_SEGUE] objectForKey:type];
-        NSLog(@"Segue = %@", [agcToXmlTemplate objectForKey:BUTTON_SEGUE]);
+       
         if (button) {
             id genericButton = [[self deepCopy:button] objectForKey:BUTTON];
-            NSLog(@"GenericButton= %@ %@", value, genericButton);
+            
             [self transformIntoButton: &genericButton usingTemplate:value ofType:BUTTON];
             *templateDict = genericButton;
             changeType = BUTTON;
@@ -1173,7 +1162,7 @@
     } else {
         changeType = type;
     }
-    NSLog(@"finalDict %@", finalDict);
+
     return finalDict;
 }
 
@@ -1198,9 +1187,9 @@
 
 -(void) copyImage:(NSImage *)image toProject:(NSString *)fileName {
     
-    NSString *resourcesXmlProj = [NSString stringWithFormat:@"%@%@/%@",[self xmlPath], RESOURCES_PATH, fileName];
-    NSString *resourcesXmlRes = [NSString stringWithFormat:@"%@%@",[self xmlPath], RESOURCES_PATH];
-    
+    NSString *resourcesXmlRes = [[self xmlPath] stringByAppendingPathComponent:RESOURCES_PATH];
+    NSString *resourcesXmlProj = [resourcesXmlRes stringByAppendingPathComponent:fileName];
+    NSLog(@"Writing image at %@ %@", [self xmlPath], resourcesXmlProj);
     BOOL isDir;
     NSError *error;
     
@@ -1220,7 +1209,7 @@
 -(void) processImage:(id) dict key:(id) key {
     
     id attr = [dict objectForKey:key];
-    NSLog(@"Wihii attr = %@", attr);
+    
     if ([attr isKindOfClass:[NSDictionary class]] && [attr objectForKey:ISIMAGE]) {
         /* add image in the resources tag */
         NSString * href = [attr objectForKey:ISIMAGE];
@@ -1248,7 +1237,7 @@
         
         
         NSString *str = [self toString:imageDict name:ISIMAGE isLeaf:TRUE];
-        NSLog(@"STRSTR %@ %@",str, dict);
+       
         id header = [dict objectForKey:HEADER];
         id state = [dict objectForKey:STATE];
         if (header)
@@ -1259,7 +1248,7 @@
         /* insert this tag into resourcesDict
          * only if this resource was not prev added */
         if ([resourcesDict rangeOfString:str].location == NSNotFound) {
-            NSLog(@"INSERTED");
+           
             [resourcesDict appendString:str];
         }
         
@@ -1336,13 +1325,15 @@
     
     if (!setInitial) {
         [*finalString appendString: initialArtboard];
-        [uuidMap setObject:initialArtboard forKey:sceneId];
+        if (sceneId != nil)
+            [uuidMap setObject:initialArtboard forKey:sceneId];
         setInitial = true;
     }
     else {
         id sceneID = [[NSUUID UUID] UUIDString];
         [*finalString appendString: sceneID];
-        [uuidMap setObject:sceneID forKey:sceneId];
+        if (sceneId != nil)
+            [uuidMap setObject:sceneID forKey:sceneId];
     }
 
     [*finalString appendString: SCENEHEADERC];
@@ -1352,7 +1343,6 @@
     [*finalString appendString: SCENEHEADERE];
     id content = [self parseToString:*finalString dict:dict name: ARTBOARD];
     
-    NSLog(@"Content = %@", content);
     [*finalString appendString: content];
     [*finalString appendString: XMLVIEWF];
     [*finalString appendString:XMLFOOTERA];
@@ -1383,7 +1373,7 @@
     for (id node in [uuidMap allKeys]) {
         if (![node hasPrefix:NODE])
             continue;
-        NSLog(@"Node = %@ %@", node, [uuidMap objectForKey:node]);
+        
         id value = [uuidMap objectForKey:node];
         xmlString = [xmlString stringByReplacingOccurrencesOfString:node withString:value];
     }
@@ -1412,11 +1402,12 @@
         finalString = [[NSMutableString alloc] init];
         
         dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
-        NSLog(@"Art  = %@", dict);
+        
         id artScene = [[typeAgcObject objectForKey:ARTBOARDS] objectForKey:[NSString stringWithFormat:@"%@%d", ART_SCENE, sceneNo + 1]];
-       NSLog(@"ArtScene = %d %@", sceneNo, [[typeAgcObject objectForKey:CHILDREN] objectAtIndex:sceneNo]);
+       
         id sceneId = [[[typeAgcObject objectForKey:CHILDREN] objectAtIndex:sceneNo] objectForKey:ID];
-       int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
+        
+        int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
 
        if (offset == 0)
            setInitial = false;
@@ -1444,7 +1435,7 @@
     xmlHeader =  [self surroundWithHeader:XMLHEADERA footer:XMLHEADERB string:initialArtboard];
     xmlFile = [self surroundWithHeader:xmlHeader footer:stringFooter string:xmlGen];
     xmlFile = [self replaceConnections:xmlFile];
-    NSLog(@"xmlFile %@", xmlFile);
+    
     [self writeXmlString:xmlFile];
     
     
