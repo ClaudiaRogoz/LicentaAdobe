@@ -91,6 +91,8 @@
 #define CONVERT_VALUE   @"1200"
 #define CONVERT_BKG     @"-background"
 #define CONVERT_NONE    @"none"
+#define CONVERT_FILL    @"-fill"
+
 
 #define RANDOM @"$rand"
 #define SCENENO @"$sceneNo"

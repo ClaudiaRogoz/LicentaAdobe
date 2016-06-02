@@ -348,9 +348,10 @@
         
         NSRange range = [initValue rangeOfString:PATH];
         NSArray *paths = [[initValue substringFromIndex:range.location + PATH.length + 1] componentsSeparatedByString:SPACE];
-        NSString *randName = [[[NSUUID UUID] UUIDString] substringToIndex:8];
+        
         NSString *pathStr = [self computeValue:[paths objectAtIndex:0] forDict:agcDict];
-        NSString *fileName = [[self computeValue:[paths objectAtIndex:1] forDict:agcDict] stringByAppendingString:randName];
+        NSString *uniqName = [Helper computeSha1:pathStr];
+        NSString *fileName = [[self computeValue:[paths objectAtIndex:1] forDict:agcDict] stringByAppendingString:uniqName];
         NSString *hexColor = [self computeValue:[paths objectAtIndex:2] forDict:agcDict];
         id transform = [agcDict objectForKey:[[paths objectAtIndex:3]substringFromIndex:1]];
         int transformTx = [[transform objectForKey:TX] intValue];
@@ -407,7 +408,7 @@
         [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor usingViewBox:viewBox translation: translate];
         
         /* convert the svg file into a png file */
-        NSString *pngName = [Helper convertSvgToPng:fileName];
+        NSString *pngName = [Helper convertSvgToPng:fileName withFill:hexColor];
         return  pngName;
         
     } else if ([initValue isEqualToString:[NSString stringWithFormat:@"$%@", DESTINATION]]){

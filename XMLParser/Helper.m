@@ -195,18 +195,19 @@
 
 }
 
-+ (NSString *) convertSvgToPng:(NSString *) svgName {
++ (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor{
 
     NSString *pngName = [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
     NSTask *task = [[NSTask alloc] init];
-
+    
     task.launchPath = @"/usr/local/bin/convert";
-    task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_BKG, CONVERT_NONE, svgName, pngName];
+    task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, [NSString  stringWithFormat:@"#%@", hexColor], CONVERT_BKG, CONVERT_NONE, svgName, pngName];
 
     [task launch];
     [task waitUntilExit];
     
     NSLog(@"[Task done] Export png at %@ %hhd", pngName, [[NSFileManager defaultManager] fileExistsAtPath:pngName]);
+    
     return pngName;
 
 }

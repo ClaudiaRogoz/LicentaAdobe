@@ -161,7 +161,7 @@ const NSString *xmlEndScene = @"</scene";
     
 }
 
--(NSString*) computeSha1:(NSString*)input
++(NSString*) computeSha1:(NSString*)input
 {
     const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:input.length];
@@ -203,7 +203,7 @@ const NSString *xmlEndScene = @"</scene";
         //NSLog(@"Length = %lu", offset);
         NSString *iStr = [NSString stringWithFormat:@"%d", i];
         NSString *xmlScene = [arrayOfScenes objectAtIndex:i];
-        [shaList setValue:[self computeSha1:xmlScene] forKey:iStr] ;
+        [shaList setValue:[Helper computeSha1:xmlScene] forKey:iStr] ;
         [offsetArtboards setObject:[NSNumber numberWithLong:offset]forKey:iStr];
         finalXml = [finalXml stringByAppendingString:xmlScene];
         
@@ -247,7 +247,7 @@ const NSString *xmlEndScene = @"</scene";
         
         
         NSString *content = [NSString stringWithContentsOfFile:newArtboards usedEncoding:&encoding error:&error];
-        NSString *jsonHash = [self computeSha1:content];
+        NSString *jsonHash = [Helper computeSha1:content];
         
         if (hashArtboards && [hashArtboards objectForKey:jsonHash]) {
             int prevArtNo = [[hashArtboards objectForKey:jsonHash] intValue];
