@@ -95,7 +95,11 @@
                 "$header.image" : "$PATH $shape.path $name $style.fill.color.value $transform",
                 "rect" : {
                     "$transform" : {
-                        "key" : "frame"
+                        "key" : "frame",
+                        "x" : "$pathx",
+                        "y" : "$pathy",
+                        "width" : "$path_width",
+                        "height" : "$path_height"
                         
                     }
                 },

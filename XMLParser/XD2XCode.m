@@ -402,6 +402,11 @@
 
         }
 
+        path_x = minx + transformTx;
+        path_y = miny + transformTy;
+        path_width = maxx - minx;
+        path_height = maxy - miny;
+        
         NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", minx + transformTx, miny + transformTy, maxx - minx, maxy - miny];
         NSString *translate = [NSString stringWithFormat:@"(%d %d)", transformTx, transformTy];
         
@@ -504,7 +509,7 @@
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         f.numberStyle = NSNumberFormatterDecimalStyle;
         NSNumber *nr = [f numberFromString: width];
-        float number = [self changeSize:[nr intValue] key:HEIGHT];
+        float number = [self changeSize:[nr intValue] key:HEIGHT preserveRatio:false];
         return [NSNumber numberWithInt:number];
         
     }
@@ -516,7 +521,7 @@
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *nr = [f numberFromString: height];
-    float number = [self changeSize:[nr intValue] key:WIDTH];
+    float number = [self changeSize:[nr intValue] key:WIDTH preserveRatio:false];
     return [NSNumber numberWithInt:number];
     
 
@@ -529,22 +534,36 @@
 -(BOOL) isOfTypeScale:(NSString *)key object:(NSString *) type {
     return [[transformObjects objectForKey:SCALE] objectForKey:key] && [[transformObjects objectForKey:SCALE] objectForKey:type];
 }
+
 -(BOOL) isOfTypeSize:(NSString *)key {
     return [[transformObjects objectForKey:SIZE] objectForKey:key] != nil;
 }
 
+-(BOOL) isOfTypePath:(NSString *)value {
+    return [value isEqualToString: PATH_X] || [value isEqualToString: PATH_Y]  || [value isEqualToString: PATH_WIDTH]  || [value isEqualToString: PATH_HEIGHT] ;
+}
 - (BOOL) isTextFrame:(NSString *) tvalue templateDict:(NSMutableDictionary *) objDict {
     return [tvalue isEqualToString:SIZE] && ![[objDict objectForKey:HEIGHT] isEqualToString:RAWTEXT];
 }
 
-- (float) changeSize:(float) initValue key:(NSString *)key {
+- (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio{
     
     float translatedValue = initValue;
     if (!transformSize) {
         return translatedValue;
     }
+    
     float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
     float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
+    float widthScaleFactor = xScaleFactor;
+    float heightScalefactor = yScaleFactor;
+    
+    float ratio = MIN(xScaleFactor,yScaleFactor);
+    
+    if (preserveRatio) {
+        widthScaleFactor = ratio;
+        heightScalefactor = ratio;
+    }
     
     if ([key isEqualToString:XARTBOARD]) {
         translatedValue = initValue - startXArtboard;
@@ -553,11 +572,12 @@
     else if ([key isEqualToString:YARTBOARD]) {
         translatedValue = initValue - startYArtboard;
         translatedValue = translatedValue * yScaleFactor;
+        
     } else if ([key isEqualToString:WIDTH]) {
-        translatedValue = initValue * xScaleFactor;
+        translatedValue = initValue * widthScaleFactor;
     }
     else if ([key isEqualToString:HEIGHT]) {
-        translatedValue = initValue * yScaleFactor;
+        translatedValue = initValue * heightScalefactor;
     }
     
     return translatedValue;
@@ -587,10 +607,27 @@
 
 }
 
+
+- (NSNumber *) processPath:(NSString *)value ofType:(NSString *) key {
+    
+    float initValue = 0;
+    if ([value isEqualToString: PATH_X])
+        initValue = path_x;
+    else if ([value isEqualToString: PATH_Y])
+        initValue =path_y;
+    else if ([value isEqualToString: PATH_WIDTH])
+        initValue =path_width;
+    else
+        initValue =path_height;
+    
+    float translatedValue = [self changeSize:initValue key:key preserveRatio:true];
+    return [NSNumber numberWithFloat:translatedValue];
+}
+
 - (void) merge:(NSMutableDictionary *) dictValue withDict:(NSMutableDictionary **) objDict
    withDefDict:(NSMutableDictionary *)defaultDict forValue:(NSString *) value key:(NSString *) key {
     
-    
+    NSLog(@"key = %@ %@", key, value);
     if (![value hasPrefix:TOTRANSFORM]) {
         [*objDict setValue:value forKey:key]; /* no need for transformation */
     } else if ([dictValue objectForKey:[[self splitVariable:value] objectAtIndex:0]]) {
@@ -601,7 +638,7 @@
             /* changing size here */
             
             float initValue = [[dictValue objectForKey:tvalue] floatValue];
-            float translatedValue = [self changeSize:initValue key:key];
+            float translatedValue = [self changeSize:initValue key:key preserveRatio:false];
             
             [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
         } else {
@@ -632,6 +669,8 @@
     } else if ([value hasPrefix:GETHEIGHT] || [value hasPrefix:GETWIDTH]) {
         NSNumber *size = [self getFrameSizeFromPath:value dict:dictValue];
         [*objDict setObject:size forKey:key];
+    } else if ([self isOfTypePath:value]) {
+        [*objDict setObject:[self processPath:value ofType:key] forKey:key];
     } else {/* use default values */
         [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
     }
@@ -667,7 +706,7 @@
                 if ([self isOfTypeScale:key object:type]) {
                     
                     float initValue = [value floatValue];
-                    float translatedValue = [self changeSize:initValue key:key];
+                    float translatedValue = [self changeSize:initValue key:key preserveRatio:false];
                     [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
                 }

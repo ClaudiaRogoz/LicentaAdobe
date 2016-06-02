@@ -77,6 +77,12 @@
     bool transformSize;
     NSString *changeType;
     
+    /* used for path (we obtain the size info from svg & png files,
+     * the info is put into the "rect" tag ) */
+    float path_x;
+    float path_y;
+    float path_width;
+    float path_height;
 }
 
 /* agc & xml file paths */

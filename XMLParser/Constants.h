@@ -241,8 +241,15 @@
 #define SAVED_LINES @"#numberOfLines"
 #define SAVED_POINTSIZE @"#pointSize"
 #define NO_LINES    @"numberOfLines"
+
+
+/* used for paths (svg) */
 #define GETMAX      @"$MAX"
 #define PATH        @"$PATH"
+#define PATH_X      @"$pathx"
+#define PATH_Y      @"$pathy"
+#define PATH_WIDTH  @"$path_width"
+#define PATH_HEIGHT @"$path_height"
 #define GETWIDTH    @"$GETWIDTH"
 #define GETHEIGHT   @"$GETHEIGHT"
 #define IMAGEPATH   @"$IMAGEPATH"
@@ -250,6 +257,8 @@
 #define GETY        @"$y"
 #define WIDTH_IN_PATH   7
 #define HEIGHT_IN_PATH  8
+
+
 /* XML2AGC const */
 #define FRAME_X    @"$rect.x"
 #define FRAME_Y    @"$rect.y"
