@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 128">
+<defs>
+<style>
+.cls-1 {
+fill: #fff;
+stroke: #95989a;
+stroke-width: 1px;
+}
+</style>
+</defs>
+<line x1="0" y1="0" x2="64" y2="128" style="stroke:#0CAADC;stroke-width:6" />
+</svg>

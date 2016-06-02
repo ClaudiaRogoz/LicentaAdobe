@@ -212,6 +212,23 @@
 
 }
 
++ (NSString *) convertSvgLineToPng:(NSString *) svgName {
+    
+    NSString *pngName = [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
+    NSTask *task = [[NSTask alloc] init];
+    
+    task.launchPath = @"/usr/local/bin/convert";
+    task.arguments = @[svgName, pngName];
+    
+    [task launch];
+    [task waitUntilExit];
+    
+    NSLog(@"[Task done] Export png at %@ %hhd", pngName, [[NSFileManager defaultManager] fileExistsAtPath:pngName]);
+    
+    return pngName;
+    
+}
+
 + (void) unzipXD:(NSString *)path atPath:(NSString*) unzipped_xd {
     
     NSError *error;

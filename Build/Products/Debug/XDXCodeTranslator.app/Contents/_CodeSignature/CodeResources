@@ -12,7 +12,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9Buq4EJWWlk7g4VNy8eCnmOJvkQ=
+			LwADLXNsVBHW4Fj69Q1503SGR9I=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -21,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DuF7bKtP8dpd/SaviZln1Z0IIgw=
+			adOwm5qSj6ZIscs3NtfaqPyVvjc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -30,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CIfgtqgF74ZjvA6u6TL13FMkguM=
+			8po2D9vzXdqqyDsC9toW3qEXa3c=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		iwVC4RpnsY+APrTxW7dNe/gdVaw=
+		JURqJyAJPoP8P+5oLcH0OjBdX98=
 		</data>
 		<key>Resources/MetadataTemplate.xml</key>
 		<data>
@@ -70,11 +70,15 @@
 		</data>
 		<key>Resources/Rules.json</key>
 		<data>
-		th5JsuPAB2wdCzxhCBSUAETqM7M=
+		HxKGMF+w/VGmIhFkio7TOEOJKf4=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
 		4Vv5kPeIkk8qbXJqendgGaSLjc8=
+		</data>
+		<key>Resources/SvgLineTemplate.svg</key>
+		<data>
+		Wa1gZs6JVncwg8y6ZT+SEVLvxdo=
 		</data>
 		<key>Resources/SvgTemplate.svg</key>
 		<data>
@@ -182,11 +186,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9Buq4EJWWlk7g4VNy8eCnmOJvkQ=
+			LwADLXNsVBHW4Fj69Q1503SGR9I=
 			</data>
 			<key>hash2</key>
 			<data>
-			LU2FEPpBENshbYOkTu7J2vPemCgDu14CrOKW33i8bFM=
+			PnY8HH4hmkg6UdEy13pwoQ1wDh+LwEnum1Ww8aegYiY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -195,11 +199,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DuF7bKtP8dpd/SaviZln1Z0IIgw=
+			adOwm5qSj6ZIscs3NtfaqPyVvjc=
 			</data>
 			<key>hash2</key>
 			<data>
-			0eU7sPPLtsGdv7xNHP9M3PzOWU3ofBYNg4wCEYSJrIE=
+			b16FdIsDPxJnnZ30/by/ZvJHrqfZIetYxS0ZzbZV0fo=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -208,11 +212,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CIfgtqgF74ZjvA6u6TL13FMkguM=
+			8po2D9vzXdqqyDsC9toW3qEXa3c=
 			</data>
 			<key>hash2</key>
 			<data>
-			k9JYI/9ae1AaCWSy2RuBy6TBw9pDeR/ybU+yVnQdkRI=
+			+qC/BTkTqYvvGKH/CeIC4JWZWOQS+DjLgDTYL/5Q2cQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -245,11 +249,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iwVC4RpnsY+APrTxW7dNe/gdVaw=
+			JURqJyAJPoP8P+5oLcH0OjBdX98=
 			</data>
 			<key>hash2</key>
 			<data>
-			UFXvaJQEISkSptMyjCXFMvqQr9YIREffQjmsu/fG9bU=
+			AcEc/e0FfWkB3lCD2AGOZqwxTmvO4AH62ppTJd6dGC8=
 			</data>
 		</dict>
 		<key>Resources/MetadataTemplate.xml</key>
@@ -300,11 +304,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			th5JsuPAB2wdCzxhCBSUAETqM7M=
+			HxKGMF+w/VGmIhFkio7TOEOJKf4=
 			</data>
 			<key>hash2</key>
 			<data>
-			KGJxfYiDvMqFJpV5Z0TPX3LZLR8Rea2/iEWJf1q42YY=
+			QirS9fSDM5AOcmaNQTt/fWWEluLlaC8EvpxsmkhNa0Y=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>
@@ -316,6 +320,17 @@
 			<key>hash2</key>
 			<data>
 			Mhjio6lUxn0sylLerqP+8wkCaY7T9s0IRSuxmwc0lBk=
+			</data>
+		</dict>
+		<key>Resources/SvgLineTemplate.svg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Wa1gZs6JVncwg8y6ZT+SEVLvxdo=
+			</data>
+			<key>hash2</key>
+			<data>
+			bbX8JHHGsjxCK6UDXHIf2X2qK3Uaq2Z0Rvp12kZR/Vg=
 			</data>
 		</dict>
 		<key>Resources/SvgTemplate.svg</key>

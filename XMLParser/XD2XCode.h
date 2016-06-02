@@ -16,6 +16,12 @@
  *  Parses AGC code; Generates XML tags for XCODE
  **/
 
+typedef enum NSTextType : NSUInteger {
+    kareaText,
+    kpositionedText
+} NSTextType;
+
+
 @interface XD2XCode : NSObject
 {
     /* translation schema between agc and xml
@@ -83,6 +89,9 @@
     float path_y;
     float path_width;
     float path_height;
+    
+    NSTextType textType;
+
 }
 
 /* agc & xml file paths */

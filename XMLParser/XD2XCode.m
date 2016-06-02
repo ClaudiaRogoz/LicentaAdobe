@@ -174,12 +174,42 @@
     
 }
 
--(void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex
+- (void) generateSVGFile:(NSString *)filePath FromLine:(NSString *)pathString usingViewBox: (NSString *) viewBox {
+    
+    NSError *error;
+    NSString *svgTemplate = [[NSBundle mainBundle] pathForResource:LINE_TEMPLATE ofType:SVG];
+    NSMutableString *path = [NSMutableString stringWithContentsOfFile:svgTemplate encoding:NSUTF8StringEncoding error:&error];
+    NSLog(@"SvgTemplate = %@ %@", svgTemplate, path);
+    
+    NSRange range = [path rangeOfString:SVG_VIEWBOX];
+    long start = range.location + SVG_FILL_LEN;
+    start = range.location + [SVG_VIEWBOX length] + 1;
+    long end = [path length] - start;
+    NSRange finalRange = [path rangeOfString:SVG_INFO_END options:0 range:NSMakeRange(start, end)];
+    [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:viewBox];
+    
+    /* translation replacement */
+    range = [path rangeOfString:SVG_LINE];
+    start = range.location + [SVG_LINE length];
+    end = [path length] - start;
+    finalRange = [path rangeOfString:SVG_END options:0 range:NSMakeRange(start, end)];
+    [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:pathString];
+    
+    
+    NSData *fileContents = [path dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"Writing Line to .... %@", path);
+    /* write to file */
+    [[NSFileManager defaultManager] createFileAtPath:filePath
+                                            contents:fileContents
+                                          attributes:nil];
+}
+
+- (void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex
            usingViewBox:(NSString *) viewBox translation: (NSString *) translation {
     
     NSError *error;
     NSString *svgTemplate = [[NSBundle mainBundle] pathForResource:SVG_TEMPLATE ofType:SVG];
-    NSLog(@"svgTemplate = %@", svgTemplate);
+    
     NSMutableString *path = [NSMutableString stringWithContentsOfFile:svgTemplate encoding:NSUTF8StringEncoding error:&error];
     long len = [path length];
     
@@ -311,7 +341,7 @@
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
     
-    NSLog(@"InitVaqlue = %@", initValue);
+    
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
         id interactions = [interactionsDict objectForKey:INTERACTIONS];
@@ -414,6 +444,42 @@
         
         /* convert the svg file into a png file */
         NSString *pngName = [Helper convertSvgToPng:fileName withFill:hexColor];
+        return  pngName;
+        
+    } else if ([initValue hasPrefix:LINE]){
+        NSRange range = [initValue rangeOfString:LINE];
+        NSArray *paths = [[initValue substringFromIndex:range.location + LINE.length + 1] componentsSeparatedByString:SPACE];
+        
+        NSString *fileName = [self computeValue:[paths objectAtIndex:0] forDict:agcDict];
+        
+        NSString *fillColor = [self computeValue:[paths objectAtIndex:1] forDict:agcDict];
+       
+        NSString *stroke = [self computeValue:[paths objectAtIndex:2] forDict:agcDict];
+        NSLog(@"stroke = %@", stroke);
+        id transform = [agcDict objectForKey:[[paths objectAtIndex:3]substringFromIndex:1]];
+        id shape = [agcDict objectForKey:[[paths objectAtIndex:4]substringFromIndex:1]];
+        NSLog(@"Sahpe = %@", shape);
+        float x1 = [[shape objectForKey:X1] floatValue];
+        float x2 = [[shape objectForKey:X2] floatValue];
+        float y1 = [[shape objectForKey:Y1] floatValue];
+        float y2 = [[shape objectForKey:Y2] floatValue];
+        NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", x1, y1, x2, y2];
+        path_x = [[transform objectForKey:TX] intValue];
+        path_y = [[transform objectForKey:TY] intValue];
+        path_width = x2 - x1;
+        path_height = y2 - y1;
+        NSString *style = [NSString stringWithFormat:@"stroke:%@;stroke-width:%d", fillColor, [stroke intValue]];
+        
+        NSString *line = [NSString stringWithFormat:@"x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\"", x1, y1, x2, y2];
+        NSString *pathLine = [NSString stringWithFormat:@"%@ style=\"%@\"",line, style];
+        
+        fileName = [[fileName stringByAppendingString:[Helper computeSha1:pathLine]] stringByAppendingPathExtension:SVG];
+        
+        fileName = [[self getProjHomePath] stringByAppendingPathComponent:fileName];
+        [self generateSVGFile:fileName FromLine:pathLine usingViewBox:viewBox];
+        
+        /* convert the svg file into a png file */
+        NSString *pngName = [Helper convertSvgLineToPng:fileName];
         return  pngName;
         
     } else if ([initValue isEqualToString:[NSString stringWithFormat:@"$%@", DESTINATION]]){
@@ -539,16 +605,26 @@
     return [[transformObjects objectForKey:SIZE] objectForKey:key] != nil;
 }
 
+-(BOOL) isOfTypeLine:(NSString *)value {
+    return [value isEqualToString: LINE_X] || [value isEqualToString: LINE_Y]  || [value isEqualToString: LINE_WIDTH]  || [value isEqualToString: LINE_HEIGHT] ;
+}
+
 -(BOOL) isOfTypePath:(NSString *)value {
     return [value isEqualToString: PATH_X] || [value isEqualToString: PATH_Y]  || [value isEqualToString: PATH_WIDTH]  || [value isEqualToString: PATH_HEIGHT] ;
 }
+
+- (BOOL) isOfTypeLabel: (NSString *) value {
+    return [value hasPrefix:GET_TYPE];
+}
+
 - (BOOL) isTextFrame:(NSString *) tvalue templateDict:(NSMutableDictionary *) objDict {
     return [tvalue isEqualToString:SIZE] && ![[objDict objectForKey:HEIGHT] isEqualToString:RAWTEXT];
 }
 
-- (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio{
+- (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio {
     
     float translatedValue = initValue;
+    
     if (!transformSize) {
         return translatedValue;
     }
@@ -566,8 +642,10 @@
     }
     
     if ([key isEqualToString:XARTBOARD]) {
+        NSLog(@"InitValue = %f %d", initValue, startXArtboard);
         translatedValue = initValue - startXArtboard;
         translatedValue = translatedValue * xScaleFactor;
+        NSLog(@"TranslatedValue = %f", translatedValue);
     }
     else if ([key isEqualToString:YARTBOARD]) {
         translatedValue = initValue - startYArtboard;
@@ -580,17 +658,25 @@
         translatedValue = initValue * heightScalefactor;
     }
     
+    
     return translatedValue;
 }
 
-- (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize {
+- (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize fontName:(NSString *)fontName fontMask:(NSUInteger) mask {
 
     NSString *firstLine = [label substringToIndex:textLen];
-    
+    float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
+    textLen = MIN((int)[label length], textLen * xScaleFactor);
+
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     [style setLineBreakMode:NSLineBreakByWordWrapping];
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    NSFont *font = [fontManager fontWithFamily:fontName
+                                              traits:mask
+                                              weight:0
+                                                size:fontSize];
     
-    NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:fontSize],
+    NSDictionary *attributes = @{NSFontAttributeName: font,
                                  NSParagraphStyleAttributeName: style};
     
     CGRect lineFrame = [firstLine boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
@@ -611,11 +697,11 @@
 - (NSNumber *) processPath:(NSString *)value ofType:(NSString *) key {
     
     float initValue = 0;
-    if ([value isEqualToString: PATH_X])
+    if ([value isEqualToString: PATH_X] || [value isEqualToString: LINE_X])
         initValue = path_x;
-    else if ([value isEqualToString: PATH_Y])
+    else if ([value isEqualToString: PATH_Y] || [value isEqualToString: LINE_Y])
         initValue =path_y;
-    else if ([value isEqualToString: PATH_WIDTH])
+    else if ([value isEqualToString: PATH_WIDTH] || [value isEqualToString: LINE_WIDTH])
         initValue =path_width;
     else
         initValue =path_height;
@@ -627,7 +713,6 @@
 - (void) merge:(NSMutableDictionary *) dictValue withDict:(NSMutableDictionary **) objDict
    withDefDict:(NSMutableDictionary *)defaultDict forValue:(NSString *) value key:(NSString *) key {
     
-    NSLog(@"key = %@ %@", key, value);
     if (![value hasPrefix:TOTRANSFORM]) {
         [*objDict setValue:value forKey:key]; /* no need for transformation */
     } else if ([dictValue objectForKey:[[self splitVariable:value] objectAtIndex:0]]) {
@@ -650,19 +735,36 @@
         if ( [self isTextFrame:tvalue templateDict:*objDict]) {
             
             /* then we must compute the width/height of the text frame*/
-            /*FIX ME: assumed that the text font is the NSFont */
             /* we have the height = text; width = fontSize; */
             
             [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
             
             NSString *label = [*objDict objectForKey:HEIGHT];
             int fontSize = [[*objDict objectForKey:WIDTH] intValue];
+            NSString *fontName = [dictValue objectForKey:ISFONT];
+            NSString *fontStyle = [dictValue objectForKey: STYLE_VALUE];
             
-            CGRect rect = [self computeTextFrame:label usingFontSize:fontSize];
+            NSUInteger mask;
+            if ([fontStyle isEqualToString:BOLD])
+                mask = NSBoldFontMask;
+            else if ([fontStyle isEqualToString:ITALIC])
+                mask = NSItalicFontMask;
+            else mask = 0;
+            
+            CGRect rect = [self computeTextFrame:label usingFontSize:fontSize fontName:fontName fontMask: mask];
             
             [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
             [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.1 * rect.size.width] forKey:WIDTH];
             
+            /*if (textLen == [label length]) {
+                float y = [[*objDict objectForKey:YARTBOARD]floatValue];
+                [*objDict setObject:[NSNumber numberWithFloat: y - rect.size.height] forKey:YARTBOARD];
+            } else {
+                //only for multiline labels
+                rect = [self computeTextFrame:[label substringToIndex:textLen] usingFontSize:fontSize fontName:fontName fontMask: mask];
+                float y = [[*objDict objectForKey:YARTBOARD]floatValue];
+                [*objDict setObject:[NSNumber numberWithFloat: y - rect.size.height] forKey:YARTBOARD];
+            }*/
         }
         
         /*if we have a special operation to perform eg. getSize from path*/
@@ -671,6 +773,10 @@
         [*objDict setObject:size forKey:key];
     } else if ([self isOfTypePath:value]) {
         [*objDict setObject:[self processPath:value ofType:key] forKey:key];
+    } else if ([self isOfTypeLine:value]) {
+        [*objDict setObject:[self processPath:value ofType:key] forKey:key];
+    } else if ([self isOfTypeLabel:value]) {
+        // T0DO maybe
     } else {/* use default values */
         [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
     }
@@ -689,7 +795,7 @@
     for (id key in allKeys) {
         
         id value = [*objDict objectForKey:key];
-        
+
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
             
@@ -715,7 +821,6 @@
             } else {
                 /* use values specified from agc */
                 value = [paramsValue objectForKey:key];
-                
                 if (!value)
                     continue;
                 
@@ -1092,13 +1197,15 @@
                 if (textLines == counter && [condition isEqualToString:TEXT_LINES]) {
                     firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
                     textLen = [firstLine intValue];
-                   
-                    
-                    
+                  
                 } else if (textLines == counter && [condition isEqualToString:TEXT_PARAGRAPH]) {
                     tmp = [[tmp objectAtIndex:0] objectForKey:LINE_VALUE];
-                    firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
-                    textLen = [firstLine intValue];
+                    textLen = 0;
+                    for (id temp in tmp) {
+                        firstLine = [[temp objectAtIndex:0]objectForKey:TO];
+                        if (textLen < [firstLine intValue])
+                            textLen = [firstLine intValue];
+                    }
                  
                     
                 }
@@ -1141,7 +1248,7 @@
                      * esp for type = shape
                      **/
                     type = [self getShapeType:type object:object];
-                    
+                    NSLog(@"Type = %@", type);
                     if (![type isKindOfClass:[NSString class]])
                         continue;
                     
@@ -1322,7 +1429,7 @@
         /* add image in the resources tag */
         NSString * href = [attr objectForKey:ISIMAGE];
         /* find width and height for image */
-        NSLog(@"image = %@", attr);
+
         NSImage *image = [[NSImage alloc]initWithContentsOfFile:href];
         
         /* create an image Tag using subTags */

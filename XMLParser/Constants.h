@@ -16,6 +16,7 @@
 #define DEF_PATH @"Defs"
 #define RULES_PATH @"Rules"
 #define SVG_TEMPLATE    @"SvgTemplate"
+#define LINE_TEMPLATE   @"SvgLineTemplate"
 #define AGC_TEMPLATE    @"AGCTemplate"
 #define XML2AGC_TEMPLATE    @"Xml2AgcTranslations"
 #define RESOURCESDICT   @"ResourcesValue"
@@ -87,6 +88,8 @@
 #define SVG_FILL_LEN     7
 #define SVG_INFO_END    @"\""
 #define SVG_FILL_END    @";"
+#define SVG_LINE        @"<line "
+#define SVG_END         @" />"
 #define CONVERT_DENSITY @"-density"
 #define CONVERT_VALUE   @"1200"
 #define CONVERT_BKG     @"-background"
@@ -252,12 +255,19 @@
 #define PATH_HEIGHT @"$path_height"
 #define GETWIDTH    @"$GETWIDTH"
 #define GETHEIGHT   @"$GETHEIGHT"
+#define GET_TYPE    @"$GETTYPE"
 #define IMAGEPATH   @"$IMAGEPATH"
 #define GETX        @"$x"
 #define GETY        @"$y"
 #define WIDTH_IN_PATH   7
 #define HEIGHT_IN_PATH  8
 
+/* used for lines (lines ar exported as svg) */
+#define LINE        @"$LINE"
+#define LINE_X      @"$linex"
+#define LINE_Y      @"$liney"
+#define LINE_WIDTH  @"$line_width"
+#define LINE_HEIGHT @"$line_height"
 
 /* XML2AGC const */
 #define FRAME_X    @"$rect.x"
@@ -298,6 +308,10 @@
 #define XMLDOCUMENTF   @"</document>"
 #define XARTBOARD       @"x"
 #define YARTBOARD       @"y"
+#define X1          @"x1"
+#define X2          @"x2"
+#define Y1          @"y1"
+#define Y2          @"y2"
 #define FRAMED       @"$frame"
 #define FILE_SIZE       @"$LENGTH"
 #define ARTBOARD_PREFIX @"$ARTBOARD_PREFIX"

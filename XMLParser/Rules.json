@@ -1,4 +1,5 @@
 {
+    
     "artboard"  :   "view",
     "view"      :   "artboard",
     "text"      :   "label",
@@ -10,12 +11,15 @@
         },
         "shape.type.path" : {
             "style.fill.type.solid" : "$imageView"
-    
+        },
+        "shape.type.line" : {
+            "style.fill.type.none" : "$lineView"
         }
     },
     "group"     :   "group",
     "$frame"    :   "label",
     "$imageView"    :   "imageView",
+    "$lineView"     :   "imageView",
     "$imageViewPath" : "imageView",
     "$imageState" : "state",
     "$labelState" : "state"

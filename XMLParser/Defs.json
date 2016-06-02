@@ -106,8 +106,41 @@
                 "toString" : ["rect"],
                 "order" : ["$header.image", "rect", "$header.id"]
             },
-            "toString" : ["header", "rules"],
+            "toString" : ["header", "rules"]
             
+        },
+        "$lineView" : {
+            "header" : {
+                "userInteractionEnabled" : "NO",
+                "contentMode"  : "scaleToFill",
+                "horizontalHuggingPriority" : "251",
+                "verticalHuggingPriority" : "251",
+                "fixedFrame" : "YES",
+                "image" : "$",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id" : "$rand",
+                "toString" : ["userInteractionEnabled", "contentMode", "horizontalHuggingPriority",
+                              "verticalHuggingPriority", "fixedFrame",
+                              "image",
+                              "translatesAutoresizingMaskIntoConstraints", "id"]
+            },
+            "rules" : {
+                "$header.id" : "$rand",
+                "$header.image" : "$LINE $name $style.fill.color.value $style.stroke.width $transform $shape",
+                "rect" : {
+                    "$transform" : {
+                        "key" : "frame",
+                        "x" : "$linex",
+                        "y" : "$liney",
+                        "width" : "$line_width",
+                        "height" : "$line_height"
+                    }
+                },
+                "toString" : ["rect"],
+                "order" : ["$header.image", "rect", "$header.id"]
+            },
+            "toString" : ["header", "rules"]
+        
         },
         "imageView" : {
             "header" : {
@@ -276,8 +309,7 @@
                         "width" : "$size"
                     },
                     "$text" : {
-                        "height" : "$rawText"
-                        
+                        "height" : "$rawText",  
                     },
                     "$text.paragraphs.$lineListNo.lines" : {
                         "len"   :   "$len"
@@ -285,7 +317,10 @@
                     "$text.paragraphs" : {
                         "len"   :   "$len"
                     },
-                    "order" : ["$transform", "$text.paragraphs.$lineListNo.lines", "$text.paragraphs" , "$text", "$style.font" ]
+                    "$text.frame" : {
+                        "$" : "$GETTYPE $type"
+                    },
+                    "order" : ["$transform", "$text.paragraphs.$lineListNo.lines", "$text.paragraphs" , "$text", "$style.font",  "$text.frame"]
                 },
                 "fontDescription" : {
                     "$style.font" :

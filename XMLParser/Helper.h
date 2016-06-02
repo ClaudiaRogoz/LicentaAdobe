@@ -42,7 +42,7 @@
 + (NSMutableArray *) findAllFiles: (NSString *)name inPath:(NSString *) initPath;
 
 + (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor;
-
++ (NSString *) convertSvgLineToPng:(NSString *) svgName;
 + (NSString*) computeSha1:(NSString*)input;
 @end
 
