@@ -15,16 +15,16 @@
   },
   "children" : [
     {
-      "id" : "ZOl-JS-fXX",
+      "id" : "0C048B71-2622-44E3-B732-27A1C27487CB",
       "style" : {
         "fill" : {
           "type" : "solid",
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 15,
-              "g" : 52,
-              "b" : 114
+              "r" : 52,
+              "g" : 28,
+              "b" : 49
             },
             "alpha" : 255
           }
@@ -34,59 +34,7 @@
         "ref" : "artboard1",
         "children" : [
           {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 0,
-                    "g" : 0,
-                    "b" : 0
-                  },
-                  "alpha" : 1
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 298.3125,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 236.4983
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "id" : "2vc-ur-pxq",
+            "id" : "DCD0D583-1DB1-471C-AE49-E31054D63378",
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -110,10 +58,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 141,
+              "ty" : 142,
               "c" : "0",
               "a" : "1",
-              "tx" : 213
+              "tx" : 110
             },
             "type" : "text",
             "name" : "Label",

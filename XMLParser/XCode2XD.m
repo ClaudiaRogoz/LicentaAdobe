@@ -245,7 +245,7 @@
     
     [Helper createXdFile:[self xdPath]];
     
-    //[XDCreator releaseStorage:[self xdPath]];
+    [XDCreator releaseStorage:[self xdPath]];
     
     return rootArray;
     

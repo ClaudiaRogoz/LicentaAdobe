@@ -15,16 +15,16 @@
   },
   "children" : [
     {
-      "id" : "dTG-sc-KTg",
+      "id" : "A9E97A62-58B4-46AA-94DF-143069202295",
       "style" : {
         "fill" : {
           "type" : "solid",
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 193,
-              "g" : 145,
-              "b" : 197
+              "r" : 59,
+              "g" : 109,
+              "b" : 102
             },
             "alpha" : 255
           }
@@ -44,7 +44,7 @@
                     "g" : 0,
                     "b" : 0
                   },
-                  "alpha" : 1
+                  "alpha" : 255
                 }
               },
               "font" : {
@@ -57,62 +57,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 254.9575,
+              "ty" : 402.8092,
               "c" : "0",
               "a" : "1",
-              "tx" : 567.7483
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 0,
-                    "g" : 0,
-                    "b" : 0
-                  },
-                  "alpha" : 1
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 383.9108,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 585.2483
+              "tx" : 483.0347
             },
             "type" : "text",
             "name" : "Label",
