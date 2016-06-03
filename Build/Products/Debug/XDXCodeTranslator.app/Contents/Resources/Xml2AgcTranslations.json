@@ -10,6 +10,7 @@
     "children"  :   "list",
     "children1" :   "list",
     "paragraphs"    : "list",
+    "button"    :   "buttonElem",
     
     "textField." : {
         "name"  :   "text"

@@ -35,11 +35,15 @@
     [reader setXmlPath:out_file];
     
     NSMutableDictionary *rootDictionary = [[reader objectWithData:data] mutableCopy];
-
-
+    NSMutableDictionary *interactions = [rootDictionary objectForKey:INTERACTIONS];
+    NSMutableDictionary *idMap = [rootDictionary objectForKey:IDMAP];
+    [rootDictionary removeObjectForKey:INTERACTIONS];
+    [rootDictionary removeObjectForKey:IDMAP];
+    
+    NSLog(@"interactions = %@ %@", interactions, idMap);
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName computeSha:-1];
-    [reader splitArtboards:rootDictionary];
+    [reader splitArtboards:rootDictionary interactions:interactions idMap:idMap];
     
     /* writes hashDict & offsetDict to a hidden file; needed for sync */
     NSString *hashFile = [NSString stringWithFormat:@"%@/%@%@%@",PREV_ART_PATH, HASH_PATH, DOT, JSON];
@@ -107,7 +111,6 @@
         
         NSString *mainBundle = [self getProjHomePath];
         
-        
         NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, file];
         
         [[NSFileManager defaultManager] createFileAtPath:outFile contents:nil attributes:nil];
@@ -127,14 +130,67 @@
     return mainBundle;
 }
 
-- (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary {
+- (void) computeDict:(NSString *) name scene:(NSArray *) place_start dict:(NSMutableDictionary ** ) ids {
+    id artboardList = *ids;
     
+    if ([*ids objectForKey:[place_start firstObject]]) {
+        artboardList = [*ids objectForKey:[place_start firstObject]];
+    } else {
+        artboardList = [[NSMutableDictionary alloc] init];
+    }
+    NSLog(@"Set %@ %@", name, [place_start lastObject]);
+    [artboardList setObject:name forKey:[place_start lastObject]];
+    [*ids setObject:artboardList forKey:[place_start firstObject]];
+}
+
+- (NSMutableDictionary *) computeSegues:(NSMutableDictionary *) interactions usingIdMap:(NSMutableDictionary *) idMap {
+
+    NSMutableDictionary *ids = [[NSMutableDictionary alloc] init];
+    
+   for (id start in interactions) {
+        id end = [interactions objectForKey:start];
+        NSArray *place_start = [idMap objectForKey:start];
+        NSArray *place_end =[idMap objectForKey:end];
+       
+       [self computeDict:start scene:place_start dict:&ids];
+       [self computeDict:end scene:place_end dict:&ids];
+       
+   }
+
+    return ids;
+}
+
+- (void) getChildrenForArtbaord:(NSMutableDictionary **) dict {
+    *dict = [[[[*dict objectForKey:CHILDREN] objectAtIndex:0]objectForKey:ART_SCENE] objectForKey:CHILDREN];
+}
+
+
+- (void) addTo:(NSMutableDictionary **) dict ids:(NSMutableDictionary *) idScenes {
+    
+    for (id scene in idScenes) {
+        
+        int currentScene = [scene intValue];
+        id sceneId = [[idScenes objectForKey:scene] objectForKey:[NSNumber numberWithInt:0]];
+        [[[*dict objectForKey:CHILDREN] objectAtIndex:currentScene - 1] setObject:sceneId forKey:ID];
+    }
+    
+
+}
+
+- (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary interactions:(NSMutableDictionary *) interactions idMap:(NSMutableDictionary *) idMap {
+
     NSMutableArray *rootArray = [[NSMutableArray alloc] init];
-    /* TODO write artboardsD into resources/graphicContent */
-    /* TODO */
+    NSMutableDictionary *segues = [self computeSegues:interactions usingIdMap:idMap];
+    NSArray *place_start = [idMap objectForKey:homeArtboard];
+    [self computeDict:homeArtboard scene:place_start dict:&segues];
+    
+    NSLog(@"Segues = %@", segues);
+    
     NSMutableDictionary *artboardsD = [dictionary objectForKey:ARTBOARDS];
+    [self addTo:&dictionary ids:segues];
+    NSLog(@"ArtboardsD %@", dictionary);
     [XDCreator createResourcesContent:artboardsD xdPath: [self xdPath]];
-    [XDCreator createInteractionContent:[[NSMutableDictionary alloc] init] xdPath:[self xdPath]];
+    [XDCreator createInteractionContent:interactions xdPath:[self xdPath] homeArtboard:homeArtboard];
     [XDCreator createMimetype:[self xdPath]];
     [XDCreator createManifest:[dictionary mutableCopy] xdPath:[self xdPath]];
     
@@ -151,6 +207,20 @@
         
         [tempArray setObject:[[NSMutableArray alloc] init] forKey:CHILDREN];
         [[tempArray objectForKey:CHILDREN] addObject:children];
+        
+        id currentScene = [segues objectForKey:[NSNumber numberWithInt:nr]];
+        NSLog(@"CurrentScene = %@", currentScene);
+        for (id assetOffset in currentScene) {
+            id assetId = [currentScene objectForKey:assetOffset];
+            
+            if ([assetOffset intValue] != 0) {
+                NSLog(@"TMPARR = %@ %@", assetId, [[[[[tempArray objectForKey:CHILDREN] objectAtIndex:0]objectForKey:ART_SCENE] objectForKey:CHILDREN] objectAtIndex:[assetOffset intValue] - 1]);
+                [[[[[[tempArray objectForKey:CHILDREN] objectAtIndex:0]objectForKey:ART_SCENE] objectForKey:CHILDREN] objectAtIndex:[assetOffset intValue] - 1] setObject:assetId forKey:ID];
+                NSLog(@"TMPARR = %@ %@", assetId, [[[[[tempArray objectForKey:CHILDREN] objectAtIndex:0]objectForKey:ART_SCENE] objectForKey:CHILDREN] objectAtIndex:[assetOffset intValue] - 1]);
+            }
+            
+        }
+        NSLog(@"FintempArray = %@", tempArray);
         
         [XDCreator createArtworkContent:tempArray artboardNo:nr xdPath:[self xdPath]];
         id artboardNo = [artboardsD objectForKey:key];
@@ -175,7 +245,7 @@
     
     [Helper createXdFile:[self xdPath]];
     
-    [XDCreator releaseStorage:[self xdPath]];
+    //[XDCreator releaseStorage:[self xdPath]];
     
     return rootArray;
     
@@ -204,6 +274,9 @@
     toInsertObjects = [[NSMutableArray alloc] init];
     hashArtboards = [[NSMutableDictionary alloc] init];
     objectOffset = [[NSMutableDictionary alloc] init];
+    interactionsDict = [[NSMutableDictionary alloc] init];
+    idMapping = [[NSMutableDictionary alloc] init];
+    
     sceneNo = 0;
     xmlOffset = 0;
     counterArtboards = 1;
@@ -267,7 +340,8 @@
         [type  setObject:[attributes objectForKey:META] forKey:META];
         [type  setObject:[attributes objectForKey:RESOURCES] forKey:RESOURCES];
         id sources = [type objectForKey:VIEWSOURCE];
-       
+        NSLog(@"InteractionsDict = %@", interactionsDict);
+        NSLog(@"idMapping = %@", idMapping);
         type = [type objectForKey:ARTBOARDS];
         
         int width = 375;
@@ -289,6 +363,8 @@
         
         [sources setObject:[NSNumber numberWithInt:x] forKey:WIDTH];
         NSMutableDictionary *resultDict = [dictionaryStack objectAtIndex:0];
+        [resultDict setObject:interactionsDict forKey:INTERACTIONS];
+        [resultDict setObject:idMapping forKey:IDMAP];
         return resultDict;
     }
     
@@ -737,7 +813,55 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSMutableDictionary *)attributeDict
 {
+    
+    
     attributeDict = [attributeDict mutableCopy];
+
+    if ([elementName isEqualToString:DOCUMENT]) {
+        homeArtboard = [attributeDict objectForKey:HOME_ARTBOARD];
+    
+    }
+    
+    if ([elementName isEqualToString:SEGUE]) {
+        
+        [interactionsDict setObject:[attributeDict objectForKey:DESTINATION] forKey:lastId];
+    }
+    
+
+    
+    if ([attributeDict objectForKey:ID]) {
+        lastId = [attributeDict objectForKey:ID];
+        //TODO!! here extend with the other subViews types
+        if ([elementName isEqualToString:BUTTON] || [elementName isEqualToString:LABEL] || [elementName isEqualToString:IMAGEVIEW] ||
+            [elementName isEqualToString:IMAGEVIEW] || [elementName isEqualToString:TEXTFIELD]) {
+            ++childScene;
+            NSLog(@"lastId = %@ %d %@", lastId, sceneNo, elementName);
+            /*if (![idMapping objectForKey:[NSNumber numberWithInt:sceneNo]]) {
+                NSMutableDictionary *childrenList = [[NSMutableDictionary alloc ] init];
+                [childrenList setObject:lastId forKey:[NSNumber numberWithInt:childScene]];
+                [idMapping setObject:childrenList forKey:[NSNumber numberWithInt:sceneNo]];
+            
+            } else {
+                id value = [idMapping objectForKey:[NSNumber numberWithInt:sceneNo]];
+                [value setObject:lastId forKey:[NSNumber numberWithInt:childScene]];
+            }*/
+            [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:childScene]] forKey:lastId];
+        } else if ([elementName isEqualToString:VIEW_CONTROLLER]) {
+            
+            /*if (![idMapping objectForKey:[NSNumber numberWithInt:sceneNo]]) {
+                NSMutableDictionary *childrenList = [[NSMutableDictionary alloc ] init];
+                [childrenList setObject:lastId forKey:[NSNumber numberWithInt:0]];
+                [idMapping setObject:childrenList forKey:[NSNumber numberWithInt:sceneNo]];
+                
+            } else {
+                id value = [idMapping objectForKey:[NSNumber numberWithInt:sceneNo]];
+                [value setObject:lastId forKey:[NSNumber numberWithInt:0]];
+            }*/
+
+            [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:0]] forKey:lastId];
+        }
+    }
+    
     NSString *tagName = [NSString stringWithFormat:@"<%@ ", elementName];
     /*initializes things for a neaw mutableString */
     if ([elementName isEqualToString:STRING] || [elementName isEqualToString:MUTABLE_STRING]){
@@ -758,7 +882,9 @@
     }
     
     if ([elementName isEqualToString:SCENE]) {
+        NSLog(@"Here we are %d", sceneNo);
         sceneNo++;
+        childScene = 0;
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
         unsigned long start = xmlOffset + 1;
         unsigned long end = [xmlData length];
@@ -771,6 +897,7 @@
         hasAView = false;
         [offsetXmlFile setObject: [NSNumber numberWithLong:xmlOffset] forKey:[NSString stringWithFormat:@"%d", sceneNo]];
     }
+
     
     [self scaleAttrDict:&attributeDict attribute:elementName];
     
@@ -1016,7 +1143,6 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     
-    
     if ([elementName isEqualToString:SWITCH]) {
         [inheritanceStack removeObject:SWITCH];
         return;
@@ -1080,6 +1206,8 @@
         [inheritanceStack removeLastObject];
         
     }
+    
+
     
 }
 

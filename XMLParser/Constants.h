@@ -21,6 +21,7 @@
 #define XML2AGC_TEMPLATE    @"Xml2AgcTranslations"
 #define RESOURCESDICT   @"ResourcesValue"
 #define META_TEMPLATE   @"MetadataTemplate"
+#define INTERACTION_TEMPLATE    @"InteractionTemplate"
 
 /* files format */
 #define SVG             @"svg"
@@ -149,6 +150,7 @@
 #define COLORSPACE  @"colorSpace"
 #define RGB         @"calibratedRGB"
 #define SCENE       @"scene"
+#define SEGUE       @"segue"
 #define ISFONT      @"family"
 #define SWITCH      @"switch"
 #define SWITCH_TX   @"switch.transform.tx"
@@ -179,6 +181,7 @@
 #define BUTTON          @"button"
 #define INTERACTIONS    @"interactions"
 #define CONNECTIONS     @"connections"
+#define IDMAP           @"idmap"
 #define SEGUE           @"segue"
 #define VERSION_AGC @"1.5.0"
 #define VERSION_INTERACTIONS    @"0.3"
@@ -186,7 +189,10 @@
 #define REF         @"ref"
 #define DESTINATION @"destination"
 #define PROPERTIES  @"properties"
-
+#define DOCUMENT    @"document"
+#define START_ARTBOARD  @"homeArtboard"
+#define HOME_ARTBOARD   @"initialViewController"
+#define VIEW_CONTROLLER  @"viewController"
 /*used for metadata creation */
 #define CREATEDATE  @"CreateDate="
 #define MODIFYDATE  @"ModifyDate="

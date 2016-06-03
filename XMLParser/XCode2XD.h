@@ -110,6 +110,14 @@
     
     /*obtains the ending offset of the last scene in the xml file */
     unsigned long lastScene;
+    
+    NSMutableDictionary *interactionsDict;
+    NSMutableDictionary *idMapping;
+    NSString *lastId;
+    
+    NSString *homeArtboard;
+    int childScene;
+    
 
 }
 

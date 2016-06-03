@@ -463,12 +463,21 @@
         float x2 = [[shape objectForKey:X2] floatValue];
         float y1 = [[shape objectForKey:Y1] floatValue];
         float y2 = [[shape objectForKey:Y2] floatValue];
-        NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", x1, y1, x2, y2];
+        float box_mx = MIN(x1, x2);
+        float box_my = MIN(y1, y2);
+        float box_Mx = MAX(x1, x2);
+        float box_My = MAX(y1, y2);
+        if (box_Mx - box_mx == 0)
+            box_Mx += 1;
+        if (box_My - box_my == 0)
+            box_My += 1;
+        
+        NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", box_mx, box_my, box_Mx - box_mx, box_My - box_my];
         path_x = [[transform objectForKey:TX] intValue];
         path_y = [[transform objectForKey:TY] intValue];
-        path_width = x2 - x1;
-        path_height = y2 - y1;
-        NSString *style = [NSString stringWithFormat:@"stroke:%@;stroke-width:%d", fillColor, [stroke intValue]];
+        path_width = box_Mx - box_mx;
+        path_height =  box_My - box_my;
+        NSString *style = [NSString stringWithFormat:@"stroke:#%@;stroke-width:%d", fillColor, [stroke intValue]];
         
         NSString *line = [NSString stringWithFormat:@"x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\"", x1, y1, x2, y2];
         NSString *pathLine = [NSString stringWithFormat:@"%@ style=\"%@\"",line, style];

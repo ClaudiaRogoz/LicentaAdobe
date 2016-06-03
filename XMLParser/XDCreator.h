@@ -30,7 +30,7 @@
 + (void) createArtworkContent:(NSMutableDictionary *) artboard artboardNo:(int) artNo xdPath:(NSString *) xdPath;
 
 /* prepares the storage & computes the contents needed for interactions directory */
-+ (void) createInteractionContent:(NSMutableDictionary *) interactions xdPath:(NSString *) xdPath;
++ (void) createInteractionContent:(NSMutableDictionary *) interactions xdPath:(NSString *) xdPath homeArtboard:(NSString *) homeArtboard;
 
 /* prepares the storage & computes the contents needed for mimetype directory */
 + (void) createMimetype:(NSString *) xdPath;

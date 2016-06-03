@@ -1,16 +1,30 @@
 {
+  "version" : "1.5.0",
+  "resources" : {
+    "href" : "\/resources\/graphics\/graphicContent.agc"
+  },
+  "artboards" : {
+    "artboard1" : {
+      "y" : 0,
+      "name" : "iPhone 6 – 1",
+      "viewportHeight" : 667,
+      "width" : 375,
+      "x" : 0,
+      "height" : 667
+    }
+  },
   "children" : [
     {
-      "type" : "artboard",
+      "id" : "ZOl-JS-fXX",
       "style" : {
         "fill" : {
           "type" : "solid",
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 52,
-              "g" : 28,
-              "b" : 49
+              "r" : 15,
+              "g" : 52,
+              "b" : 114
             },
             "alpha" : 255
           }
@@ -26,11 +40,11 @@
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
+                    "r" : 0,
+                    "g" : 0,
+                    "b" : 0
                   },
-                  "alpha" : 255
+                  "alpha" : 1
                 }
               },
               "font" : {
@@ -43,10 +57,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 390.5808,
+              "ty" : 298.3125,
               "c" : "0",
               "a" : "1",
-              "tx" : 165.2222
+              "tx" : 236.4983
             },
             "type" : "text",
             "name" : "Label",
@@ -72,6 +86,7 @@
             }
           },
           {
+            "id" : "2vc-ur-pxq",
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -82,11 +97,11 @@
                     "g" : 255,
                     "b" : 255
                   },
-                  "alpha" : 255
+                  "alpha" : "255"
                 }
               },
               "font" : {
-                "size" : 17,
+                "size" : 15,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -95,10 +110,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 575.1175,
+              "ty" : 141,
               "c" : "0",
               "a" : "1",
-              "tx" : 74.59717
+              "tx" : 213
             },
             "type" : "text",
             "name" : "Label",
@@ -112,7 +127,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 6,
+                        "to" : 10,
                         "x" : 0,
                         "from" : 0
                       }
@@ -120,143 +135,12 @@
                   ]
                 }
               ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 103.7708,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 153.9722
-            },
-            "type" : "text",
-            "name" : "Label",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 6,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Label"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "44732"
-                    }
-                  },
-                  "width" : 375,
-                  "height" : 667,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art3.png"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 133,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 170
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "height" : 142.2933,
-              "type" : "rect",
-              "x" : "0",
-              "width" : 150
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "790856"
-                    }
-                  },
-                  "width" : 158,
-                  "height" : 120,
-                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 431,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 165
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "type" : "rect",
-              "x" : "0",
-              "width" : 150,
-              "height" : 142.2933
+              "rawText" : "statetitle"
             }
           }
         ]
-      }
+      },
+      "type" : "artboard"
     }
-  ],
-  "resources" : {
-    "href" : "\/resources\/graphics\/graphicContent.agc"
-  },
-  "artboards" : {
-    "artboard3" : {
-      "y" : 0,
-      "name" : "iPhone 6 – 3",
-      "viewportHeight" : 667,
-      "width" : 375,
-      "x" : 800,
-      "height" : 667
-    }
-  },
-  "version" : "1.5.0"
+  ]
 }

@@ -70,6 +70,60 @@
                     ]]
         
     },
+    "buttonElem" : {
+        
+        "type" : "text",
+        "name" : "Label",
+        "transform" : {
+            "a" : "1",
+            "b" : "0",
+            "c" : "0",
+            "d" : "1",
+            "tx" : "$rect.x",
+            "ty" : "$rect.y"
+        },
+        "style" : {
+            "fill" : {
+                "type" : "solid",
+                "color" : {
+                    "mode" : "RGB",
+                    "value" : {
+                        "r" : 255,
+                        "g" : 255,
+                        "b" : 255
+                        
+                    },
+                    "alpha" : "255"
+                    
+                }
+                
+            },
+            "font" : {
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue",
+                "style" : "Regular",
+                "size" : 15
+                 }
+        },
+        "text" : {
+            "frame" : {
+                "type" : "positioned"
+            },
+            "paragraphs" : [{
+                            "lines" : [[
+                                        {
+                                        "x" : 0,
+                                        "y" : 0,
+                                        "from" : 0,
+                                        "to" : 10
+                                        }
+                                            
+                                        ]]
+                                
+                        }],
+            "rawText" :  "statetitle"
+            }
+    },
     "textField" : {
         "type" : "text",
         "name" : "$text",
@@ -111,17 +165,17 @@
             },
             "paragraphs" : [{
                             "lines" : [[
-                                       {
+                                        {
                                         "x" : 0,
                                         "y" : 0,
                                         "from" : 0,
                                         "to" : 11
                                         
-                                       }
-                                       
-                                       ]]
-            
-            }],
+                                        }
+                                        
+                                        ]]
+                            
+                            }],
             "rawText" :  "#text"
         }
     },

@@ -288,9 +288,27 @@
     
 }
 
-+ (void) createInteractionContent:(NSMutableDictionary *) interactions xdPath:(NSString *) xdPath {
-    //TODO
++ (void) createInteractionContent:(NSMutableDictionary *) interactions xdPath:(NSString *) xdPath homeArtboard:(NSString *) homeArtboard {
+    
+    NSError *error;
     NSMutableDictionary *version = [@{VERSION : VERSION_INTERACTIONS} mutableCopy];
+    [version setObject:homeArtboard forKey:START_ARTBOARD];
+    NSString *interactionPath = [[NSBundle mainBundle] pathForResource:INTERACTION_TEMPLATE ofType:JSON];
+    NSData *segueData = [NSData dataWithContentsOfFile:interactionPath];
+    NSMutableDictionary *interactionTemplate = [NSJSONSerialization JSONObjectWithData:segueData options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"InteractionTemplate = %@", interactionTemplate);
+    NSMutableDictionary *interactionsDict = [[NSMutableDictionary alloc] init];
+    //[interactionsDict setObject: [[NSMutableDictionary alloc] init] forKey:INTERACTIONS];
+    for (id startSegue in interactions) {
+        //TODO only one transition can be made from one element
+        id template = [Helper deepCopy:interactionTemplate];
+        id endSegue = [interactions objectForKey:startSegue];
+        [[template objectForKey:PROPERTIES ] setObject:endSegue forKey:DESTINATION];
+        [interactionsDict setObject:@[template] forKey:startSegue];
+    
+    }
+    [version setObject:interactionsDict forKey:INTERACTIONS];
+    NSLog(@"Interact = %@", interactionsDict);
     NSString *jsonInteractions = [NSString stringWithFormat:@"%@%@%@", INTERACTIONS, DOT, JSON];
     NSArray *resourcesList = @[INTERACTIONS, jsonInteractions];
 

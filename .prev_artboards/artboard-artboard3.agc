@@ -1,4 +1,18 @@
 {
+  "version" : "1.5.0",
+  "resources" : {
+    "href" : "\/resources\/graphics\/graphicContent.agc"
+  },
+  "artboards" : {
+    "artboard2" : {
+      "y" : 0,
+      "name" : "iPhone 6 – 2",
+      "viewportHeight" : 667,
+      "width" : 375,
+      "x" : 400,
+      "height" : 667
+    }
+  },
   "children" : [
     {
       "type" : "artboard",
@@ -26,7 +40,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "567737"
+                      "uid" : "45632"
                     }
                   },
                   "width" : 158,
@@ -55,19 +69,5 @@
         ]
       }
     }
-  ],
-  "resources" : {
-    "href" : "\/resources\/graphics\/graphicContent.agc"
-  },
-  "artboards" : {
-    "artboard2" : {
-      "y" : 0,
-      "name" : "iPhone 6 – 2",
-      "viewportHeight" : 667,
-      "width" : 375,
-      "x" : 400,
-      "height" : 667
-    }
-  },
-  "version" : "1.5.0"
+  ]
 }

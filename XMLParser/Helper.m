@@ -218,7 +218,7 @@
     NSTask *task = [[NSTask alloc] init];
     
     task.launchPath = @"/usr/local/bin/convert";
-    task.arguments = @[svgName, pngName];
+    task.arguments = @[CONVERT_BKG, CONVERT_NONE, svgName, pngName];
     
     [task launch];
     [task waitUntilExit];
