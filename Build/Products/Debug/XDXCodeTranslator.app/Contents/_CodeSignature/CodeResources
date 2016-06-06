@@ -6,13 +6,13 @@
 	<dict>
 		<key>Resources/AGCTemplate.json</key>
 		<data>
-		6PwDDUo/iPZlqiQqlQ8HO9ezVEo=
+		FkP8tfPp9O8/sYzR0LWFwrayeuM=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4rDf4K4B+DAJWZ6MIzfEF5arSAM=
+			cBOdeyWrjRrUGfd/6B/6x6Xm1Eo=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -21,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SXjBfc1u8D/qVveDjTDkb4cjYZk=
+			l+tBBjvqSXATKYkDClGRx7RlHPM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -30,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			v0Eryk5O+x2XYG1lsE/5hKuz4D0=
+			95Z+T76Bhs+dOALeWE+hENGAFr0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -179,22 +179,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6PwDDUo/iPZlqiQqlQ8HO9ezVEo=
+			FkP8tfPp9O8/sYzR0LWFwrayeuM=
 			</data>
 			<key>hash2</key>
 			<data>
-			s3K3k5hTv/LanH4LRouzBb+PAs2j2qyGkfPEWbzaOYw=
+			eatorP621neYcKP7uZC/+qTIuH5UaKftvrVImtLxvD4=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4rDf4K4B+DAJWZ6MIzfEF5arSAM=
+			cBOdeyWrjRrUGfd/6B/6x6Xm1Eo=
 			</data>
 			<key>hash2</key>
 			<data>
-			selKmytD3zyu2QFUcht7DjpxV54jx+dz57aI5rl7HJg=
+			7HHecP5NE2DYhO73POQnaAwCbBtT4Gu7c9NHoje5/Eg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -203,11 +203,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SXjBfc1u8D/qVveDjTDkb4cjYZk=
+			l+tBBjvqSXATKYkDClGRx7RlHPM=
 			</data>
 			<key>hash2</key>
 			<data>
-			xr1Tq4SLLQChCyEe/n4hB835ic4wBb16IbP8fW83Fto=
+			LrgXcWxc/q/jZHnl9MRTyNcT2niWiDbg47hWk9PTTS8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -216,11 +216,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			v0Eryk5O+x2XYG1lsE/5hKuz4D0=
+			95Z+T76Bhs+dOALeWE+hENGAFr0=
 			</data>
 			<key>hash2</key>
 			<data>
-			sSsMDy90E+MlNbj3x2kJinhNzemzoTewGPW4Lw94r74=
+			cPomO5+yhd7rkULt5Gt1wIHSIeaqQh9YkFko+3qS+MQ=
 			</data>
 			<key>optional</key>
 			<true/>

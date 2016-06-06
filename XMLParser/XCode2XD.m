@@ -822,7 +822,7 @@
     
     }
     
-    if ([elementName isEqualToString:SEGUE]) {
+    if ([elementName isEqualToString:SEGUE] && [attributeDict objectForKey:DESTINATION]) {
         
         [interactionsDict setObject:[attributeDict objectForKey:DESTINATION] forKey:lastId];
     }

@@ -105,6 +105,18 @@
                 "size" : 15
                  }
         },
+        "meta" : {
+            "ux" : {
+                "rangedStyles":
+                    [{"length":0,
+                     "fontFamily":"Helvetica Neue",
+                     "fontStyle":"Regular",
+                     "fontSize":15,
+                     "charSpacing":0}],
+                "singleTextObject":true
+            }
+        
+        },
         "text" : {
             "frame" : {
                 "type" : "positioned"

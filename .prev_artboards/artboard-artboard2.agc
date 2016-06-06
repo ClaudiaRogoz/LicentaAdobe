@@ -15,16 +15,16 @@
   },
   "children" : [
     {
-      "id" : "A9E97A62-58B4-46AA-94DF-143069202295",
+      "id" : "Hzb-Tg-S4x",
       "style" : {
         "fill" : {
           "type" : "solid",
           "color" : {
             "mode" : "RGB",
             "value" : {
-              "r" : 59,
-              "g" : 109,
-              "b" : 102
+              "r" : 40,
+              "g" : 12,
+              "b" : 11
             },
             "alpha" : 255
           }
@@ -36,34 +36,72 @@
           {
             "style" : {
               "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 0,
-                    "g" : 0,
-                    "b" : 0
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "67821"
+                    }
                   },
-                  "alpha" : 255
+                  "width" : 158,
+                  "height" : 120,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/art2.png"
                 }
-              },
-              "font" : {
-                "size" : 17,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 402.8092,
+              "ty" : 173,
               "c" : "0",
               "a" : "1",
-              "tx" : 483.0347
+              "tx" : 540
             },
-            "type" : "text",
-            "name" : "Label",
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 150,
+              "height" : 142.2933,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : "255"
+                }
+              },
+              "font" : {
+                "size" : 15,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "id" : "iqP-RW-gMP",
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 15
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -74,7 +112,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 6,
+                        "to" : 10,
                         "x" : 0,
                         "from" : 0
                       }
@@ -82,8 +120,18 @@
                   ]
                 }
               ],
-              "rawText" : "Label"
-            }
+              "rawText" : "statetitle"
+            },
+            "type" : "text",
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 481,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 568
+            },
+            "name" : "Label"
           }
         ]
       },
