@@ -6,13 +6,13 @@
 	<dict>
 		<key>Resources/AGCTemplate.json</key>
 		<data>
-		FkP8tfPp9O8/sYzR0LWFwrayeuM=
+		vyfrv6RBMr4gh8LLZHJH7E9bPfU=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			cBOdeyWrjRrUGfd/6B/6x6Xm1Eo=
+			s8cYVz8YM/1e+20EOLPDGpvwhRg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -21,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			l+tBBjvqSXATKYkDClGRx7RlHPM=
+			rPLSRvoPhn+aJKNSD9escLE04HQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -30,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			95Z+T76Bhs+dOALeWE+hENGAFr0=
+			ZA3zZ7o5WCnWptzziRPRveoy3yc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		JURqJyAJPoP8P+5oLcH0OjBdX98=
+		qWLiucR7rebWjla50fA5uVObXT8=
 		</data>
 		<key>Resources/InteractionTemplate.json</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Resources/SvgLineTemplate.svg</key>
 		<data>
-		Wa1gZs6JVncwg8y6ZT+SEVLvxdo=
+		5P/sVof4t8TsqWO54lz8uWtxhvc=
 		</data>
 		<key>Resources/SvgTemplate.svg</key>
 		<data>
@@ -146,7 +146,7 @@
 		</data>
 		<key>Resources/Xml2AgcTranslations.json</key>
 		<data>
-		Ji77vDIeQ5t/J5j801cRLkNCTYc=
+		8b+BSyB3UYotbJqGi40SuzqWNPA=
 		</data>
 		<key>Resources/manifest.json</key>
 		<data>
@@ -179,22 +179,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FkP8tfPp9O8/sYzR0LWFwrayeuM=
+			vyfrv6RBMr4gh8LLZHJH7E9bPfU=
 			</data>
 			<key>hash2</key>
 			<data>
-			eatorP621neYcKP7uZC/+qTIuH5UaKftvrVImtLxvD4=
+			S62byI+Y458H8dtCP4VSYilCX5OGYp5l4mv3vizEvDo=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			cBOdeyWrjRrUGfd/6B/6x6Xm1Eo=
+			s8cYVz8YM/1e+20EOLPDGpvwhRg=
 			</data>
 			<key>hash2</key>
 			<data>
-			7HHecP5NE2DYhO73POQnaAwCbBtT4Gu7c9NHoje5/Eg=
+			pZ6PelQMEERJXSVBo50fnw/GL7DQFD1eN/Uf+HIPxpY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -203,11 +203,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			l+tBBjvqSXATKYkDClGRx7RlHPM=
+			rPLSRvoPhn+aJKNSD9escLE04HQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			LrgXcWxc/q/jZHnl9MRTyNcT2niWiDbg47hWk9PTTS8=
+			w20rNDDf5n/tCZjEtM5bffHHREeWzL/hdwYK3Xo5Vq0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -216,11 +216,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			95Z+T76Bhs+dOALeWE+hENGAFr0=
+			ZA3zZ7o5WCnWptzziRPRveoy3yc=
 			</data>
 			<key>hash2</key>
 			<data>
-			cPomO5+yhd7rkULt5Gt1wIHSIeaqQh9YkFko+3qS+MQ=
+			GHSFEuLc1YFRgO9gnUInU5J3QVgdZQPJ75DaeT2+BB4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -253,11 +253,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JURqJyAJPoP8P+5oLcH0OjBdX98=
+			qWLiucR7rebWjla50fA5uVObXT8=
 			</data>
 			<key>hash2</key>
 			<data>
-			AcEc/e0FfWkB3lCD2AGOZqwxTmvO4AH62ppTJd6dGC8=
+			Oj9Mas7cL58w3I6uY+vc0xofleRFpGEPfuCOYfbwPkM=
 			</data>
 		</dict>
 		<key>Resources/InteractionTemplate.json</key>
@@ -341,11 +341,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Wa1gZs6JVncwg8y6ZT+SEVLvxdo=
+			5P/sVof4t8TsqWO54lz8uWtxhvc=
 			</data>
 			<key>hash2</key>
 			<data>
-			bbX8JHHGsjxCK6UDXHIf2X2qK3Uaq2Z0Rvp12kZR/Vg=
+			PzT1h4vxZoI+agbUFRAJnhoFLDkRvySL1Er3xsscbYY=
 			</data>
 		</dict>
 		<key>Resources/SvgTemplate.svg</key>
@@ -517,11 +517,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Ji77vDIeQ5t/J5j801cRLkNCTYc=
+			8b+BSyB3UYotbJqGi40SuzqWNPA=
 			</data>
 			<key>hash2</key>
 			<data>
-			kyMIDuk+Yldru0phoOvOfDHHY81CwnIhxXF84xQFCVM=
+			6PKk6cdmznJZ/ZgTEwuLObDt9KOXXNZUDBcDx7F0h5k=
 			</data>
 		</dict>
 		<key>Resources/manifest.json</key>

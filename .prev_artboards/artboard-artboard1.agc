@@ -15,7 +15,7 @@
   },
   "children" : [
     {
-      "id" : "FYV-E0-1ED",
+      "id" : "0DCB9785-D100-4768-9D63-C3E7E86B1785",
       "style" : {
         "fill" : {
           "type" : "solid",
@@ -57,10 +57,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 408.3675,
+              "ty" : 426.1542,
               "c" : "0",
               "a" : "1",
-              "tx" : 165.2222
+              "tx" : 167.7222
             },
             "type" : "text",
             "name" : "Label",
@@ -109,10 +109,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 592.9042,
+              "ty" : 610.6908,
               "c" : "0",
               "a" : "1",
-              "tx" : 74.59717
+              "tx" : 77.09717
             },
             "type" : "text",
             "name" : "Label",
@@ -161,10 +161,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 121.5575,
+              "ty" : 113.7758,
               "c" : "0",
               "a" : "1",
-              "tx" : 153.9722
+              "tx" : 77.09717
             },
             "type" : "text",
             "name" : "Label",
@@ -188,73 +188,6 @@
               ],
               "rawText" : "Label"
             }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : "255"
-                }
-              },
-              "font" : {
-                "size" : 15,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "id" : "yvw-It-g9Z",
-            "meta" : {
-              "ux" : {
-                "singleTextObject" : true,
-                "rangedStyles" : [
-                  {
-                    "fontStyle" : "Regular",
-                    "length" : 0,
-                    "charSpacing" : 0,
-                    "fontFamily" : "Helvetica Neue",
-                    "fontSize" : 15
-                  }
-                ]
-              }
-            },
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 10,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "statetitle"
-            },
-            "type" : "text",
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 343,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 253
-            },
-            "name" : "Label"
           },
           {
             "style" : {
@@ -263,7 +196,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "583500"
+                      "uid" : "678996"
                     }
                   },
                   "width" : 158,
@@ -275,21 +208,35 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 143,
+              "ty" : 142,
               "c" : "0",
               "a" : "1",
-              "tx" : 131
+              "tx" : 130
             },
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "type" : "rect",
-              "x" : "0",
               "width" : 150,
-              "height" : 142.2933
+              "height" : 142.2933,
+              "type" : "rect",
+              "x" : "0"
             }
           },
           {
+            "meta" : {
+              "ux" : {
+                "singleTextObject" : true,
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 15
+                  }
+                ]
+              }
+            },
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -310,21 +257,16 @@
                 "family" : "Helvetica Neue"
               }
             },
-            "id" : "2Xd-z9-Ecb",
-            "meta" : {
-              "ux" : {
-                "singleTextObject" : true,
-                "rangedStyles" : [
-                  {
-                    "fontStyle" : "Regular",
-                    "length" : 0,
-                    "charSpacing" : 0,
-                    "fontFamily" : "Helvetica Neue",
-                    "fontSize" : 15
-                  }
-                ]
-              }
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 347,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 206
             },
+            "type" : "text",
+            "id" : "32BFEEC6-BE24-498E-8A25-B1556D71F6BE",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -343,18 +285,107 @@
                   ]
                 }
               ],
-              "rawText" : "statetitle"
+              "rawText" : "Click here to open"
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 15
+                  }
+                ],
+                "singleTextObject" : true
+              }
             },
-            "type" : "text",
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : "255"
+                }
+              },
+              "font" : {
+                "size" : 15,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 522,
+              "ty" : 481,
               "c" : "0",
               "a" : "1",
-              "tx" : 186
+              "tx" : 155
             },
-            "name" : "Label"
+            "type" : "text",
+            "id" : "5BD56D7E-D439-4380-A48E-148DB7BB50F4",
+            "text" : {
+              "frame" : {
+                "type" : "positioned"
+              },
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 0,
+                        "to" : 10,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "rawText" : "$state.title"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "730885"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 350,
+                  "href" : "\/Users\/crogoz\/Desktop\/Try\/Try\/Resources\/pathfbc9cc7452e1aa14dbc92e0a512b3027bfdbba94.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 37,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 18
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 15.625,
+              "height" : 21.12167,
+              "type" : "rect"
+            }
           }
         ]
       },

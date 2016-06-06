@@ -126,7 +126,7 @@
             },
             "rules" : {
                 "$header.id" : "$rand",
-                "$header.image" : "$LINE $name $style.fill.color.value $style.stroke.width $transform $shape",
+                "$header.image" : "$LINE $name $style.stroke.color.value $style.stroke.width $transform $shape",
                 "rect" : {
                     "$transform" : {
                         "key" : "frame",
@@ -358,6 +358,7 @@
             "button" : {
                 "header" : {
                     "opaque" : "NO",
+                    "fixedFrame" : "YES",
                     "userInteractionEnabled" : "NO",
                     "contentMode" : "left",
                     "verticalHuggingPriority" : "251",

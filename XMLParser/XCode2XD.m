@@ -184,11 +184,9 @@
     NSArray *place_start = [idMap objectForKey:homeArtboard];
     [self computeDict:homeArtboard scene:place_start dict:&segues];
     
-    NSLog(@"Segues = %@", segues);
-    
     NSMutableDictionary *artboardsD = [dictionary objectForKey:ARTBOARDS];
     [self addTo:&dictionary ids:segues];
-    NSLog(@"ArtboardsD %@", dictionary);
+
     [XDCreator createResourcesContent:artboardsD xdPath: [self xdPath]];
     [XDCreator createInteractionContent:interactions xdPath:[self xdPath] homeArtboard:homeArtboard];
     [XDCreator createMimetype:[self xdPath]];
@@ -209,18 +207,14 @@
         [[tempArray objectForKey:CHILDREN] addObject:children];
         
         id currentScene = [segues objectForKey:[NSNumber numberWithInt:nr]];
-        NSLog(@"CurrentScene = %@", currentScene);
         for (id assetOffset in currentScene) {
             id assetId = [currentScene objectForKey:assetOffset];
             
             if ([assetOffset intValue] != 0) {
-                NSLog(@"TMPARR = %@ %@", assetId, [[[[[tempArray objectForKey:CHILDREN] objectAtIndex:0]objectForKey:ART_SCENE] objectForKey:CHILDREN] objectAtIndex:[assetOffset intValue] - 1]);
                 [[[[[[tempArray objectForKey:CHILDREN] objectAtIndex:0]objectForKey:ART_SCENE] objectForKey:CHILDREN] objectAtIndex:[assetOffset intValue] - 1] setObject:assetId forKey:ID];
-                NSLog(@"TMPARR = %@ %@", assetId, [[[[[tempArray objectForKey:CHILDREN] objectAtIndex:0]objectForKey:ART_SCENE] objectForKey:CHILDREN] objectAtIndex:[assetOffset intValue] - 1]);
             }
             
         }
-        NSLog(@"FintempArray = %@", tempArray);
         
         [XDCreator createArtworkContent:tempArray artboardNo:nr xdPath:[self xdPath]];
         id artboardNo = [artboardsD objectForKey:key];
@@ -340,8 +334,8 @@
         [type  setObject:[attributes objectForKey:META] forKey:META];
         [type  setObject:[attributes objectForKey:RESOURCES] forKey:RESOURCES];
         id sources = [type objectForKey:VIEWSOURCE];
-        NSLog(@"InteractionsDict = %@", interactionsDict);
-        NSLog(@"idMapping = %@", idMapping);
+        //NSLog(@"InteractionsDict = %@", interactionsDict);
+        //NSLog(@"idMapping = %@", idMapping);
         type = [type objectForKey:ARTBOARDS];
         
         int width = 375;
@@ -638,10 +632,39 @@
             }
         }
     }
-
-
 }
 
+
+- (void) processImage:(NSDictionary *)attributeDict attributes:(NSMutableDictionary **) correctAttr {
+    NSString *directory = [[[self resourcesPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString *imageName = [Helper findFile: [attributeDict objectForKey:ISIMAGE] inPath:directory];
+    NSArray *strings = [[xml2agcDictionary objectForKey:IMAGEVIEW_INV] componentsSeparatedByString:DOT];
+    
+    
+    id value = *correctAttr;
+    for (id key in [strings subarrayWithRange:NSMakeRange(0, [strings count] -1)]){
+        value = [value objectForKey:key];
+        
+    }
+    
+    /* generate random values for uid */
+    int num = arc4random() % 1000000;
+    [value setObject:imageName forKey:[strings lastObject]];
+    
+    NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
+    
+    if (image == nil) {
+        NSLog(@"[ERROR]Image %@ is nil", imageName);
+    }
+    
+    [value setObject:[NSNumber numberWithInt:image.size.width] forKey:WIDTH];
+    [value setObject:[NSNumber numberWithInt:image.size.height] forKey:HEIGHT];
+    
+    value = [[value objectForKey:META] objectForKey:UX];
+    
+    [value setObject: [NSString stringWithFormat:@"%d", num] forKey:UID];
+
+}
 
 -(void)transformAttributesForElement:(NSString *)elementName attributeDict:(NSMutableDictionary*)attributeDict
                            childDict:(NSMutableDictionary *)childDict parentDict:(NSMutableDictionary**)parentDict
@@ -742,7 +765,7 @@
     }else   [*parentDict setObject:childDict forKey:elementName];
 
     [inheritanceStack addObject:elementName];
-    
+    NSLog(@"ChildDict = %@ %@", dictionaryStack, childDict);
     [dictionaryStack addObject:childDict];
 
 }
@@ -754,6 +777,29 @@
     
     NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
     tempDict[HREF] = GRAPHIC_CONTENT;
+
+    if (![xml2agcDictionary objectForKey:elementName] && [elementName isEqualToString:XML_STATE] && [attributeDict objectForKey:ISIMAGE] != nil) {
+        //NSLog(@"dictionaryStack %@", dictionaryStack);
+        id transform = [[dictionaryStack lastObject] objectForKey:TRANSFORM];
+        id frame_size = [attributes objectForKey:FRAME_SIZE];
+        NSLog(@"STATE = %@ %@", [dictionaryStack lastObject], [attributes objectForKey:FRAME_SIZE]);
+        id tx = [transform objectForKey:TX];
+        id ty = [transform objectForKey:TY];
+        NSMutableDictionary *dict = [self deepCopy:[attributes objectForKey:IMAGEVIEW]];
+        id value = [dict objectForKey:TRANSFORM];
+        [value setObject:tx forKey:TX];
+        [value setObject:ty forKey:TY];
+        value = [dict objectForKey:SHAPE];
+        [value setObject:[frame_size objectForKey:WIDTH] forKey:WIDTH];
+        [value setObject:[frame_size objectForKey:HEIGHT] forKey:HEIGHT];
+        value = [[[dict objectForKey:STYLE] objectForKey:FILL] objectForKey:PATTERN];
+    
+        [self processImage:attributeDict attributes:&dict];
+        //[value setObject:[attributeDict objectForKey:ISIMAGE] forKey:HREF];
+        parentDict = dict;
+        NSLog(@"Stack = %@", dict);
+       
+    }
     
     if (![xml2agcDictionary objectForKey:elementName]) {
         
@@ -826,37 +872,16 @@
         
         [interactionsDict setObject:[attributeDict objectForKey:DESTINATION] forKey:lastId];
     }
-    
 
-    
     if ([attributeDict objectForKey:ID]) {
         lastId = [attributeDict objectForKey:ID];
         //TODO!! here extend with the other subViews types
         if ([elementName isEqualToString:BUTTON] || [elementName isEqualToString:LABEL] || [elementName isEqualToString:IMAGEVIEW] ||
             [elementName isEqualToString:IMAGEVIEW] || [elementName isEqualToString:TEXTFIELD]) {
             ++childScene;
-            NSLog(@"lastId = %@ %d %@", lastId, sceneNo, elementName);
-            /*if (![idMapping objectForKey:[NSNumber numberWithInt:sceneNo]]) {
-                NSMutableDictionary *childrenList = [[NSMutableDictionary alloc ] init];
-                [childrenList setObject:lastId forKey:[NSNumber numberWithInt:childScene]];
-                [idMapping setObject:childrenList forKey:[NSNumber numberWithInt:sceneNo]];
-            
-            } else {
-                id value = [idMapping objectForKey:[NSNumber numberWithInt:sceneNo]];
-                [value setObject:lastId forKey:[NSNumber numberWithInt:childScene]];
-            }*/
+
             [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:childScene]] forKey:lastId];
         } else if ([elementName isEqualToString:VIEW_CONTROLLER]) {
-            
-            /*if (![idMapping objectForKey:[NSNumber numberWithInt:sceneNo]]) {
-                NSMutableDictionary *childrenList = [[NSMutableDictionary alloc ] init];
-                [childrenList setObject:lastId forKey:[NSNumber numberWithInt:0]];
-                [idMapping setObject:childrenList forKey:[NSNumber numberWithInt:sceneNo]];
-                
-            } else {
-                id value = [idMapping objectForKey:[NSNumber numberWithInt:sceneNo]];
-                [value setObject:lastId forKey:[NSNumber numberWithInt:0]];
-            }*/
 
             [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:0]] forKey:lastId];
         }
@@ -882,7 +907,6 @@
     }
     
     if ([elementName isEqualToString:SCENE]) {
-        NSLog(@"Here we are %d", sceneNo);
         sceneNo++;
         childScene = 0;
         NSData *find = [tagName dataUsingEncoding:NSUTF8StringEncoding];
@@ -904,6 +928,7 @@
     /* Get the dictionary for the current level in the stack */
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
     
+    NSLog(@"[%@] ParentDict = %@", elementName, parentDict);
     /* if the current element is a switch, just copy the code and move on to its attributes */
     if ([elementName isEqualToString:SWITCH]){
         
@@ -979,7 +1004,8 @@
 
 -(void) processTextFields:(NSString *)textValue name:(NSString *)elementName attributes:(NSMutableDictionary **)parentDict {
 
-    if (!([elementName isEqualToString:TEXTFIELD] || [elementName isEqualToString:LABEL])){
+    NSLog(@"Process textValue = %@ %@", textValue, elementName);
+    if (!([elementName isEqualToString:TEXTFIELD] || [elementName isEqualToString:LABEL] || [elementName isEqualToString:BUTTON_TEXT])) {
         return;
     }
     

@@ -42,6 +42,9 @@
         
         }
     },
+    "state." : {
+        "title" : "buttonElem.text.rawText"
+    },
     "color." : {
         "red"   :   "textField.style.fill.color.value.r",
         "green" :   "textField.style.fill.color.value.g",

@@ -138,7 +138,7 @@
  * PARAMS:
  *      dictionary: the initial dictionary that needs to be split
  **/
-- (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary;
+- (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary interactions:(NSMutableDictionary *) interactions idMap:(NSMutableDictionary *) idMap;
 
 /**
  * writes an xmlDictionary to agcFile

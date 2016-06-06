@@ -73,7 +73,6 @@
     "buttonElem" : {
         
         "type" : "text",
-        "name" : "Label",
         "transform" : {
             "a" : "1",
             "b" : "0",
@@ -133,7 +132,7 @@
                                         ]]
                                 
                         }],
-            "rawText" :  "statetitle"
+            "rawText" :  "$state.title"
             }
     },
     "textField" : {

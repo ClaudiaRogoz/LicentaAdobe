@@ -190,6 +190,7 @@
 #define DESTINATION @"destination"
 #define PROPERTIES  @"properties"
 #define DOCUMENT    @"document"
+#define XML_STATE       @"state"
 #define START_ARTBOARD  @"homeArtboard"
 #define HOME_ARTBOARD   @"initialViewController"
 #define VIEW_CONTROLLER  @"viewController"
@@ -203,6 +204,7 @@
 #define INST_ID     @"InstanceID="
 #define INSTANCE_ID @"instanceID="
 
+
 #define MANIFEST    @"manifest"
 #define PATH_MANIFEST   @"PathManifest"
 #define META_INF    @"META-INF"
@@ -210,6 +212,7 @@
 
 
 #define TEXTFIELD   @"textField"
+#define BUTTON_TEXT @"buttonElem"
 #define TEXT_COLOR_R    @"textField.style.fill.color.value.r"
 #define TEXT_COLOR_G    @"textField.style.fill.color.value.g"
 #define TEXT_COLOR_B    @"textField.style.fill.color.value.b"
@@ -225,7 +228,8 @@
 #define XML_BLUE    @"b"
 #define GREEN       @"green"
 #define BLUE        @"blue"
-
+#define FILL        @"fill"
+#define PATTERN     @"pattern"
 #define NOT         @"NOT"
 #define SPACE       @" "
 

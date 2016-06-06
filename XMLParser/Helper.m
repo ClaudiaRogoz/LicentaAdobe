@@ -212,13 +212,13 @@
 
 }
 
-+ (NSString *) convertSvgLineToPng:(NSString *) svgName {
++ (NSString *) convertSvgLineToPng:(NSString *) svgName withFill:(NSString *) hexColor{
     
     NSString *pngName = [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
     NSTask *task = [[NSTask alloc] init];
     
     task.launchPath = @"/usr/local/bin/convert";
-    task.arguments = @[CONVERT_BKG, CONVERT_NONE, svgName, pngName];
+    task.arguments = @[CONVERT_BKG, CONVERT_NONE, CONVERT_FILL, [NSString  stringWithFormat:@"#%@", hexColor],svgName, pngName];
     
     [task launch];
     [task waitUntilExit];
