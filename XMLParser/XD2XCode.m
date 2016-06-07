@@ -196,7 +196,6 @@
     
     
     NSData *fileContents = [path dataUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"Writing Line to .... %@", path);
     /* write to file */
     [[NSFileManager defaultManager] createFileAtPath:filePath
                                             contents:fileContents
@@ -293,9 +292,9 @@
     int r = [[value objectForKey:XML_RED] intValue];
     int g = [[value objectForKey:XML_GREEN] intValue];
     int b = [[value objectForKey:XML_BLUE] intValue];
-    NSLog(@"r g b = %d %d %d", r, g, b);
+   
     NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X", (int)(r ), (int)(g ), (int)(b )];
-    NSLog(@"Hex = %@", hexString);
+
     return hexString;
 }
 
@@ -402,7 +401,7 @@
     path_y = [[transform objectForKey:TY] intValue];
     path_width = box_Mx - box_mx;
     path_height =  box_My - box_my;
-    NSLog(@"[PATH]fillColor = %@", fillColor);
+
     NSString *style = [NSString stringWithFormat:@"stroke:#%@;stroke-width:%d", fillColor, [stroke intValue]];
     
     NSString *line = [NSString stringWithFormat:@"x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\"", x1, y1, x2, y2];
@@ -414,9 +413,48 @@
     [self generateSVGFile:fileName FromLine:pathLine usingViewBox:viewBox];
     
     /* convert the svg file into a png file */
-    //NSString *pngName = [Helper convertSvgToPng:fileName withFill:fillColor];
-    NSString *pngName = [Helper convertSvgLineToPng:fileName withFill:fillColor];
+    NSString *pngName = [Helper convertSvgToPng:fileName withFill:fillColor];
     return  pngName;
+
+}
+
+
+- (id) getXYFromPath:(NSString *) pathStr {
+    
+    return [[[[[[[[[pathStr componentsSeparatedByString:@"L"] componentsJoinedByString:@" "]
+                           componentsSeparatedByString:@"M"] componentsJoinedByString:@" "]
+                         componentsSeparatedByString:@"C"] componentsJoinedByString:@" "]
+                       componentsSeparatedByString:@"Z"] componentsJoinedByString:@""]
+                     componentsSeparatedByString:@" "];
+
+}
+
+- (void) getMinMaxXY:(id) maxMinPath minx:(float*) minx maxx:(float*) maxx miny:(float*)miny maxy:(float*) maxy {
+
+    
+    
+    for (int i = 0; i< [maxMinPath count]; ) {
+        
+        if ([[maxMinPath objectAtIndex:i] isEqualToString:@""] &&
+            i + 1 < [maxMinPath count] &&
+            [[maxMinPath objectAtIndex:i + 1] isEqualToString:@""]) {
+            i += 2;
+            continue;
+        } else if ([[maxMinPath objectAtIndex:i] isEqualToString:@""]) {
+            i += 1;
+            continue;
+        }
+        float x = [[maxMinPath objectAtIndex:i] floatValue];
+        float y = [[maxMinPath objectAtIndex:i +1] floatValue];
+        
+        *minx = MIN(x, *minx);
+        *maxx = MAX(x, *maxx);
+        *miny = MIN(y, *miny);
+        *maxy = MAX(y, *maxy);
+        
+        i += 2;
+        
+    }
 
 }
 
@@ -436,47 +474,14 @@
     fileName = [fileName stringByAppendingFormat:@"%@%@", DOT, SVG];
     fileName = [[self getProjHomePath] stringByAppendingPathComponent:fileName];
     
-    id maxMinPath = [[[[[[[[[pathStr componentsSeparatedByString:@"L"] componentsJoinedByString:@" "]
-                           componentsSeparatedByString:@"M"] componentsJoinedByString:@" "]
-                         componentsSeparatedByString:@"C"] componentsJoinedByString:@" "]
-                       componentsSeparatedByString:@"Z"] componentsJoinedByString:@""]
-                     componentsSeparatedByString:@" "];
+    id maxMinPath = [self getXYFromPath:pathStr];
     
     float minx = INT_MAX - 1;
     float maxx = INT_MIN + 1;
     float miny = INT_MAX - 1;
     float maxy = INT_MIN + 1;
-    for (int i = 0; i< [maxMinPath count]; ) {
-        
-        if ([[maxMinPath objectAtIndex:i] isEqualToString:@""] &&
-            i + 1 < [maxMinPath count] &&
-            [[maxMinPath objectAtIndex:i + 1] isEqualToString:@""]) {
-            i += 2;
-            continue;
-        } else if ([[maxMinPath objectAtIndex:i] isEqualToString:@""]) {
-            i += 1;
-            continue;
-        }
-        float x = [[maxMinPath objectAtIndex:i] floatValue];
-        float y = [[maxMinPath objectAtIndex:i +1] floatValue];
-        
-        if (x <= minx)  {
-            minx = x;
-        }
-        if (y <= miny) {
-            miny = y;
-        }
-        if (x >= maxx) {
-            maxx = x ;
-            
-        }
-        if ( y >= maxy) {
-            maxy = y;
-            
-        }
-        i += 2;
-        
-    }
+    
+    [self getMinMaxXY:maxMinPath minx:&minx maxx:&maxx miny:&miny maxy:&maxy];
     
     path_x = minx + transformTx;
     path_y = miny + transformTy;
@@ -681,7 +686,7 @@
     if ([key isEqualToString:XARTBOARD]) {
         NSLog(@"[%hhd]InitValue = %f %d", offset, initValue, startXArtboard);
         translatedValue = initValue - startXArtboard;
-       // if (!offset)
+        //if (!offset)
             translatedValue = translatedValue * xScaleFactor;
         NSLog(@"[%hhd]TranslatedValue = %f", offset, translatedValue);
     }
@@ -705,7 +710,8 @@
     NSString *firstLine = [label substringToIndex:textLen];
     float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
     textLen = MIN((int)[label length], textLen * xScaleFactor);
-    NSLog(@"textLen = %d", textLen);
+
+    
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     [style setLineBreakMode:NSLineBreakByWordWrapping];
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
@@ -751,7 +757,24 @@
 }
 
 - (void) merge:(NSMutableDictionary *) dictValue withDict:(NSMutableDictionary **) objDict
-   withDefDict:(NSMutableDictionary *)defaultDict forValue:(NSString *) value key:(NSString *) key {
+   withDefDict:(NSMutableDictionary *)defaultDict forValue:(NSString *) value key:(NSString *) key type:(NSString *) type {
+    
+
+    if ([value hasPrefix:ADD_XOFFSET] || [value hasPrefix:ADD_YOFFSET]){
+        id tvalue = [[self splitVariable:[value substringFromIndex:[ADD_YOFFSET length] + 1]]objectAtIndex:0];
+        float initValue = [[dictValue objectForKey:tvalue] floatValue];
+        if ([tvalue isEqualToString:TX]) {
+            NSLog(@"Set %@ = %f %f", tvalue, xOffsetText, initValue);
+            [dictValue setObject:[NSNumber numberWithFloat:initValue + xOffsetText] forKey:tvalue];
+        }
+        else {
+            NSLog(@"Set %@ = %f %f", tvalue, yOffsetText, initValue);
+            [dictValue setObject:[NSNumber numberWithFloat:initValue + yOffsetText] forKey:tvalue];
+        }
+        
+        value = [NSString stringWithFormat:@"$%@",tvalue];
+    }
+    
     
     if (![value hasPrefix:TOTRANSFORM]) {
         [*objDict setValue:value forKey:key]; /* no need for transformation */
@@ -796,6 +819,15 @@
             [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
             [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.3 * rect.size.width] forKey:WIDTH];
             
+            
+            if ([type isEqualToString:LABEL]) {
+                /* move the frame up with fontSize */
+                int initialYOffset = [[*objDict objectForKey:YARTBOARD] floatValue];
+                [*objDict setObject:[NSNumber numberWithFloat:initialYOffset - fontSize] forKey:YARTBOARD];
+
+            }
+            
+            
         }
         /*if we have a special operation to perform eg. getSize from path*/
     } else if ([value hasPrefix:GETHEIGHT] || [value hasPrefix:GETWIDTH]) {
@@ -806,7 +838,7 @@
     } else if ([self isOfTypeLine:value]) {
         [*objDict setObject:[self processPath:value ofType:key preserveRatio:true] forKey:key];
     } else if ([self isOfTypeLabel:value]) {
-        // T0DO maybe
+        // TODO maybe
     } else {/* use default values */
         [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
     }
@@ -827,6 +859,7 @@
         id value = [*objDict objectForKey:key];
 
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
+           
             value = [dictValue objectForKey:[value substringFromIndex:1]];
             
             if (value) {
@@ -849,12 +882,15 @@
                 [*objDict setObject:value forKey:key];
                 
             } else {
+                
+                if ([type isEqualToString:@"label"])
+                    NSLog(@"[%@]Value = %@ %@ %@ %f %f", type, key, [paramsValue objectForKey:key], dictValue, xOffsetText, yOffsetText);
                 /* use values specified from agc */
                 value = [paramsValue objectForKey:key];
                 if (!value)
                     continue;
                 
-                [self merge:dictValue withDict:objDict withDefDict:defaultDict forValue:value key:key];
+                [self merge:dictValue withDict:objDict withDefDict:defaultDict forValue:value key:key type:type];
                 
             }
         }
@@ -922,12 +958,10 @@
     int y = [[groupFrame objectForKey:YARTBOARD] intValue];
     int w = [[groupFrame objectForKey:WIDTH] intValue];
     int h = [[groupFrame objectForKey:HEIGHT] intValue];
-    if (x <= *minx)  {
-        *minx = x;
-    }
-    if (y <= *miny) {
-        *miny = y;
-    }
+    
+    *minx = MIN(x, *minx);
+    *miny = MIN(y, *miny);
+    
     if (x + w >= *maxx) {
         *maxx = x + w;
         *maxw = w;
@@ -1227,18 +1261,24 @@
                 if (textLines == counter && [condition isEqualToString:TEXT_LINES]) {
                     firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
                     textLen = [firstLine intValue];
-                  
+                    xOffsetText = [[[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:XARTBOARD] floatValue];
+                    yOffsetText = [[[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:YARTBOARD] floatValue];
+                    
                 } else if (textLines == counter && [condition isEqualToString:TEXT_PARAGRAPH]) {
                     tmp = [[tmp objectAtIndex:0] objectForKey:LINE_VALUE];
-                    
                     textLen = 0;
+                    bool set = false;
                     for (id temp in tmp) {
                         firstLine = [[temp objectAtIndex:0]objectForKey:TO];
+                        if (!set) {
+                            xOffsetText = [[[temp objectAtIndex:0] objectForKey:XARTBOARD] floatValue];
+                            yOffsetText = [[[temp objectAtIndex:0] objectForKey:YARTBOARD] floatValue];
+                            set = true;
+                        }
                         if (textLen < [firstLine intValue])
                             textLen = [firstLine intValue];
                     }
-                 
-                    NSLog(@"textLen = %d", textLen);
+
                 }
                 
                 continue;
@@ -1279,7 +1319,7 @@
                      * esp for type = shape
                      **/
                     type = [self getShapeType:type object:object];
-                    NSLog(@"Type = %@", type);
+                    //NSLog(@"Type = %@", type);
                     if (![type isKindOfClass:[NSString class]])
                         continue;
                     
@@ -1588,7 +1628,7 @@
     [*finalString appendString: [[NSUUID UUID] UUIDString]];
     [*finalString appendString: SCENEHEADERE];
     id content = [self parseToString:*finalString dict:dict name: ARTBOARD];
-    NSLog(@"\nContent = %@\n", content);
+    //NSLog(@"\nContent = %@\n", content);
     [*finalString appendString: content];
     [*finalString appendString: XMLVIEWF];
     [*finalString appendString:XMLFOOTERA];

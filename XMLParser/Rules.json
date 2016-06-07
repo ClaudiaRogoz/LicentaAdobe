@@ -2,7 +2,10 @@
     
     "artboard"  :   "view",
     "view"      :   "artboard",
-    "text"      :   "label",
+    "text"      :   {
+        "text.frame.type.positioned" : "label",
+        "text.frame.type.area"  : "$textArea"
+    },
     "label"     :   "text",
     "shape"     :   {
         "shape.type.rect" : {
@@ -22,6 +25,7 @@
     "$lineView"     :   "imageView",
     "$imageViewPath" : "imageView",
     "$imageState" : "state",
-    "$labelState" : "state"
+    "$labelState" : "state",
+    "$textArea"   : "label"
     
 }

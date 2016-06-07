@@ -267,6 +267,8 @@
 #define GETHEIGHT   @"$GETHEIGHT"
 #define GET_TYPE    @"$GETTYPE"
 #define IMAGEPATH   @"$IMAGEPATH"
+#define ADD_XOFFSET @"$ADD_XOFFSET"
+#define ADD_YOFFSET @"$ADD_YOFFSET"
 #define GETX        @"$x"
 #define GETY        @"$y"
 #define WIDTH_IN_PATH   7

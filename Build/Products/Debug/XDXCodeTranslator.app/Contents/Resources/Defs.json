@@ -140,7 +140,7 @@
                 "order" : ["$header.image", "rect", "$header.id"]
             },
             "toString" : ["header", "rules"]
-        
+            
         },
         "imageView" : {
             "header" : {
@@ -274,7 +274,7 @@
             },
             "toString" : ["header", "rules"]
         },
-        "label" : {
+        "$textArea" : {
             "header": {
                 "opaque" : "NO",
                 "userInteractionEnabled" :"NO",
@@ -309,7 +309,7 @@
                         "width" : "$size"
                     },
                     "$text" : {
-                        "height" : "$rawText",  
+                        "height" : "$rawText"
                     },
                     "$text.paragraphs.$lineListNo.lines" : {
                         "len"   :   "$len"
@@ -320,7 +320,86 @@
                     "$text.frame" : {
                         "$" : "$GETTYPE $type"
                     },
-                    "order" : ["$transform", "$text.paragraphs.$lineListNo.lines", "$text.paragraphs" , "$text", "$style.font",  "$text.frame"]
+                    "order" : ["$text.paragraphs.$lineListNo.lines", "$transform", "$text.paragraphs" , "$text", "$style.font",  "$text.frame"]
+                },
+                "fontDescription" : {
+                    "$style.font" :
+                    {
+                        "key" : "fontDescription",
+                        "type" : "$style",
+                        "pointSize" : "$size"
+                    }
+                },
+                "mutableString" : {
+                    "$text" : {
+                        "text" : "$rawText"
+                    }
+                },
+                "color" : {
+                    "$style.fill.color.value" : {
+                        "key" : "textColor",
+                        "red" : "$r",
+                        "green" : "$g",
+                        "blue" : "$b",
+                        "alpha" : "$alpha"
+                        
+                    }
+                },
+                "nil" : {
+                    "key" : "highlightedColor"
+                },
+                "toString" : ["rect", "mutableString", "fontDescription", "color", "nil"]
+            },
+            "toString" : ["header", "rules"]
+        },
+        "label" : {
+            "header": {
+                "opaque" : "NO",
+                "userInteractionEnabled" :"NO",
+                "contentMode" :"left",
+                "horizontalHuggingPriority" : 251,
+                "verticalHuggingPriority" : 251,
+                "fixedFrame" : "YES",
+                "textAlignment" : "natural",
+                "lineBreakMode" : "tailTruncation",
+                "numberOfLines" : "$",
+                "baselineAdjustment" : "alignBaselines",
+                "adjustsFontSizeToFit": "NO",
+                "translatesAutoresizingMaskIntoConstraints" : "NO",
+                "id":"$rand",
+                "toString" : ["opaque", "userInteractionEnabled",
+                              "contentMode", "horizontalHuggingPriority",
+                              "verticalHuggingPriority", "fixedFrame",
+                              "textAlignment", "lineBreakMode", "numberOfLines", "baselineAdjustment",
+                              "adjustsFontSizeToFit", "translatesAutoresizingMaskIntoConstraints", "id"
+                              ]
+            },
+            "rules": {
+                "$header.id" : "$rand",
+                "$header.numberOfLines" : "$MAX $text.paragraphs.$count $text.paragraphs.$lineListNo.lines.$count",
+                "rect" : {
+                    "$transform" : {
+
+                        "x" : "$ADD_YOFFSET $tx",
+                        "y" : "$ADD_XOFFSET $ty",
+                        "key" : "frame"
+                    },
+                    "$style.font" : {
+                        "width" : "$size"
+                    },
+                    "$text" : {
+                        "height" : "$rawText"
+                    },
+                    "$text.paragraphs.$lineListNo.lines" : {
+                        "len"   :   "$len"
+                    },
+                    "$text.paragraphs" : {
+                        "len"   :   "$len"
+                    },
+                    "$text.frame" : {
+                        "$" : "$GETTYPE $type"
+                    },
+                    "order" : ["$text.paragraphs.$lineListNo.lines", "$transform", "$text.paragraphs" , "$text", "$style.font",  "$text.frame"]
                 },
                 "fontDescription" : {
                     "$style.font" :

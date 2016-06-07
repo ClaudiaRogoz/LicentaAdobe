@@ -66,6 +66,8 @@ typedef enum NSTextType : NSUInteger {
      * the length f the first row and the number of rows */
     int textLen;
     int textLines;
+    float xOffsetText;
+    float yOffsetText;
     
     /* needed for setting the initial storyboard */
     BOOL computed;

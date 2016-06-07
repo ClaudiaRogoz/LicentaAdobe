@@ -40,7 +40,7 @@
     [rootDictionary removeObjectForKey:INTERACTIONS];
     [rootDictionary removeObjectForKey:IDMAP];
     
-    NSLog(@"interactions = %@ %@", interactions, idMap);
+    //NSLog(@"interactions = %@ %@", interactions, idMap);
     NSString *finalArtboardName = [NSString stringWithFormat:ARTBOARDXML];
     [reader writeToFile:rootDictionary file:finalArtboardName computeSha:-1];
     [reader splitArtboards:rootDictionary interactions:interactions idMap:idMap];
@@ -138,7 +138,7 @@
     } else {
         artboardList = [[NSMutableDictionary alloc] init];
     }
-    NSLog(@"Set %@ %@", name, [place_start lastObject]);
+   // NSLog(@"Set %@ %@", name, [place_start lastObject]);
     [artboardList setObject:name forKey:[place_start lastObject]];
     [*ids setObject:artboardList forKey:[place_start firstObject]];
 }
@@ -765,7 +765,7 @@
     }else   [*parentDict setObject:childDict forKey:elementName];
 
     [inheritanceStack addObject:elementName];
-    NSLog(@"ChildDict = %@ %@", dictionaryStack, childDict);
+    //NSLog(@"ChildDict = %@ %@", dictionaryStack, childDict);
     [dictionaryStack addObject:childDict];
 
 }
@@ -782,7 +782,7 @@
         //NSLog(@"dictionaryStack %@", dictionaryStack);
         id transform = [[dictionaryStack lastObject] objectForKey:TRANSFORM];
         id frame_size = [attributes objectForKey:FRAME_SIZE];
-        NSLog(@"STATE = %@ %@", [dictionaryStack lastObject], [attributes objectForKey:FRAME_SIZE]);
+        //NSLog(@"STATE = %@ %@", [dictionaryStack lastObject], [attributes objectForKey:FRAME_SIZE]);
         id tx = [transform objectForKey:TX];
         id ty = [transform objectForKey:TY];
         NSMutableDictionary *dict = [self deepCopy:[attributes objectForKey:IMAGEVIEW]];
@@ -797,7 +797,7 @@
         [self processImage:attributeDict attributes:&dict];
         //[value setObject:[attributeDict objectForKey:ISIMAGE] forKey:HREF];
         parentDict = dict;
-        NSLog(@"Stack = %@", dict);
+        //NSLog(@"Stack = %@", dict);
        
     }
     
@@ -928,7 +928,7 @@
     /* Get the dictionary for the current level in the stack */
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
     
-    NSLog(@"[%@] ParentDict = %@", elementName, parentDict);
+    //NSLog(@"[%@] ParentDict = %@", elementName, parentDict);
     /* if the current element is a switch, just copy the code and move on to its attributes */
     if ([elementName isEqualToString:SWITCH]){
         
@@ -1004,7 +1004,7 @@
 
 -(void) processTextFields:(NSString *)textValue name:(NSString *)elementName attributes:(NSMutableDictionary **)parentDict {
 
-    NSLog(@"Process textValue = %@ %@", textValue, elementName);
+    //NSLog(@"Process textValue = %@ %@", textValue, elementName);
     if (!([elementName isEqualToString:TEXTFIELD] || [elementName isEqualToString:LABEL] || [elementName isEqualToString:BUTTON_TEXT])) {
         return;
     }
