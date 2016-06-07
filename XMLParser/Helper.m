@@ -195,14 +195,17 @@
 
 }
 
-+ (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor{
++ (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke strokeWidth:(int )strokeWidth {
 
     NSString *pngName = [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
     NSTask *task = [[NSTask alloc] init];
     
     task.launchPath = @"/usr/local/bin/convert";
-    task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, [NSString  stringWithFormat:@"#%@", hexColor], CONVERT_BKG, CONVERT_NONE, svgName, pngName];
-
+    NSString *fillColor = [NSString  stringWithFormat:@"#%@", hexColor];
+    if (![hexColor isEqualToString:NONE])
+        task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, fillColor, CONVERT_BKG, CONVERT_NONE, svgName, pngName];
+    else
+        task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, NONE, CONVERT_STROKE, [NSString  stringWithFormat:@"#%@", stroke], CONVERT_WIDTH, [NSString stringWithFormat:@"%d", strokeWidth], CONVERT_BKG, CONVERT_NONE, svgName, pngName];
     [task launch];
     [task waitUntilExit];
     

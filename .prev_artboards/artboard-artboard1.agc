@@ -4,18 +4,18 @@
     "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard1" : {
+    "artboard3" : {
       "y" : 0,
-      "name" : "iPhone 6 – 1",
+      "name" : "iPhone 6 – 3",
       "viewportHeight" : 667,
       "width" : 375,
-      "x" : 0,
+      "x" : 800,
       "height" : 667
     }
   },
   "children" : [
     {
-      "id" : "856E17D8-0800-4674-823F-F41F0780C2B2",
+      "id" : "F8A61758-056D-489A-9889-2C09AF8F350F",
       "style" : {
         "fill" : {
           "type" : "solid",
@@ -63,439 +63,8 @@
                   "alpha" : 0
                 }
               }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
+            },
+            "id" : "050DDB0A-45CC-4FC7-AE5C-5F415FA88AB7"
           },
           {
             "style" : {
@@ -1071,263 +640,8 @@
                   "alpha" : 0
                 }
               }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
+            },
+            "id" : "C5B8F76B-4B7C-46B8-A657-AC273074A6E8"
           },
           {
             "style" : {
@@ -1459,7 +773,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 20,
+              "ty" : 35,
               "c" : "0",
               "a" : "1",
               "tx" : 0.7009346
@@ -1470,39 +784,7 @@
               "type" : "rect",
               "x" : "0",
               "width" : 9,
-              "height" : 145
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
+              "height" : 245
             }
           },
           {
@@ -2061,24 +1343,8 @@
               "y" : "0",
               "x" : "0",
               "width" : 374,
-              "height" : 651,
+              "height" : 667,
               "type" : "rect"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
             }
           },
           {
@@ -2107,10 +1373,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "height" : 668,
               "type" : "rect",
               "x" : "0",
-              "width" : 375
+              "width" : 375,
+              "height" : 668
             }
           },
           {
@@ -2165,6 +1431,20 @@
             }
           },
           {
+            "meta" : {
+              "ux" : {
+                "singleTextObject" : true,
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 15
+                  }
+                ]
+              }
+            },
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -2175,11 +1455,11 @@
                     "g" : 255,
                     "b" : 255
                   },
-                  "alpha" : 255
+                  "alpha" : "255"
                 }
               },
               "font" : {
-                "size" : 20,
+                "size" : 15,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -2188,13 +1468,12 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 402.6417,
+              "ty" : 365,
               "c" : "0",
               "a" : "1",
-              "tx" : 113.833
+              "tx" : 105
             },
             "type" : "text",
-            "name" : "CAMPVIBES",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -2223,7 +1502,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "546930"
+                      "uid" : "550473"
                     }
                   },
                   "width" : 816,
@@ -2243,41 +1522,8 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "x" : "0",
               "width" : 27.5,
               "height" : 2.223333,
-              "type" : "rect"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "252484"
-                    }
-                  },
-                  "width" : 1066,
-                  "height" : 2150,
-                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/linead7b82ae6d107b11b4dd8e8730e99f92ee92a734.png"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 156,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 178
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "width" : 36.25,
-              "height" : 128.9533,
               "type" : "rect",
               "x" : "0"
             }
@@ -2289,7 +1535,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "825487"
+                      "uid" : "21320"
                     }
                   },
                   "width" : 1066,
@@ -2301,10 +1547,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 156,
+              "ty" : 164,
               "c" : "0",
               "a" : "1",
-              "tx" : 133
+              "tx" : 148
             },
             "type" : "shape",
             "shape" : {
@@ -2322,7 +1568,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "617370"
+                      "uid" : "372647"
                     }
                   },
                   "width" : 2333,
@@ -2334,10 +1580,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 285,
+              "ty" : 286,
               "c" : "0",
               "a" : "1",
-              "tx" : 116
+              "tx" : 138
             },
             "type" : "shape",
             "shape" : {
@@ -2355,11 +1601,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "156098"
+                      "uid" : "37364"
                     }
                   },
-                  "width" : 733,
-                  "height" : 733,
+                  "width" : 750,
+                  "height" : 750,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path5b798b1dc740092e18af9c8623a2de7c28f8f817.png"
                 }
               }
@@ -2388,7 +1634,172 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "49470"
+                      "uid" : "704515"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 184,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 236
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 13.125,
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "308526"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 197,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 236
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0",
+              "width" : 13.125
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "241982"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 211,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 236
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 13.125,
+              "height" : 10.005
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "987773"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 223,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 236
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 13.125,
+              "height" : 11.11667,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "666810"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 236,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 236
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 13.125,
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "505023"
                     }
                   },
                   "width" : 83,
@@ -2408,8 +1819,107 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "width" : 2.5,
               "height" : 78.92834,
+              "type" : "rect",
+              "x" : "0",
+              "width" : 2.5
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "848782"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 184,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 267
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 13.125,
+              "height" : 11.11667
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "774320"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 197,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 267
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 13.125,
+              "height" : 11.11667,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "413152"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 211,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 267
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 13.125,
+              "height" : 10.005,
               "type" : "rect",
               "x" : "0"
             }
@@ -2421,7 +1931,73 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "440481"
+                      "uid" : "865410"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 223,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 267
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0",
+              "width" : 13.125
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "962932"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 236,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 267
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 13.125,
+              "height" : 11.11667
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "325987"
                     }
                   },
                   "width" : 83,
@@ -2441,10 +2017,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "height" : 78.92834,
-              "type" : "rect",
               "x" : "0",
-              "width" : 3.125
+              "width" : 3.125,
+              "height" : 78.92834,
+              "type" : "rect"
             }
           },
           {
@@ -2454,7 +2030,172 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "624703"
+                      "uid" : "337640"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 184,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 84
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 13.125,
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "602104"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 197,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 84
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0",
+              "width" : 13.125
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "230810"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 211,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 84
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 13.125,
+              "height" : 10.005
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "679505"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 223,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 84
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 13.125,
+              "height" : 11.11667,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "778261"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 236,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 84
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 13.125,
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "847453"
                     }
                   },
                   "width" : 83,
@@ -2474,10 +2215,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
+              "height" : 78.92834,
               "type" : "rect",
               "x" : "0",
-              "width" : 2.5,
-              "height" : 78.92834
+              "width" : 2.5
             }
           },
           {
@@ -2487,7 +2228,172 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "106230"
+                      "uid" : "195945"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 184,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 115
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 12.5,
+              "height" : 11.11667
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "590678"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 197,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 115
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 12.5,
+              "height" : 11.11667,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "996437"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 211,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 115
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "width" : 12.5,
+              "height" : 10.005,
+              "type" : "rect",
+              "x" : "0"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "59294"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 223,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 115
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "height" : 11.11667,
+              "type" : "rect",
+              "x" : "0",
+              "width" : 12.5
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "500169"
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 266,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path6ce3e5fc7ebe99eeb76795a235f938fc6c4ab085.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 236,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 115
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 12.5,
+              "height" : 11.11667
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "135098"
                     }
                   },
                   "width" : 83,
@@ -2520,7 +2426,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "554541"
+                      "uid" : "841166"
                     }
                   },
                   "width" : 550,
@@ -2553,7 +2459,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "785600"
+                      "uid" : "355655"
                     }
                   },
                   "width" : 550,
@@ -2565,10 +2471,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 0,
+              "ty" : 16508,
               "c" : "0",
               "a" : "1",
-              "tx" : 0
+              "tx" : 4075
             },
             "type" : "shape",
             "shape" : {
@@ -2576,7 +2482,7 @@
               "height" : 667,
               "type" : "rect",
               "x" : "0",
-              "width" : 375
+              "width" : 387.5
             }
           },
           {
@@ -2586,11 +2492,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "109798"
+                      "uid" : "706042"
                     }
                   },
-                  "width" : 300,
-                  "height" : 416,
+                  "width" : 316,
+                  "height" : 433,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathd0663717b2adcf13fcdcca2e4488b9b0d90f303c.png"
                 }
               }
@@ -2636,7 +2542,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 342.8333,
+              "ty" : 350.5,
               "c" : "0",
               "a" : "1",
               "tx" : 187.8898
@@ -2687,10 +2593,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 285.3333,
+              "ty" : 164.7118,
               "c" : "0",
               "a" : "1",
-              "tx" : 22.97348
+              "tx" : 26.75115
             },
             "type" : "text",
             "name" : "Username",
@@ -2739,10 +2645,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 599.6666,
+              "ty" : 495.9412,
               "c" : "0",
               "a" : "1",
-              "tx" : 23.19971
+              "tx" : 22.80989
             },
             "type" : "text",
             "name" : "Password",
@@ -2774,7 +2680,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "8950"
+                      "uid" : "468178"
                     }
                   },
                   "width" : 5000,
@@ -2786,7 +2692,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 329,
+              "ty" : 337,
               "c" : "0",
               "a" : "1",
               "tx" : 0
@@ -2797,10 +2703,24 @@
               "type" : "rect",
               "x" : "0",
               "width" : 210.499,
-              "height" : 7.666667
+              "height" : 7.847059
             }
           },
           {
+            "meta" : {
+              "ux" : {
+                "singleTextObject" : true,
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 15
+                  }
+                ]
+              }
+            },
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -2811,7 +2731,7 @@
                     "g" : 255,
                     "b" : 255
                   },
-                  "alpha" : 255
+                  "alpha" : "255"
                 }
               },
               "font" : {
@@ -2824,13 +2744,12 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 339,
+              "ty" : 4221,
               "c" : "0",
               "a" : "1",
-              "tx" : 164.2493
+              "tx" : 205
             },
             "type" : "text",
-            "name" : "Sign In",
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -2841,7 +2760,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 5,
+                        "to" : 10,
                         "x" : 0,
                         "from" : 0
                       }
@@ -2859,11 +2778,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "378085"
+                      "uid" : "190747"
                     }
                   },
-                  "width" : 133,
-                  "height" : 216,
+                  "width" : 150,
+                  "height" : 233,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path4fd4b8ee1bf9a40919c177629a03c8556fd01a83.png"
                 }
               }
@@ -2892,11 +2811,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "580846"
+                      "uid" : "578093"
                     }
                   },
-                  "width" : 100,
-                  "height" : 100,
+                  "width" : 116,
+                  "height" : 116,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path245f2943fc5dd4eb447d60a1cdc0f436baa56c25.png"
                 }
               }
@@ -2925,11 +2844,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "792330"
+                      "uid" : "670273"
                     }
                   },
-                  "width" : 100,
-                  "height" : 100,
+                  "width" : 116,
+                  "height" : 116,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path8ca0cbbfe5e5bbf27186e7fe3bd35f3294d6e8a8.png"
                 }
               }
@@ -2958,11 +2877,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "846373"
+                      "uid" : "131685"
                     }
                   },
-                  "width" : 200,
-                  "height" : 150,
+                  "width" : 216,
+                  "height" : 166,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathebac48c02224ce559c23cd7fdc2a74118b83892a.png"
                 }
               }
@@ -3008,10 +2927,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 1147.429,
+              "ty" : 551.8928,
               "c" : "0",
               "a" : "1",
-              "tx" : 420.1462
+              "tx" : 419.735
             },
             "type" : "text",
             "name" : 42,
@@ -3043,11 +2962,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "799615"
+                      "uid" : "218962"
                     }
                   },
-                  "width" : 383,
-                  "height" : 166,
+                  "width" : 400,
+                  "height" : 183,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathb03ca8f18ed7b31dcb34adb7f439014b98cb0c77.png"
                 }
               }
@@ -3063,7 +2982,7 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "height" : 187.5938,
+              "height" : 315.9474,
               "type" : "rect",
               "x" : "0",
               "width" : 14.01869
@@ -3093,7 +3012,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 110.7969,
+              "ty" : 174.9737,
               "c" : "0",
               "a" : "1",
               "tx" : 5.607477
@@ -3127,11 +3046,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "291755"
+                      "uid" : "685720"
                     }
                   },
-                  "width" : 33,
-                  "height" : 50,
+                  "width" : 50,
+                  "height" : 66,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathe42a2f1c64da4623b1666b4af423f65f1333a473.png"
                 }
               }
@@ -3139,7 +3058,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 62,
+              "ty" : 105,
               "c" : "0",
               "a" : "1",
               "tx" : 25
@@ -3149,7 +3068,7 @@
               "y" : "0",
               "x" : "0",
               "width" : 0.7009346,
-              "height" : 62.53125,
+              "height" : 105.3158,
               "type" : "rect"
             }
           },
@@ -3177,10 +3096,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 525.0938,
+              "ty" : 442.8158,
               "c" : "0",
               "a" : "1",
-              "tx" : 201.5506
+              "tx" : 200.8497
             },
             "type" : "text",
             "name" : 9,
@@ -3229,10 +3148,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 496.25,
+              "ty" : 399.7105,
               "c" : "0",
               "a" : "1",
-              "tx" : 51.14386
+              "tx" : 53.52019
             },
             "type" : "text",
             "name" : "Carrier",
@@ -3260,153 +3179,34 @@
           {
             "style" : {
               "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "639734"
+                    }
                   },
-                  "alpha" : 255
+                  "width" : 1066,
+                  "height" : 2150,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/linead7b82ae6d107b11b4dd8e8730e99f92ee92a734.png"
                 }
-              },
-              "font" : {
-                "size" : 35,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 1056.031,
+              "ty" : 5195,
               "c" : "0",
               "a" : "1",
-              "tx" : 4.818935
+              "tx" : 196
             },
-            "type" : "text",
-            "name" : "efveve",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 7,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "efveve"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 15,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 2791.828,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 253.0374
-            },
-            "type" : "text",
-            "name" : "Finding Beauty in the Badlands akldhvdas dalkdhvcs acndalk",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 8,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 19,
-                        "to" : 8,
-                        "x" : 0,
-                        "from" : 8
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 38,
-                        "to" : 8,
-                        "x" : 0,
-                        "from" : 8
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 57,
-                        "to" : 8,
-                        "x" : 0,
-                        "from" : 8
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 76,
-                        "to" : 8,
-                        "x" : 0,
-                        "from" : 8
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Finding Beauty in the Badlands akldhvdas dalkdhvcs acndalk"
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "type" : "rect",
+              "x" : "0",
+              "width" : 40.65421,
+              "height" : 4072.21
             }
           }
         ]

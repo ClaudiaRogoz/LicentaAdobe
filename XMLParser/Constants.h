@@ -96,6 +96,8 @@
 #define CONVERT_BKG     @"-background"
 #define CONVERT_NONE    @"none"
 #define CONVERT_FILL    @"-fill"
+#define CONVERT_STROKE  @"-stroke"
+#define CONVERT_WIDTH   @"-strokewidth"
 
 
 #define RANDOM @"$rand"
@@ -176,6 +178,7 @@
 #define SHAPE       @"shape"
 #define LABEL       @"label"
 #define SCALE       @"scale"
+#define NONE        @"none"
 
 #define BUTTON_SEGUE    @"buttonInteraction"
 #define BUTTON          @"button"

@@ -215,6 +215,8 @@
     
     NSRange range = [path rangeOfString:SVG_FILL];
     long start = range.location + SVG_FILL_LEN;
+    if ([hex isEqualToString:NONE])
+        --start;
     long end = len - start;
     NSRange finalRange =  [path rangeOfString:SVG_FILL_END options:0 range:NSMakeRange(start, end)];
     [path replaceCharactersInRange:NSMakeRange(start, finalRange.location - start) withString:hex];
@@ -413,7 +415,7 @@
     [self generateSVGFile:fileName FromLine:pathLine usingViewBox:viewBox];
     
     /* convert the svg file into a png file */
-    NSString *pngName = [Helper convertSvgToPng:fileName withFill:fillColor];
+    NSString *pngName = [Helper convertSvgToPng:fileName withFill:fillColor strokeColor:fillColor strokeWidth:0];
     return  pngName;
 
 }
@@ -466,8 +468,16 @@
     NSString *pathStr = [self computeValue:[paths objectAtIndex:0] forDict:agcDict];
     NSString *uniqName = [Helper computeSha1:pathStr];
     NSString *fileName = [[self computeValue:[paths objectAtIndex:1] forDict:agcDict] stringByAppendingString:uniqName];
-    NSString *hexColor = [self computeValue:[paths objectAtIndex:2] forDict:agcDict];
-    id transform = [agcDict objectForKey:[[paths objectAtIndex:3]substringFromIndex:1]];
+    id type = [self computeValue:[paths objectAtIndex:2] forDict:agcDict];
+
+    NSString *hexColor = [self computeValue:[paths objectAtIndex:3] forDict:agcDict];
+
+    if ([type isEqualToString:NONE])
+        hexColor = type;
+    id transform = [agcDict objectForKey:[[paths objectAtIndex:4]substringFromIndex:1]];
+    id strokeColor = [self computeValue:[paths objectAtIndex:5] forDict:agcDict];
+    int colorWidth = [[self computeValue:[paths objectAtIndex:6]  forDict:agcDict] intValue];
+
     int transformTx = [[transform objectForKey:TX] intValue];
     int transformTy = [[transform objectForKey:TY] intValue];
     
@@ -488,13 +498,13 @@
     path_width = maxx - minx;
     path_height = maxy - miny;
     
-    NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", minx + transformTx, miny + transformTy, maxx - minx, maxy - miny];
+    NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", minx + transformTx - colorWidth/2, miny + transformTy - colorWidth/2, maxx - minx + colorWidth, maxy - miny + colorWidth];
     NSString *translate = [NSString stringWithFormat:@"(%d %d)", transformTx, transformTy];
     
     [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor usingViewBox:viewBox translation: translate];
     
     /* convert the svg file into a png file */
-    NSString *pngName = [Helper convertSvgToPng:fileName withFill:hexColor];
+    NSString *pngName = [Helper convertSvgToPng:fileName withFill:hexColor strokeColor:strokeColor strokeWidth:colorWidth];
     return  pngName;
 
 
@@ -684,11 +694,11 @@
     }
     
     if ([key isEqualToString:XARTBOARD]) {
-        NSLog(@"[%hhd]InitValue = %f %d", offset, initValue, startXArtboard);
+       // NSLog(@"[%hhd]InitValue = %f %d", offset, initValue, startXArtboard);
         translatedValue = initValue - startXArtboard;
         //if (!offset)
             translatedValue = translatedValue * xScaleFactor;
-        NSLog(@"[%hhd]TranslatedValue = %f", offset, translatedValue);
+        //NSLog(@"[%hhd]TranslatedValue = %f", offset, translatedValue);
     }
     else if ([key isEqualToString:YARTBOARD]) {
         translatedValue = initValue - startYArtboard;
@@ -719,8 +729,8 @@
                                               traits:mask
                                               weight:0
                                                 size:fontSize];
-    
-    NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:fontSize],
+    //[NSFont systemFontOfSize:fontSize]
+    NSDictionary *attributes = @{NSFontAttributeName: font,
                                  NSParagraphStyleAttributeName: style};
     
     CGRect lineFrame = [firstLine boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
@@ -763,12 +773,11 @@
     if ([value hasPrefix:ADD_XOFFSET] || [value hasPrefix:ADD_YOFFSET]){
         id tvalue = [[self splitVariable:[value substringFromIndex:[ADD_YOFFSET length] + 1]]objectAtIndex:0];
         float initValue = [[dictValue objectForKey:tvalue] floatValue];
+        
         if ([tvalue isEqualToString:TX]) {
-            NSLog(@"Set %@ = %f %f", tvalue, xOffsetText, initValue);
             [dictValue setObject:[NSNumber numberWithFloat:initValue + xOffsetText] forKey:tvalue];
         }
         else {
-            NSLog(@"Set %@ = %f %f", tvalue, yOffsetText, initValue);
             [dictValue setObject:[NSNumber numberWithFloat:initValue + yOffsetText] forKey:tvalue];
         }
         
@@ -883,8 +892,6 @@
                 
             } else {
                 
-                if ([type isEqualToString:@"label"])
-                    NSLog(@"[%@]Value = %@ %@ %@ %f %f", type, key, [paramsValue objectForKey:key], dictValue, xOffsetText, yOffsetText);
                 /* use values specified from agc */
                 value = [paramsValue objectForKey:key];
                 if (!value)

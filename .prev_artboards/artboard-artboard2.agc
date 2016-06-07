@@ -4,18 +4,18 @@
     "href" : "\/resources\/graphics\/graphicContent.agc"
   },
   "artboards" : {
-    "artboard2" : {
+    "artboard1" : {
       "y" : 0,
-      "name" : "iPhone 6 – 2",
+      "name" : "iPhone 6 – 1",
       "viewportHeight" : 667,
       "width" : 375,
-      "x" : 400,
+      "x" : 0,
       "height" : 667
     }
   },
   "children" : [
     {
-      "type" : "artboard",
+      "id" : "5B2FAE06-D430-48A4-8814-2B44EA932CB1",
       "style" : {
         "fill" : {
           "type" : "solid",
@@ -2476,1046 +2476,6 @@
                     "g" : 255,
                     "b" : 255
                   },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 0
-                }
-              }
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
                   "alpha" : 255
                 }
               }
@@ -3523,7 +2483,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 20,
+              "ty" : 35,
               "c" : "0",
               "a" : "1",
               "tx" : 400
@@ -3533,8 +2493,136 @@
               "y" : "0",
               "x" : "0",
               "width" : 9,
-              "height" : 145,
+              "height" : 245,
               "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
             }
           },
           {
@@ -5427,18 +4515,82 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 0,
+              "ty" : 282,
               "c" : "0",
               "a" : "1",
-              "tx" : 400
+              "tx" : 413
             },
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "width" : 375,
-              "height" : 637,
+              "height" : 120,
               "type" : "rect",
-              "x" : "0"
+              "x" : "0",
+              "width" : 348
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
             }
           },
           {
@@ -6077,6 +5229,38 @@
                     "b" : 255
                   },
                   "alpha" : 255
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
+                }
+              }
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
+                  },
+                  "alpha" : 0
                 }
               }
             }
@@ -6425,10 +5609,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 121.8367,
+              "ty" : 109.6083,
               "c" : "0",
               "a" : "1",
-              "tx" : 422.0864
+              "tx" : 423.0239
             },
             "type" : "text",
             "name" : "FEATURED",
@@ -6477,10 +5661,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 274.135,
+              "ty" : 261.9067,
               "c" : "0",
               "a" : "1",
-              "tx" : 444.3687
+              "tx" : 445.6187
             },
             "type" : "text",
             "name" : "LATEST ADVENTURES",
@@ -6529,10 +5713,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 335.7433,
+              "ty" : 359.3933,
               "c" : "0",
               "a" : "1",
-              "tx" : 587.8372
+              "tx" : 587.8125
             },
             "type" : "text",
             "text" : {
@@ -6580,10 +5764,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 399.6859,
+              "ty" : 339.505,
               "c" : "0",
               "a" : "1",
-              "tx" : 584.8021
+              "tx" : 587.5769
             },
             "type" : "text",
             "name" : "Finding Beauty in the Badlands",
@@ -6644,10 +5828,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 629.6814,
+              "ty" : 391.9717,
               "c" : "0",
               "a" : "1",
-              "tx" : 609.438
+              "tx" : 606.0208
             },
             "type" : "text",
             "name" : 2,
@@ -6696,10 +5880,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 173.0796,
+              "ty" : 308.5967,
               "c" : "0",
               "a" : "1",
-              "tx" : 587.9697
+              "tx" : 587.3252
             },
             "type" : "text",
             "name" : "Adventures",
@@ -6731,44 +5915,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "130678"
+                      "uid" : "211358"
                     }
                   },
-                  "width" : 0,
-                  "height" : 0,
-                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples.xcodeproj"
-                }
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 0,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 400
-            },
-            "type" : "shape",
-            "shape" : {
-              "y" : "0",
-              "width" : 170.6385,
-              "height" : 637.4867,
-              "type" : "rect",
-              "x" : "0"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "pattern",
-                "pattern" : {
-                  "meta" : {
-                    "ux" : {
-                      "uid" : "98121"
-                    }
-                  },
-                  "width" : 133,
-                  "height" : 216,
+                  "width" : 150,
+                  "height" : 233,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path4fd4b8ee1bf9a40919c177629a03c8556fd01a83.png"
                 }
               }
@@ -6797,11 +5948,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "199223"
+                      "uid" : "222317"
                     }
                   },
-                  "width" : 100,
-                  "height" : 100,
+                  "width" : 116,
+                  "height" : 116,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path245f2943fc5dd4eb447d60a1cdc0f436baa56c25.png"
                 }
               }
@@ -6830,11 +5981,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "186633"
+                      "uid" : "906206"
                     }
                   },
-                  "width" : 100,
-                  "height" : 100,
+                  "width" : 116,
+                  "height" : 116,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path8ca0cbbfe5e5bbf27186e7fe3bd35f3294d6e8a8.png"
                 }
               }
@@ -6863,11 +6014,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "312378"
+                      "uid" : "597710"
                     }
                   },
-                  "width" : 200,
-                  "height" : 150,
+                  "width" : 216,
+                  "height" : 166,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathebac48c02224ce559c23cd7fdc2a74118b83892a.png"
                 }
               }
@@ -6913,10 +6064,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 1147.429,
+              "ty" : 551.8928,
               "c" : "0",
               "a" : "1",
-              "tx" : 820.1462
+              "tx" : 819.735
             },
             "type" : "text",
             "name" : 42,
@@ -6948,11 +6099,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "600210"
+                      "uid" : "203799"
                     }
                   },
-                  "width" : 383,
-                  "height" : 166,
+                  "width" : 400,
+                  "height" : 183,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathb03ca8f18ed7b31dcb34adb7f439014b98cb0c77.png"
                 }
               }
@@ -6971,7 +6122,7 @@
               "type" : "rect",
               "x" : "0",
               "width" : 14.01869,
-              "height" : 187.5938
+              "height" : 315.9474
             }
           },
           {
@@ -6998,7 +6149,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 110.7969,
+              "ty" : 174.9737,
               "c" : "0",
               "a" : "1",
               "tx" : 405.6075
@@ -7032,11 +6183,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "352474"
+                      "uid" : "744722"
                     }
                   },
-                  "width" : 33,
-                  "height" : 50,
+                  "width" : 50,
+                  "height" : 66,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathe42a2f1c64da4623b1666b4af423f65f1333a473.png"
                 }
               }
@@ -7044,7 +6195,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 62,
+              "ty" : 105,
               "c" : "0",
               "a" : "1",
               "tx" : 425
@@ -7053,7 +6204,7 @@
             "shape" : {
               "y" : "0",
               "width" : 0.7009346,
-              "height" : 62.53125,
+              "height" : 105.3158,
               "type" : "rect",
               "x" : "0"
             }
@@ -7082,10 +6233,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 525.0938,
+              "ty" : 442.8158,
               "c" : "0",
               "a" : "1",
-              "tx" : 601.5506
+              "tx" : 600.8497
             },
             "type" : "text",
             "name" : 9,
@@ -7134,10 +6285,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 496.25,
+              "ty" : 399.7105,
               "c" : "0",
               "a" : "1",
-              "tx" : 451.1439
+              "tx" : 453.5202
             },
             "type" : "text",
             "name" : "Carrier",
@@ -7169,11 +6320,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "399551"
+                      "uid" : "165280"
                     }
                   },
-                  "width" : 366,
-                  "height" : 383,
+                  "width" : 383,
+                  "height" : 400,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/path23933030d2138f78f25de062f498e0069ff2de14.png"
                 }
               }
@@ -7181,7 +6332,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 667,
+              "ty" : 1123,
               "c" : "0",
               "a" : "1",
               "tx" : 774
@@ -7191,7 +6342,7 @@
               "y" : "0",
               "x" : "0",
               "width" : 14.01869,
-              "height" : 437.7188,
+              "height" : 737.2105,
               "type" : "rect"
             }
           },
@@ -7202,11 +6353,11 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "688386"
+                      "uid" : "255107"
                     }
                   },
-                  "width" : 466,
-                  "height" : 350,
+                  "width" : 483,
+                  "height" : 366,
                   "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/pathfbc9cc7452e1aa14dbc92e0a512b3027bfdbba94.png"
                 }
               }
@@ -7214,7 +6365,7 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 708,
+              "ty" : 1193,
               "c" : "0",
               "a" : "1",
               "tx" : 421
@@ -7223,7 +6374,7 @@
             "shape" : {
               "y" : "0",
               "width" : 17.52337,
-              "height" : 396.0312,
+              "height" : 667,
               "type" : "rect",
               "x" : "0"
             }
@@ -7252,10 +6403,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 3862.516,
+              "ty" : 6086.763,
               "c" : "0",
               "a" : "1",
-              "tx" : 447.158
+              "tx" : 448.5599
             },
             "type" : "text",
             "name" : "with Talin Wadsworth",
@@ -7304,10 +6455,10 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 2857.438,
+              "ty" : 4860.631,
               "c" : "0",
               "a" : "1",
-              "tx" : 428.7854
+              "tx" : 435.4443
             },
             "type" : "text",
             "name" : "Hiking Through the Utah Backcountry",
@@ -7347,157 +6498,39 @@
           {
             "style" : {
               "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "uid" : "666934"
+                    }
                   },
-                  "alpha" : 255
+                  "width" : 0,
+                  "height" : 0,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples.xcodeproj"
                 }
-              },
-              "font" : {
-                "size" : 20,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
               }
             },
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 9271.469,
+              "ty" : 8916,
               "c" : "0",
               "a" : "1",
-              "tx" : 670.2197
+              "tx" : 415
             },
-            "type" : "text",
-            "name" : "fwbwebgreb",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 11,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "fwbwebgreb"
-            }
-          },
-          {
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : 255
-                }
-              },
-              "font" : {
-                "size" : 15,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 12234.97,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 686.6823
-            },
-            "type" : "text",
-            "name" : "Finding Beauty in the Badlands gsk ckjascgaskcbak clsajcac a;sclmca",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 8,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 19,
-                        "to" : 15,
-                        "x" : 0,
-                        "from" : 8
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 38,
-                        "to" : 22,
-                        "x" : 0,
-                        "from" : 15
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 57,
-                        "to" : 22,
-                        "x" : 0,
-                        "from" : 22
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 76,
-                        "to" : 22,
-                        "x" : 0,
-                        "from" : 22
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "Finding Beauty in the Badlands gsk ckjascgaskcbak clsajcac a;sclmca"
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 177.3365,
+              "height" : 3791.368,
+              "type" : "rect"
             }
           }
         ]
-      }
+      },
+      "type" : "artboard"
     }
   ]
 }

@@ -13,7 +13,9 @@
             "style.fill.type.solid"   : "$frame"
         },
         "shape.type.path" : {
-            "style.fill.type.solid" : "$imageView"
+            "style.fill.type.solid" : "$imageView",
+            "style.fill.type.none" : "$imageView",
+            "style.fill.type.pattern" : "$imageViewPath"
         },
         "shape.type.line" : {
             "style.fill.type.none" : "$lineView"
