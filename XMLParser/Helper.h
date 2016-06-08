@@ -44,6 +44,8 @@
 + (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke  strokeWidth:(int )strokeWidth;
 + (NSString *) convertSvgLineToPng:(NSString *) svgName withFill:(NSString *) hexColor;
 + (NSString*) computeSha1:(NSString*)input;
+
++ (BOOL) checkPathExists:(NSString *) absolutePath;
 @end
 
 #endif /* Helper_h */

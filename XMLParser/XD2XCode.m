@@ -399,8 +399,8 @@
         box_My += [stroke intValue];
     
     NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", box_mx, box_my, box_Mx - box_mx, box_My - box_my];
-    path_x = [[transform objectForKey:TX] intValue];
-    path_y = [[transform objectForKey:TY] intValue];
+    path_x = [[transform objectForKey:TX] intValue] + box_mx;
+    path_y = [[transform objectForKey:TY] intValue] + box_my;
     path_width = box_Mx - box_mx;
     path_height =  box_My - box_my;
 
@@ -511,7 +511,7 @@
 }
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
-    
+    NSLog(@"InitValue = %@", initValue);
     
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
@@ -531,7 +531,18 @@
         
     } else if ([initValue isEqualToString:[NSString stringWithFormat:@"$%@", DESTINATION]]){
         return destinationId;
-    
+    } else if ([initValue hasPrefix:IMAGEID]){
+        initValue = [initValue substringFromIndex:[IMAGEID length] + 1];
+        NSString *mainBundle = [self getProjHomePath];
+        NSString *unzipped_xd = [[mainBundle stringByAppendingPathComponent:XD_EXPORT_PATH] stringByAppendingPathComponent:RESOURCES];
+        NSArray *listImages = [initValue componentsSeparatedByString:@" "];
+        NSString *href = [self computeAgcTag:[listImages objectAtIndex:0] dict:agcDict];
+        NSString *idImg = [self computeAgcTag:[listImages objectAtIndex:1]dict:agcDict];
+        
+        if ([Helper checkPathExists:href])
+            return href;
+
+        return [[unzipped_xd stringByAppendingPathComponent:idImg] stringByAppendingPathExtension:PNG];
     } else {
         //if it depends on an agc tag
         return [self computeAgcTag:initValue dict:agcDict];
@@ -627,7 +638,7 @@
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         f.numberStyle = NSNumberFormatterDecimalStyle;
         NSNumber *nr = [f numberFromString: width];
-        float number = [self changeSize:[nr intValue] key:HEIGHT preserveRatio:false preserveOffset:false];
+        float number = [self changeSize:[nr intValue] key:HEIGHT preserveRatio:false preserveOffset:false scale:true];
         return [NSNumber numberWithInt:number];
         
     }
@@ -639,7 +650,7 @@
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *nr = [f numberFromString: height];
-    float number = [self changeSize:[nr intValue] key:WIDTH preserveRatio:false preserveOffset:false];
+    float number = [self changeSize:[nr intValue] key:WIDTH preserveRatio:false preserveOffset:false scale:true];
     return [NSNumber numberWithInt:number];
     
 
@@ -673,7 +684,7 @@
     return [tvalue isEqualToString:SIZE] && ![[objDict objectForKey:HEIGHT] isEqualToString:RAWTEXT];
 }
 
-- (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset {
+- (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale{
     
     float translatedValue = initValue;
     
@@ -681,33 +692,40 @@
         return translatedValue;
     }
     
-    float xScaleFactor = ((float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD) * 100 /100;
+    float xScaleFactor = ((float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD);
     float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
     
     float ratio = MIN(xScaleFactor,yScaleFactor);
-    
-    if (preserveRatio) {
+    NSLog(@"%f %f", xScaleFactor, yScaleFactor);
+    if (preserveRatio ) {
         widthScaleFactor = ratio;
         heightScalefactor = ratio;
     }
+
     
     if ([key isEqualToString:XARTBOARD]) {
-       // NSLog(@"[%hhd]InitValue = %f %d", offset, initValue, startXArtboard);
+        //NSLog(@"[%hhd]InitValue = %f %d", offset, initValue, startXArtboard);
         translatedValue = initValue - startXArtboard;
         //if (!offset)
             translatedValue = translatedValue * xScaleFactor;
-        //NSLog(@"[%hhd]TranslatedValue = %f", offset, translatedValue);
+        //else
+          //  translatedValue = (translatedValue + path_width/2)* xScaleFactor;
+        
+       // NSLog(@"[%hhd]TranslatedValue = %f", offset, translatedValue);
     }
     else if ([key isEqualToString:YARTBOARD]) {
         translatedValue = initValue - startYArtboard;
         translatedValue = translatedValue * yScaleFactor;
         
     } else if ([key isEqualToString:WIDTH]) {
+        NSLog(@"[WIDTH]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * widthScaleFactor);
         translatedValue = initValue * widthScaleFactor;
+        
     }
     else if ([key isEqualToString:HEIGHT]) {
+        NSLog(@"[HEIGHT]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * heightScalefactor);
         translatedValue = initValue * heightScalefactor;
     }
     
@@ -760,9 +778,20 @@
     else
         initValue =path_height;
     bool offset = false;
-    if ([value isEqualToString: LINE_X])
-        offset = true;
-    float translatedValue = [self changeSize:initValue key:key preserveRatio:true preserveOffset:offset];
+    bool aspectRatio = true;
+    bool scale = true;
+    
+    NSLog(@"value = ", value);
+    if ([value isEqualToString: LINE_X] || [value isEqualToString: LINE_Y]) {
+        offset = true;  aspectRatio = false;
+    }
+    if ([value isEqualToString: LINE_WIDTH] || [value isEqualToString: LINE_HEIGHT]) {
+        //offset = true;
+        scale = false;
+        aspectRatio = false;
+    }
+    
+    float translatedValue = [self changeSize:initValue key:key preserveRatio:aspectRatio preserveOffset:offset scale:scale];
     return [NSNumber numberWithFloat:translatedValue];
 }
 
@@ -795,7 +824,7 @@
             /* changing size here */
             
             float initValue = [[dictValue objectForKey:tvalue] floatValue];
-            float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false];
+            float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
             
             [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
         } else {
@@ -862,7 +891,7 @@
     id allKeys = [*objDict allKeys];
     if ([*objDict objectForKey:ORDER])
         allKeys = [*objDict objectForKey:ORDER];
-    
+
     for (id key in allKeys) {
         
         id value = [*objDict objectForKey:key];
@@ -884,7 +913,7 @@
                 if ([self isOfTypeScale:key object:type]) {
                     
                     float initValue = [value floatValue];
-                    float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false];
+                    float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
                     [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
                 }
@@ -1507,8 +1536,11 @@
         /* add image in the resources tag */
         NSString * href = [attr objectForKey:ISIMAGE];
         /* find width and height for image */
-
-        NSImage *image = [[NSImage alloc]initWithContentsOfFile:href];
+        NSImage *image;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:href])
+            image = [[NSImage alloc]initWithContentsOfFile:href];
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:[href stringByDeletingPathExtension]])
+            image = [[NSImage alloc]initWithContentsOfFile:[href stringByDeletingPathExtension]];
         
         /* create an image Tag using subTags */
         NSMutableDictionary *imageDict = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:ISIMAGE] mutableCopy];
@@ -1525,6 +1557,8 @@
             [self copyImage:image toProject:theFileName];
         } else {
             NSLog(@"[ERROR] Cannot find image at path %@;\nExport as png from XD.", href);
+            
+            [self copyImage:image toProject:theFileName];
         }
         
         

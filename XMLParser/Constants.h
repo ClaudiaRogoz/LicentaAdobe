@@ -270,6 +270,7 @@
 #define GETHEIGHT   @"$GETHEIGHT"
 #define GET_TYPE    @"$GETTYPE"
 #define IMAGEPATH   @"$IMAGEPATH"
+#define IMAGEID     @"$IMAGEID"
 #define ADD_XOFFSET @"$ADD_XOFFSET"
 #define ADD_YOFFSET @"$ADD_YOFFSET"
 #define GETX        @"$x"

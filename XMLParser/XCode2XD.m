@@ -171,7 +171,8 @@
         
         int currentScene = [scene intValue];
         id sceneId = [[idScenes objectForKey:scene] objectForKey:[NSNumber numberWithInt:0]];
-        [[[*dict objectForKey:CHILDREN] objectAtIndex:currentScene - 1] setObject:sceneId forKey:ID];
+        if (sceneId)
+            [[[*dict objectForKey:CHILDREN] objectAtIndex:currentScene - 1] setObject:sceneId forKey:ID];
     }
     
 

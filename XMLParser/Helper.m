@@ -183,6 +183,12 @@
     }
 }
 
++ (BOOL) checkPathExists:(NSString *) absolutePath {
+    
+    return [[NSFileManager defaultManager] fileExistsAtPath:absolutePath];
+
+}
+
 + (void) createXdFile:(NSString *) xdPath {
     
     NSTask *task = [[NSTask alloc] init];
