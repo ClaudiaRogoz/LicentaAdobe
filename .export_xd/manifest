@@ -2,21 +2,21 @@
   "manifest-format-version" : 6,
   "state" : "modified",
   "uxdesign#userDidSetPrototypeName" : "false",
-  "id" : "8BA07B7D-79DA-49B0-828C-0F4ED3C26320",
+  "id" : "8574F03C-7B33-4405-AD6A-2EF5AE6F42DD",
   "children" : [
     {
       "path" : "artwork",
-      "id" : "4CA1D167-690B-4B58-8ED8-7D3F4AEACA85",
+      "id" : "D3D65EE6-9872-417D-9C9A-50BAFAD5696F",
       "name" : "artwork",
       "children" : [
         {
           "path" : "pasteboard",
-          "id" : "D29967C0-199F-4122-A53D-DE2093B45375",
+          "id" : "B564D120-4B47-4152-BD6D-B0CE23275F30",
           "name" : "pasteboard"
         },
         {
           "path" : "artboard-artboard1",
-          "id" : "C875C8CD-F34E-437C-A4B5-13D5B505D770",
+          "id" : "74A8C5E8-D582-43A2-9C88-057EF21203BE",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -30,11 +30,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "1E48C593-F9CC-42E3-B7D5-3E0A4FBF7A67",
+              "id" : "B8B74590-0C4C-42B4-A832-235985863A6B",
               "components" : [
                 {
                   "length" : 30737,
-                  "id" : "69582346-0451-478B-9C07-9E6045D1520A",
+                  "id" : "3F64BFBC-C9D8-46E8-900A-12E405461A08",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -47,7 +47,7 @@
         },
         {
           "path" : "artboard-artboard2",
-          "id" : "DA9C620A-4AB1-4AD3-AD64-0AD2F160AF3B",
+          "id" : "B76908FB-5962-4EC8-A383-5DF52EEC1549",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -61,11 +61,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "B5A70ACB-8073-425A-A787-F4E74A1926C8",
+              "id" : "61AC6DB6-96C8-4E07-8444-3F92484A2142",
               "components" : [
                 {
                   "length" : 19880,
-                  "id" : "82ADBEF3-E131-475D-BAB9-6753863739DC",
+                  "id" : "C9704C71-8A73-4B72-8821-96BC4EC928D8",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -78,7 +78,7 @@
         },
         {
           "path" : "artboard-artboard3",
-          "id" : "0494692E-D21D-4B36-9E04-CF44FA17EC6A",
+          "id" : "84F58DD6-D3E7-4173-9627-535340BB913B",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -92,11 +92,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "D004B55D-56A8-4B00-A35C-7178395D7B90",
+              "id" : "DA595A62-7DE0-4661-86DE-B2E10735B305",
               "components" : [
                 {
                   "length" : 33971,
-                  "id" : "DF409D26-562F-475E-90DF-1E3C0A4A6845",
+                  "id" : "5030B420-5087-428B-BADA-6401A7DB3EFD",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -111,11 +111,11 @@
     },
     {
       "path" : "resources",
-      "id" : "8CF0AB69-4E26-45C5-8A09-55F163527E35",
+      "id" : "9D7D1440-1334-495C-A1E2-D2348E19175B",
       "components" : [
         {
           "length" : 97617,
-          "id" : "4834A9E4-5523-4D34-BDC8-CE7F91813D6C",
+          "id" : "897AB7AC-26DD-4B15-BE14-18A063FDC088",
           "rel" : "primary",
           "path" : "3bdd51e5a96a3847017da8968f808779",
           "type" : "image\/jpeg",
@@ -123,7 +123,7 @@
         },
         {
           "length" : 116971,
-          "id" : "C03C3793-DEA3-4CFA-957E-E02A3BD4BEC2",
+          "id" : "8DECA42F-A993-4BFD-B180-D43EEF804863",
           "rel" : "primary",
           "path" : "1c1fc5558af504893061b883e964558f",
           "type" : "image\/jpeg",
@@ -131,7 +131,7 @@
         },
         {
           "length" : 225275,
-          "id" : "71A8A870-18E6-437A-AC84-FB3353DDA6AE",
+          "id" : "F9741181-A05E-454C-A03B-A3FF1F7EA17F",
           "rel" : "primary",
           "path" : "a501b8f826bbb7df8834ae9adbe49e23",
           "type" : "image\/jpeg",
@@ -139,7 +139,7 @@
         },
         {
           "length" : 12141,
-          "id" : "EF4E3ABC-AEB0-4568-BBE7-0D07A3741C1A",
+          "id" : "38EA355F-F317-431E-8F3C-32EFD51807AF",
           "rel" : "primary",
           "path" : "1e3480f6787ebcf2c6b584f557fa7d2d",
           "type" : "image\/png",
@@ -150,11 +150,11 @@
       "children" : [
         {
           "path" : "graphics",
-          "id" : "55E51D79-C675-41D5-8ABF-00D99404D06A",
+          "id" : "3F033F95-A74D-44C7-9DAD-B9F84DE8FC68",
           "components" : [
             {
               "length" : 562,
-              "id" : "73644983-EED7-418E-8BF7-FE92A864E563",
+              "id" : "B490F9A4-5528-4EFA-956E-D6C739E27F3B",
               "rel" : "primary",
               "path" : "graphicContent.agc",
               "type" : "application\/vnd.adobe.agc+dcx",
@@ -167,11 +167,11 @@
     },
     {
       "path" : "interactions",
-      "id" : "F2FBC268-79D0-46B2-9604-1A3B15CE2AB2",
+      "id" : "53862C78-33DD-4D23-B91B-21597433C538",
       "components" : [
         {
           "length" : 685,
-          "id" : "3F3AABDC-5808-4873-9EBF-6B200CD9E470",
+          "id" : "80558BDC-0366-4301-A11A-5563D93EC14B",
           "rel" : "primary",
           "path" : "interactions.json",
           "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -184,7 +184,7 @@
   "components" : [
     {
       "length" : 1323,
-      "id" : "5CE04AB0-8EAE-4DA4-B148-46BEA1868EA5",
+      "id" : "1263419C-60D8-46DE-828C-52313E844B31",
       "rel" : "metadata",
       "path" : "META-INF\/metadata.xml",
       "type" : "application\/rdf+xml",

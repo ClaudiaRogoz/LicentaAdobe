@@ -717,23 +717,18 @@
     if ([key isEqualToString:XARTBOARD]) {
         
         translatedValue = initValue - startXArtboard;
-        //if (!offset)
-        NSLog(@"InitValue = %f %f %f", translatedValue, xScaleFactor, translatedValue * xScaleFactor);
-            translatedValue = translatedValue * xScaleFactor;
-        //else
-          //  translatedValue = (translatedValue + path_width/2)* xScaleFactor;
+        translatedValue = translatedValue * xScaleFactor;
+
     }
     else if ([key isEqualToString:YARTBOARD]) {
         translatedValue = initValue - startYArtboard;
         translatedValue = translatedValue * yScaleFactor;
         
     } else if ([key isEqualToString:WIDTH]) {
-        //NSLog(@"[WIDTH]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * widthScaleFactor);
         translatedValue = initValue * widthScaleFactor;
         
     }
     else if ([key isEqualToString:HEIGHT]) {
-        //NSLog(@"[HEIGHT]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * heightScalefactor);
         translatedValue = initValue * heightScalefactor;
     }
     
@@ -755,7 +750,7 @@
                                               traits:mask
                                               weight:0
                                                 size:fontSize];
-    //[NSFont systemFontOfSize:fontSize]
+    
     NSDictionary *attributes = @{NSFontAttributeName: font,
                                  NSParagraphStyleAttributeName: style};
     
@@ -793,7 +788,6 @@
         offset = true;  aspectRatio = false;
     }
     if ([value isEqualToString: LINE_WIDTH] || [value isEqualToString: LINE_HEIGHT]) {
-        //offset = true;
         scale = false;
         aspectRatio = false;
     }
