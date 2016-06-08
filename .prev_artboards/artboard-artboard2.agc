@@ -15,7 +15,7 @@
   },
   "children" : [
     {
-      "id" : "14B6EF3E-5779-4D1E-8E7F-77E5DA0684F3",
+      "id" : "51E3ABF2-D063-4F3F-B223-157AD470D928",
       "style" : {
         "fill" : {
           "type" : "solid",
@@ -104,12 +104,12 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "223266"
+                      "uid" : "969891"
                     }
                   },
-                  "width" : 0,
-                  "height" : 0,
-                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples.xcodeproj"
+                  "width" : 750,
+                  "height" : 500,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/3bdd51e5a96a3847017da8968f808779.png"
                 }
               }
             },
@@ -350,7 +350,7 @@
             }
           },
           {
-            "id" : "7DC3FD71-1EA7-485D-BDDF-EF7AA5A1E12C",
+            "id" : "4CEEBCB7-68DD-4F36-B7E7-6FFC5BA34CB5",
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -526,7 +526,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "370089"
+                      "uid" : "637683"
                     }
                   },
                   "width" : 150,
@@ -559,7 +559,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "102652"
+                      "uid" : "88004"
                     }
                   },
                   "width" : 116,
@@ -592,7 +592,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "897572"
+                      "uid" : "678462"
                     }
                   },
                   "width" : 116,
@@ -625,7 +625,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "571746"
+                      "uid" : "784287"
                     }
                   },
                   "width" : 216,
@@ -710,7 +710,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "961105"
+                      "uid" : "666147"
                     }
                   },
                   "width" : 400,
@@ -794,7 +794,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "456614"
+                      "uid" : "152558"
                     }
                   },
                   "width" : 50,
@@ -931,7 +931,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "103704"
+                      "uid" : "917217"
                     }
                   },
                   "width" : 383,
@@ -964,7 +964,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "697935"
+                      "uid" : "191583"
                     }
                   },
                   "width" : 483,

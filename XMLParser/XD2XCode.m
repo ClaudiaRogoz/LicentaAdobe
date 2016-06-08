@@ -511,7 +511,7 @@
 }
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
-    NSLog(@"InitValue = %@", initValue);
+
     
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
@@ -583,7 +583,16 @@
             value = [NSString stringWithFormat:@"\"%@\"", value];
         }
         
-        [tagStr appendFormat:@" %@=%@", object, value];
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            [tagStr appendFormat:@">"];
+            value = [self toString:value name:object isLeaf:true];
+            [tagStr appendFormat:@"%@", value];
+            [tagStr appendFormat:@"</%@>", varName];
+            
+            return tagStr;
+            
+        } else
+            [tagStr appendFormat:@" %@=%@", object, value];
     }
     if (leaf)
         [tagStr appendFormat:@"/>"];
@@ -698,7 +707,7 @@
     float heightScalefactor = yScaleFactor;
     
     float ratio = MIN(xScaleFactor,yScaleFactor);
-    NSLog(@"%f %f", xScaleFactor, yScaleFactor);
+    
     if (preserveRatio ) {
         widthScaleFactor = ratio;
         heightScalefactor = ratio;
@@ -706,26 +715,25 @@
 
     
     if ([key isEqualToString:XARTBOARD]) {
-        //NSLog(@"[%hhd]InitValue = %f %d", offset, initValue, startXArtboard);
+        
         translatedValue = initValue - startXArtboard;
         //if (!offset)
+        NSLog(@"InitValue = %f %f %f", translatedValue, xScaleFactor, translatedValue * xScaleFactor);
             translatedValue = translatedValue * xScaleFactor;
         //else
           //  translatedValue = (translatedValue + path_width/2)* xScaleFactor;
-        
-       // NSLog(@"[%hhd]TranslatedValue = %f", offset, translatedValue);
     }
     else if ([key isEqualToString:YARTBOARD]) {
         translatedValue = initValue - startYArtboard;
         translatedValue = translatedValue * yScaleFactor;
         
     } else if ([key isEqualToString:WIDTH]) {
-        NSLog(@"[WIDTH]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * widthScaleFactor);
+        //NSLog(@"[WIDTH]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * widthScaleFactor);
         translatedValue = initValue * widthScaleFactor;
         
     }
     else if ([key isEqualToString:HEIGHT]) {
-        NSLog(@"[HEIGHT]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * heightScalefactor);
+        //NSLog(@"[HEIGHT]translatedValue = %f %f => %f", initValue, widthScaleFactor, initValue * heightScalefactor);
         translatedValue = initValue * heightScalefactor;
     }
     
@@ -780,8 +788,7 @@
     bool offset = false;
     bool aspectRatio = true;
     bool scale = true;
-    
-    NSLog(@"value = ", value);
+
     if ([value isEqualToString: LINE_X] || [value isEqualToString: LINE_Y]) {
         offset = true;  aspectRatio = false;
     }
@@ -904,8 +911,10 @@
                 
                 if ([self isOfTypeColor:key]) {
                     /* change the color */
-                    
-                    float color = [value floatValue] / 255;
+                    float color;
+                    if ([value floatValue] > 1)
+                        color = [value floatValue] / 255;
+                    else color = [value floatValue];
                     [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
                     continue;
                 }
@@ -929,6 +938,11 @@
                 [self merge:dictValue withDict:objDict withDefDict:defaultDict forValue:value key:key type:type];
                 
             }
+        } else if ([value isKindOfClass:[NSDictionary class]] && ![key isEqualToString:DEFAULT]) {
+            id value = [*objDict objectForKey:key];
+            
+            [self mergeDictionaries:&value withDict:dictValue usingValues:[dictValue objectForKey:DEFAULT] type:key];
+        
         }
         
     }
@@ -1631,11 +1645,12 @@
             
             /* just an ordinary leaf tag; create a one-line with the given attributes */
             NSString *ret = [self toString:attr name:key isLeaf:inBetween];
+           
             [ tmp appendString: [NSString stringWithFormat:@"\n\t%@", ret]];
    
         }
     }
-    
+
     return tmp;
     
     

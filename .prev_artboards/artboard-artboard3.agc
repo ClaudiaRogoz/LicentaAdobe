@@ -200,7 +200,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "633506"
+                      "uid" : "505404"
                     }
                   },
                   "width" : 1067,
@@ -233,7 +233,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "509821"
+                      "uid" : "699386"
                     }
                   },
                   "width" : 1466,
@@ -254,7 +254,7 @@
             "shape" : {
               "y" : "0",
               "width" : 87.8125,
-              "height" : 3.335,
+              "height" : 1.6675,
               "type" : "rect",
               "x" : "0"
             }
@@ -420,7 +420,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "168455"
+                      "uid" : "633396"
                     }
                   },
                   "width" : 294,
@@ -504,7 +504,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "90450"
+                      "uid" : "986946"
                     }
                   },
                   "width" : 350,
@@ -537,7 +537,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "721143"
+                      "uid" : "965009"
                     }
                   },
                   "width" : 350,
@@ -726,7 +726,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "609808"
+                      "uid" : "222812"
                     }
                   },
                   "width" : 150,
@@ -759,7 +759,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "722661"
+                      "uid" : "163999"
                     }
                   },
                   "width" : 116,
@@ -792,7 +792,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "482464"
+                      "uid" : "769736"
                     }
                   },
                   "width" : 116,
@@ -825,7 +825,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "364182"
+                      "uid" : "757329"
                     }
                   },
                   "width" : 216,
@@ -910,7 +910,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "846923"
+                      "uid" : "187993"
                     }
                   },
                   "width" : 400,
@@ -994,7 +994,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "469548"
+                      "uid" : "223207"
                     }
                   },
                   "width" : 50,
@@ -1131,7 +1131,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "129501"
+                      "uid" : "418187"
                     }
                   },
                   "width" : 333,
@@ -1164,7 +1164,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "467720"
+                      "uid" : "494054"
                     }
                   },
                   "width" : 383,
@@ -1197,7 +1197,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "35674"
+                      "uid" : "631136"
                     }
                   },
                   "width" : 333,
@@ -1230,7 +1230,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "899703"
+                      "uid" : "295344"
                     }
                   },
                   "width" : 183,
@@ -1418,7 +1418,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "538861"
+                      "uid" : "113066"
                     }
                   },
                   "width" : 16,
@@ -1439,7 +1439,7 @@
             "shape" : {
               "y" : "0",
               "width" : 0.9375,
-              "height" : 85.59834,
+              "height" : 47.80167,
               "type" : "rect",
               "x" : "0"
             }
@@ -1497,6 +1497,7 @@
             }
           },
           {
+            "id" : "D074302D-38BD-468B-B9DA-3CED7EA4FEBA",
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -1555,7 +1556,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "174078"
+                      "uid" : "316306"
                     }
                   },
                   "width" : 16,
@@ -1577,7 +1578,7 @@
               "y" : "0",
               "x" : "0",
               "width" : 0.9375,
-              "height" : 85.59834,
+              "height" : 47.80167,
               "type" : "rect"
             }
           },
@@ -1634,7 +1635,6 @@
             }
           },
           {
-            "id" : "AFCF05C1-3EE2-409F-AFB8-C715BF49F9A0",
             "style" : {
               "fill" : {
                 "type" : "solid",
@@ -1693,7 +1693,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "746618"
+                      "uid" : "8384"
                     }
                   },
                   "width" : 16,
@@ -1716,25 +1716,39 @@
               "type" : "rect",
               "x" : "0",
               "width" : 0.9375,
-              "height" : 85.59834
+              "height" : 47.80167
             }
           },
           {
+            "meta" : {
+              "ux" : {
+                "singleTextObject" : true,
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 15
+                  }
+                ]
+              }
+            },
             "style" : {
               "fill" : {
                 "type" : "solid",
                 "color" : {
                   "mode" : "RGB",
                   "value" : {
-                    "r" : 12,
-                    "g" : 170,
-                    "b" : 219
+                    "r" : 255,
+                    "g" : 255,
+                    "b" : 255
                   },
-                  "alpha" : 255
+                  "alpha" : "255"
                 }
               },
               "font" : {
-                "size" : 20,
+                "size" : 15,
                 "style" : "Regular",
                 "postscriptName" : "HelveticaNeue",
                 "family" : "Helvetica Neue"
@@ -1743,13 +1757,12 @@
             "transform" : {
               "d" : "1",
               "b" : "0",
-              "ty" : 446.5525,
+              "ty" : 424,
               "c" : "0",
               "a" : "1",
-              "tx" : 1101.875
+              "tx" : 1101
             },
             "type" : "text",
-            "name" : 2,
             "text" : {
               "frame" : {
                 "type" : "positioned"
@@ -1760,7 +1773,7 @@
                     [
                       {
                         "y" : 0,
-                        "to" : 2,
+                        "to" : 10,
                         "x" : 0,
                         "from" : 0
                       }
@@ -1830,7 +1843,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "726156"
+                      "uid" : "684219"
                     }
                   },
                   "width" : 16,
@@ -1850,75 +1863,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
-              "height" : 85.59834,
+              "height" : 47.80167,
               "type" : "rect",
               "x" : "0",
               "width" : 0.9375
-            }
-          },
-          {
-            "meta" : {
-              "ux" : {
-                "rangedStyles" : [
-                  {
-                    "fontStyle" : "Regular",
-                    "length" : 0,
-                    "charSpacing" : 0,
-                    "fontFamily" : "Helvetica Neue",
-                    "fontSize" : 15
-                  }
-                ],
-                "singleTextObject" : true
-              }
-            },
-            "style" : {
-              "fill" : {
-                "type" : "solid",
-                "color" : {
-                  "mode" : "RGB",
-                  "value" : {
-                    "r" : 255,
-                    "g" : 255,
-                    "b" : 255
-                  },
-                  "alpha" : "255"
-                }
-              },
-              "font" : {
-                "size" : 15,
-                "style" : "Regular",
-                "postscriptName" : "HelveticaNeue",
-                "family" : "Helvetica Neue"
-              }
-            },
-            "transform" : {
-              "d" : "1",
-              "b" : "0",
-              "ty" : 306,
-              "c" : "0",
-              "a" : "1",
-              "tx" : 828
-            },
-            "type" : "text",
-            "text" : {
-              "frame" : {
-                "type" : "positioned"
-              },
-              "paragraphs" : [
-                {
-                  "lines" : [
-                    [
-                      {
-                        "y" : 0,
-                        "to" : 10,
-                        "x" : 0,
-                        "from" : 0
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "rawText" : "TRIP DETAILS"
             }
           },
           {
@@ -1928,7 +1876,7 @@
                 "pattern" : {
                   "meta" : {
                     "ux" : {
-                      "uid" : "236483"
+                      "uid" : "398234"
                     }
                   },
                   "width" : 166,
@@ -1948,10 +1896,10 @@
             "type" : "shape",
             "shape" : {
               "y" : "0",
+              "type" : "rect",
               "x" : "0",
               "width" : 5,
-              "height" : 8.893333,
-              "type" : "rect"
+              "height" : 8.893333
             }
           },
           {
@@ -2028,6 +1976,58 @@
                 }
               ],
               "rawText" : "Hiking Through the Utah Backcountry"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 52,
+                    "g" : 52,
+                    "b" : 52
+                  },
+                  "alpha" : 255
+                }
+              },
+              "font" : {
+                "size" : 11,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : "1",
+              "b" : "0",
+              "ty" : 318.6017,
+              "c" : "0",
+              "a" : "1",
+              "tx" : 846.7327
+            },
+            "type" : "text",
+            "name" : "TRIP DETAILS",
+            "text" : {
+              "frame" : {
+                "type" : "positioned"
+              },
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 0,
+                        "to" : 5,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "rawText" : "TRIP DETAILS"
             }
           }
         ]

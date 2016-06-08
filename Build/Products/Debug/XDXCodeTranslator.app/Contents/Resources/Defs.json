@@ -472,6 +472,11 @@
                     "$labelState" : {
                         "$rules.mutableString" : {
                             "title" : "$text"
+                        },
+                        "$rules.color" : {
+                            "$color.red" : "$red",
+                            "$color.green" : "$green",
+                            "$color.blue" : "$blue"
                         }
                     },
                     "connections" : {
@@ -610,7 +615,16 @@
         "$labelState" : {
             "key" : "normal",
             "title" : "$title",
-            "toString" : ["key", "title"]
+            "color" : {
+                "key" : "titleColor",
+                "red" : "$red",
+                "green" : "$green",
+                "blue" : "$blue",
+                "alpha" : 1,
+                "colorSpace" :"calibratedRGB",
+                "toString" : ["key", "red", "green", "blue", "alpha", "colorSpace"]
+            },
+            "toString" : ["key", "title", "color"]
             
         },
         "connections" : {
