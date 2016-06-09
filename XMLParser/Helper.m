@@ -238,6 +238,45 @@
     
 }
 
++ (NSArray *)splitVariable:(NSString *)varName delimitator:(NSString *) variable {
+    
+    if ([varName hasPrefix:TOCHOOSE]) {
+        return [[varName substringFromIndex:1] componentsSeparatedByString:TOCHOOSE];
+    }
+    
+    return [NSArray arrayWithObjects:varName, nil];
+
+
+}
+
++ (NSArray *)splitVariableForDot:(NSString *)varName {
+    return [varName componentsSeparatedByString:DOT];
+}
+
++ (NSArray *) splitVariable:(NSString*) varName {
+    
+    if ([varName hasPrefix:@"$"]) {
+        return [[varName substringFromIndex:1] componentsSeparatedByString:@"."];
+    }
+    
+    return [NSArray arrayWithObjects:varName, nil];
+    
+}
+
++ (NSArray *) getArrayProperties:(NSString *) property {
+    return [property componentsSeparatedByString:DOT];
+}
+
++ (id) getValueForProperties:(NSArray *) properties inDict:(NSMutableDictionary *)dict {
+    //TODO check
+    id value = dict;
+    for (id property in properties) {
+        value = [value objectForKey:property];
+        NSLog(@"Value = %@", value);
+    }
+    return value;
+}
+
 + (void) unzipXD:(NSString *)path atPath:(NSString*) unzipped_xd {
     
     NSError *error;

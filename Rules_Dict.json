@@ -1,0 +1,10 @@
+{
+    "label" : {
+        "text" : "text",
+        "$default" : "shape",
+        "order" : ["text", "$default"]
+    },
+    "fontFamily" : "family",
+    "fontStyle" : "style",
+    "fontSize"  : "size"
+}

@@ -44,8 +44,14 @@
 + (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke  strokeWidth:(int )strokeWidth;
 + (NSString *) convertSvgLineToPng:(NSString *) svgName withFill:(NSString *) hexColor;
 + (NSString*) computeSha1:(NSString*)input;
-
++ (NSArray *) splitVariable:(NSString*) varName;
 + (BOOL) checkPathExists:(NSString *) absolutePath;
+
++ (NSArray *)splitVariable:(NSString *)key delimitator:(NSString *) variable;
++ (NSArray *)splitVariableForDot:(NSString *)varName;
++ (NSArray *) getArrayProperties:(NSString *) property;
+
++ (id) getValueForProperties:(NSArray *) properties inDict:(NSMutableDictionary *)dict;
 @end
 
 #endif /* Helper_h */

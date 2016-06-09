@@ -2,21 +2,21 @@
   "manifest-format-version" : 6,
   "state" : "modified",
   "uxdesign#userDidSetPrototypeName" : "false",
-  "id" : "8574F03C-7B33-4405-AD6A-2EF5AE6F42DD",
+  "id" : "6AFA38E8-A007-457C-B94E-5F7B6AE2C9FC",
   "children" : [
     {
       "path" : "artwork",
-      "id" : "D3D65EE6-9872-417D-9C9A-50BAFAD5696F",
+      "id" : "E80DD40C-9F06-43FF-9EDA-2C62BE41EECA",
       "name" : "artwork",
       "children" : [
         {
           "path" : "pasteboard",
-          "id" : "B564D120-4B47-4152-BD6D-B0CE23275F30",
+          "id" : "4C44399D-987D-4BBB-B24C-A46126C1EEA8",
           "name" : "pasteboard"
         },
         {
           "path" : "artboard-artboard1",
-          "id" : "74A8C5E8-D582-43A2-9C88-057EF21203BE",
+          "id" : "C1E73861-0D08-42D5-9F5E-967923D45A74",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -30,11 +30,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "B8B74590-0C4C-42B4-A832-235985863A6B",
+              "id" : "564475DD-E2B2-4C54-A0FD-58C4B8081F83",
               "components" : [
                 {
                   "length" : 30737,
-                  "id" : "3F64BFBC-C9D8-46E8-900A-12E405461A08",
+                  "id" : "1CA7A6DB-DB9C-4AD1-A06D-AFA84E3F73AD",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -47,7 +47,7 @@
         },
         {
           "path" : "artboard-artboard2",
-          "id" : "B76908FB-5962-4EC8-A383-5DF52EEC1549",
+          "id" : "E9FFF10E-378C-4894-AC56-BA8F4BC884E1",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -61,11 +61,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "61AC6DB6-96C8-4E07-8444-3F92484A2142",
+              "id" : "9E85C7FC-5DBF-473B-8F40-F99818F93449",
               "components" : [
                 {
                   "length" : 19880,
-                  "id" : "C9704C71-8A73-4B72-8821-96BC4EC928D8",
+                  "id" : "AC3FE54D-7BB5-46EE-B2A3-808B72327EB2",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -78,7 +78,7 @@
         },
         {
           "path" : "artboard-artboard3",
-          "id" : "84F58DD6-D3E7-4173-9627-535340BB913B",
+          "id" : "D590892B-8FD7-479D-BD62-175F92649DE1",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -92,15 +92,46 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "DA595A62-7DE0-4661-86DE-B2E10735B305",
+              "id" : "4D41EA82-A659-4CC5-AD24-2A6DEB3D0AB5",
               "components" : [
                 {
                   "length" : 33971,
-                  "id" : "5030B420-5087-428B-BADA-6401A7DB3EFD",
+                  "id" : "F99061F5-CA86-41D9-B9ED-D03501440787",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
                   "name" : "Campvibes - Featured – 1"
+                }
+              ],
+              "name" : "graphics"
+            }
+          ]
+        },
+        {
+          "path" : "artboard-artboard4",
+          "id" : "AE1D8619-7186-49C3-9393-CE8FE7317EF0",
+          "uxdesign#viewport" : {
+            "height" : 667
+          },
+          "name" : "Campvibes - Adventure 1 – 1",
+          "uxdesign#bounds" : {
+            "y" : 75,
+            "x" : 1627,
+            "width" : 375,
+            "height" : 667
+          },
+          "children" : [
+            {
+              "path" : "graphics",
+              "id" : "2582074F-38AF-42F1-A02E-BF296B6BD37F",
+              "components" : [
+                {
+                  "length" : 23537,
+                  "id" : "FA84163D-859C-42F0-A561-41E351DAA1AD",
+                  "rel" : "primary",
+                  "path" : "graphicContent.agc",
+                  "type" : "application\/vnd.adobe.agc+dcx",
+                  "name" : "Campvibes - Adventure 1 – 1"
                 }
               ],
               "name" : "graphics"
@@ -111,11 +142,11 @@
     },
     {
       "path" : "resources",
-      "id" : "9D7D1440-1334-495C-A1E2-D2348E19175B",
+      "id" : "7339C0F9-BEE5-428A-82FE-6C0B94D46543",
       "components" : [
         {
           "length" : 97617,
-          "id" : "897AB7AC-26DD-4B15-BE14-18A063FDC088",
+          "id" : "4F6F070B-A0B3-46B1-832F-C4E0656BD818",
           "rel" : "primary",
           "path" : "3bdd51e5a96a3847017da8968f808779",
           "type" : "image\/jpeg",
@@ -123,7 +154,7 @@
         },
         {
           "length" : 116971,
-          "id" : "8DECA42F-A993-4BFD-B180-D43EEF804863",
+          "id" : "F49FFD40-C058-46D7-B83B-337933F1631C",
           "rel" : "primary",
           "path" : "1c1fc5558af504893061b883e964558f",
           "type" : "image\/jpeg",
@@ -131,7 +162,7 @@
         },
         {
           "length" : 225275,
-          "id" : "F9741181-A05E-454C-A03B-A3FF1F7EA17F",
+          "id" : "EAB217B5-356D-4B77-870B-3E12201C4049",
           "rel" : "primary",
           "path" : "a501b8f826bbb7df8834ae9adbe49e23",
           "type" : "image\/jpeg",
@@ -139,7 +170,7 @@
         },
         {
           "length" : 12141,
-          "id" : "38EA355F-F317-431E-8F3C-32EFD51807AF",
+          "id" : "4EAE18DC-5800-4FB1-BDC4-C34D2CABD232",
           "rel" : "primary",
           "path" : "1e3480f6787ebcf2c6b584f557fa7d2d",
           "type" : "image\/png",
@@ -150,11 +181,11 @@
       "children" : [
         {
           "path" : "graphics",
-          "id" : "3F033F95-A74D-44C7-9DAD-B9F84DE8FC68",
+          "id" : "C3E86734-7D26-4D32-B8C5-5D20F0135614",
           "components" : [
             {
-              "length" : 562,
-              "id" : "B490F9A4-5528-4EFA-956E-D6C739E27F3B",
+              "length" : 677,
+              "id" : "712CFE88-FF29-4273-AB90-B75D1D719D73",
               "rel" : "primary",
               "path" : "graphicContent.agc",
               "type" : "application\/vnd.adobe.agc+dcx",
@@ -167,11 +198,11 @@
     },
     {
       "path" : "interactions",
-      "id" : "53862C78-33DD-4D23-B91B-21597433C538",
+      "id" : "8250720A-29E9-4F92-8EA4-1411A2A74D64",
       "components" : [
         {
           "length" : 685,
-          "id" : "80558BDC-0366-4301-A11A-5563D93EC14B",
+          "id" : "9E12EBC3-E5EF-49D3-A928-232BFB30BD1B",
           "rel" : "primary",
           "path" : "interactions.json",
           "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -184,7 +215,7 @@
   "components" : [
     {
       "length" : 1323,
-      "id" : "1263419C-60D8-46DE-828C-52313E844B31",
+      "id" : "7601DCB9-2274-45C1-9EEC-C61FD45D120F",
       "rel" : "metadata",
       "path" : "META-INF\/metadata.xml",
       "type" : "application\/rdf+xml",

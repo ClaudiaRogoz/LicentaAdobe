@@ -1,0 +1,124 @@
+{
+    "content" : {
+        "view" : {
+            "toString" : ["rules"],
+            "rules" : {
+                "version" : {},
+                "resources" : {},
+                "artboards" : {},
+                "children" : {
+                    "$document.scenes.#sceneNo#scene.objects.viewController.view.subviews" : {}
+                },
+                "toString" : ["version", "resources", "artboards", "children"]
+        
+            }
+        }
+    
+    },
+    "children" : {
+        "text" : {
+            "type":"text",
+            "rules" : {
+                "name": "$text",
+                "transform" : {
+                    "$rect" : {
+                        "tx" : "$x",
+                        "ty" : "$y"
+                    }
+                },
+                "style.fill.color.value" : {
+                    "$color" : {
+                        "r" : "$red",
+                        "g" : "$green",
+                        "b" : "$blue"
+                    }
+                },
+                "font" : {
+                    "$fontDescription" : {
+                        "postscriptName":"$name",
+                        "family":"$family",
+                        "style":"Regular",
+                        "size":"$pointSize"
+                    }
+                },
+                "text.frame" : {
+                    "$rect" : {
+                        "width" : "$width",
+                        "height" : "$height"
+                    }
+                },
+                "text.paragraphs" : "$PARAGRAPH 1 text rules.font.size",
+                "text.rawText" : "$text",
+                "meta.ux.rangedStyles" : "$COPY rules.font subtags.meta.ux.rangedStyles",
+                "order" : ["transform", "name", "style.fill.color.value", "font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs"]
+                    
+                
+            }
+        }
+    
+    },
+    "subtags" : {
+        "version" : "1.5.0",
+        "resources" : {
+            "href" : "resources/graphics/graphicContent.agc"
+        },
+        "artboards" : {
+            "href" : "/resources/graphics/graphicContent.agc"
+        },
+        "transform" : {
+            "a":1,
+            "b":0,
+            "c":0,
+            "d":1,
+            "tx":"$x",
+            "ty":"$y"
+        },
+        "style" : {
+            "fill": {
+                "type":"solid",
+                "color": {
+                    "mode":"RGB",
+                    "value":{
+                        "r":"$red",
+                        "g":"$green",
+                        "b":"$blue"
+                    }
+                }
+            }
+        
+        },
+        "font":{
+            "postscriptName":"$name",
+            "family":"$family",
+            "style":"Regular",
+            "size":"$pointSize",
+            "default" : {
+                "postscriptName":"HelveticaNeue",
+                "family":"Helvetica Neue",
+                "style":"Regular",
+                "size":15
+            }
+        },
+        "text" : {
+            "frame":{
+                "type":"area",
+                "width":"$width",
+                "height":"$height"
+            },
+            "rawText" : "$text",
+            "paragraphs" : []
+        
+        },
+        "meta": {
+            "ux": {
+                "singleTextObject":true,
+                "rangedStyles": [ {
+                                "length":0,
+                                 "fontFamily":"Helvetica Neue",
+                                 "fontStyle":"Regular",
+                                 "fontSize":15,
+                                 "charSpacing":0}]}
+        },
+        "lines" : {"lines":[[{"y":0,"from":0,"to":"$no","x":0}]]}
+    }
+}

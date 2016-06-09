@@ -18,6 +18,8 @@
 #include "Sync.h"
 #import "XCode2XD.h"
 #import "XD2XCode.h"
+#import "Xml2Dict.h"
+#import "Dict2Agc.h"
 
 #ifndef Utils_h
 #define Utils_h
@@ -115,10 +117,18 @@ void import(char *path, char *xdPath) {
     }
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    [XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath xdPath:inXDPath error:&parseError];
+    NSString *testXMLString = @"<items><item id=\"0001\" type=\"donut\"><name>Cake</name><ppu>0.55</ppu><batters><batter id=\"1001\">Regular</batter><batter id=\"1002\">Chocolate</batter><batter id=\"1003\">Blueberry</batter></batters><topping id=\"5001\">None</topping><topping id=\"5002\">Glazed</topping><topping id=\"5005\">Sugar</topping></item></items>";
+
+
+    NSData *data = [testXMLString dataUsingEncoding:NSUTF8StringEncoding];
+
+    
+    NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
+    [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError];
+    
+    /*[XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath xdPath:inXDPath error:&parseError];
     
     
-    /* copy <agc file> to clipboard */
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
@@ -129,7 +139,7 @@ void import(char *path, char *xdPath) {
     [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
-    
+    */
 }
 
 void export(char *xdPath, char *xmlPath) {

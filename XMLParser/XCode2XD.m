@@ -513,9 +513,9 @@
         
     }
     
-    
+    NSLog(@"ShapeAttr = %@", shapeAttr);
     [toInsertObjects addObject: shapeAttr];
-
+    
 }
 
 -(NSDictionary*) getIdealFrameForPointSize:(id) tempValue {
@@ -766,7 +766,7 @@
     }else   [*parentDict setObject:childDict forKey:elementName];
 
     [inheritanceStack addObject:elementName];
-    //NSLog(@"ChildDict = %@ %@", dictionaryStack, childDict);
+    NSLog(@"ChildDict = %@", childDict);
     [dictionaryStack addObject:childDict];
 
 }
@@ -834,8 +834,8 @@
             NSMutableDictionary *shapeAttr = [self deepCopy:attributes[BACKGROUND]];
             
             [self transformAgcColor:entry searchAttr:shapeAttr dictAttr:attributeDict];
-            
-            [toInsertObjects addObject:shapeAttr];
+            NSLog(@"Am inserat aici inca");
+            //[toInsertObjects addObject:shapeAttr];
             
             return;
         }
@@ -1102,9 +1102,11 @@
     
     if ([toInsertObjects count] && [elementName isEqualToString:VIEW]) {
         
+        NSLog(@"Count = %lu", [dictionaryStack count]);
         id prevParent = [dictionaryStack objectAtIndex:2];
         
-        [prevParent addEntriesFromDictionary:[toInsertObjects objectAtIndex:0]];
+        [prevParent addEntriesFromDictionary:[toInsertObjects lastObject]];
+        NSLog(@"Am dat remove la %@", [toInsertObjects lastObject]);
         [toInsertObjects removeLastObject];
         
     }
@@ -1112,12 +1114,15 @@
     /* insert Objects from toInsertObjects */
     if ([elementName isEqualToString:TEXTFIELD] || [elementName isEqualToString:LABEL] ) {
         for (id key in toInsertObjects){
+            
             NSInteger counter = [dictionaryStack count];
+            NSLog(@"count = %lu", [dictionaryStack count]);
             id prevParent = dictionaryStack[counter - 2];
             [[prevParent objectForKey:CHILDREN ] insertObject:key atIndex:0];
             
+            
         }
-        
+        NSLog(@"RMV %@", [toInsertObjects lastObject]);
         [toInsertObjects removeLastObject];
         
     }
