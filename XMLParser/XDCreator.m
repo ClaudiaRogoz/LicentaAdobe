@@ -158,6 +158,7 @@
     NSData *pathData = [NSData dataWithContentsOfFile:pathName];
     NSMutableDictionary *pathComponent = [NSJSONSerialization JSONObjectWithData:pathData options:NSJSONReadingMutableContainers error:&error];
     NSMutableDictionary *childComponents= [tempChildren objectAtIndex:0];
+    NSLog(@"Artboards = %@", dict);
     for (id artboard in artboardsDict) {
         artboardNumber = artboard;
         NSMutableDictionary *tempPath = [Helper deepCopy:pathComponent];
@@ -292,7 +293,7 @@
     
     NSError *error;
     NSMutableDictionary *version = [@{VERSION : VERSION_INTERACTIONS} mutableCopy];
-    if (homeArtboard)
+    /*if (homeArtboard)
         [version setObject:homeArtboard forKey:START_ARTBOARD];
     NSString *interactionPath = [[NSBundle mainBundle] pathForResource:INTERACTION_TEMPLATE ofType:JSON];
     NSData *segueData = [NSData dataWithContentsOfFile:interactionPath];
@@ -309,10 +310,13 @@
     }
     if (interactionsDict)
         [version setObject:interactionsDict forKey:INTERACTIONS];
+    
     NSLog(@"Interact = %@", interactionsDict);
+    */
     NSString *jsonInteractions = [NSString stringWithFormat:@"%@%@%@", INTERACTIONS, DOT, JSON];
+    
     NSArray *resourcesList = @[INTERACTIONS, jsonInteractions];
-
+    
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
     
     [self writeData:version toPath:graphicContent];

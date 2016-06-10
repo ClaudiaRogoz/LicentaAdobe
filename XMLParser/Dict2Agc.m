@@ -202,15 +202,16 @@
         heightScalefactor = ratio;
     }
     
-    
-    if ([key isEqualToString:XARTBOARD]) {
-        
-        translatedValue = initValue - startXArtboard;
+    if ([key isEqualToString:TX]) {
         translatedValue = translatedValue * xScaleFactor;
+        translatedValue = translatedValue + startXArtboard;
         
-    } else if ([key isEqualToString:YARTBOARD]) {
-        translatedValue = initValue - startYArtboard;
+    } else if ([key isEqualToString:TY]) {
+      
         translatedValue = translatedValue * yScaleFactor;
+        translatedValue = translatedValue + startYArtboard;
+
+        
         
     } else if ([key isEqualToString:WIDTH]) {
         translatedValue = initValue * widthScaleFactor;
@@ -219,7 +220,6 @@
     else if ([key isEqualToString:HEIGHT]) {
         translatedValue = initValue * heightScalefactor;
     }
-    
     
     return translatedValue;
 }
@@ -272,13 +272,12 @@
             value = [dictValue objectForKey:[value substringFromIndex:1]];
             
             if (value) {
-
+                NSLog(@"keyH = %@ %hhd", key, [self isOfTypeSize:key]);
                 if ([self isOfTypeColor:key]) {
                     /* change the color */
                     float color;
-                    if ([value floatValue] > 1)
-                        color = [value floatValue] * 255;
-                    else color = [value floatValue];
+                    
+                    color = [value floatValue] * 255;
                     [*objDict setObject:[NSNumber numberWithFloat: color] forKey:key];
                     continue;
                 }
@@ -292,7 +291,9 @@
                 }
                 
                if ([self isOfTypeSize:key]) {
+                   
                     float initValue = [value floatValue];
+                   
                     float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
                     [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
@@ -623,9 +624,9 @@
     id children = [result objectForKey:CHILDREN];
     NSMutableDictionary *subViews = [NSMutableDictionary dictionary];
     [subViews setObject:children forKey:CHILDREN];
-    NSString *artboardNo = [NSString stringWithFormat:@"%@%d", ART_SCENE, ++sceneNo];
-    [result setObject:artboardNo forKey:REF];
+    [subViews setObject:[NSString stringWithFormat:@"%@%d", ART_SCENE, ++sceneNo] forKey:REF];
     [result setObject:subViews forKey:ART_SCENE];
+    
     [result removeObjectForKey:CHILDREN];
     return result;
 
@@ -636,6 +637,7 @@
     NSMutableArray *children = [[NSMutableArray alloc] init];
     NSMutableDictionary *finalDict = [Helper deepCopy: [agcToXmlTemplate objectForKey:CONTENT]];
     NSMutableDictionary *viewDict = [finalDict objectForKey:ARTBOARD];
+    startXArtboard = startXArtboard  + sceneNo * OFFSETBOARD;
     id scene = [self processTemplateDict:&viewDict agcDict:dict finalDict:finalDict ofType:VIEW];
     scene = [self convertSceneToJsonFormat:scene];
     [children addObject:scene];
@@ -683,7 +685,9 @@
     
     }
     
-    [XDCreator createManifest:resources xdPath:[self xdPath]];
+    NSMutableDictionary *artboards = [NSMutableDictionary dictionary];
+    [artboards setValue:resources forKey:ARTBOARDS];
+    [XDCreator createManifest:artboards xdPath:[self xdPath]];
     [Helper createXdFile:[self xdPath]];
     return nil;
 }
