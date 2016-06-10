@@ -73,6 +73,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
 
+    NSLog(@"[%@]PartentDict = %@", elementName, [dictionaryStack lastObject]);
     id parentDict = [dictionaryStack lastObject];
 
     id childDict;
@@ -91,6 +92,28 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     } else {
         childDict = [[NSMutableArray alloc] init];
         [parentDict setObject:childDict forKey:elementName];
+    }
+    
+
+    if ([parentDict isKindOfClass:[NSDictionary class]] && [elementName isEqualToString:SCENE]) {
+        id existingValue = [parentDict objectForKey:elementName];
+        if (existingValue)
+        {
+            NSMutableArray *array = nil;
+            if ([existingValue isKindOfClass:[NSMutableArray class]])
+            {
+                array = (NSMutableArray *) existingValue;
+            }
+            else
+            {
+                array = [NSMutableArray array];
+                [array addObject:existingValue];
+                
+                [parentDict setObject:array forKey:elementName];
+            }
+            
+            [array addObject:childDict];
+        }
     }
 
     [dictionaryStack addObject:childDict];

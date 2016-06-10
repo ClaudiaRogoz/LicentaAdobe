@@ -197,6 +197,8 @@
 #define DOCUMENT    @"document"
 #define XML_STATE       @"state"
 #define START_ARTBOARD  @"homeArtboard"
+#define ARTBOARD_LIST   @"artboardList"
+#define ARTBOARD_CHILDREN   @"artboard.children"
 #define HOME_ARTBOARD   @"initialViewController"
 #define VIEW_CONTROLLER  @"viewController"
 /*used for metadata creation */

@@ -19,12 +19,10 @@
 + (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error {
 
     Dict2Agc *gen = [[Dict2Agc alloc] init];
-    
+    NSLog(@"Dictionary = %@", dictionary);
     [gen initWithSchemas];
     [gen getXDForXmlObject:dictionary];
-    
-
-    
+  
 }
 
 -(void) initWithSchemas {
@@ -81,31 +79,6 @@
     return agcGen;
 }
 
-/*- (NSMutableDictionary *) toString:(id) dict {
-    id result = [[NSMutableDictionary alloc] init];
-    if ([dict isKindOfClass:[NSDictionary class]]) {
-        for (id key in dict) {
-            
-            if ([key isEqualToString:TOSTRING] || [key isEqualToString:ORDER])
-                continue;
-            
-            NSArray *arr =[Helper getArrayProperties:key];
-            if ([arr count] > 1) {
-                
-            } else {
-                id value = []
-                [result setObject:<#(nonnull id)#> forKey:key]
-            }
-            
-            
-        }
-    } else if ([dict isKindOfClass:[NSString class]]) {
-        
-    }
-    
-
-    return result;
-}*/
 
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
     
@@ -137,65 +110,6 @@
     
 }
 
-/*-(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
-              usingValues:(NSDictionary *)paramsValue type:(NSString *)type {
-    
-    
-    NSMutableDictionary *defaultDict = [*objDict objectForKey:DEFAULT];
-    id allKeys = [*objDict allKeys];
-    if ([*objDict objectForKey:ORDER])
-        allKeys = [*objDict objectForKey:ORDER];
-    
-    for (id key in allKeys) {
-        
-        id value = [*objDict objectForKey:key];
-        
-        if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
-            
-            value = [dictValue objectForKey:[value substringFromIndex:1]];
-            
-            if (value) {
-                
-                if ([self isOfTypeColor:key]) {
- 
-                    float color;
-                    if ([value floatValue] > 1)
-                        color = [value floatValue] / 255;
-                    else color = [value floatValue];
-                    [*objDict setObject:[NSString stringWithFormat:@"%f", color] forKey:key];
-                    continue;
-                }
-                
-                if ([self isOfTypeScale:key object:type]) {
-                    
-                    float initValue = [value floatValue];
-                    float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
-                    [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
-                    continue;
-                }
-                [*objDict setObject:value forKey:key];
-                
-            } else {
-                
-             
-                value = [paramsValue objectForKey:key];
-                if (!value)
-                    continue;
-                
-                [self merge:dictValue withDict:objDict withDefDict:defaultDict forValue:value key:key type:type];
-                
-            }
-        } else if ([value isKindOfClass:[NSDictionary class]] && ![key isEqualToString:DEFAULT]) {
-            id value = [*objDict objectForKey:key];
-            
-            [self mergeDictionaries:&value withDict:dictValue usingValues:[dictValue objectForKey:DEFAULT] type:key];
-            
-        }
-        
-    }
-    
-}
-*/
 -(id) getShapeType:(id)type object:(id)object {
     
     
