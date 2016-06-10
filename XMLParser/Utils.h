@@ -117,14 +117,9 @@ void import(char *path, char *xdPath) {
     }
     // Parse the XML into a dictionary
     NSError *parseError = nil;
-    NSString *testXMLString = @"<items><item id=\"0001\" type=\"donut\"><name>Cake</name><ppu>0.55</ppu><batters><batter id=\"1001\">Regular</batter><batter id=\"1002\">Chocolate</batter><batter id=\"1003\">Blueberry</batter></batters><topping id=\"5001\">None</topping><topping id=\"5002\">Glazed</topping><topping id=\"5005\">Sugar</topping></item></items>";
-
-
-    NSData *data = [testXMLString dataUsingEncoding:NSUTF8StringEncoding];
-
     
     NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
-    [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError];
+    [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError usingXdPath:inXDPath];
     
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];

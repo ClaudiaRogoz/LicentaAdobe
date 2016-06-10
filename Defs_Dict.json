@@ -1,12 +1,58 @@
 {
+    "artwork" : {
+        "version" : "1.5.0",
+        "resources" : {
+            "href" : "resources/graphics/graphicContent.agc"
+        },
+        "artboards" : {
+            "href" : "/resources/graphics/graphicContent.agc"
+        }
+    },
+    "resources" : {
+        "version":"1.5.0",
+        "children":[],
+        "resources":{
+            "gradients":{},
+            "clipPaths":{},
+            "meta":{
+                "ux":{
+                    "counters": {
+                        "rectangleCnt":0,
+                        "imageCnt":0,
+                        "ellipseCnt":0,
+                        "lineCnt":0,
+                        "pathCnt":0,
+                        "groupCnt":0,
+                        "maskCnt":0
+                    },
+                    "colorSwatches":[]
+                }
+            }
+        },
+        "artboards" : {}
+    },
+    "artboard1" : {
+       "width":375,
+        "height":667,
+        "name":"iPhone 6 – ",
+        "x":0,
+        "y":0,
+        "viewportHeight":667
+    },
     "content" : {
+        "dependency" : "$document.scenes.scene",
         "view" : {
             "rules" : {
-                "version" : {},
-                "resources" : {},
-                "artboards" : {},
+                "type" : "artboard",
+                "style.fill.color.value" : {
+                    "$objects.viewController.view.color" : {
+                        "r" : "$red",
+                        "g" : "$green",
+                        "b" : "$blue"
+                    }
+                },
                 "children" : {
-                    "$document.scenes.#sceneNo#scene.objects.viewController.view.subviews" : {}
+                    "$objects.viewController.view.subviews" : {}
                 }
         
             }
@@ -57,13 +103,7 @@
     
     },
     "subtags" : {
-        "version" : "1.5.0",
-        "resources" : {
-            "href" : "resources/graphics/graphicContent.agc"
-        },
-        "artboards" : {
-            "href" : "/resources/graphics/graphicContent.agc"
-        },
+        
         "transform" : {
             "a":1,
             "b":0,

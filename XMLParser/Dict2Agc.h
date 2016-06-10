@@ -13,6 +13,7 @@
 
 #include "Constants.h"
 #include "Helper.h"
+#import "XDCreator.h"
 
 @interface Dict2Agc : NSObject
 {
@@ -35,7 +36,7 @@
 @property NSString *xmlPath;
 
 
-+ (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error;
++ (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath;
 
 @end
 

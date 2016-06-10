@@ -267,7 +267,7 @@
     return [property componentsSeparatedByString:DOT];
 }
 
-+ (id) getValueForProperties:(NSArray *) properties inDict:(NSMutableDictionary *)dict {
++ (id) getValueForProperties:(NSArray *) properties inDict:(NSDictionary *)dict {
     //TODO check
     id value = dict;
     for (id property in properties) {

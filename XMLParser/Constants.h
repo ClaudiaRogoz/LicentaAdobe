@@ -119,6 +119,7 @@
 
 #define LINE_VALUE  @"lines"
 #define STYLE_VALUE @"style"
+#define DEPENDENCY  @"dependency"
 #define SIZE        @"size"
 #define VIEW        @"view"
 #define RULES       @"rules"
@@ -156,6 +157,7 @@
 #define SCENE       @"scene"
 #define SEGUE       @"segue"
 #define ISFONT      @"family"
+#define FONT_VALUE        @"font"
 #define SWITCH      @"switch"
 #define SWITCH_TX   @"switch.transform.tx"
 #define SWITCH_TY   @"switch.transform.ty"
