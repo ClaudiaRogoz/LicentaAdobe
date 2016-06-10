@@ -1,15 +1,13 @@
 {
     "content" : {
         "view" : {
-            "toString" : ["rules"],
             "rules" : {
                 "version" : {},
                 "resources" : {},
                 "artboards" : {},
                 "children" : {
                     "$document.scenes.#sceneNo#scene.objects.viewController.view.subviews" : {}
-                },
-                "toString" : ["version", "resources", "artboards", "children"]
+                }
         
             }
         }
@@ -17,8 +15,9 @@
     },
     "children" : {
         "text" : {
-            "type":"text",
+            
             "rules" : {
+                "type":"text",
                 "name": "$text",
                 "transform" : {
                     "$rect" : {
@@ -33,7 +32,7 @@
                         "b" : "$blue"
                     }
                 },
-                "font" : {
+                "style.font" : {
                     "$fontDescription" : {
                         "postscriptName":"$name",
                         "family":"$family",
@@ -47,10 +46,10 @@
                         "height" : "$height"
                     }
                 },
-                "text.paragraphs" : "$PARAGRAPH 1 text rules.font.size",
+                "text.paragraphs" : "$PARAGRAPH 1 text rules.style.font.size",
                 "text.rawText" : "$text",
                 "meta.ux.rangedStyles" : "$COPY rules.font subtags.meta.ux.rangedStyles",
-                "order" : ["transform", "name", "style.fill.color.value", "font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs"]
+                "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs"]
                     
                 
             }
@@ -81,22 +80,26 @@
                     "value":{
                         "r":"$red",
                         "g":"$green",
-                        "b":"$blue"
+                        "b":"$blue",
+                        "default" : {
+                            "r" : 255,
+                            "g" : 255,
+                            "b" : 255
+                        }
                     }
                 }
-            }
-        
-        },
-        "font":{
-            "postscriptName":"$name",
-            "family":"$family",
-            "style":"Regular",
-            "size":"$pointSize",
-            "default" : {
-                "postscriptName":"HelveticaNeue",
-                "family":"Helvetica Neue",
+            },
+            "font":{
+                "postscriptName":"$name",
+                "family":"$family",
                 "style":"Regular",
-                "size":15
+                "size":"$pointSize",
+                "default" : {
+                    "postscriptName":"HelveticaNeue",
+                    "family":"Helvetica Neue",
+                    "style":"Regular",
+                    "size":15
+                }
             }
         },
         "text" : {
