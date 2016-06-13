@@ -64,7 +64,6 @@
             
             "rules" : {
                 "type":"text",
-                "name": "$text",
                 "transform" : {
                     "$rect" : {
                         "tx" : "$x",
@@ -94,7 +93,7 @@
                 },
                 "text.paragraphs" : "$PARAGRAPH 1 text rules.style.font.size",
                 "text.rawText" : "$text",
-                "meta.ux.rangedStyles" : "$COPY rules.font subtags.meta.ux.rangedStyles",
+                "meta.ux.rangedStyles" : "$COPY rules.style.font subtags.meta.ux.rangedStyles",
                 "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs"]
                 
                 
