@@ -305,6 +305,7 @@
 #define FRAME_Y    @"$rect.y"
 #define COLOR_RED     @"$color.red"
 #define COLOR_GREEN     @"$color.green"
+#define CONTROLLER_ID   @"$objects.viewController.id"
 #define COLOR_BLUE  @"$color.blue"
 #define FONT_POINT  @"$fontDescription.pointSize"
 

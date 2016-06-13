@@ -1242,7 +1242,7 @@
         
         objDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:rule]]];
     }
-    
+    NSLog(@"Cond = %@ %@", cond, rule);
     if (!cond && [rule isEqualToString:CONNECTIONS]) {
 
         id tempSegue = [objDict objectForKey:SEGUE];

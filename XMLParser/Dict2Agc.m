@@ -396,6 +396,60 @@
     return paragraphs;
 }
 
+- (id) computeCopyFormula:(NSString *) key usingDict:(id) translatedDict {
+    
+    id properties = [[key substringFromIndex:[COPY length] + 1] componentsSeparatedByString:SPACE];
+    id propertyName = [properties objectAtIndex:0];
+    id translationName = [properties objectAtIndex:1];
+    NSArray *propArr = [Helper getArrayProperties:propertyName];
+    NSArray *transArr = [Helper getArrayProperties:translationName];
+    id value = [Helper getValueForProperties:propArr inDict:translatedDict];
+    id translated = [Helper getValueForProperties:transArr inDict:agcToXmlTemplate];
+    return [NSArray arrayWithObjects:[self replaceValuesInDict:translated withValues:value], nil];
+}
+
+- (id) computeParagraphFormula:(NSString *)key initialDict:(NSDictionary *) initDict translatedDict:(NSMutableDictionary *) translatedDict{
+
+    id values = [[key substringFromIndex:[PARAGRAPH length] + 1] componentsSeparatedByString:SPACE];
+    id numberOfLines = [values objectAtIndex:0];
+    id text = [initDict objectForKey:[values objectAtIndex:1]];
+    NSArray *propArr = [Helper getArrayProperties:[values objectAtIndex:2]];
+    int fontSize = [[Helper getValueForProperties:propArr inDict:translatedDict] intValue];
+    int nr;
+    if ([numberOfLines intValue]) {
+        nr = [numberOfLines intValue];
+    } else {
+        //TODO $PARAGRAPH numberOfLines text
+    }
+    return [self createParagraphs:text lineNo:nr fontSize: fontSize];
+}
+
+- (void) saveIdForElement:(NSString *)key  initialDict:(NSDictionary *) initDict {
+    
+    NSString *idKey = [key substringFromIndex:[SAVE_ID length] + 1];
+    id idArr = [Helper splitVariable:idKey];
+    id value = initDict;
+    for (id idKey in idArr) {
+        value = [value objectForKey:idKey];
+    }
+    NSString *idValue = value;
+    lastId = idValue;
+    [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:childNo]] forKey:idValue];
+}
+
+- (void) saveInteraction:(NSString *)key initialDict:(NSDictionary *) initDict {
+    
+    NSString *segue = [key substringFromIndex:[SAVE_SEGUE length] + 1];
+    id idArr = [Helper splitVariable:segue];
+    id value = initDict;
+    for (id idKey in idArr) {
+        value = [value objectForKey:idKey];
+    }
+    NSString *idValue = value;
+    if (idValue)
+        [interactionsDict setObject:idValue forKey:lastId];
+}
+
 - (id) processFormula:(NSString *)key  initDict:(NSDictionary *) initDict translatedDict:(NSMutableDictionary *) translatedDict {
     if ([key hasPrefix:TOTRANSFORM]) {
         NSArray *words = [key componentsSeparatedByString:SPACE];
@@ -410,49 +464,13 @@
             return tempDict;
         } else {
             if ([key hasPrefix:COPY]) {
-                id properties = [[key substringFromIndex:[COPY length] + 1] componentsSeparatedByString:SPACE];
-                id propertyName = [properties objectAtIndex:0];
-                id translationName = [properties objectAtIndex:1];
-                NSArray *propArr = [Helper getArrayProperties:propertyName];
-                NSArray *transArr = [Helper getArrayProperties:translationName];
-                id value = [Helper getValueForProperties:propArr inDict:translatedDict];
-                id translated = [Helper getValueForProperties:transArr inDict:agcToXmlTemplate];
-                return [NSArray arrayWithObjects:[self replaceValuesInDict:translated withValues:value], nil];
-                
+                return [self computeCopyFormula:key usingDict:translatedDict];
             } else if ([key hasPrefix:PARAGRAPH]) {
-                id values = [[key substringFromIndex:[PARAGRAPH length] + 1] componentsSeparatedByString:SPACE];
-                id numberOfLines = [values objectAtIndex:0];
-                id text = [initDict objectForKey:[values objectAtIndex:1]];
-                NSArray *propArr = [Helper getArrayProperties:[values objectAtIndex:2]];
-                int fontSize = [[Helper getValueForProperties:propArr inDict:translatedDict] intValue];
-                int nr;
-                if ([numberOfLines intValue]) {
-                    nr = [numberOfLines intValue];
-                } else {
-                    //TODO $PARAGRAPH numberOfLines text
-                }
-                return [self createParagraphs:text lineNo:nr fontSize: fontSize];
+                return [self computeParagraphFormula:key initialDict:initDict translatedDict:translatedDict];
             } else if ([key hasPrefix:SAVE_ID]) {
-                NSString *idKey = [key substringFromIndex:[SAVE_ID length] + 1];
-                id idArr = [Helper splitVariable:idKey];
-                id value = initDict;
-                for (id idKey in idArr) {
-                    value = [value objectForKey:idKey];
-                }
-                NSString *idValue = value;
-                NSLog(@"Found idValue = %@ %d %d", idValue, sceneNo, childNo);
-                lastId = idValue;
-                [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:childNo]] forKey:idValue];
+                [self saveIdForElement:key initialDict:initDict];
             } else if([key hasPrefix:SAVE_SEGUE]) {
-                NSString *segue = [key substringFromIndex:[SAVE_SEGUE length] + 1];
-                id idArr = [Helper splitVariable:segue];
-                id value = initDict;
-                for (id idKey in idArr) {
-                    value = [value objectForKey:idKey];
-                }
-                NSString *idValue = value;
-                if (idValue)
-                    [interactionsDict setObject:idValue forKey:lastId];
+                [self saveInteraction:key initialDict:initDict];
             }
         }
     }
@@ -470,7 +488,6 @@
     for (id key in [arr subarrayWithRange:NSMakeRange(1, [arr count] - 2)])
         value = [value objectForKey:key];
     [value setObject:dict forKey:[arr lastObject]];
-    
     return subTag;
 }
 
@@ -483,6 +500,24 @@
     
     return nil;
 }
+
+- (void) expandRule:(NSString *)rule result:(id)value usingDict:(NSMutableDictionary **)rulesInitDict {
+    
+    if (value) {
+        NSArray *arr = [Helper getArrayProperties:rule];
+        if ([arr count] == 1) {
+            NSNumber *nr = [self getNumber:value];
+            if (nr)
+                value = nr;
+            [*rulesInitDict setObject:value forKey:rule];
+        } else {
+            [*rulesInitDict removeObjectForKey:rule];
+            id result = [self getDict:value fromArrayProperties:arr usingRule:rule initialDict:*rulesInitDict];
+            [*rulesInitDict setObject:result forKey:arr[0]];
+        }
+    }
+}
+
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
                            finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
@@ -503,19 +538,7 @@
         rulesDict = [rulesTempDict objectForKey:rule];
         if ([rulesDict isKindOfClass:[NSString class]]) {
             id value = [self processFormula:rulesDict initDict:agcDict translatedDict:*templateDict];
-            if (value) {
-                NSArray *arr = [Helper getArrayProperties:rule];
-                if ([arr count] == 1) {
-                    NSNumber *nr = [self getNumber:value];
-                    if (nr)
-                        value = nr;
-                    [rulesInitDict setObject:value forKey:rule];
-                } else {
-                    [rulesInitDict removeObjectForKey:rule];
-                    id result = [self getDict:value fromArrayProperties:arr usingRule:rule initialDict:rulesInitDict];
-                    [rulesInitDict setObject:result forKey:arr[0]];
-                }
-            }
+            [self expandRule:rule result:value usingDict:&rulesInitDict];
             continue;
         }
         if ([rulesDict isKindOfClass:[NSArray class]])
@@ -568,7 +591,7 @@
     return result;
 }
 - (NSString*) processIDViewController:(NSMutableDictionary *) dict {
-    NSString *idController =  @"$objects.viewController.id";
+    NSString *idController =  CONTROLLER_ID;
     NSArray *arr = [Helper splitVariable:idController];
     id value = dict;
     for (id key in arr) {
