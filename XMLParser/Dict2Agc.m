@@ -680,6 +680,7 @@
     [artboards setValue:resources forKey:ARTBOARDS];
     [XDCreator createManifest:artboards xdPath:[self xdPath]];
     [Helper createXdFile:[self xdPath]];
+    [XDCreator releaseStorage:[self xdPath]];
     
     return nil;
 }

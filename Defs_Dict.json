@@ -211,7 +211,8 @@
                     
                 },
                 "saveId" : "$SAVEID $id",
-                "segues" : "$SEGUE $connections.segue"
+                "interactions" : "$SEGUE $connections.segue.destination",
+                "order" : ["transform", "type", "style.fill.pattern.meta.ux.uid", "style.fill.type", "style.fill.pattern", "shape", "saveId", "interactions"]
             },
             "toRemove" : ["style.font", "style.fill.color", "saveId"]
         
