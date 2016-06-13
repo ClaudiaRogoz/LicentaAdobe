@@ -268,11 +268,9 @@
 }
 
 + (id) getValueForProperties:(NSArray *) properties inDict:(NSDictionary *)dict {
-    //TODO check
     id value = dict;
     for (id property in properties) {
         value = [value objectForKey:property];
-        NSLog(@"Value = %@", value);
     }
     return value;
 }

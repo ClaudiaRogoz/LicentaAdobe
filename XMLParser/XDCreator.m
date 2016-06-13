@@ -158,7 +158,7 @@
     NSData *pathData = [NSData dataWithContentsOfFile:pathName];
     NSMutableDictionary *pathComponent = [NSJSONSerialization JSONObjectWithData:pathData options:NSJSONReadingMutableContainers error:&error];
     NSMutableDictionary *childComponents= [tempChildren objectAtIndex:0];
-    NSLog(@"Artboards = %@", dict);
+
     for (id artboard in artboardsDict) {
         artboardNumber = artboard;
         NSMutableDictionary *tempPath = [Helper deepCopy:pathComponent];

@@ -54,7 +54,7 @@
 		</data>
 		<key>Resources/Defs_Dict.json</key>
 		<data>
-		J1L1YEfnJg4C3dMb0hi5KbYyjuQ=
+		K1FWm+xLB/gHEzFdMfCchohjl1w=
 		</data>
 		<key>Resources/InteractionTemplate.json</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Resources/Rules_Dict.json</key>
 		<data>
-		zFaeM+r8PN0zqgKTlGwLIhKLkHA=
+		qDnqNM7WWHnkULveYJMhS5vwV1s=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -272,11 +272,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			J1L1YEfnJg4C3dMb0hi5KbYyjuQ=
+			K1FWm+xLB/gHEzFdMfCchohjl1w=
 			</data>
 			<key>hash2</key>
 			<data>
-			3A/eDUPBXUCvlOXiYPNYj3ZzjitaG6kljVxEfORWpCo=
+			6kw5XRLVXYdy/mgR0ZH73lqKOrLH3aNfRDkC+UkMgRA=
 			</data>
 		</dict>
 		<key>Resources/InteractionTemplate.json</key>
@@ -349,11 +349,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zFaeM+r8PN0zqgKTlGwLIhKLkHA=
+			qDnqNM7WWHnkULveYJMhS5vwV1s=
 			</data>
 			<key>hash2</key>
 			<data>
-			1s9m+GlqzGDVW9AYYVqwxTtAE8UHlmavRnGSpe7dyL4=
+			YGJyRIH/GiZMHEFIiwfh5tr8z4GuhE28RDwVTWYILB8=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>

@@ -716,12 +716,12 @@
     
     if ([key isEqualToString:XARTBOARD]) {
         
-        translatedValue = initValue - startXArtboard;
+        translatedValue = translatedValue - startXArtboard;
         translatedValue = translatedValue * xScaleFactor;
 
     }
     else if ([key isEqualToString:YARTBOARD]) {
-        translatedValue = initValue - startYArtboard;
+        translatedValue = translatedValue - startYArtboard;
         translatedValue = translatedValue * yScaleFactor;
         
     } else if ([key isEqualToString:WIDTH]) {

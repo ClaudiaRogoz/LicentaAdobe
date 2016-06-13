@@ -16,12 +16,13 @@
 @implementation Dict2Agc
 
 
-+ (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath {
++ (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath xmlDirectory:(NSString *) xmlPath{
 
     Dict2Agc *gen = [[Dict2Agc alloc] init];
     NSLog(@"Dictionary = %@", dictionary);
     [gen initWithSchemas];
     [gen setXdPath:xdPath];
+    [gen setXmlPath:xmlPath];
     [gen getXDForXmlObject:dictionary];
   
 }
@@ -81,16 +82,30 @@
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
     
     for (id key in goToAgc) {
-        
         id nodeValue;
-             nodeValue = [*values objectForKey:key];
+        
+        if ([*values isKindOfClass:[NSDictionary class]]) {
+            nodeValue = [*values objectForKey:key];
             if ([key isEqualToString:VIEW]) {
                 id frame = [nodeValue objectForKey:FRAME];
                 widthArtboard = [[frame objectForKey:WIDTH] intValue];
                 heightArtboard = [[frame objectForKey:HEIGHT] intValue];
             }
+        } else if ([*values isKindOfClass:[NSArray class]]){
+            //eg. color.$key=backgroundColor
+            NSString *typeKey = [key substringFromIndex:[KEY_VALUE length]];
+            id type;
+            for (type in *values) {
+                if ([[type objectForKey:KEY] isEqualToString:typeKey]) {
+                    nodeValue = type;
+                    break;
+                }
+            
+            }
+        }
         
-        *values = nodeValue;
+        if (nodeValue)
+            *values = nodeValue;
         
     }
     
@@ -105,9 +120,11 @@
         if ([type objectForKey:ORDER]) {
             allKeys = [type objectForKey:ORDER];
         }
+        NSLog(@"allKeys = %@", allKeys);
+    
+        for (id key in allKeys) {
         
-        for (id key in [type allKeys]) {
-        
+            NSLog(@"Trying for %@", key);
             if ([[type objectForKey:key] isKindOfClass:[NSArray class]]) {
                 continue;
             }
@@ -121,7 +138,6 @@
             id value = [object mutableCopy];
             id subType = [type objectForKey:key];
             NSArray *gotoTag = [key componentsSeparatedByString:DOT];
-            //NSLog(@"%@ %@ %@ %@", key, gotoTag, object, [value objectForKey:key]);
             if ([gotoTag count] == 1) {
                 if ([value objectForKey:key] != nil) {
                     return subType;
@@ -129,15 +145,15 @@
             }
             
             for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
-                
+                NSLog(@"ValueX = %@ %@", value, elem);
                 value = [value objectForKey:elem];
-                
             }
         
-            
-            if (![value isEqualToString:[gotoTag lastObject]])
+            NSLog(@"Last = %@ %hhd %hhd", [gotoTag lastObject], [value  isEqualToString: @""], [value isEqualToString:[gotoTag lastObject]]);
+            if (![value isEqualToString:[gotoTag lastObject]] && !([[gotoTag lastObject] isEqualToString:ISNIL] && [value  isEqualToString: @""]) )
                 continue;
             
+            NSLog(@"We found that type = %@", subType);
             if ([subType isKindOfClass:[NSString class]]) {
                 return subType;
             }
@@ -145,7 +161,7 @@
             for (id subKey in subType) {
                 
 
-                
+                NSLog(@"Here we are");
                 id subValue = [object mutableCopy];
                 id subSubType = [subType objectForKey:subKey];
                 gotoTag = [subKey componentsSeparatedByString:DOT];
@@ -188,13 +204,10 @@
 - (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale{
     
     float translatedValue = initValue;
-    
-    
     float xScaleFactor = ((float)WIDTH_XD_ARTBOARD/WIDTH_XML_ARTBOARD);
     float yScaleFactor = (float)HEIGHT_XD_ARTBOARD/HEIGHT_XML_ARTBOARD;
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
-    
     float ratio = MIN(xScaleFactor,yScaleFactor);
     
     if (preserveRatio ) {
@@ -207,11 +220,8 @@
         translatedValue = translatedValue + startXArtboard;
         
     } else if ([key isEqualToString:TY]) {
-      
         translatedValue = translatedValue * yScaleFactor;
         translatedValue = translatedValue + startYArtboard;
-
-        
         
     } else if ([key isEqualToString:WIDTH]) {
         translatedValue = initValue * widthScaleFactor;
@@ -229,17 +239,31 @@
     
     if (![value hasPrefix:TOTRANSFORM]) {
         [*objDict setValue:value forKey:key]; /* no need for transformation */
-    } else if ([dictValue objectForKey:[[Helper splitVariable:value] objectAtIndex:0]]) {
         
+    } else if ([dictValue objectForKey:[[Helper splitVariable:value] objectAtIndex:0]]) {
         id tvalue = [[Helper splitVariable:value] objectAtIndex:0];
         
+        NSLog(@"ChangeValue = %@", key);
         if ([self isOfTypeSize:key]) {
             /* changing size here */
-            
             float initValue = [[dictValue objectForKey:tvalue] floatValue];
-            float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
+            float translatedValue = [self changeSize:initValue
+                                                 key:key
+                                       preserveRatio:false
+                                      preserveOffset:false
+                                               scale:true];
             
             [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
+            
+        } else if ([key isEqualToString:HREF]) {
+            
+            NSString *name = [dictValue objectForKey:tvalue];
+            //TODO use pbxproj
+            NSLog(@"XMLPath = %@", [self xmlPath]);
+            NSString *directory = [[[self xmlPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+            NSString *imageName = [Helper findFile:name inPath:directory];
+            NSLog(@"imageName = %@", imageName);
+            [*objDict setValue:imageName forKey:key];
         } else {
             [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
             
@@ -247,7 +271,6 @@
         
         /*if we have a special operation to perform eg. getSize from path*/
     } else if ([defaultDict objectForKey:key]){/* use default values */
-        
         [*objDict setObject:[defaultDict objectForKey:key] forKey:key];
     }
     
@@ -264,15 +287,11 @@
         allKeys = [*objDict objectForKey:ORDER];
     
     for (id key in allKeys) {
-        
         id value = [*objDict objectForKey:key];
-        
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
-            
             value = [dictValue objectForKey:[value substringFromIndex:1]];
-            
+            NSLog(@"Value = %@ key = %@ %@ %hhd", value, key, type, [self isOfTypeScale:key object:type]);
             if (value) {
-                NSLog(@"keyH = %@ %hhd", key, [self isOfTypeSize:key]);
                 if ([self isOfTypeColor:key]) {
                     /* change the color */
                     float color;
@@ -286,14 +305,13 @@
                     
                     float initValue = [value floatValue];
                     float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
+                    NSLog(@"Translated = %f", translatedValue);
                     [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
                 }
                 
                if ([self isOfTypeSize:key]) {
-                   
                     float initValue = [value floatValue];
-                   
                     float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
                     [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
                     continue;
@@ -304,6 +322,13 @@
                     [*objDict setObject:[NSNumber numberWithInt:intValue] forKey:key];
                     continue;
                 }
+                
+                if ([value floatValue]) {
+                    int intValue = [value floatValue];
+                    [*objDict setObject:[NSNumber numberWithFloat:intValue] forKey:key];
+                    continue;
+                }
+                
                 [*objDict setObject:value forKey:key];
                 
             } else {
@@ -328,6 +353,22 @@
 }
 
 
+- (void ) removeProperties:(NSArray *)properties fromDict:(NSMutableDictionary **)typeObjDict {
+    
+    for (id property in properties) {
+        id value = [*typeObjDict objectForKey:RULES];
+        NSArray *arr = [Helper getArrayProperties:property];
+        for (id key in [arr subarrayWithRange:NSMakeRange(0, [arr count] - 1)]) {
+            value = [value objectForKey:key];
+        }
+                        
+        [value removeObjectForKey:[arr lastObject]];
+    }
+    
+    
+    [*typeObjDict removeObjectForKey:TOREMOVE];
+}
+
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
                                 agcDict:agcParams type:(NSString *)type {
     
@@ -345,9 +386,11 @@
         objDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:value]];
     }
     
+    NSLog(@"Rule = %@ cond = %@", rule, cond);
     // now changing based on params
     if (!cond) {
         //just generate the tag; no other transformations are needed
+        NSLog(@"Here ");
         return objDict;
     }
     
@@ -356,9 +399,9 @@
         id values = agcParams;
         
         NSArray *goToAgc = [Helper splitVariable:condition];
-        
+        NSLog(@"GotoAgc = %@", goToAgc);
         [self getDict:&values fromConditions:goToAgc];
-        
+        NSLog(@"values = %@", values);
         NSMutableDictionary *dictValue = values;
         
         BOOL isEmpty = ([dictValue count] == 0);
@@ -374,6 +417,7 @@
             
         } else {
             
+            //NSLog(<#NSString * _Nonnull format, ...#>)
             if (![dictValue isKindOfClass:[NSArray class]]) {
                 
                 [self mergeDictionaries:&objDict withDict:dictValue usingValues:[dict objectForKey:condition] type:type];
@@ -405,11 +449,15 @@
                     if (![type isKindOfClass:[NSString class]])
                         continue;
                     
+                    NSLog(@"Type is = %@", type);
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
                     
                     [self processTemplateDict:&typeObjDict agcDict:[object objectForKey:name] finalDict:finalDict ofType:type];
                     [[typeObjDict objectForKey:RULES ]removeObjectForKey:ORDER];
+                    [self removeProperties:[typeObjDict objectForKey:TOREMOVE] fromDict:&typeObjDict];
                     typeObjDict = [typeObjDict objectForKey:RULES];
+                    NSLog(@"typeObjDict = %@", typeObjDict);
+                   
                     NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
                     [subViewDict setObject:typeObjDict forKey:changeType];
                     [objDict addObject:typeObjDict];
@@ -475,6 +523,9 @@
         NSArray *words = [key componentsSeparatedByString:SPACE];
         if ([words count] == 1) {
             //eg $text
+            if ([key isEqualToString:RANDOM])
+                return [[NSUUID UUID] UUIDString];
+            
             id value = [Helper splitVariable:key];
             return [initDict objectForKey:[value objectAtIndex:0]];
             
@@ -510,11 +561,25 @@
 
             }
         }
+    } else {
+        return key;
+    
     }
     
     return nil;
 }
 
+- (void) combineDictionaries:(NSMutableDictionary *)newDict  toDict:(NSMutableDictionary*)oldDict {
+
+    NSLog(@"Compare dict %@ %@", newDict, oldDict);
+    /*for (id key in newDict) {
+        id newValue = [newDict objectForKey:key];
+        id oldValue = [newDict objectForKey:key];
+        
+    
+    }*/
+    
+}
 - (id) getDict:(NSMutableDictionary *)dict fromArrayProperties:(NSArray *)arr usingRule:(NSString *)rule initialDict:(NSMutableDictionary *)rulesDict{
     id subTag;
     if ([rulesDict objectForKey:arr[0]]) {
@@ -525,17 +590,29 @@
     }
     
     id value = subTag;
+    NSLog(@"subTag = %@", subTag);
     for (id key in [arr subarrayWithRange:NSMakeRange(1, [arr count] - 2)]) {
         value = [value objectForKey:key];
         
     }
+
+    [self combineDictionaries:dict toDict:subTag];
     [value setObject:dict forKey:[arr lastObject]];
     
-    
+    NSLog(@"=> subTag = %@", subTag);
     return subTag;
     
 }
 
+- (NSNumber *) getNumber:(id) value {
+    if ([value intValue])
+        return [NSNumber numberWithInt:[value intValue]];
+    
+    if ([value floatValue])
+        return [NSNumber numberWithFloat:[value floatValue]];
+    
+    return nil;
+}
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
                            finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
@@ -548,26 +625,28 @@
      * otherwise use the default enumerator */
     if ([rulesTempDict objectForKey:ORDER])
         rulesByOrder = [rulesTempDict objectForKey:ORDER];
-    else rulesByOrder = rulesTempDict;
+    else
+        rulesByOrder = rulesTempDict;
     
     for (id rule in rulesByOrder) {
-        
-        keys = [Helper splitVariable:rule];
-     
+        //keys = [Helper splitVariable:rule];
         
         //goto "subviews" dictionary
         rulesDict = [rulesTempDict objectForKey:rule];
-        
+        NSLog(@"Rule = %@ %@", rule, rulesDict);
         if ([rulesDict isKindOfClass:[NSString class]]) {
-
             id value = [self processFormula:rulesDict initDict:agcDict translatedDict:*templateDict];
             if (value) {
                 NSArray *arr = [Helper getArrayProperties:rule];
-                if ([arr count] == 1)
+                if ([arr count] == 1) {
+                    NSNumber *nr = [self getNumber:value];
+                    if (nr)
+                        value = nr;
                     [rulesInitDict setObject:value forKey:rule];
-                else {
+                } else {
                     [rulesInitDict removeObjectForKey:rule];
                     id result = [self getDict:value fromArrayProperties:arr usingRule:rule initialDict:rulesInitDict];
+                    NSLog(@"resultR = %@", result);
                     [rulesInitDict setObject:result forKey:arr[0]];
                 }
             }
@@ -583,18 +662,19 @@
             cond = [rulesDict objectForKey:ORDER];
         else
             cond = [rulesDict allKeys];
-
+        NSLog(@"Merge = %@", rule);
         mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict type:type];
         if (mergeDict != nil) {
             if ([mergeDict isKindOfClass:[NSDictionary class]])
                 [mergeDict removeObjectForKey:DEFAULT];
             NSArray *arr = [Helper getArrayProperties:rule];
+            NSLog(@"[%@] Arr = %@ %@", type, arr, mergeDict);
             if ([arr count] == 1)
                 [rulesInitDict setObject:mergeDict forKey:rule];
             else {
                 [rulesInitDict removeObjectForKey:rule];
                 id result = [self getDict:mergeDict fromArrayProperties:arr usingRule:rule initialDict:rulesInitDict];
-
+                NSLog(@"Result = %@", result);
                 [rulesInitDict setObject:result forKey:arr[0]];
             }
                 
@@ -612,7 +692,6 @@
     for (id component in arr) {
         values = [values objectForKey:component];
     }
-    NSLog(@"values = %@", values);
     return values;
 }
 
@@ -678,6 +757,7 @@
         
     } else {
         for (id dict in xmlDict) {
+            NSLog(@"Dict = %@", dict);
             [self processXmlResources: &offsetX artboardsDict:&resources];
             [XDCreator createResourcesContent:resources xdPath:[self xdPath]];
             [self processXmlScenes:&artworkFiles forDict:dict];
@@ -704,8 +784,8 @@
     transformObjects[SCALE] = [[NSMutableDictionary alloc] init];
     transformObjects[SCALE][WIDTH] = [NSNumber numberWithInt:1];
     transformObjects[SCALE][HEIGHT] = [NSNumber numberWithInt:1];
-    transformObjects[SCALE][FRAMED] = [NSNumber numberWithInt:1];
-    transformObjects[SCALE][IMAGEVIEW] = [NSNumber numberWithInt:1];
+    transformObjects[SCALE][SHAPE] = [NSNumber numberWithInt:1];
+    transformObjects[SCALE][ISIMAGE] = [NSNumber numberWithInt:1];
     
     transformObjects[COLOR] = [[NSMutableDictionary alloc] init];
     transformObjects[COLOR][XML_RED] = [NSNumber numberWithInt:1];

@@ -1,9 +1,11 @@
 {
     "label" : {
+        "text.$ISNIL" : "shape",
         "text" : "text",
         "$default" : "shape",
-        "order" : ["text", "$default"]
+        "order" : ["text.$ISNIL", "text", "$default"]
     },
+    "imageView" : "image",
     "fontFamily" : "family",
     "fontStyle" : "style",
     "fontSize"  : "size"

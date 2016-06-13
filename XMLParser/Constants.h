@@ -114,6 +114,7 @@
 #define LINESDICT   @"$lineNo"
 #define COUNT       @"$count"
 #define STYLE       @"$style"
+#define KEY_VALUE        @"$key="
 #define TEXT_PARAGRAPH  @"$text.paragraphs"
 #define TEXT_LINES      @"$text.paragraphs.$lineListNo.lines"
 
@@ -123,6 +124,7 @@
 #define SIZE        @"size"
 #define VIEW        @"view"
 #define RULES       @"rules"
+#define TOREMOVE    @"toRemove"
 #define CHILDREN    @"children"
 #define COMPONENTS  @"components"
 #define ARTBOARD    @"view"
@@ -276,6 +278,7 @@
 #define GETWIDTH    @"$GETWIDTH"
 #define GETHEIGHT   @"$GETHEIGHT"
 #define PARAGRAPH   @"$PARAGRAPH"
+#define ISNIL       @"$ISNIL"
 #define GET_TYPE    @"$GETTYPE"
 #define COPY        @"$COPY"
 #define IMAGEPATH   @"$IMAGEPATH"
