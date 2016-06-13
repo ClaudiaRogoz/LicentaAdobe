@@ -171,9 +171,83 @@
                 }
             },
             "toRemove" : ["style.font", "style.fill.color"]
+        },
+        "buttonImage" : {
+            "rules" : {
+                "type" : "shape",
+                "transform" : {
+                    "$rect" : {
+                        "a":1,
+                        "b":0,
+                        "c":0,
+                        "d":1,
+                        "tx":"$x",
+                        "ty":"$y"
+                    }
+                },
+                "style.fill.type" : "pattern",
+                "style.fill.pattern" : {
+                    "$rect" : {
+                        "width" : "$width",
+                        "height" : "$height"
+                    },
+                    "$state" : {
+                        "href" : "$image"
+                    }
+                    
+                },
+                "style.fill.pattern.meta.ux.uid" : "$rand",
+                "shape" : {
+                    "$rect" : {
+                        "type" : "rect",
+                        "x" : 0,
+                        "y" : 0,
+                        "width" : "$width",
+                        "height" : "$height"
+                    }
+                    
+                }
+            },
+            "toRemove" : ["style.font", "style.fill.color"]
+        
+        },
+        "buttonText" : {
+            "rules" : {
+                "type":"text",
+                "transform" : {
+                    "$rect" : {
+                        "tx" : "$x",
+                        "ty" : "$y"
+                    }
+                },
+                "style.fill.color.value" : {
+                    "$state.color" : {
+                        "r" : "$red",
+                        "g" : "$green",
+                        "b" : "$blue"
+                    }
+                },
+                "style.font" : {
+                    "$fontDescription" : {
+                        "postscriptName":"$name",
+                        "family":"$family",
+                        "style":"Regular",
+                        "size":"$pointSize"
+                    }
+                },
+                "text.frame" : {
+                    "$rect" : {
+                        "width" : "$width",
+                        "height" : "$height"
+                    }
+                },
+                "text.paragraphs" : "$PARAGRAPH 1 state.title rules.style.font.size",
+                "text.rawText" : "$state.title",
+                "meta.ux.rangedStyles" : "$COPY rules.style.font subtags.meta.ux.rangedStyles",
+                "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs"]
+            },
+            "toRemove" : ["style.fill.pattern"]
         }
-        
-        
     },
     "subtags" : {
         

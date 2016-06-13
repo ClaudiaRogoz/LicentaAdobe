@@ -5,6 +5,10 @@
         "$default" : "shape",
         "order" : ["text.$ISNIL", "text", "$default"]
     },
+    "button" : {
+        "state.title" : "buttonText",
+        "state.image" : "buttonImage"
+    },
     "imageView" : "image",
     "fontFamily" : "family",
     "fontStyle" : "style",

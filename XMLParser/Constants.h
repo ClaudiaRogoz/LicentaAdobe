@@ -187,6 +187,7 @@
 #define NONE        @"none"
 
 #define BUTTON_SEGUE    @"buttonInteraction"
+#define BUTTON_IMAGE    @"buttonImage"
 #define BUTTON          @"button"
 #define INTERACTIONS    @"interactions"
 #define CONNECTIONS     @"connections"
