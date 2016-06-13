@@ -157,7 +157,7 @@
     return [[transformObjects objectForKey:SIZE] objectForKey:key] != nil;
 }
 
-- (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale{
+- (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale {
     
     float translatedValue = initValue;
     float xScaleFactor = ((float)WIDTH_XD_ARTBOARD/WIDTH_XML_ARTBOARD);
@@ -166,9 +166,13 @@
     float heightScalefactor = yScaleFactor;
     float ratio = MAX(xScaleFactor,yScaleFactor);
     if (preserveRatio ) {
-        NSLog(@"PRESERVERATIO %f", translatedValue);
+        //NSLog(@"PRESERVERATIO %f", translatedValue);
         widthScaleFactor = ratio;
         heightScalefactor = ratio;
+    }
+    if (scale) {
+        NSLog(@"%f %f %f %f %f", initValue, lastWidth, lastHeight, widthScaleFactor, heightScalefactor);
+        
     }
     if ([key isEqualToString:TX]) {
         translatedValue = translatedValue * xScaleFactor;
@@ -183,6 +187,7 @@
         
     } else if ([key isEqualToString:HEIGHT]) {
         translatedValue = initValue * heightScalefactor;
+
     }
     return translatedValue;
 }
@@ -209,6 +214,15 @@
             NSString *directory = [[[self xmlPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
             NSString *imageName = [Helper findFile:name inPath:directory];
             [*objDict setValue:imageName forKey:key];
+            NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
+            if (image == nil) {
+                NSLog(@"[ERROR]Image %@ is nil", imageName);
+            }
+            //NSLog(@"Am setat = %f %f", image.size.width, image.size.height);
+            [*objDict setObject:[NSNumber numberWithInt:image.size.width] forKey:WIDTH];
+            [*objDict setObject:[NSNumber numberWithInt:image.size.height] forKey:HEIGHT];
+            lastWidth = image.size.width;
+            lastHeight = image.size.height;
             
         } else {
             [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
@@ -229,6 +243,7 @@
     if ([self isOfTypeScale:key object:type]) {
         BOOL preserveRatio = false;
         if ([type isEqualToString:ISIMAGE]) {
+           // NSLog(@"ISImage = %f %@", [value floatValue], key);
             preserveRatio = true;
         }
         float initValue = [value floatValue];

@@ -34,6 +34,8 @@
     int widthArtboard;
     int heightArtboard;
     
+    float lastWidth;
+    float lastHeight;
     NSString *lastId;
     NSString *homeArtboard;
 }

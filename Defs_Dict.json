@@ -151,10 +151,6 @@
                 },
                 "style.fill.type" : "pattern",
                 "style.fill.pattern" : {
-                    "$rect" : {
-                        "width" : "$width",
-                        "height" : "$height"
-                    },
                     "$" : {
                         "href" : "$image"
                     }
