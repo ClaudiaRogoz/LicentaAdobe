@@ -174,8 +174,6 @@
         if (sceneId)
             [[[*dict objectForKey:CHILDREN] objectAtIndex:currentScene - 1] setObject:sceneId forKey:ID];
     }
-    
-
 }
 
 - (NSMutableArray *)splitArtboards:(NSDictionary *)dictionary interactions:(NSMutableDictionary *) interactions idMap:(NSMutableDictionary *) idMap {

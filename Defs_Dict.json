@@ -94,11 +94,12 @@
                 "text.paragraphs" : "$PARAGRAPH 1 text rules.style.font.size",
                 "text.rawText" : "$text",
                 "meta.ux.rangedStyles" : "$COPY rules.style.font subtags.meta.ux.rangedStyles",
-                "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs"]
+                "saveId" : "$SAVEID $id",
+                "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs", "saveId"]
                 
                 
             },
-            "toRemove" : ["style.fill.pattern"]
+            "toRemove" : ["style.fill.pattern", "saveId"]
             
         },
         "shape" : {
@@ -128,9 +129,10 @@
                         "height" : "$height"
                     }
                     
-                }
+                },
+                "saveId" : "$SAVEID $id"
             },
-            "toRemove" : ["style.font", "style.fill.pattern"]
+            "toRemove" : ["style.font", "style.fill.pattern", "saveId"]
             
             
         },
@@ -168,9 +170,10 @@
                         "height" : "$height"
                     }
                 
-                }
+                },
+                "saveId" : "$SAVEID $id"
             },
-            "toRemove" : ["style.font", "style.fill.color"]
+            "toRemove" : ["style.font", "style.fill.color", "saveId"]
         },
         "buttonImage" : {
             "rules" : {
@@ -206,9 +209,11 @@
                         "height" : "$height"
                     }
                     
-                }
+                },
+                "saveId" : "$SAVEID $id",
+                "segues" : "$SEGUE $connections.segue"
             },
-            "toRemove" : ["style.font", "style.fill.color"]
+            "toRemove" : ["style.font", "style.fill.color", "saveId"]
         
         },
         "buttonText" : {
@@ -244,9 +249,11 @@
                 "text.paragraphs" : "$PARAGRAPH 1 state.title rules.style.font.size",
                 "text.rawText" : "$state.title",
                 "meta.ux.rangedStyles" : "$COPY rules.style.font subtags.meta.ux.rangedStyles",
-                "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs"]
+                "saveId" : "$SAVEID $id",
+                "interactions" : "$SEGUE $connections.segue.destination",
+                "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs", "saveId", "interactions"]
             },
-            "toRemove" : ["style.fill.pattern"]
+            "toRemove" : ["style.fill.pattern", "saveId", "interactions"]
         }
     },
     "subtags" : {

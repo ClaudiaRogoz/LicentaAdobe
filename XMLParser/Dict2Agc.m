@@ -115,11 +115,9 @@
             for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
                 value = [value objectForKey:elem];
             }
-            NSLog(@"TypeV = %@ %@", value, subType);
             if ([value isKindOfClass:[NSString class]] && ![value isEqualToString:[gotoTag lastObject]] && !([[gotoTag lastObject] isEqualToString:ISNIL] && [value  isEqualToString: @""]) )
                 continue;
             if ([subType isKindOfClass:[NSString class]]) {
-                NSLog(@"FInd = %@ %@", [gotoTag lastObject], [value objectForKey:[gotoTag lastObject]]);
                 if ([value isKindOfClass:[NSString class]])
                     return subType;
                 else if ([value isKindOfClass:[NSDictionary class]] && [value objectForKey:[gotoTag lastObject]])
@@ -341,12 +339,11 @@
                     id type = [translationDict objectForKey:name];
                     if (!type)
                         continue;
-                    NSLog(@"Got type = %@", type);
                     type = [self getShapeType:type object:[object objectForKey:name]];
                     if (![type isKindOfClass:[NSString class]])
                         continue;
-                    NSLog(@"type is = %@", type);
                     NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
+                    
                     [self processTemplateDict:&typeObjDict agcDict:[object objectForKey:name] finalDict:finalDict ofType:type];
                     [[typeObjDict objectForKey:RULES ]removeObjectForKey:ORDER];
                     [self removeProperties:[typeObjDict objectForKey:TOREMOVE] fromDict:&typeObjDict];
@@ -354,7 +351,7 @@
                     NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
                     [subViewDict setObject:typeObjDict forKey:changeType];
                     [objDict addObject:typeObjDict];
-                    NSLog(@"typeObjdict = %@", typeObjDict);
+                    childNo++;
                     }
            }
         }
@@ -435,6 +432,27 @@
                     //TODO $PARAGRAPH numberOfLines text
                 }
                 return [self createParagraphs:text lineNo:nr fontSize: fontSize];
+            } else if ([key hasPrefix:SAVE_ID]) {
+                NSString *idKey = [key substringFromIndex:[SAVE_ID length] + 1];
+                id idArr = [Helper splitVariable:idKey];
+                id value = initDict;
+                for (id idKey in idArr) {
+                    value = [value objectForKey:idKey];
+                }
+                NSString *idValue = value;
+                NSLog(@"Found idValue = %@ %d %d", idValue, sceneNo, childNo);
+                lastId = idValue;
+                [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:childNo]] forKey:idValue];
+            } else if([key hasPrefix:SAVE_SEGUE]) {
+                NSString *segue = [key substringFromIndex:[SAVE_SEGUE length] + 1];
+                id idArr = [Helper splitVariable:segue];
+                id value = initDict;
+                for (id idKey in idArr) {
+                    value = [value objectForKey:idKey];
+                }
+                NSString *idValue = value;
+                if (idValue)
+                    [interactionsDict setObject:idValue forKey:lastId];
             }
         }
     }
@@ -479,6 +497,7 @@
         rulesByOrder = [rulesTempDict objectForKey:ORDER];
     else
         rulesByOrder = rulesTempDict;
+    
     for (id rule in rulesByOrder) {
         /* goto "subviews" dictionary */
         rulesDict = [rulesTempDict objectForKey:rule];
@@ -536,7 +555,7 @@
 }
 
 - (id) convertSceneToJsonFormat:(NSMutableDictionary *) scene {
-
+    
     NSMutableDictionary *result = [[scene objectForKey:VIEW] objectForKey:RULES];
     id value = [result objectForKey:STYLE_VALUE];
     [value removeObjectForKey:FONT_VALUE];
@@ -548,6 +567,15 @@
     [result removeObjectForKey:CHILDREN];
     return result;
 }
+- (NSString*) processIDViewController:(NSMutableDictionary *) dict {
+    NSString *idController =  @"$objects.viewController.id";
+    NSArray *arr = [Helper splitVariable:idController];
+    id value = dict;
+    for (id key in arr) {
+        value = [value objectForKey:key];
+    }
+    return value;
+}
 
 - (void) processXmlScenes:(NSMutableDictionary **) artworkFiles  forDict:(NSMutableDictionary *) dict {
     
@@ -555,11 +583,16 @@
     NSMutableDictionary *finalDict = [Helper deepCopy: [agcToXmlTemplate objectForKey:CONTENT]];
     NSMutableDictionary *viewDict = [finalDict objectForKey:ARTBOARD];
     startXArtboard = sceneNo * OFFSETBOARD;
+    childNo = 0;
+    id idViewController = [self processIDViewController:dict];
+    if (sceneNo == 0)
+        homeArtboard = idViewController;
+    [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:childNo++]] forKey:idViewController];
     id scene = [self processTemplateDict:&viewDict agcDict:dict finalDict:finalDict ofType:VIEW];
     scene = [self convertSceneToJsonFormat:scene];
     [children addObject:scene];
     [*artworkFiles setObject:children forKey:CHILDREN];
-    [XDCreator createArtworkContent:*artworkFiles artboardNo:sceneNo xdPath:[self xdPath]];
+    [sceneList addObject:[Helper deepCopy:*artworkFiles]];
 }
 
 
@@ -573,6 +606,43 @@
     [*artboards setObject:resources forKey:name];
 }
 
+- (void) computeDict:(NSString *) name scene:(NSArray *) place_start dict:(NSMutableDictionary ** ) ids {
+    id artboardList = *ids;
+    if ([*ids objectForKey:[place_start firstObject]]) {
+        artboardList = [*ids objectForKey:[place_start firstObject]];
+    } else {
+        artboardList = [[NSMutableDictionary alloc] init];
+    }
+    [artboardList setObject:name forKey:[place_start lastObject]];
+    [*ids setObject:artboardList forKey:[place_start firstObject]];
+}
+
+- (void) addTo:(NSMutableDictionary **) dict ids:(NSMutableDictionary *) idScenes {
+    
+    for (id scene in idScenes) {
+        int currentScene = [scene intValue];
+        id sceneId = [idScenes objectForKey:scene];
+        id value = [[*dict objectForKey:CHILDREN] objectAtIndex:0];
+        if (currentScene != 0) {
+            value = [[[value objectForKey:ART_SCENE] objectForKey:CHILDREN] objectAtIndex:currentScene - 1];
+        }
+        [value setObject:sceneId forKey:ID];
+    }
+}
+
+- (NSMutableDictionary *) computeSegues:(NSMutableDictionary *) interactions usingIdMap:(NSMutableDictionary *) idMap {
+    
+    NSMutableDictionary *ids = [[NSMutableDictionary alloc] init];
+    for (id start in interactions) {
+        id end = [interactions objectForKey:start];
+        NSArray *place_start = [idMap objectForKey:start];
+        NSArray *place_end =[idMap objectForKey:end];
+        [self computeDict:start scene:place_start dict:&ids];
+        [self computeDict:end scene:place_end dict:&ids];
+    }
+    return ids;
+}
+
 - (NSDictionary *) processWholeXmlFromAgc:(NSMutableDictionary *) xmlDict {
 
     NSMutableDictionary *finalDict = [Helper deepCopy: [agcToXmlTemplate objectForKey:CONTENT]];
@@ -581,24 +651,36 @@
     NSMutableDictionary *artworkFiles = [Helper deepCopy:[agcToXmlTemplate objectForKey:ARTWORK]];
     NSMutableDictionary *resources = [NSMutableDictionary dictionary];
     int offsetX = 0;
-    [XDCreator createInteractionContent:nil xdPath:[self xdPath] homeArtboard:nil];
+    NSMutableArray *sceneArray;
     [XDCreator createMimetype:[self xdPath]];
+    
     if ([xmlDict isKindOfClass:[NSDictionary class]]) {
+        sceneArray = [[NSMutableArray alloc] init];
         [self processXmlResources: &offsetX artboardsDict:&resources];
         [XDCreator createResourcesContent:resources xdPath:[self xdPath]];
         [self processXmlScenes:&artworkFiles forDict:xmlDict];
-        
     } else {
+        sceneArray = [[NSMutableArray alloc] initWithCapacity:[xmlDict count]];
         for (id dict in xmlDict) {
             [self processXmlResources: &offsetX artboardsDict:&resources];
             [XDCreator createResourcesContent:resources xdPath:[self xdPath]];
             [self processXmlScenes:&artworkFiles forDict:dict];
         }
     }
+    NSMutableDictionary *segues = [self computeSegues:interactionsDict usingIdMap:idMapping];
+    NSArray *place_start = [idMapping objectForKey:homeArtboard];
+    [self computeDict:homeArtboard scene:place_start dict:&segues];
+    for (int i = 0; i< [sceneList count]; i++) {
+        id tempScene = [sceneList objectAtIndex:i];
+        [self addTo:&tempScene ids:[segues objectForKey:[NSNumber numberWithInt:i]]];
+        [XDCreator createArtworkContent:tempScene artboardNo:i+1 xdPath:[self xdPath]];
+    }
+    [XDCreator createInteractionContent:interactionsDict xdPath:[self xdPath] homeArtboard:homeArtboard];
     NSMutableDictionary *artboards = [NSMutableDictionary dictionary];
     [artboards setValue:resources forKey:ARTBOARDS];
     [XDCreator createManifest:artboards xdPath:[self xdPath]];
     [Helper createXdFile:[self xdPath]];
+    
     return nil;
 }
 
@@ -606,6 +688,9 @@
     
     agcToXmlTemplate = [defDict mutableCopy];
     translationDict = [ruleDict mutableCopy];
+    idMapping = [[NSMutableDictionary alloc] init];
+    sceneList = [[NSMutableArray alloc] init];
+    interactionsDict = [[NSMutableDictionary alloc] init];
     transformObjects = [[NSMutableDictionary alloc] init];
     transformObjects[SIZE] = [[NSMutableDictionary alloc] init];
     transformObjects[SIZE][TX] = [NSNumber numberWithInt:1];

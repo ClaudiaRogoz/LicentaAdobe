@@ -21,13 +21,21 @@
     NSMutableDictionary *translationDict;
     NSMutableDictionary *transformObjects;
     
+    NSMutableDictionary *interactionsDict;
+    NSMutableDictionary *idMapping;
+    NSMutableArray *sceneList;
     NSString *changeType;
 
     int sceneNo;
+    int childNo;
+    
     int startXArtboard;
     int startYArtboard;
     int widthArtboard;
     int heightArtboard;
+    
+    NSString *lastId;
+    NSString *homeArtboard;
 }
 
 /* where we find all external resources: eg. images */
