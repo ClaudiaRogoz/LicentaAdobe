@@ -60,8 +60,47 @@
         
     },
     "children" : {
+        "multiline" : {
+            "rules" : {
+                "type":"text",
+                "transform" : {
+                    "$rect" : {
+                        "tx" : "$x",
+                        "ty" : "$y"
+                    }
+                },
+                "style.fill.color.value" : {
+                    "$color" : {
+                        "r" : "$red",
+                        "g" : "$green",
+                        "b" : "$blue"
+                    }
+                },
+                "style.font" : {
+                    "$fontDescription" : {
+                        "postscriptName":"$name",
+                        "family":"$family",
+                        "style":"Regular",
+                        "size":"$pointSize"
+                    }
+                },
+                "text.frame" : {
+                    "$rect" : {
+                        "width" : "$width",
+                        "height" : "$height"
+                    }
+                },
+                "text.paragraphs" : "$PARAGRAPH 1 text rules.style.font.size",
+                "text.rawText" : "$string.text",
+                "meta.ux.rangedStyles" : "$COPY rules.style.font subtags.meta.ux.rangedStyles",
+                "saveId" : "$SAVEID $id",
+                "order" : ["transform", "name", "style.fill.color.value", "style.font", "text.frame", "text.rawText", "meta.ux.rangedStyles", "text.paragraphs", "saveId"]
+                
+                
+            },
+            "toRemove" : ["style.fill.pattern", "saveId"]
+        },
         "text" : {
-            
             "rules" : {
                 "type":"text",
                 "transform" : {
@@ -333,7 +372,8 @@
             "x" : "0",
             "y" : "0",
             "width" : "$width",
-            "height" : "$height"
+            "height" : "$height",
+            "order" : ["type", "x", "y", "width", "height"]
             
         }
     }

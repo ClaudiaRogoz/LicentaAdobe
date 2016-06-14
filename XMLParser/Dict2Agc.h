@@ -34,6 +34,7 @@
     int widthArtboard;
     int heightArtboard;
     
+    float imageHeightScalefactor;
     float lastWidth;
     float lastHeight;
     NSString *lastId;

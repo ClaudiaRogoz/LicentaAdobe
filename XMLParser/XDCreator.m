@@ -16,33 +16,26 @@
 - (NSString *) createTimeStamp {
     
     NSDateFormatter *formatter;
-    
     formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'.830+03:00'"];
-    
     return [formatter stringFromDate:[NSDate date]];
-
 }
 
 - (NSString *) generateUniqueId {
+    
     return [[NSUUID UUID] UUIDString];
-
 }
 
 - (int) getRangeofString:(NSString *) search inString:(NSString *) init  offset:(int) offset {
     
-
     NSRange range = [init rangeOfString:search
                                 options:0
                                   range:NSMakeRange(offset, [init length]- offset)];
-    
     if (range.location == NSNotFound) {
         NSLog(@"[ERROR] %@ not found", search);
         return - 1;
     }
-    
     return (int)range.location;
-
 }
 
 - (NSString *) replaceString:(NSString *) repStr inString:(NSString *) metaInfo usingSearchArray:(NSArray *) array lastObject:(BOOL) lastObject {
@@ -50,21 +43,15 @@
     int range = 0;
     int counter = 0;
     XDCreator *xdc = [[XDCreator alloc] init];
-    
     for (id date in array) {
         counter ++;
         range = [xdc getRangeofString:date inString:metaInfo offset:range + 1];
         int offset = (int)[date length];
-        
         if (lastObject && counter != [array count])
             continue;
-        
         metaInfo = [metaInfo stringByReplacingCharactersInRange:NSMakeRange(range + offset + 1, 1) withString:repStr];
-        
     }
-    
     return metaInfo;
-    
 }
 
 - (void) generateMetaInf:(NSString *) documentID instance:(NSString *) instanceID path:(NSString *) path {
@@ -82,14 +69,15 @@
     metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:instanceIds  lastObject:false];
     metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:@[INSTANCE_ID, INSTANCE_ID] lastObject:true];
     [metaInfo writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
-
 }
 
 - (BOOL) isSize:(NSString *) key {
+
     return [key isEqualToString:HEIGHT] || [key isEqualToString:WIDTH]
             || [key isEqualToString:XARTBOARD] || [key isEqualToString:YARTBOARD];
 
 }
+
 - (void) processTemplate:(id*)template usingArtboards:(NSMutableDictionary *) dict {
 
     NSError *error;
@@ -99,13 +87,11 @@
         if ([*template objectForKey:ORDER]) {
             allKeys = [*template objectForKey:ORDER];
         }
-        
         for (id key in allKeys) {
             id value = [*template objectForKey:key];
             if ([value isKindOfClass:[NSString class]]){
                 if ([value isEqualToString:TOTRANSFORM]) {
                         [*template setObject:[self generateUniqueId] forKey:key];
-                    
                 } else if ([value hasPrefix:FILE_SIZE]) {
                     NSString *dirName = [value substringFromIndex:[FILE_SIZE length] + 1];
                     NSString *dirStr = [[[self xdPath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:dirName];
@@ -126,19 +112,16 @@
                         NSLog(@"[ERROR]Image %@ is nil", imageName);
                     }
                 }
-                
             } else {
                 [self processTemplate:&value usingArtboards:dict];
             }
         }
-        
     } else if ([*template isKindOfClass:[NSArray class]]) {
         for(id key in *template) {
             id tempKey = key;
             [self processTemplate:&tempKey usingArtboards:dict];
         }
     }
-    
 }
 
 - (void) generateManifest:(NSString *) documentID path:(NSString *) path dict:(NSMutableDictionary *) dict {
@@ -153,50 +136,38 @@
     [self processTemplate:&tempChildren usingArtboards:dict];
     id tempComponents = [template objectForKey:COMPONENTS];
     [self processTemplate:&tempComponents usingArtboards:dict];
-    
     NSString *pathName = [[NSBundle mainBundle] pathForResource:PATH_MANIFEST ofType:JSON];
     NSData *pathData = [NSData dataWithContentsOfFile:pathName];
     NSMutableDictionary *pathComponent = [NSJSONSerialization JSONObjectWithData:pathData options:NSJSONReadingMutableContainers error:&error];
     NSMutableDictionary *childComponents= [tempChildren objectAtIndex:0];
-
     for (id artboard in artboardsDict) {
         artboardNumber = artboard;
         NSMutableDictionary *tempPath = [Helper deepCopy:pathComponent];
         [self processTemplate:&tempPath usingArtboards:[artboardsDict objectForKey:artboard]];
         [[childComponents objectForKey:CHILDREN] addObject:tempPath];
     }
-
-    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:template
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
     [jsonString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
 }
 
 - (void) setMetaData:(NSString *) path manifest:(NSString *) manifest dict:dict{
     
-
     NSString *document = [self generateUniqueId];
     NSString *instance = [self generateUniqueId];
-
     [self generateMetaInf:document instance:instance path:path];
     [self generateManifest:document path:manifest dict:dict];
-    
-    
 }
 
 - (NSDictionary *) readResourcesFile {
+    
     NSError *error;
     NSString *resourceValue = [[NSBundle mainBundle] pathForResource:RESOURCESDICT ofType:JSON];
-    
     NSString *jsonString = [NSString stringWithContentsOfFile:resourceValue encoding:NSUTF8StringEncoding error:&error];
     NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-
     return [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
- 
 }
 
 + (void) writeData:(NSMutableDictionary *) dict toPath:(NSString *) path {
@@ -205,12 +176,10 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
-    
     if (! jsonData) {
         NSLog(@"Got an error: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
         [jsonString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
 }
@@ -222,26 +191,20 @@
     for (id resource in xdResources) {
         NSString *fullPath = [dir stringByAppendingPathComponent:resource];
         [[NSFileManager defaultManager] removeItemAtPath:fullPath error:nil];
-    
     }
-
 }
 
 
 + (NSString *) createStorage:(NSArray *) list usingXDPath:(NSString *)xdPath {
     
-    
     NSMutableString *path = [[NSMutableString alloc] init];
     NSString *xdDir = [xdPath stringByDeletingLastPathComponent];
     NSError *error;
     BOOL success;
-    
     [path setString:xdDir];
     for (id dir in list) {
         path = [[path stringByAppendingPathComponent:dir] mutableCopy];
-        
         if (dir != [list lastObject]) {
-            
             if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
                 NSLog(@"Creating dir .... %@", path);
                 success = [[NSFileManager defaultManager] createDirectoryAtPath:path
@@ -250,20 +213,16 @@
                                                                           error:&error];
             }
             else success = true;
-            
         } else {
             NSLog(@"Creating path .... %@", path);
             success = [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
         }
-        
         if (success == false) {
             NSLog(@"[ERROR] cannot create path %@", path);
             return nil;
         }
-        
     }
     return path;
-    
 }
 
 + (void) createManifest:(NSMutableDictionary *) dict xdPath:(NSString *) xdPath {
@@ -272,7 +231,6 @@
     NSArray *metaInfo = @[META_INF, METADATA];
     NSString *manifestContent = [self createStorage:manifestFile usingXDPath:xdPath];
     NSString *metaInfoContent = [self createStorage:metaInfo usingXDPath:xdPath];
-    
     XDCreator *xdc = [[XDCreator alloc] init];
     [xdc setXdPath:xdPath];
     [xdc setMetaData:metaInfoContent manifest:manifestContent dict:dict];
@@ -282,11 +240,8 @@
     
     NSArray *resourcesList = @[MIMETYPE];
     NSError *error;
-
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
-    
     [MIMETYPE_CONTENT writeToFile:graphicContent atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    
 }
 
 + (void) createInteractionContent:(NSMutableDictionary *) interactions xdPath:(NSString *) xdPath homeArtboard:(NSString *) homeArtboard {
@@ -300,7 +255,6 @@
     NSMutableDictionary *interactionTemplate = [NSJSONSerialization JSONObjectWithData:segueData options:NSJSONReadingMutableContainers error:&error];
     NSLog(@"InteractionTemplate = %@", interactionTemplate);
     NSMutableDictionary *interactionsDict = [[NSMutableDictionary alloc] init];
-
     for (id startSegue in interactions) {
         id template = [Helper deepCopy:interactionTemplate];
         id endSegue = [interactions objectForKey:startSegue];
@@ -310,14 +264,10 @@
     }
     if (interactionsDict)
         [version setObject:interactionsDict forKey:INTERACTIONS];
-    
     NSLog(@"Interact = %@", interactionsDict);
     NSString *jsonInteractions = [NSString stringWithFormat:@"%@%@%@", INTERACTIONS, DOT, JSON];
-    
     NSArray *resourcesList = @[INTERACTIONS, jsonInteractions];
-    
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
-    
     [self writeData:version toPath:graphicContent];
 }
 
@@ -333,16 +283,12 @@
         [resDict setObject:[artboards objectForKey:RESOURCES] forKey:RESOURCES];
     else
          [resDict setObject:dict forKey:RESOURCES];
-    
     for (id artboard  in artboards) {
         id value = [artboards objectForKey:artboard];
         [value setObject:[value objectForKey:HEIGHT] forKey:VIEWPORT];
     }
-    
     [resDict setObject:artboards forKey:ARTBOARDS];
-
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
-    
     [self writeData:resDict toPath:graphicContent];
 }
 
@@ -357,11 +303,8 @@
     [artboard removeObjectForKey:META];
     [artboard setObject:href forKey:ARTBOARDS];
     [artboard setObject:href forKey:RESOURCES];
-
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
-    
     [self writeData:artboard toPath:graphicContent];
-    
 }
 
 @end

@@ -125,6 +125,7 @@
 #define VIEW        @"view"
 #define RULES       @"rules"
 #define TOREMOVE    @"toRemove"
+#define MULTILINE   @"multiline"
 #define CHILDREN    @"children"
 #define COMPONENTS  @"components"
 #define ARTBOARD    @"view"
@@ -345,6 +346,7 @@
 #define Y1          @"y1"
 #define Y2          @"y2"
 #define FRAMED       @"$frame"
+#define TEXT_AREA    @"$textArea"
 #define FILE_SIZE       @"$LENGTH"
 #define ARTBOARD_PREFIX @"$ARTBOARD_PREFIX"
 

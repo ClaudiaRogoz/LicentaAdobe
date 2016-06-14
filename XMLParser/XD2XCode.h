@@ -27,7 +27,7 @@ typedef enum NSTextType : NSUInteger {
     /* translation schema between agc and xml
      * it is read from Defs.json */
     NSMutableDictionary *agcToXmlTemplate;
-    
+    NSMutableDictionary *uniqueList;
     /* translation between xml_tag_name and agc_element_name
      * it is read from Rules.json
      **/

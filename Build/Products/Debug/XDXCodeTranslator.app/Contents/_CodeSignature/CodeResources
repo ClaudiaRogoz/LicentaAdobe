@@ -12,7 +12,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			s8cYVz8YM/1e+20EOLPDGpvwhRg=
+			gyFWnFGtGpEw2ZhQrtjnWIy7v/4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -21,7 +21,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rPLSRvoPhn+aJKNSD9escLE04HQ=
+			g9CTM643Nrzv5h+Wn9ESZgDYubI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -30,7 +30,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZA3zZ7o5WCnWptzziRPRveoy3yc=
+			MMvIHn2wZr4EEIRo1IsOTfHAfjM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -50,11 +50,11 @@
 		</data>
 		<key>Resources/Defs.json</key>
 		<data>
-		dZgR0eKsawulN7vzQf35WvZFr/w=
+		PPPkwOYrQzv6K2Hdz9qnG2Oo5O8=
 		</data>
 		<key>Resources/Defs_Dict.json</key>
 		<data>
-		pquSMjSjT84/NYDiNQK3N7QeTRg=
+		09Y8lBdUtq8aNrRyTXfY/WhoY9Q=
 		</data>
 		<key>Resources/InteractionTemplate.json</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Resources/Rules_Dict.json</key>
 		<data>
-		gpvztbXuxOjN/nCirHtKVxvRtHk=
+		zgpTwIcQkwpn5yuYeWLRdgl3AI0=
 		</data>
 		<key>Resources/Scene1.xml</key>
 		<data>
@@ -198,11 +198,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			s8cYVz8YM/1e+20EOLPDGpvwhRg=
+			gyFWnFGtGpEw2ZhQrtjnWIy7v/4=
 			</data>
 			<key>hash2</key>
 			<data>
-			pZ6PelQMEERJXSVBo50fnw/GL7DQFD1eN/Uf+HIPxpY=
+			4NqY/AuiEr8u3Eh/kE6qJNn96RivbF2nAncJf+ynYRQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -211,11 +211,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rPLSRvoPhn+aJKNSD9escLE04HQ=
+			g9CTM643Nrzv5h+Wn9ESZgDYubI=
 			</data>
 			<key>hash2</key>
 			<data>
-			w20rNDDf5n/tCZjEtM5bffHHREeWzL/hdwYK3Xo5Vq0=
+			tRJlbKkA2Y26vEMzs0Afh0QI1pFcB3zgNq9wz9vLl70=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -224,11 +224,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZA3zZ7o5WCnWptzziRPRveoy3yc=
+			MMvIHn2wZr4EEIRo1IsOTfHAfjM=
 			</data>
 			<key>hash2</key>
 			<data>
-			GHSFEuLc1YFRgO9gnUInU5J3QVgdZQPJ75DaeT2+BB4=
+			FGPSXHXH1cVc1HlbHoztdPQp70qqNIiww9vSXjtPWao=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -261,22 +261,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dZgR0eKsawulN7vzQf35WvZFr/w=
+			PPPkwOYrQzv6K2Hdz9qnG2Oo5O8=
 			</data>
 			<key>hash2</key>
 			<data>
-			3q45RQh6MbZ56dun4PPwx3a9EkSUjpUJyFySsB8zyrU=
+			l4g+UKqQWC25/00dkwLiqqg+qVjf2iwnzVWW3ReYLhQ=
 			</data>
 		</dict>
 		<key>Resources/Defs_Dict.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pquSMjSjT84/NYDiNQK3N7QeTRg=
+			09Y8lBdUtq8aNrRyTXfY/WhoY9Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			qo7NnsBYy3kXt2DRCJXyOVBpE63HghnWTrFex5Jv7UM=
+			M++UDDWSy02v+/WP9tWIODHyf9Cx/EoIjk9vQ7eWf4w=
 			</data>
 		</dict>
 		<key>Resources/InteractionTemplate.json</key>
@@ -349,11 +349,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gpvztbXuxOjN/nCirHtKVxvRtHk=
+			zgpTwIcQkwpn5yuYeWLRdgl3AI0=
 			</data>
 			<key>hash2</key>
 			<data>
-			aiVm9xB0fi2Ii9OCGrbwa0nbw1LkU+0tFiaDOoXgPl4=
+			V9O/82OJxmjSdEcs+aTWFUt5oOApQoC7/NUvnQOhaxE=
 			</data>
 		</dict>
 		<key>Resources/Scene1.xml</key>

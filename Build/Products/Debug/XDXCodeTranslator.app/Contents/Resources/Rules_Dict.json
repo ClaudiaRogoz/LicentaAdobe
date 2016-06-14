@@ -1,9 +1,10 @@
 {
     "label" : {
         "text.$ISNIL" : "shape",
+        "string.text" : "multiline",
         "text" : "text",
         "$default" : "shape",
-        "order" : ["text.$ISNIL", "text", "$default"]
+        "order" : ["text.$ISNIL", "string.text", "text", "$default"]
     },
     "button" : {
         "state.title" : "buttonText",

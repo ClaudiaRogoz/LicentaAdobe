@@ -482,8 +482,8 @@
                     "connections" : {
                         
                     },
-                    "order" : ["$header.id", "rect", "$labelState", "connections"],
-                    "toString" : ["rect", "$labelState", "connections"]
+                    "order" : ["$header.id", "rect", "$labelState", "fontDescription", "connections"],
+                    "toString" : ["rect", "$labelState", "fontDescription", "connections"]
                     
                 },
                 "toString" : ["header", "rules"]
@@ -538,8 +538,8 @@
                     "connections" : {
                         
                     },
-                    "order" : ["$header.id", "rect", "$labelState", "connections"],
-                    "toString" : ["rect", "$labelState", "connections"]
+                    "order" : ["$header.id", "rect", "$labelState", "fontDescription", "connections"],
+                    "toString" : ["rect", "$labelState", "fontDescription", "connections"]
                     
                 },
                 "toString" : ["header", "rules"]

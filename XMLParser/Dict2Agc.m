@@ -17,7 +17,8 @@
 
 
 + (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath xmlDirectory:(NSString *) xmlPath{
-
+    
+    NSLog(@"Dictionary = %@", dictionary);
     Dict2Agc *gen = [[Dict2Agc alloc] init];
     [gen initWithSchemas];
     [gen setXdPath:xdPath];
@@ -90,12 +91,37 @@
     }
 }
 
--(id) getShapeType:(id)type object:(id)object {
-    if ([type isKindOfClass:[NSDictionary class]]) {
-        id allKeys = [type allKeys];
-        if ([type objectForKey:ORDER]) {
-            allKeys = [type objectForKey:ORDER];
+- (id) getKeysInOrder:(id) dictionary {
+    id allKeys = [dictionary allKeys];
+    if ([dictionary objectForKey:ORDER]) {
+        allKeys = [dictionary objectForKey:ORDER];
+    }
+    return allKeys;
+}
+
+- (id) getSubType:(id) subType object:(id) object{
+    id type;
+    for (id subKey in subType) {
+        id subValue = [object mutableCopy];
+        id subSubType = [subType objectForKey:subKey];
+        NSArray *gotoTag = [subKey componentsSeparatedByString:DOT];
+        for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
+            subValue = [subValue objectForKey:elem];
         }
+        if (![subValue isEqualToString:[gotoTag lastObject]])
+            continue;
+        else {
+            type = subSubType;
+            break;
+        }
+    }
+    return type;
+}
+
+-(id) getShapeType:(id)type object:(id)object {
+    
+    if ([type isKindOfClass:[NSDictionary class]]) {
+        id allKeys = [self getKeysInOrder:type];
         for (id key in allKeys) {
             if ([[type objectForKey:key] isKindOfClass:[NSArray class]]) {
                 continue;
@@ -112,10 +138,8 @@
                 } else
                     continue;
             }
-            for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
-                value = [value objectForKey:elem];
-            }
-            if ([value isKindOfClass:[NSString class]] && ![value isEqualToString:[gotoTag lastObject]] && !([[gotoTag lastObject] isEqualToString:ISNIL] && [value  isEqualToString: @""]) )
+            value = [Helper getValueForProperties:[gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)] inDict:value];
+            if ([self isOfTypeLabel:value compareString:[gotoTag lastObject]])
                 continue;
             if ([subType isKindOfClass:[NSString class]]) {
                 if ([value isKindOfClass:[NSString class]])
@@ -125,20 +149,7 @@
                 else
                     continue;
             }
-            for (id subKey in subType) {
-                id subValue = [object mutableCopy];
-                id subSubType = [subType objectForKey:subKey];
-                gotoTag = [subKey componentsSeparatedByString:DOT];
-                for (id elem in [gotoTag subarrayWithRange:NSMakeRange(0, [gotoTag count] -1)]) {
-                    subValue = [subValue objectForKey:elem];
-                }
-                if (![subValue isEqualToString:[gotoTag lastObject]])
-                    continue;
-                else {
-                    type = subSubType;
-                    break;
-                }
-            }
+            type = [self getSubType:subType object:object];
             break;
         }
     }
@@ -153,8 +164,12 @@
     return [[transformObjects objectForKey:SCALE] objectForKey:key] && [[transformObjects objectForKey:SCALE] objectForKey:type];
 }
 
--(BOOL) isOfTypeSize:(NSString *)key {
+-(BOOL) isOfTypeSize:(NSString *)key{
     return [[transformObjects objectForKey:SIZE] objectForKey:key] != nil;
+}
+
+- (BOOL) isOfTypeLabel:(id) value  compareString:(NSString *)cmpStr {
+    return ([value isKindOfClass:[NSString class]] && ![value isEqualToString:cmpStr] && !([cmpStr isEqualToString:ISNIL] && [value  isEqualToString: @""]));
 }
 
 - (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale {
@@ -166,16 +181,8 @@
     float heightScalefactor = yScaleFactor;
     float ratio = MAX(xScaleFactor,yScaleFactor);
     if (preserveRatio ) {
-        //NSLog(@"PRESERVERATIO %f", translatedValue);
         widthScaleFactor = ratio;
         heightScalefactor = ratio;
-    }
-    if (scale) {
-        NSLog(@"%f %f %f %f %f", initValue, lastWidth, lastHeight, widthScaleFactor, heightScalefactor);
-       /* if (widthScaleFactor < lastHeight/ lastWidth && (translatedValue * (heightScalefactor * lastWidth/ lastHeight) < WIDTH_XD_ARTBOARD))
-            widthScaleFactor = heightScalefactor * lastWidth/ lastHeight;
-        */
-
     }
     if ([key isEqualToString:TX]) {
         translatedValue = translatedValue * xScaleFactor;
@@ -187,12 +194,34 @@
         
     } else if ([key isEqualToString:WIDTH]) {
         translatedValue = initValue * widthScaleFactor;
-        
     } else if ([key isEqualToString:HEIGHT]) {
         translatedValue = initValue * heightScalefactor;
 
     }
     return translatedValue;
+}
+
+- (void) computeHrefProperty:(NSMutableDictionary *) dictValue value:(id) tvalue key:(id)key intoDict:(NSMutableDictionary**) objDict{
+    NSString *name = [dictValue objectForKey:tvalue];
+    NSString *directory = [[[self xmlPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString *imageName = [Helper findFile:name inPath:directory];
+    [*objDict setValue:imageName forKey:key];
+    NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
+    if (image == nil) {
+        NSLog(@"[ERROR]Image %@ is nil", imageName);
+    }
+    [*objDict setObject:[NSNumber numberWithInt:image.size.width] forKey:WIDTH];
+    [*objDict setObject:[NSNumber numberWithInt:image.size.height] forKey:HEIGHT];
+    lastWidth = image.size.width;
+    lastHeight = image.size.height;
+
+}
+
+- (void) transformSize:(float) initValue key:(NSString *) key inDict:(NSMutableDictionary **) objDict preserveRatio:(BOOL) preserveRatio{
+
+    float translatedValue = [self changeSize:initValue key:key preserveRatio:false
+                              preserveOffset:false scale:preserveRatio];
+    [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
 }
 
 - (void) merge:(NSMutableDictionary *) dictValue withDict:(NSMutableDictionary **) objDict
@@ -205,28 +234,9 @@
         id tvalue = [[Helper splitVariable:value] objectAtIndex:0];
         if ([self isOfTypeSize:key]) {
             float initValue = [[dictValue objectForKey:tvalue] floatValue];
-            float translatedValue = [self changeSize:initValue
-                                                 key:key
-                                       preserveRatio:false
-                                      preserveOffset:false
-                                               scale:true];
-            [*objDict setValue:[NSNumber numberWithInt:translatedValue] forKey:key];
-            
+            [self transformSize:initValue key:key inDict:objDict preserveRatio:false];
         } else if ([key isEqualToString:HREF]) {
-            NSString *name = [dictValue objectForKey:tvalue];
-            NSString *directory = [[[self xmlPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-            NSString *imageName = [Helper findFile:name inPath:directory];
-            [*objDict setValue:imageName forKey:key];
-            NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
-            if (image == nil) {
-                NSLog(@"[ERROR]Image %@ is nil", imageName);
-            }
-            //NSLog(@"Am setat = %f %f", image.size.width, image.size.height);
-            [*objDict setObject:[NSNumber numberWithInt:image.size.width] forKey:WIDTH];
-            [*objDict setObject:[NSNumber numberWithInt:image.size.height] forKey:HEIGHT];
-            lastWidth = image.size.width;
-            lastHeight = image.size.height;
-            
+            [self computeHrefProperty:dictValue value:tvalue key:key intoDict:objDict];
         } else {
             [*objDict setValue:[dictValue objectForKey:tvalue] forKey:key];
         }
@@ -246,18 +256,15 @@
     if ([self isOfTypeScale:key object:type]) {
         BOOL preserveRatio = false;
         if ([type isEqualToString:ISIMAGE]) {
-           // NSLog(@"ISImage = %f %@", [value floatValue], key);
             preserveRatio = true;
         }
         float initValue = [value floatValue];
-        float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:preserveRatio];
-        [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
+        [self transformSize:initValue key:key inDict:objDict preserveRatio:preserveRatio];
         return;
     }
     if ([self isOfTypeSize:key]) {
         float initValue = [value floatValue];
-        float translatedValue = [self changeSize:initValue key:key preserveRatio:false preserveOffset:false scale:true];
-        [*objDict setObject:[NSNumber numberWithFloat:translatedValue] forKey:key];
+        [self transformSize:initValue key:key inDict:objDict preserveRatio:false];
         return;
     }
     if ([value intValue]) {
@@ -281,7 +288,11 @@
     id allKeys = [*objDict allKeys];
     if ([*objDict objectForKey:ORDER])
         allKeys = [*objDict objectForKey:ORDER];
+    if ([type isEqualToString:ISIMAGE])
+        NSLog(@"\n");
     for (id key in allKeys) {
+        if ([type isEqualToString:ISIMAGE])
+            NSLog(@"Transf = %@", key);
         id value = [*objDict objectForKey:key];
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
@@ -315,6 +326,35 @@
     [*typeObjDict removeObjectForKey:TOREMOVE];
 }
 
+- (void) computeScenes:(id*) objDict forInitialDict:(NSMutableDictionary *) dictValue {
+    
+    NSMutableDictionary *finalDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:CHILDREN]];
+    NSMutableDictionary *newObjDict = [Helper deepCopy:[*objDict mutableCopy]];
+    *objDict = [[NSMutableArray alloc] init];
+    for (id object in dictValue) {
+        /* obtain the type of each object; get the corresponding template*/
+        if (![object isKindOfClass:[NSDictionary class]])
+            continue;
+        id name = [[object allKeys] objectAtIndex:0];
+        id type = [translationDict objectForKey:name];
+        if (!type)
+            continue;
+        type = [self getShapeType:type object:[object objectForKey:name]];
+        if (![type isKindOfClass:[NSString class]])
+            continue;
+        NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
+        
+        [self processTemplateDict:&typeObjDict agcDict:[object objectForKey:name] finalDict:finalDict ofType:type];
+        [[typeObjDict objectForKey:RULES ]removeObjectForKey:ORDER];
+        [self removeProperties:[typeObjDict objectForKey:TOREMOVE] fromDict:&typeObjDict];
+        typeObjDict = [typeObjDict objectForKey:RULES];
+        NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
+        [subViewDict setObject:typeObjDict forKey:changeType];
+        [*objDict addObject:typeObjDict];
+        childNo++;
+    }
+}
+
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
                                 agcDict:agcParams type:(NSString *)type {
     
@@ -346,31 +386,7 @@
             if (![dictValue isKindOfClass:[NSArray class]])
                 [self mergeDictionaries:&objDict withDict:dictValue usingValues:[dict objectForKey:condition] type:type];
             else {
-                NSMutableDictionary *finalDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:CHILDREN]];
-                NSMutableDictionary *newObjDict = [Helper deepCopy:[objDict mutableCopy]];
-                objDict = [[NSMutableArray alloc] init];
-                for (id object in dictValue) {
-                    /* obtain the type of each object; get the corresponding template*/
-                    if (![object isKindOfClass:[NSDictionary class]])
-                        continue;
-                    id name = [[object allKeys] objectAtIndex:0];
-                    id type = [translationDict objectForKey:name];
-                    if (!type)
-                        continue;
-                    type = [self getShapeType:type object:[object objectForKey:name]];
-                    if (![type isKindOfClass:[NSString class]])
-                        continue;
-                    NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
-                    
-                    [self processTemplateDict:&typeObjDict agcDict:[object objectForKey:name] finalDict:finalDict ofType:type];
-                    [[typeObjDict objectForKey:RULES ]removeObjectForKey:ORDER];
-                    [self removeProperties:[typeObjDict objectForKey:TOREMOVE] fromDict:&typeObjDict];
-                    typeObjDict = [typeObjDict objectForKey:RULES];
-                    NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
-                    [subViewDict setObject:typeObjDict forKey:changeType];
-                    [objDict addObject:typeObjDict];
-                    childNo++;
-                    }
+                [self computeScenes:&objDict forInitialDict:dictValue];
            }
         }
     }
@@ -536,12 +552,28 @@
     }
 }
 
+- (void) processScene:(NSDictionary *)agcDict condition:cond rule:(NSString *)rule params:rulesDict type:type rulesDict:(NSMutableDictionary **) rulesInitDict {
+
+    NSMutableDictionary *mergeDict = [self computeObjects:rule condition:cond params:rulesDict agcDict:agcDict type:type];
+    if (mergeDict != nil) {
+        if ([mergeDict isKindOfClass:[NSDictionary class]])
+            [mergeDict removeObjectForKey:DEFAULT];
+        NSArray *arr = [Helper getArrayProperties:rule];
+        if ([arr count] == 1)
+            [*rulesInitDict setObject:mergeDict forKey:rule];
+        else {
+            [*rulesInitDict removeObjectForKey:rule];
+            id result = [self getDict:mergeDict fromArrayProperties:arr usingRule:rule initialDict:*rulesInitDict];
+            [*rulesInitDict setObject:result forKey:arr[0]];
+        }
+    }
+}
+
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
                            finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
     NSArray *cond;
-    NSMutableDictionary *mergeDict;
     id rulesByOrder, rulesDict;
 
     /* if an order is specified => follow it
@@ -567,19 +599,7 @@
             cond = [rulesDict objectForKey:ORDER];
         else
             cond = [rulesDict allKeys];
-        mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict type:type];
-        if (mergeDict != nil) {
-            if ([mergeDict isKindOfClass:[NSDictionary class]])
-                [mergeDict removeObjectForKey:DEFAULT];
-            NSArray *arr = [Helper getArrayProperties:rule];
-            if ([arr count] == 1)
-                [rulesInitDict setObject:mergeDict forKey:rule];
-            else {
-                [rulesInitDict removeObjectForKey:rule];
-                id result = [self getDict:mergeDict fromArrayProperties:arr usingRule:rule initialDict:rulesInitDict];
-                [rulesInitDict setObject:result forKey:arr[0]];
-            }
-        }
+        [self processScene:agcDict condition:cond rule:rule params:[rulesTempDict objectForKey:rule] type:type rulesDict:&rulesInitDict];
     }
     changeType = type;
     
@@ -743,6 +763,7 @@
     transformObjects[SCALE][SHAPE] = [NSNumber numberWithInt:1];
     transformObjects[SCALE][ISIMAGE] = [NSNumber numberWithInt:1];
     transformObjects[SCALE][BUTTON_IMAGE] = [NSNumber numberWithInt:1];
+    transformObjects[SCALE][MULTILINE] = [NSNumber numberWithInt:1];
     transformObjects[COLOR] = [[NSMutableDictionary alloc] init];
     transformObjects[COLOR][XML_RED] = [NSNumber numberWithInt:1];
     transformObjects[COLOR][XML_GREEN] = [NSNumber numberWithInt:1];
