@@ -172,7 +172,10 @@
     }
     if (scale) {
         NSLog(@"%f %f %f %f %f", initValue, lastWidth, lastHeight, widthScaleFactor, heightScalefactor);
-        
+       /* if (widthScaleFactor < lastHeight/ lastWidth && (translatedValue * (heightScalefactor * lastWidth/ lastHeight) < WIDTH_XD_ARTBOARD))
+            widthScaleFactor = heightScalefactor * lastWidth/ lastHeight;
+        */
+
     }
     if ([key isEqualToString:TX]) {
         translatedValue = translatedValue * xScaleFactor;

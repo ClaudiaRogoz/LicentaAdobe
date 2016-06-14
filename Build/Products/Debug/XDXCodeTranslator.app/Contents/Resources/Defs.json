@@ -434,6 +434,62 @@
         }
     },
     "buttonInteraction" : {
+        "$textArea" : {
+            "button" : {
+                "header" : {
+                    "opaque" : "NO",
+                    "fixedFrame" : "YES",
+                    "userInteractionEnabled" : "NO",
+                    "contentMode" : "left",
+                    "verticalHuggingPriority" : "251",
+                    "horizontalHuggingPriority" : "251",
+                    "contentHorizontalAlignment" : "center",
+                    "contentVerticalAlignment" : "center",
+                    "lineBreakMode" : "middleTruncation",
+                    "translatesAutoresizingMaskIntoConstraints" : "NO",
+                    "id" : "$rand",
+                    "toString" : ["opaque", "contentMode", "fixedFrame", "contentHorizontalAlignment", "contentVerticalAlignment",
+                                  "lineBreakMode", "translatesAutoresizingMaskIntoConstraints", "id"]
+                },
+                "rules" : {
+                    "$header.id" : "$rand",
+                    "rect" : {
+                        "$rules.rect" : {
+                            "height" : "$height",
+                            "width" : "$width",
+                            "x" : "$x",
+                            "y" : "$y"
+                        }
+                        
+                    },
+                    "fontDescription" : {
+                        "$rules.fontDescription" : {
+                            "key" : "fontDescription",
+                            "type" : "$type",
+                            "pointSize" : "$pointSize"
+                        }
+                    },
+                    "$labelState" : {
+                        "$rules.mutableString" : {
+                            "title" : "$text"
+                        },
+                        "$rules.color" : {
+                            "$color.red" : "$red",
+                            "$color.green" : "$green",
+                            "$color.blue" : "$blue"
+                        }
+                    },
+                    "connections" : {
+                        
+                    },
+                    "order" : ["$header.id", "rect", "$labelState", "connections"],
+                    "toString" : ["rect", "$labelState", "connections"]
+                    
+                },
+                "toString" : ["header", "rules"]
+            }
+            
+        },
         "label" : {
             "button" : {
                 "header" : {

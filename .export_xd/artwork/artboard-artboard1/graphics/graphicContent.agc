@@ -1,1 +1,1119 @@
-{"version":"1.5.0","children":[{"type":"artboard","id":"node1","artboard":{"children":[{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":769.375,"ty":0},"style":{"fill":{"type":"pattern","pattern":{"width":1067,"height":1558,"meta":{"ux":{"scaleBehavior":"cover","uid":"e88440ccf1770038ef8f7d0a079a11db","hrefLastModifiedDate":1465410010}},"href":"/Users/crogoz/Desktop/Samples/Samples/Resources/a501b8f826bbb7df8834ae9adbe49e23.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":473.75,"height":691.4567260742188}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":818.125,"ty":230.11500549316406},"style":{"fill":{"type":"pattern","pattern":{"width":1466,"height":33,"meta":{"ux":{"scaleBehavior":"cover","uid":"231555cb58cf13adb3ae93e777675930","hrefLastModifiedDate":1465410010}},"href":"/Users/crogoz/Desktop/Samples/Samples/Resources/line9187c55ea2c2a39e74dfd3aa9eae72bfbe8009f8.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":88.125,"height":2.2233328819274902}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":817.5,"ty":243.4550018310547},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":13}},"text":{"frame":{"type":"area","width":172,"height":19},"paragraphs":[{"lines":[[{"y":12,"from":0,"to":20,"x":0}]]}],"rawText":"with Talin Wadsworth"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":13,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":812.5,"ty":636.9849853515625},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}}},"shape":{"type":"rect","x":0,"y":0,"width":348.125,"height":71.14666748046875}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":812.5,"ty":508.0317077636719},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":12,"g":170,"b":220}}}},"shape":{"type":"rect","x":0,"y":0,"width":348.125,"height":115.61329650878906}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":812.5,"ty":509.143310546875},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":0,"g":0,"b":0}}}},"shape":{"type":"rect","x":0,"y":0,"width":294.375,"height":114.50170135498047}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":812.5,"ty":509.143310546875},"style":{"fill":{"type":"pattern","pattern":{"width":1225,"height":479,"meta":{"ux":{"scaleBehavior":"cover","uid":"ce4a9128d322008adf32a6c8d58baa34","hrefLastModifiedDate":1465410010}},"href":"/Users/crogoz/Desktop/Samples/Samples/Resources/1e3480f6787ebcf2c6b584f557fa7d2d.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":294.375,"height":115.61329650878906}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":861.875,"ty":543.60498046875},"style":{"fill":{"type":"pattern","pattern":{"width":333,"height":200,"meta":{"ux":{"scaleBehavior":"cover","uid":"c0b08b6ecf845f7e73bf4f9ec5679867","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path6abffd935ac1f728ebae1719848214ff702da1d2.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":11.875,"height":12.2283296585083}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1021.25,"ty":591.4066772460938},"style":{"fill":{"type":"pattern","pattern":{"width":333,"height":200,"meta":{"ux":{"scaleBehavior":"cover","uid":"c0b08b6ecf845f7e73bf4f9ec5679867","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path6abffd935ac1f728ebae1719848214ff702da1d2.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":11.25,"height":12.2283296585083}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1011.875,"ty":558.0567016601562},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":9}},"text":{"frame":{"type":"area","width":52,"height":12},"paragraphs":[{"lines":[[{"y":9,"from":0,"to":9,"x":0}]]}],"rawText":"The Great"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":9,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1005.625,"ty":571.396728515625},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":9}},"text":{"frame":{"type":"area","width":69,"height":12},"paragraphs":[{"lines":[[{"y":9,"from":0,"to":12,"x":0}]]}],"rawText":"White Throne"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":9,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":847.5,"ty":525.8184204101562},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":9}},"text":{"frame":{"type":"area","width":60,"height":12},"paragraphs":[{"lines":[[{"y":9,"from":0,"to":11,"x":0}]]}],"rawText":"Mt Majestic"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":9,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1103.125,"ty":6.670000076293945},"style":{"fill":{"type":"pattern","pattern":{"width":133,"height":216,"meta":{"ux":{"scaleBehavior":"cover","uid":"d95267851b57292d3a994f4b7699db67","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path4fd4b8ee1bf9a40919c177629a03c8556fd01a83.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":4.375,"height":13.34000015258789}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":829.375,"ty":10.005000114440918},"style":{"fill":{"type":"pattern","pattern":{"width":100,"height":100,"meta":{"ux":{"scaleBehavior":"cover","uid":"cc704a85d0d36d9ccf67d3a191e358c7","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path245f2943fc5dd4eb447d60a1cdc0f436baa56c25.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":3.125,"height":5.558332920074463}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":836.25,"ty":10.005000114440918},"style":{"fill":{"type":"pattern","pattern":{"width":100,"height":100,"meta":{"ux":{"scaleBehavior":"cover","uid":"adee5fc19831c428a72f3c665d972b10","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path8ca0cbbfe5e5bbf27186e7fe3bd35f3294d6e8a8.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":3.125,"height":5.558332920074463}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":886.875,"ty":7.781667232513428},"style":{"fill":{"type":"pattern","pattern":{"width":200,"height":150,"meta":{"ux":{"scaleBehavior":"cover","uid":"f1fc285f798538b4c1826acee78e2976","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/pathebac48c02224ce559c23cd7fdc2a74118b83892a.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":6.25,"height":8.893333435058594}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1115,"ty":2.2233328819274902},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":243,"g":250,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":12}},"text":{"frame":{"type":"area","width":31,"height":15},"paragraphs":[{"lines":[[{"y":11,"from":0,"to":3,"x":0}]]}],"rawText":"42%"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":12,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1143.125,"ty":7.781667232513428},"style":{"fill":{"type":"pattern","pattern":{"width":383,"height":166,"meta":{"ux":{"scaleBehavior":"cover","uid":"532c869bbe991833236e0f2d4c6bb5a5","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/pathb03ca8f18ed7b31dcb34adb7f439014b98cb0c77.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":12.5,"height":10.005000114440918}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1144.375,"ty":7.781667232513428},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}}},"shape":{"type":"rect","x":0,"y":0,"width":9.375,"height":7.781667232513428}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1166.25,"ty":11.116669654846191},"style":{"fill":{"type":"pattern","pattern":{"width":33,"height":50,"meta":{"ux":{"scaleBehavior":"cover","uid":"0e8a81ac6b835455696286228153c7d1","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/pathe42a2f1c64da4623b1666b4af423f65f1333a473.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":0.625,"height":3.3350000381469727}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":964.375,"ty":3.3350000381469727},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":243,"g":250,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":12}},"text":{"frame":{"type":"area","width":58,"height":15},"paragraphs":[{"lines":[[{"y":11,"from":0,"to":7,"x":0}]]}],"rawText":"9:41 AM"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":12,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":845,"ty":2.2233328819274902},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":243,"g":250,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":12}},"text":{"frame":{"type":"area","width":48,"height":15},"paragraphs":[{"lines":[[{"y":11,"from":0,"to":7,"x":0}]]}],"rawText":"Carrier"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":12,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":968.125,"ty":15.563329696655273},"style":{"fill":{"type":"pattern","pattern":{"width":316,"height":200,"meta":{"ux":{"scaleBehavior":"cover","uid":"f3a38d7e98c46c825a31836f569fa68d","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/pathe6aae0017a641a56f8f5c59a16f408691bbd1bd6.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":10.625,"height":12.2283296585083}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1095.625,"ty":36.685001373291016},"style":{"fill":{"type":"pattern","pattern":{"width":366,"height":383,"meta":{"ux":{"scaleBehavior":"cover","uid":"5e3aeb565c1983cded78e00cc0fdac34","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path23933030d2138f78f25de062f498e0069ff2de14.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":12.5,"height":23.344999313354492}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1136.25,"ty":40.02000045776367},"style":{"fill":{"type":"pattern","pattern":{"width":316,"height":316,"meta":{"ux":{"scaleBehavior":"cover","uid":"be5283cfffe9a962c8b4caf2e344d4d1","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path5eb2e556bd0d37f76a4adad79ca6d67e9cb764b2.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":10.625,"height":18.898330688476562}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1140.625,"ty":31.126670837402344},"style":{"fill":{"type":"pattern","pattern":{"width":166,"height":283,"meta":{"ux":{"scaleBehavior":"cover","uid":"40ac14a501a2736dfbde249abb8749b6","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path211fa91b4786415bb3905ffaeea950df59b78344.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":5.625,"height":16.674999237060547}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":812.5,"ty":292.3682861328125},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}}},"shape":{"type":"rect","x":0,"y":0,"width":348.125,"height":204.5467071533203}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":850.625,"ty":424.6567077636719},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":12,"g":170,"b":220}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":20}},"text":{"frame":{"type":"area","width":29,"height":25},"paragraphs":[{"lines":[[{"y":19,"from":0,"to":2,"x":0}]]}],"rawText":"10"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":20,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":848.75,"ty":452.44830322265625},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":162,"g":162,"b":162}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":11}},"text":{"frame":{"type":"area","width":33,"height":14},"paragraphs":[{"lines":[[{"y":10,"from":0,"to":4,"x":0}]]}],"rawText":"Days"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":11,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":904.375,"ty":423.5450134277344},"style":{"fill":{"type":"pattern","pattern":{"width":16,"height":800,"meta":{"ux":{"scaleBehavior":"cover","uid":"0cdbb6cd36aa1d7c58ca4c45a2604588","hrefLastModifiedDate":1465410010}},"href":"/Users/crogoz/Desktop/Samples/Samples/Resources/lineb204e94e33712aeb3ead73aeba091af5604cf7aa.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":0.625,"height":47.80167007446289}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":926.875,"ty":424.6567077636719},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":12,"g":170,"b":220}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":20}},"text":{"frame":{"type":"area","width":44,"height":25},"paragraphs":[{"lines":[[{"y":19,"from":0,"to":3,"x":0}]]}],"rawText":"160"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":20,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":930.625,"ty":452.44830322265625},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":162,"g":162,"b":162}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":11}},"text":{"frame":{"type":"area","width":34,"height":14},"paragraphs":[{"lines":[[{"y":10,"from":0,"to":5,"x":0}]]}],"rawText":"Miles"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":11,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":986.25,"ty":423.5450134277344},"style":{"fill":{"type":"pattern","pattern":{"width":16,"height":800,"meta":{"ux":{"scaleBehavior":"cover","uid":"0cdbb6cd36aa1d7c58ca4c45a2604588","hrefLastModifiedDate":1465410010}},"href":"/Users/crogoz/Desktop/Samples/Samples/Resources/lineb204e94e33712aeb3ead73aeba091af5604cf7aa.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":0.625,"height":47.80167007446289}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1020,"ty":424.6567077636719},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":12,"g":170,"b":220}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":20}},"text":{"frame":{"type":"area","width":15,"height":25},"paragraphs":[{"lines":[[{"y":19,"from":0,"to":1,"x":0}]]}],"rawText":"5"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":20,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1008.125,"ty":452.44830322265625},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":162,"g":162,"b":162}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":11}},"text":{"frame":{"type":"area","width":46,"height":14},"paragraphs":[{"lines":[[{"y":10,"from":0,"to":5,"x":0}]]}],"rawText":"Camps"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":11,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1068.125,"ty":423.5450134277344},"style":{"fill":{"type":"pattern","pattern":{"width":16,"height":800,"meta":{"ux":{"scaleBehavior":"cover","uid":"0cdbb6cd36aa1d7c58ca4c45a2604588","hrefLastModifiedDate":1465410010}},"href":"/Users/crogoz/Desktop/Samples/Samples/Resources/lineb204e94e33712aeb3ead73aeba091af5604cf7aa.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":1.25,"height":47.80167007446289}},{"type":"text","name":"group","id":"node2","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1101.875,"ty":424.6567077636719},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":12,"g":170,"b":220}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":15}},"text":{"frame":{"type":"area","width":15,"height":25},"paragraphs":[{"lines":[[{"y":14,"from":0,"to":1,"x":0}]]}],"rawText":"2"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":15,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1093.125,"ty":452.44830322265625},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":162,"g":162,"b":162}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":11}},"text":{"frame":{"type":"area","width":38,"height":14},"paragraphs":[{"lines":[[{"y":10,"from":0,"to":5,"x":0}]]}],"rawText":"Bears"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":11,"charSpacing":0}]}}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1150,"ty":423.5450134277344},"style":{"fill":{"type":"pattern","pattern":{"width":16,"height":800,"meta":{"ux":{"scaleBehavior":"cover","uid":"0cdbb6cd36aa1d7c58ca4c45a2604588","hrefLastModifiedDate":1465410010}},"href":"/Users/crogoz/Desktop/Samples/Samples/Resources/lineb204e94e33712aeb3ead73aeba091af5604cf7aa.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":1.25,"height":47.80167007446289}},{"type":"shape","name":"rectangle","transform":{"a":1,"b":0,"c":0,"d":1,"tx":1125,"ty":315.7132873535156},"style":{"fill":{"type":"pattern","pattern":{"width":150,"height":150,"meta":{"ux":{"scaleBehavior":"cover","uid":"7f39c4ea3f0eb38480e544920a359428","hrefLastModifiedDate":1465197858}},"href":"/Users/crogoz/Desktop/Samples/Build/Products/Debug-iphonesimulator/Samples.app/path41ac99bdf0cffd6232e539450fb490be16383e89.png"}}},"shape":{"type":"rect","x":0,"y":0,"width":5,"height":8.893333435058594}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":817.5,"ty":95.60333251953125},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":30}},"text":{"frame":{"type":"area","width":299,"height":111},"paragraphs":[{"lines":[[{"y":29,"from":0,"to":19,"x":0}],[{"y":65,"from":19,"to":35,"x":0}]]}],"rawText":"Hiking Through the Utah Backcountry"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":30,"charSpacing":0}]}}},{"type":"text","name":"group","transform":{"a":1,"b":0,"c":0,"d":1,"tx":828.75,"ty":306.82000732421875},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":52,"g":52,"b":52}}},"font":{"postscriptName":"HelveticaNeue","family":"Helvetica Neue","style":"Regular","size":11}},"text":{"frame":{"type":"area","width":97,"height":14},"paragraphs":[{"lines":[[{"y":10,"from":0,"to":12,"x":0}]]}],"rawText":"TRIP DETAILS"},"meta":{"ux":{"singleTextObject":true,"rangedStyles":[{"length":0,"fontFamily":"Helvetica Neue","fontStyle":"Regular","fontSize":11,"charSpacing":0}]}}}],"ref":"artboard1"},"style":{"fill":{"type":"solid","color":{"mode":"RGB","value":{"r":255,"g":255,"b":255}}}}}],"resources":{"href":"/resources/graphics/graphicContent.agc"},"artboards":{"href":"/resources/graphics/graphicContent.agc"}}
+{
+  "resources" : {
+    "href" : "\/resources\/graphics\/graphicContent.agc"
+  },
+  "artboards" : {
+    "href" : "\/resources\/graphics\/graphicContent.agc"
+  },
+  "children" : [
+    {
+      "id" : "7Ph-hr-7Nq",
+      "style" : {
+        "fill" : {
+          "type" : "solid",
+          "color" : {
+            "mode" : "RGB",
+            "value" : {
+              "r" : 0,
+              "b" : 0,
+              "g" : 0
+            }
+          },
+          "pattern" : {
+            "meta" : {
+              "ux" : {
+                "scaleBehavior" : "cover",
+                "uid" : "$rand",
+                "hrefLastModifiedDate" : 1465114273
+              }
+            },
+            "width" : "$width",
+            "height" : "$height",
+            "href" : "$href"
+          }
+        }
+      },
+      "artboard" : {
+        "ref" : "artboard1",
+        "children" : [
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "5597A6CF-DF55-43D1-8946-B385D9E68B97",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 750,
+                  "height" : 500,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/3bdd51e5a96a3847017da8968f808779.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 0,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 0
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 375,
+              "height" : 229.0033,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 52.99997,
+                    "b" : 52.99997,
+                    "g" : 52.99997
+                  }
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 283.475,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 20
+            },
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 348.125,
+              "height" : 120.06,
+              "type" : "rect"
+            },
+            "type" : "shape"
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 11
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "b" : 255,
+                    "g" : 255
+                  }
+                }
+              },
+              "font" : {
+                "size" : 11,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 97.82667,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 20
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 77,
+                "height" : 14
+              },
+              "rawText" : "FEATURED",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 10,
+                        "to" : 8,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 11
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 12.00004,
+                    "b" : 220,
+                    "g" : 170.0001
+                  }
+                }
+              },
+              "font" : {
+                "size" : 11,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 250.125,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 16.875
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 157,
+                "height" : 14
+              },
+              "rawText" : "LATEST ADVENTURES",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 10,
+                        "to" : 17,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 15
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "b" : 255,
+                    "g" : 255
+                  }
+                }
+              },
+              "font" : {
+                "size" : 15,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 322.3833,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 185
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 152,
+                "height" : 38
+              },
+              "rawText" : "Finding Beauty in the Badlands",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 14,
+                        "to" : 30,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 11
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 12.00004,
+                    "b" : 220,
+                    "g" : 170.0001
+                  }
+                }
+              },
+              "font" : {
+                "size" : 11,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 380.19,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 185.625
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 77,
+                "height" : 14
+              },
+              "rawText" : "2 hours ago",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 10,
+                        "to" : 11,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 12
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 253,
+                    "b" : 253,
+                    "g" : 253
+                  }
+                }
+              },
+              "font" : {
+                "size" : 12,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 294.5917,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 185.625
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 80,
+                "height" : 18
+              },
+              "rawText" : "Adventures",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 11,
+                        "to" : 10,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "interactions" : "$SEGUE $connections.segue.destination",
+            "id" : "6CU-fv-Tsg",
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "$rand",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 750,
+                  "height" : 497,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Samples\/Resources\/1c1fc5558af504893061b883e964558f.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 282.3633,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 13.75
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 158.125,
+              "height" : 120.06,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "CB29E99C-9486-40A0-95AC-F39DBABB66B4",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 133,
+                  "height" : 216,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/path4fd4b8ee1bf9a40919c177629a03c8556fd01a83.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 6.67,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 303.125
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 4.375,
+              "height" : 13.34,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "3EDFF7CC-6382-4AF0-B5E7-B53FA1F7BEC1",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 100,
+                  "height" : 100,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/path245f2943fc5dd4eb447d60a1cdc0f436baa56c25.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 10.005,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 29.375
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 3.125,
+              "height" : 5.558333,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "3B39B2AE-1D78-41A4-9284-449F9DB02765",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 100,
+                  "height" : 100,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/path8ca0cbbfe5e5bbf27186e7fe3bd35f3294d6e8a8.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 10.005,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 36.25
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 3.125,
+              "height" : 5.558333,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "2EEE9755-E231-4C69-8B92-0B8516B6FE1F",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 200,
+                  "height" : 150,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/pathebac48c02224ce559c23cd7fdc2a74118b83892a.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 7.781667,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 86.875
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 6.25,
+              "height" : 8.893333,
+              "type" : "rect"
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 12
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 243,
+                    "b" : 255,
+                    "g" : 250
+                  }
+                }
+              },
+              "font" : {
+                "size" : 12,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 2.223333,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 315
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 31,
+                "height" : 15
+              },
+              "rawText" : "42%",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 11,
+                        "to" : 3,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "6C3D1B8B-61B7-4879-8AB1-3479DEE100B9",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 383,
+                  "height" : 166,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/pathb03ca8f18ed7b31dcb34adb7f439014b98cb0c77.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 7.781667,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 343.125
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 12.5,
+              "height" : 10.005,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "b" : 255,
+                    "g" : 255
+                  }
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 7.781667,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 344.375
+            },
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 9.375,
+              "height" : 7.781667,
+              "type" : "rect"
+            },
+            "type" : "shape"
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "F90765D5-9485-46DD-B1F7-42DCDD926A56",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 33,
+                  "height" : 50,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/pathe42a2f1c64da4623b1666b4af423f65f1333a473.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 11.11667,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 366.25
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 0.625,
+              "height" : 3.335,
+              "type" : "rect"
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 12
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 243,
+                    "b" : 255,
+                    "g" : 250
+                  }
+                }
+              },
+              "font" : {
+                "size" : 12,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 3.335,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 164.375
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 58,
+                "height" : 15
+              },
+              "rawText" : "9:41 AM",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 11,
+                        "to" : 7,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 12
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 243,
+                    "b" : 255,
+                    "g" : 250
+                  }
+                }
+              },
+              "font" : {
+                "size" : 12,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 2.223333,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 45
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 48,
+                "height" : 15
+              },
+              "rawText" : "Carrier",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 11,
+                        "to" : 7,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "9443FD72-75C3-4E17-A9D3-501FD90913D3",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 366,
+                  "height" : 383,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/path23933030d2138f78f25de062f498e0069ff2de14.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 36.685,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 333.75
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 12.5,
+              "height" : 23.345,
+              "type" : "rect"
+            }
+          },
+          {
+            "style" : {
+              "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                  "meta" : {
+                    "ux" : {
+                      "scaleBehavior" : "cover",
+                      "uid" : "23C8A9C4-686A-4F1D-8030-1404DBA48172",
+                      "hrefLastModifiedDate" : 1465114273
+                    }
+                  },
+                  "width" : 466,
+                  "height" : 350,
+                  "href" : "\/Users\/crogoz\/Desktop\/Samples\/Build\/Products\/Debug-iphonesimulator\/Samples.app\/pathfbc9cc7452e1aa14dbc92e0a512b3027bfdbba94.png"
+                }
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 37.79667,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 18.75
+            },
+            "type" : "shape",
+            "shape" : {
+              "y" : "0",
+              "x" : "0",
+              "width" : 16.25,
+              "height" : 21.12167,
+              "type" : "rect"
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 13
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "b" : 255,
+                    "g" : 255
+                  }
+                }
+              },
+              "font" : {
+                "size" : 13,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 182.3133,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 20
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 172,
+                "height" : 19
+              },
+              "rawText" : "with Talin Wadsworth",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 12,
+                        "to" : 20,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "meta" : {
+              "ux" : {
+                "rangedStyles" : [
+                  {
+                    "fontStyle" : "Regular",
+                    "length" : 0,
+                    "charSpacing" : 0,
+                    "fontFamily" : "Helvetica Neue",
+                    "fontSize" : 23
+                  }
+                ],
+                "singleTextObject" : true
+              }
+            },
+            "style" : {
+              "fill" : {
+                "type" : "solid",
+                "color" : {
+                  "mode" : "RGB",
+                  "value" : {
+                    "r" : 255,
+                    "b" : 255,
+                    "g" : 255
+                  }
+                }
+              },
+              "font" : {
+                "size" : 23,
+                "style" : "Regular",
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue"
+              }
+            },
+            "transform" : {
+              "d" : 1,
+              "b" : 0,
+              "ty" : 122.2833,
+              "c" : 0,
+              "a" : 1,
+              "tx" : 18.75
+            },
+            "type" : "text",
+            "text" : {
+              "frame" : {
+                "type" : "area",
+                "width" : 274,
+                "height" : 58
+              },
+              "rawText" : "Hiking Through the Utah Backcountry",
+              "paragraphs" : [
+                {
+                  "lines" : [
+                    [
+                      {
+                        "y" : 22,
+                        "to" : 35,
+                        "x" : 0,
+                        "from" : 0
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "type" : "artboard"
+    }
+  ],
+  "version" : "1.5.0"
+}
