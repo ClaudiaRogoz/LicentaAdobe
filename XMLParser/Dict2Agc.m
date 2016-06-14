@@ -18,7 +18,6 @@
 
 + (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath xmlDirectory:(NSString *) xmlPath{
     
-    NSLog(@"Dictionary = %@", dictionary);
     Dict2Agc *gen = [[Dict2Agc alloc] init];
     [gen initWithSchemas];
     [gen setXdPath:xdPath];
@@ -288,11 +287,7 @@
     id allKeys = [*objDict allKeys];
     if ([*objDict objectForKey:ORDER])
         allKeys = [*objDict objectForKey:ORDER];
-    if ([type isEqualToString:ISIMAGE])
-        NSLog(@"\n");
     for (id key in allKeys) {
-        if ([type isEqualToString:ISIMAGE])
-            NSLog(@"Transf = %@", key);
         id value = [*objDict objectForKey:key];
         if ([value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM]) {
             value = [dictValue objectForKey:[value substringFromIndex:1]];
@@ -582,7 +577,6 @@
         rulesByOrder = [rulesTempDict objectForKey:ORDER];
     else
         rulesByOrder = rulesTempDict;
-    
     for (id rule in rulesByOrder) {
         /* goto "subviews" dictionary */
         rulesDict = [rulesTempDict objectForKey:rule];

@@ -95,7 +95,6 @@
     NSString *interactionsDir = [unzipped_xd stringByAppendingPathComponent:interactionsJson];
     data = [NSData dataWithContentsOfFile:interactionsDir];
     interactionsDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"InteractionsDict = %@", interactionsDict);
     return agcTemplate;
 }
 
@@ -447,7 +446,7 @@
 
 
 -(NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName isLeaf:(BOOL)leaf {
-    NSLog(@"[%@]transform Dict = %@",varName, dict);
+    
     NSArray *order = [dict objectForKey:TOSTRING];
     NSArray *betweenTags = [dict objectForKey:BETWEEN];
     if ([varName hasPrefix:TOTRANSFORM] && [translationDict objectForKey:varName])
@@ -554,6 +553,21 @@
     return [tvalue isEqualToString:SIZE] && ![[objDict objectForKey:HEIGHT] isEqualToString:RAWTEXT];
 }
 
+
+- (BOOL) saveTextlength:(id) subRules {
+    return ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:LEN]);
+
+}
+
+- (BOOL) isStyleType:(id) subRules {
+    return ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:TYPE] &&
+    [[subRules objectForKey:TYPE] isEqualToString:STYLE]);
+}
+
+- (BOOL) transformHeader:(NSArray*) keys {
+    return ([keys count] == 1);
+}
+
 - (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale{
     
     float translatedValue = initValue;
@@ -589,7 +603,6 @@
     float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
     if (textLines > 3)
         textLen = MIN((int)[label length], textLen * xScaleFactor);
-    NSLog(@"textLen = %d", textLen);
     NSString *firstLine = [label substringToIndex:textLen];
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     [style setLineBreakMode:NSLineBreakByWordWrapping];
@@ -606,7 +619,6 @@
                                             attributes:attributes
                                                context:nil];
     float width = lineFrame.size.width;
-    NSLog(@"Bounding frame = %f", width);
     return [label boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                                       options:NSStringDrawingUsesLineFragmentOrigin
                                    attributes:attributes
@@ -679,11 +691,9 @@
             else if ([fontStyle isEqualToString:ITALIC])
                 mask = NSItalicFontMask;
             else mask = 0;
-            NSLog(@"label = %@ %d", label, textLen);
             CGRect rect = [self computeTextFrame:label usingFontSize:fontSize fontName:fontName fontMask: mask];
             [*objDict setValue:[NSNumber numberWithFloat:rect.size.height + 0.1 * rect.size.height] forKey:HEIGHT];
             [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.3 * rect.size.width] forKey:WIDTH];
-            NSLog(@"Width = %f %f %d %d", rect.size.height, rect.size.width, textLen, textLines);
             if ([type isEqualToString:LABEL]) {
                 /* move the frame up with fontSize */
                 int initialYOffset = [[*objDict objectForKey:YARTBOARD] floatValue];
@@ -973,78 +983,119 @@
     }
 }
 
+
+- (void) computeTextObject:(id)dictValue dependency:(NSString*) condition forDict:(NSMutableDictionary **) objDict {
+    
+    int counter = (int)[dictValue count];
+    textLines = MAX(counter, [[*objDict objectForKey:LEN] intValue]);
+    [*objDict setObject:[NSNumber numberWithInt:textLines] forKey:LEN];
+    id tmp = dictValue;
+    id firstLine;
+    if (textLines == counter && [condition isEqualToString:TEXT_LINES]) {
+        firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
+        textLen = [firstLine intValue];
+        xOffsetText = [[[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:XARTBOARD] floatValue];
+        yOffsetText = [[[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:YARTBOARD] floatValue];
+    } else if (textLines == counter && [condition isEqualToString:TEXT_PARAGRAPH]) {
+        tmp = [[tmp objectAtIndex:0] objectForKey:LINE_VALUE];
+        textLen = 0;
+        bool set = false;
+        for (id temp in tmp) {
+            firstLine = [[temp objectAtIndex:0]objectForKey:TO];
+            if (!set) {
+                xOffsetText = [[[temp objectAtIndex:0] objectForKey:XARTBOARD] floatValue];
+                yOffsetText = [[[temp objectAtIndex:0] objectForKey:YARTBOARD] floatValue];
+                set = true;
+            }
+            if (textLen < [firstLine intValue])
+                textLen = [firstLine intValue];
+        }
+    }
+}
+
+- (void) processAgcScenes:(id*) objDict forDict:(NSMutableDictionary *) dictValue {
+    
+    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
+    NSMutableDictionary *newObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [*objDict mutableCopy]]];
+    *objDict = [[NSMutableArray alloc] init];
+    for (id object in dictValue) {
+        /* obtain the type of each object
+         * get the corresponding template*/
+        id type = [translationDict objectForKey:[object objectForKey:TYPE]];
+        if (!type)
+            continue;
+        /* we need to check several rules in order to decide which is the type of an object
+         * esp for type = shape
+         **/
+        type = [self getShapeType:type object:object];
+        if (![type isKindOfClass:[NSString class]])
+            continue;
+        NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
+        if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
+            int minx = 600, miny = 600, maxx = 0, maxy = 0, maxw = 0, maxh = 0;
+            [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:objDict
+                          minx:&minx miny:&miny maxx: &maxx maxy:&maxy maxh: &maxh maxw: &maxw];
+            continue;
+        }
+        [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict ofType:type];
+        NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
+        [subViewDict setObject:typeObjDict forKey:changeType];
+        [*objDict addObject:subViewDict];
+    }
+}
+
+-(void) computeSeguesObjects:(id *) objDict {
+    
+    id tempSegue = [*objDict objectForKey:SEGUE];
+    id segue = [self deepCopy:tempSegue];
+    for (id key in [segue allKeys]) {
+        if (![[segue objectForKey:key] isKindOfClass:[NSString class]] || ![[segue objectForKey:key] hasPrefix:TOTRANSFORM])
+            continue;
+        id value = [self computeValue:[segue objectForKey:key] forDict:[[NSDictionary alloc] init]];
+        [tempSegue setObject:value forKey:key];
+    }
+}
+
+- (id) getCorrespondingTemplate:(NSString *) rule {
+    
+    id objDict;
+    if ([rule isEqualToString:SUBVIEWS])
+        objDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
+    else {
+        objDict = [Helper deepCopy:[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:rule]];
+    }
+    return objDict;
+}
+
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
                                 agcDict:agcParams type:(NSString *)type {
     
     
-    id objDict;
-    if ([rule isEqualToString:SUBVIEWS])
-        objDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:[agcToXmlTemplate objectForKey:SUBVIEWS]]];
-    else {
-        objDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:rule]]];
-    }
+    id objDict = [self getCorrespondingTemplate:rule];
     if (!cond && [rule isEqualToString:CONNECTIONS]) {
-        id tempSegue = [objDict objectForKey:SEGUE];
-        id segue = [self deepCopy:tempSegue];
-        for (id key in [segue allKeys]) {
-            if (![[segue objectForKey:key] isKindOfClass:[NSString class]] || ![[segue objectForKey:key] hasPrefix:TOTRANSFORM])
-                continue;
-            id value = [self computeValue:[segue objectForKey:key] forDict:[[NSDictionary alloc] init]];
-            [tempSegue setObject:value forKey:key];
-        }
+        [self computeSeguesObjects:&objDict];
     }
-    // now changing based on params
     if (!cond) {
-        //just generate the tag; no other transformations are needed
         return objDict;
     }
-    //get values from agc in order to transfer them into xml
     for (id condition in cond) {
         id values = agcParams;
         NSArray *goToAgc = [self splitVariable:condition];
         [self getDict:&values fromConditions:goToAgc];
-       
         NSMutableDictionary *dictValue = values;
         BOOL isEmpty = ([dictValue count] == 0);
         if (isEmpty && !dictValue) {
-            //use default values!!!
             [self mergeDefaultValues:[objDict objectForKey:DEFAULT] withDict:&objDict usingDict:dict];
             return objDict;
         } else if (isEmpty) {
-            //no subview found
             return nil;
         } else {
             id subRules = [dict objectForKey:condition];
-            if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:LEN]) {
-                int counter = (int)[dictValue count];
-                textLines = MAX(counter, [[objDict objectForKey:LEN] intValue]);
-                [objDict setObject:[NSNumber numberWithInt:textLines] forKey:LEN];
-                id tmp = dictValue;
-                id firstLine;
-                if (textLines == counter && [condition isEqualToString:TEXT_LINES]) {
-                    firstLine = [[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:TO];
-                    textLen = [firstLine intValue];
-                    xOffsetText = [[[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:XARTBOARD] floatValue];
-                    yOffsetText = [[[[tmp objectAtIndex:0] objectAtIndex:0]objectForKey:YARTBOARD] floatValue];
-                } else if (textLines == counter && [condition isEqualToString:TEXT_PARAGRAPH]) {
-                    tmp = [[tmp objectAtIndex:0] objectForKey:LINE_VALUE];
-                    textLen = 0;
-                    bool set = false;
-                    for (id temp in tmp) {
-                        firstLine = [[temp objectAtIndex:0]objectForKey:TO];
-                        if (!set) {
-                            xOffsetText = [[[temp objectAtIndex:0] objectForKey:XARTBOARD] floatValue];
-                            yOffsetText = [[[temp objectAtIndex:0] objectForKey:YARTBOARD] floatValue];
-                            set = true;
-                        }
-                        if (textLen < [firstLine intValue])
-                            textLen = [firstLine intValue];
-                    }
-                }
+            if ([self saveTextlength:subRules]) {
+                [self computeTextObject:dictValue dependency:condition forDict:&objDict];
                 continue;
             }
-            if ([subRules isKindOfClass:[NSMutableDictionary class]] && [subRules objectForKey:TYPE] &&
-                [[subRules objectForKey:TYPE] isEqualToString:STYLE]) {
+            if ([self isStyleType:subRules]) {
                 id styleFont = [dictValue objectForKey:STYLE_VALUE];
                 id translatedStyle = [self convertFont:styleFont];
                 [[dict objectForKey:condition] setObject:translatedStyle forKey:TYPE];
@@ -1053,35 +1104,7 @@
                 [self mergeDictionaries:&objDict withDict:dictValue usingValues:[dict objectForKey:condition] type:type];
             }
             else {
-                NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
-                NSMutableDictionary *newObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [objDict mutableCopy]]];
-                objDict = [[NSMutableArray alloc] init];
-                for (id object in dictValue) {
-                    /* obtain the type of each object
-                     * get the corresponding template*/
-                    id type = [translationDict objectForKey:[object objectForKey:TYPE]];
-                    if (!type)
-                        continue;
-                    /* we need to check several rules in order to decide which is the type of an object
-                     * esp for type = shape
-                     **/
-                    type = [self getShapeType:type object:object];
-                    if (![type isKindOfClass:[NSString class]])
-                        continue;
-                    NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
-                    if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
-                        int minx = 600, miny = 600, maxx = 0, maxy = 0, maxw = 0, maxh = 0;
-                        [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:&objDict
-                         minx:&minx miny:&miny maxx: &maxx maxy:&maxy maxh: &maxh maxw: &maxw];
-                        continue;
-                    }
-                    [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict ofType:type];
-                    NSMutableDictionary *subViewDict = [[NSMutableDictionary alloc] init ];
-                    if ([changeType isEqualToString:BUTTON])
-                        NSLog(@"typeObjDict = %@", typeObjDict);
-                    [subViewDict setObject:typeObjDict forKey:changeType];
-                    [objDict addObject:subViewDict];
-                }
+                [self processAgcScenes:&objDict forDict:dictValue];
             }
         }
     }
@@ -1096,65 +1119,12 @@
     transformSize = true;
 }
 
--(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
-                           finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
+-(void) processInteractions:(id*) templateDict type:(NSString *) type {
     
-    noOfElements++;
-    NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
-    NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
-    NSArray *keys, *cond;
-    NSMutableDictionary *rulesDict, *mergeDict;
-    NSString *value, *stringValue;
-    id rulesByOrder, val;
-    
-    /* if an order is specified => follow it
-     * otherwis use the default enumerator */
-    if ([rulesTempDict objectForKey:ORDER])
-        rulesByOrder = [rulesTempDict objectForKey:ORDER];
-    else rulesByOrder = rulesTempDict;
-    for (id rule in rulesByOrder) {
-        keys = [self splitVariable:rule];
-        if ([keys count] == 1) {
-            //goto "subviews" dictionary
-            rulesDict = [rulesTempDict objectForKey:rule];
-            if ([rulesDict isKindOfClass:[NSArray class]])
-                continue;
-            if ([rulesDict count] == 0)
-                cond = nil;
-            else if ([rulesDict objectForKey:ORDER])
-                cond = [rulesDict objectForKey:ORDER];
-            else
-                cond = [rulesDict allKeys];
-           // NSLog(@"Rule %@ cond %@ %@ %@", rule, cond, [rulesTempDict objectForKey:rule], agcDict);
-            mergeDict = [self computeObjects:rule condition:cond params:[rulesTempDict objectForKey:rule] agcDict:agcDict type:type];
-            if (mergeDict != nil) {
-                NSLog(@"Merging = %@", mergeDict);
-                [rulesInitDict setObject:mergeDict forKey:rule];
-            }
-        } else {
-            val = *templateDict;
-            for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
-                val = [val objectForKey:key];
-            }
-            value = [self computeValue:[rulesTempDict objectForKey:rule] forDict:agcDict];
-            if ([[value componentsSeparatedByString:@" "] count] == 1) {
-                id hasValue = [val objectForKey:[keys lastObject]];
-                if (hasValue && [hasValue intValue]){
-                    int max = MAX([hasValue intValue], [value intValue]);
-                    [val setObject:[NSNumber numberWithInt:max] forKey:[keys lastObject]];
-                }
-                else [val setObject:value forKey:[keys lastObject]];
-            } else {
-                stringValue = [NSString stringWithFormat:@"\"%@\"", value];
-                [val setObject:stringValue forKey:[keys lastObject]];
-            }
-        }
-    }
     if (transformInteraction) {
         id value = *templateDict;
         id button = [[agcToXmlTemplate objectForKey:BUTTON_SEGUE] objectForKey:type];
         if (button) {
-            NSLog(@"Button = %@", value);
             id genericButton = [[self deepCopy:button] objectForKey:BUTTON];
             [self transformIntoButton: &genericButton usingTemplate:value ofType:BUTTON];
             *templateDict = genericButton;
@@ -1164,7 +1134,69 @@
     } else {
         changeType = type;
     }
+}
 
+- (NSMutableDictionary *) processHeader:(NSMutableDictionary *)rulesDict rule:(NSString *)rule usingDict:(NSDictionary *)agcDict type:(NSString*)type {
+
+    id cond;
+    if ([rulesDict count] == 0)
+        cond = nil;
+    else if ([rulesDict objectForKey:ORDER])
+        cond = [rulesDict objectForKey:ORDER];
+    else
+        cond = [rulesDict allKeys];
+    return [self computeObjects:rule condition:cond params:rulesDict agcDict:agcDict type:type];
+    
+}
+
+-(void) processRules:(NSArray *)keys template:(id*) templateDict rulesDict:(id)rulesDict agcDict:(NSDictionary *)agcDict {
+    
+    id val = *templateDict;
+    for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
+        val = [val objectForKey:key];
+    }
+    NSString* value = [self computeValue:rulesDict forDict:agcDict];
+    if ([[value componentsSeparatedByString:@" "] count] == 1) {
+        id hasValue = [val objectForKey:[keys lastObject]];
+        if (hasValue && [hasValue intValue]){
+            int max = MAX([hasValue intValue], [value intValue]);
+            [val setObject:[NSNumber numberWithInt:max] forKey:[keys lastObject]];
+        }
+        else [val setObject:value forKey:[keys lastObject]];
+    } else {
+        NSString *stringValue = [NSString stringWithFormat:@"\"%@\"", value];
+        [val setObject:stringValue forKey:[keys lastObject]];
+    }
+
+}
+
+-(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
+                           finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
+    
+    noOfElements++;
+    NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
+    NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
+    NSArray *keys;
+    NSMutableDictionary *rulesDict, *mergeDict;
+    id rulesByOrder;
+    if ([rulesTempDict objectForKey:ORDER])
+        rulesByOrder = [rulesTempDict objectForKey:ORDER];
+    else rulesByOrder = rulesTempDict;
+    for (id rule in rulesByOrder) {
+        keys = [self splitVariable:rule];
+        if ([self transformHeader:keys]) {
+            rulesDict = [rulesTempDict objectForKey:rule];
+            if ([rulesDict isKindOfClass:[NSArray class]])
+                continue;
+            mergeDict = [self processHeader:rulesDict rule:rule usingDict:agcDict type:type];
+            if (mergeDict != nil) {
+                [rulesInitDict setObject:mergeDict forKey:rule];
+            }
+        } else {
+            [self processRules:keys template:templateDict rulesDict:[rulesTempDict objectForKey:rule] agcDict:agcDict];
+        }
+    }
+    [self processInteractions:templateDict type:type];
     return finalDict;
 }
 
@@ -1191,7 +1223,6 @@
                                               isDirectory:&isDir]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:[[self xmlPath] stringByAppendingPathComponent:RESOURCES_PATH] withIntermediateDirectories:NO attributes:nil error:&error];
     }
-    
     NSBitmapImageRep *imgRep = (NSBitmapImageRep *)[[image representations] objectAtIndex: 0];
     NSData *data = [imgRep representationUsingType: NSPNGFileType properties: @{}];
     [data writeToFile: resourcesXmlProj atomically: NO];
@@ -1244,7 +1275,6 @@
     
     NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
     /* now we only have to translate the currentDict */
-    
     for (id key in [dict objectForKey:TOSTRING]) {
         id attr = [dict objectForKey:key];
         [self processImage:dict key:key];
@@ -1256,6 +1286,8 @@
         } else if ([key isEqualToString:SUBVIEWS]){
             [tmp appendString:XMLSUBVIEWS];
             for (id subview in attr) {
+                if ([subview isKindOfClass:[NSString class]])
+                    break;
                 NSString *name = [[subview allKeys] objectAtIndex:0];
                 NSMutableDictionary *dict = [subview objectForKey:name];
                 NSMutableString *str = [self parseToString:tmp dict:dict name:name];
@@ -1293,7 +1325,6 @@
                            sceneOffset:(long)offset isInitialSet:(bool) setInitial dictionary:(NSDictionary *)dict sceneId: (id) sceneId {
     
     [*finalString appendString: SCENEHEADERA];
-    
     [*finalString appendString: [self getUniqueString]];
     [*finalString appendString: SCENEHEADERB];
     if (!setInitial) {
@@ -1314,7 +1345,6 @@
     [*finalString appendString: [self getUniqueString]];
     [*finalString appendString: SCENEHEADERE];
     id content = [self parseToString:*finalString dict:dict name: ARTBOARD];
-    //NSLog(@"\nContent = %@\n", content);
     [*finalString appendString: content];
     [*finalString appendString: XMLVIEWF];
     [*finalString appendString:XMLFOOTERA];
@@ -1361,16 +1391,16 @@
     // it was given the whole dictionary to process => goto @"content"; type = "view"
     artboardsNo = (int)[[typeAgcObject objectForKey:ARTBOARDS] count];
     initialArtboard = [self getUniqueString];
+    setInitial = false;
     while (sceneNo < artboardsNo) {
         finalString = [[NSMutableString alloc] init];
         dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
-        NSLog(@"Dict = %@", dict);
         id artScene = [[typeAgcObject objectForKey:ARTBOARDS] objectForKey:[NSString stringWithFormat:@"%@%d", ART_SCENE, sceneNo + 1]];
         id sceneId = [[[typeAgcObject objectForKey:CHILDREN] objectAtIndex:sceneNo] objectForKey:ID];
         int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
-       if (offset == 0)
+       /*if (offset == 0 && !setInitial)
            setInitial = false;
-       else setInitial = true;
+       else setInitial = true;*/
        sceneOffset = sceneOffset + XML_OFFSET_X;
         setInitial = [self generateSceneHeaderUsingString:&finalString
                                       withInitialArtboard:initialArtboard

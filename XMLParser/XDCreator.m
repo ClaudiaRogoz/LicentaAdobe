@@ -253,7 +253,6 @@
     NSString *interactionPath = [[NSBundle mainBundle] pathForResource:INTERACTION_TEMPLATE ofType:JSON];
     NSData *segueData = [NSData dataWithContentsOfFile:interactionPath];
     NSMutableDictionary *interactionTemplate = [NSJSONSerialization JSONObjectWithData:segueData options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"InteractionTemplate = %@", interactionTemplate);
     NSMutableDictionary *interactionsDict = [[NSMutableDictionary alloc] init];
     for (id startSegue in interactions) {
         id template = [Helper deepCopy:interactionTemplate];
@@ -264,7 +263,6 @@
     }
     if (interactionsDict)
         [version setObject:interactionsDict forKey:INTERACTIONS];
-    NSLog(@"Interact = %@", interactionsDict);
     NSString *jsonInteractions = [NSString stringWithFormat:@"%@%@%@", INTERACTIONS, DOT, JSON];
     NSArray *resourcesList = @[INTERACTIONS, jsonInteractions];
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
