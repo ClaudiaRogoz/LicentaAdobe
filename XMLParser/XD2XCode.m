@@ -593,7 +593,7 @@
     NSDictionary *attributes = @{NSFontAttributeName: font,
                                  NSParagraphStyleAttributeName: style};
     CGRect lineFrame = [firstLine boundingRectWithSize:CGSizeMake(600, 300)
-                                               options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
                                             attributes:attributes
                                                context:nil];
     float width = lineFrame.size.width;
@@ -670,8 +670,13 @@
                 mask = NSItalicFontMask;
             else mask = 0;
             CGRect rect = [self computeTextFrame:label usingFontSize:fontSize fontName:fontName fontMask: mask];
-            [*objDict setValue:[NSNumber numberWithFloat:rect.size.height + 0.1 * rect.size.height] forKey:HEIGHT];
-            [*objDict setValue:[NSNumber numberWithFloat:rect.size.width + 0.3 * rect.size.width] forKey:WIDTH];
+            rect.size.width = ceil(rect.size.width);
+            if ((![type isEqualToString:TEXT_AREA]) || (([type isEqualToString:TEXT_AREA]) &&(textLines <= 3))) {
+                rect.size.height = rect.size.height * 1.1;
+            }
+            
+            [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
+            [*objDict setValue:[NSNumber numberWithFloat:rect.size.width * 1.3] forKey:WIDTH];
             if ([type isEqualToString:LABEL]) {
                 /* move the frame up with fontSize */
                 int initialYOffset = [[*objDict objectForKey:YARTBOARD] floatValue];
