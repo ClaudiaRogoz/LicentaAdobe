@@ -44,14 +44,12 @@ NSString * getProjHomePath() {
 NSString *pathFormat(NSString **path, const char *arg) {
     
     NSString *retPath;
-    
     if ([*path hasSuffix:@"/"])
         retPath = [NSString stringWithFormat:@"%s%@", arg, STORYBOARD];
     else {
         *path = [*path stringByAppendingString:@"/"];
         retPath = [NSString stringWithFormat:@"%s/%@", arg, STORYBOARD];
     }
-    
     return retPath;
 }
 
@@ -98,11 +96,44 @@ void openDragDropPanel(NSString *outXmlPath) {
     [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
     [panel setDirectoryURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@", outXmlPath ,RESOURCES]]];
     NSInteger clicked = [panel runModal];
-    
     if (clicked == NSFileHandlingPanelOKButton) {
         
     }
+}
+
+NSString* resolvePath(NSString *path) {
     
+    NSString *expandedPath = [[path stringByExpandingTildeInPath] stringByStandardizingPath];
+    const char *cpath = [expandedPath cStringUsingEncoding:NSUTF8StringEncoding];
+    char *resolved = NULL;
+    char *returnValue = realpath(cpath, resolved);
+    if (returnValue == NULL && resolved != NULL) {
+        printf("Error with path: %s\n", resolved);
+        return nil;
+    }
+    return [NSString stringWithCString:returnValue encoding:NSUTF8StringEncoding];
+}
+
+NSString* sanityCheck(NSString *inXDPath) {
+    while ([Helper fileExists:inXDPath]) {
+        NSLog(@"[WARNING] The XD project %@ exists. Do you want to override it? [y/n]", inXDPath);
+        NSFileHandle *kbd = [NSFileHandle fileHandleWithStandardInput];
+        NSData *inputData = [kbd availableData];
+        NSString *option = [[[NSString alloc] initWithData:inputData
+                                                  encoding:NSUTF8StringEncoding] substringToIndex:1];
+        if ([option isEqualToString:@"y"])
+            break;
+        else {
+            NSLog(@"Please provide another xdPath:\n");
+            char cstring[40];
+            scanf("%s", cstring);
+            inXDPath = [NSString stringWithCString:cstring encoding:1];
+            if ([inXDPath hasPrefix:@"~"]) {
+                inXDPath  = resolvePath(inXDPath);
+            }
+        }
+    }
+    return inXDPath;
 }
 
 void import(char *path, char *xdPath) {
@@ -112,35 +143,21 @@ void import(char *path, char *xdPath) {
     NSString *inXDPath = [NSString stringWithFormat:@"%s", xdPath];
     NSString *importPath = pathFormat(&inXmlPath, path);
     NSData *parser = [NSData dataWithContentsOfFile:importPath];
-    
     if (!parser) {
         NSLog(@"[ERROR] import path is not valid");
         printOptions();
         return;
-    
     }
-    // Parse the XML into a dictionary
+    inXDPath = sanityCheck(inXDPath);
+    NSLog(@"Output XD File = %@", inXDPath);
+    /* Parse the XML into a dictionary */
     NSError *parseError = nil;
-    
     NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
     [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError usingXdPath:inXDPath xmlDirectory:inXmlPath];
-    
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
     openXdFile(inXDPath);
-    NSLog(@"Started monitoring file....");
     [Sync startSync:inXDPath withXcode:importPath];
-    /*[XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath xdPath:inXDPath error:&parseError];
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    [pasteboard clearContents];
-    NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
-    NSString *mainBundle = getProjHomePath();
-    NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, ARTBOARDXML];
-    [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
-    [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
-    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
-    */
 }
 
 void export(char *xdPath, char *xmlPath) {
@@ -150,7 +167,6 @@ void export(char *xdPath, char *xmlPath) {
     NSString *outXmlPath= [NSString stringWithFormat:@"%s", xmlPath];
     NSString *exportPath = pathFormat(&outXmlPath, xmlPath);
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:exportPath];
-    
     if (!exists) {
         NSLog(@"[ERROR] export path is not valid");
         printOptions();
@@ -162,11 +178,8 @@ void export(char *xdPath, char *xmlPath) {
     NSLog(@"[Export DONE] Time elapsed: %f", elapsedTime);
     /* open export xcode project */
     openExportProject(outXmlPath);
-    
     /* Notify the user to  Drag & Drop resources */
     openDragDropPanel(outXmlPath);
-    
-    
 }
 
 void synch(char *XDPath, char *XMLPath) {
@@ -174,6 +187,5 @@ void synch(char *XDPath, char *XMLPath) {
     NSString * xmlPath= [NSString stringWithFormat:@"%s", XMLPath];
     [Sync startSync:xdPath withXcode:xmlPath];
 }
-
 
 #endif /* Utils_h */
