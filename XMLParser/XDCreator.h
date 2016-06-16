@@ -26,8 +26,9 @@
 /* prepares the storage & computes the contents needed for resources directory */
 + (void) createResourcesContent:(NSMutableDictionary *) artboards xdPath:(NSString *) xdPath;
 
-/* prepares the storage & computes the contents needed for artwork directory */
-+ (void) createArtworkContent:(NSMutableDictionary *) artboard artboardNo:(int) artNo xdPath:(NSString *) xdPath;
+/* prepares the storage & computes the contents needed for artwork directory 
+ * returns the sha1 value of the artboard dictioonary */
++ (NSString*) createArtworkContent:(NSMutableDictionary *) artboard artboardNo:(int) artNo xdPath:(NSString *) xdPath;
 
 /* prepares the storage & computes the contents needed for interactions directory */
 + (void) createInteractionContent:(NSMutableDictionary *) interactions xdPath:(NSString *) xdPath homeArtboard:(NSString *) homeArtboard;
@@ -44,8 +45,8 @@
 /* "destructor" for storage */
 + (void) releaseStorage:(NSString *) xdPath;
 
-/* writes a dictionary to a json/agc file*/
-+ (void) writeData:(NSMutableDictionary *) dict toPath:(NSString *) path;
+/* writes a dictionary to a json/agc file; also computes SHA1 for the new content of path */
++ (NSString *) writeData:(NSMutableDictionary *) dict toPath:(NSString *) path withSha:(BOOL)sha;
 
 
 @property NSString *xdPath;

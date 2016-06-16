@@ -267,7 +267,7 @@
     } else {
         transformInteraction = false;
     }
-    return [self getUniqueString];
+    return uuid;
 }
 
 -(NSString *) computeMultilineLabel:(NSString *) initValue forDict:(NSDictionary *) agcDict {
@@ -1362,6 +1362,7 @@
 -(void) writeXmlString:(NSString *) xmlString {
     
     NSError *err;
+   // NSLog(@"XmlString = %@", xmlString);
     NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
     NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
     NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
@@ -1376,6 +1377,7 @@
             continue;
         id value = [uuidMap objectForKey:node];
         xmlString = [xmlString stringByReplacingOccurrencesOfString:node withString:value];
+
     }
     return xmlString;
 }

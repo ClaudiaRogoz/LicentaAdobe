@@ -178,10 +178,7 @@
     float yScaleFactor = (float)HEIGHT_XD_ARTBOARD/HEIGHT_XML_ARTBOARD;
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
-    float ratio = MAX(xScaleFactor,yScaleFactor);
-    if (preserveRatio ) {
-        widthScaleFactor = ratio;
-        heightScalefactor = ratio;
+    if (scale ) {
     }
     if ([key isEqualToString:TX]) {
         translatedValue = translatedValue * xScaleFactor;

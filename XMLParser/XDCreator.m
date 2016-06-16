@@ -170,7 +170,7 @@
     return [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
 }
 
-+ (void) writeData:(NSMutableDictionary *) dict toPath:(NSString *) path {
++ (NSString *) writeData:(NSMutableDictionary *) dict toPath:(NSString *) path withSha:(BOOL)sha {
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
@@ -181,7 +181,10 @@
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         [jsonString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        if (sha)
+            return [Helper computeSha1:jsonString];
     }
+    return nil;
 }
 
 + (void) releaseStorage:(NSString *) xdPath {
@@ -266,7 +269,7 @@
     NSString *jsonInteractions = [NSString stringWithFormat:@"%@%@%@", INTERACTIONS, DOT, JSON];
     NSArray *resourcesList = @[INTERACTIONS, jsonInteractions];
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
-    [self writeData:version toPath:graphicContent];
+    [self writeData:version toPath:graphicContent withSha:false];
 }
 
 + (void) createResourcesContent:(NSMutableDictionary *) artboards xdPath:(NSString *) xdPath {
@@ -287,12 +290,12 @@
     }
     [resDict setObject:artboards forKey:ARTBOARDS];
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
-    [self writeData:resDict toPath:graphicContent];
+    [self writeData:resDict toPath:graphicContent withSha:false];
 }
 
 
 /* receives an already split dictionary */
-+ (void) createArtworkContent:(NSMutableDictionary *) artboard artboardNo:(int) artNo xdPath:(NSString *) xdPath {
++ (NSString*) createArtworkContent:(NSMutableDictionary *) artboard artboardNo:(int) artNo xdPath:(NSString *) xdPath {
     
     NSString *artWorkNo = [NSString stringWithFormat:@"%@%d", ARTBOARD_FILE_PREFIX, artNo];
     NSArray *resourcesList = @[ARTWORK, artWorkNo, GRAPHICS, GRAPHIC];
@@ -302,7 +305,8 @@
     [artboard setObject:href forKey:ARTBOARDS];
     [artboard setObject:href forKey:RESOURCES];
     NSString *graphicContent = [self createStorage:resourcesList usingXDPath:xdPath];
-    [self writeData:artboard toPath:graphicContent];
+    return [self writeData:artboard toPath:graphicContent withSha:true];
+    
 }
 
 @end
