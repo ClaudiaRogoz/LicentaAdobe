@@ -71,19 +71,23 @@ void printOptions() {
 }
 
 
-void openExportProject(NSString * outXmlPath) {
+void openExportProject(NSString *outXmlPath) {
     
     NSString *nameXcodeProj = [[outXmlPath lastPathComponent] stringByAppendingPathExtension:XCODEPROJ];
     NSString *pathToXcodeProj = [[outXmlPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:nameXcodeProj];
-    
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = OPEN_PATH;
     task.arguments = @[pathToXcodeProj];
-    
     [task launch];
     [task waitUntilExit];
-    
-    
+}
+
+void openXdFile(NSString *outXDPath) {
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = OPEN_PATH;
+    task.arguments = @[outXDPath];
+    [task launch];
+    [task waitUntilExit];
 }
 
 void openDragDropPanel(NSString *outXmlPath) {
@@ -123,6 +127,7 @@ void import(char *path, char *xdPath) {
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
+    openXdFile(inXDPath);
     NSLog(@"Started monitoring file....");
     [Sync startSync:inXDPath withXcode:importPath];
     /*[XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath xdPath:inXDPath error:&parseError];
