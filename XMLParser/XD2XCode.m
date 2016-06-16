@@ -20,8 +20,7 @@
 
 
 
-+ (void)readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath
-{
++ (void)readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath {
     NSError *error;
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     NSString *xmlPath = [[outXmlPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
@@ -35,7 +34,6 @@
 }
 
 +(NSString *) generateXmlForTag:(NSDictionary*)agcDict {
-    
     NSError *error;
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
     [gen initWithSchemas];
@@ -48,12 +46,10 @@
 }
 
 -(void) addChild:(NSMutableDictionary *)child to:(NSMutableDictionary **) agcDict{
-
     [[*agcDict objectForKey:CHILDREN ] addObject:child];
 }
 
 - (void) addArtboardsToAgc:(NSMutableDictionary **) agcDict usingPath:(NSString *) path{
-    
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSMutableDictionary *artboards =  [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
@@ -62,7 +58,6 @@
 }
 
 -(NSString *) appendPathComponents:(NSArray *) array topath:(NSString *) path {
-
     NSString *finalPath = [NSString stringWithFormat:@"%@", path];
     for (id component in array) {
         finalPath = [finalPath stringByAppendingPathComponent:component];
@@ -70,7 +65,6 @@
     return finalPath;
 }
 - (NSMutableDictionary *) getXdDictionary {
-    
     NSError *error;
     NSString *mainBundle = [self getProjHomePath];
     NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_EXPORT_PATH];
@@ -104,7 +98,6 @@
 }
 
 -(void) initWithSchemas {
-    
     NSError *error;
     NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
     NSString *def = [thisBundle pathForResource:DEF_PATH ofType:JSON];
@@ -118,7 +111,6 @@
 }
 
 - (void) releaseResources {
-    
     NSString *mainBundle = [self getProjHomePath];
     NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_EXPORT_PATH];
     NSLog(@"Removing %@ ....", unzipped_xd);
@@ -126,7 +118,6 @@
 }
 
 -(NSString *) getProjHomePath {
-    
     NSString *mainBundle = [[NSBundle mainBundle] bundlePath];
     for (int i = 0; i< PROJ_PATH; i++) {
         mainBundle = [mainBundle stringByDeletingLastPathComponent];
@@ -135,12 +126,10 @@
 }
 
 -(id) deepCopy:(id) object {
-    
     return [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: object]];
 }
 
 - (void) generateSVGFile:(NSString *)filePath FromLine:(NSString *)pathString usingViewBox: (NSString *) viewBox {
-    
     NSError *error;
     NSString *svgTemplate = [[NSBundle mainBundle] pathForResource:LINE_TEMPLATE ofType:SVG];
     NSMutableString *path = [NSMutableString stringWithContentsOfFile:svgTemplate encoding:NSUTF8StringEncoding error:&error];
@@ -165,7 +154,6 @@
 
 - (void) generateSVGFile:(NSString *)filePath FromPath:(NSString *)pathString usingFill:(NSString *)hex
            usingViewBox:(NSString *) viewBox translation: (NSString *) translation {
-    
     NSError *error;
     NSString *svgTemplate = [[NSBundle mainBundle] pathForResource:SVG_TEMPLATE ofType:SVG];
     NSMutableString *path = [NSMutableString stringWithContentsOfFile:svgTemplate encoding:NSUTF8StringEncoding error:&error];
@@ -233,7 +221,6 @@
 }
 
 - (NSString *)hexStringForColor:(NSDictionary *)value {
-    
     int r = [[value objectForKey:XML_RED] intValue];
     int g = [[value objectForKey:XML_GREEN] intValue];
     int b = [[value objectForKey:XML_BLUE] intValue];
@@ -242,7 +229,6 @@
 }
 
 -(NSString *) computeAgcTag: (NSString *) initValue dict:(NSDictionary *)agcDict {
-    
     initValue = [initValue substringFromIndex:1];
     NSArray *array = [initValue componentsSeparatedByString:DOT];
     id value = agcDict;
@@ -263,13 +249,11 @@
 }
 
 -(NSString *) getDestinationFor:(NSString *) agcId interactions:(NSMutableDictionary *)interactions {
-    
     return [[[[interactions objectForKey:agcId] objectAtIndex:0] objectForKey:PROPERTIES] objectForKey:DESTINATION];
 }
 
 
-- (NSString *) computeUUIDValue: (NSDictionary *) agcDict
-{
+- (NSString *) computeUUIDValue: (NSDictionary *) agcDict {
     //generate a random value; needed for id
     id interactions = [interactionsDict objectForKey:INTERACTIONS];
     NSString *uuid = [self getUniqueString];
@@ -287,7 +271,6 @@
 }
 
 -(NSString *) computeMultilineLabel:(NSString *) initValue forDict:(NSDictionary *) agcDict {
-    
     NSRange range = [initValue rangeOfString:GETMAX];
     NSArray *max2 = [[initValue substringFromIndex:range.location + GETMAX.length + 1] componentsSeparatedByString:SPACE];
     id first = [self computeValue:[max2 objectAtIndex:0] forDict:agcDict];
@@ -297,7 +280,6 @@
 }
 
 -(NSString *) computeLine:(NSString *) initValue forDict:(NSDictionary *) agcDict {
-
     NSString *pngName;
     NSRange range = [initValue rangeOfString:LINE];
     NSArray *paths = [[initValue substringFromIndex:range.location + LINE.length + 1] componentsSeparatedByString:SPACE];
@@ -335,14 +317,11 @@
         /* convert the svg file into a png file */
         pngName = [Helper convertSvgToPng:fileName withFill:fillColor strokeColor:fillColor strokeWidth:0 opacity:0];
     }
-    
     return  pngName;
-
 }
 
 
 - (id) getXYFromPath:(NSString *) pathStr {
-    
     return [[[[[[[[[pathStr componentsSeparatedByString:@"L"] componentsJoinedByString:@" "]
                            componentsSeparatedByString:@"M"] componentsJoinedByString:@" "]
                          componentsSeparatedByString:@"C"] componentsJoinedByString:@" "]
@@ -352,7 +331,6 @@
 }
 
 - (void) getMinMaxXY:(id) maxMinPath minx:(float*) minx maxx:(float*) maxx miny:(float*)miny maxy:(float*) maxy {
-
     for (int i = 0; i< [maxMinPath count]; ) {
         if ([[maxMinPath objectAtIndex:i] isEqualToString:@""] &&
             i + 1 < [maxMinPath count] &&
@@ -371,11 +349,9 @@
         *maxy = MAX(y, *maxy);
         i += 2;
     }
-
 }
 
 -(NSString *) computePath:(NSString *) initValue forDict:(NSDictionary *) agcDict {
-    
     NSRange range = [initValue rangeOfString:PATH];
     NSArray *paths = [[initValue substringFromIndex:range.location + PATH.length + 1] componentsSeparatedByString:SPACE];
     NSString *pathStr = [self computeValue:[paths objectAtIndex:0] forDict:agcDict];
@@ -409,14 +385,11 @@
         [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor usingViewBox:viewBox translation: translate];
         /* convert the svg file into a png file */
         pngName = [Helper convertSvgToPng:fileName withFill:hexColor strokeColor:strokeColor strokeWidth:colorWidth opacity:opacity];
-        
     }
     return  pngName;
 }
 
 -(NSString *) computeValue:(NSString *)initValue forDict:(NSDictionary *)agcDict {
-
-    
     if ([initValue isEqualToString:RANDOM]) {
         //generate a random value; needed for id
         return [self computeUUIDValue:agcDict];
@@ -447,7 +420,6 @@
 }
 
 -(NSArray *) splitVariable:(NSString*) varName {
-    
     if ([varName hasPrefix:@"$"]) {
         return [[varName substringFromIndex:1] componentsSeparatedByString:@"."];
     }
@@ -456,7 +428,6 @@
 
 
 -(NSString *) toString:(NSMutableDictionary *)dict name:(NSString*)varName isLeaf:(BOOL)leaf {
-    
     NSArray *order = [dict objectForKey:TOSTRING];
     NSArray *betweenTags = [dict objectForKey:BETWEEN];
     if ([varName hasPrefix:TOTRANSFORM] && [translationDict objectForKey:varName])
@@ -493,7 +464,6 @@
 }
 
 -(void) mergeDefaultValues:(NSDictionary*)defaultDict withDict:(NSMutableDictionary **) initDict usingDict:(NSDictionary*) paramDict {
-    
     if ([defaultDict count] > 0)
         for (id key in [defaultDict allKeys]) {
             NSString *value = [defaultDict objectForKey:key];
@@ -512,7 +482,6 @@
 }
 
 - (NSNumber *) getFrameSizeFromPath:(NSString *) value  dict:(NSMutableDictionary *)dictValue {
-    
     if ([value hasPrefix:GETHEIGHT]) {
         int offset = (int)[GETHEIGHT length] + 1;
         NSString *path = [dictValue objectForKey:[value substringFromIndex:offset]];
@@ -579,7 +548,6 @@
 }
 
 - (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale{
-    
     float translatedValue = initValue;
     if (!transformSize) {
         return translatedValue;

@@ -64,16 +64,14 @@
 @property NSString *xmlPath;
 
 
-+ (void) startSync:(NSString *) path  withXcode:(NSString *) xmlPath;
++ (void) startSync:(NSString *)path  withXcode:(NSString *)xmlPath;
 
 /**
  *  sync algorithm; monitors a file given as parameter
  *  PARAMS:
  *      path:   the path for the xd file
  **/
-- (void) monitorXDFile:(NSString*) path;
-
-
+- (void) monitorXDFile:(NSString*)path with:(NSString *)xmlPath;
 
 @end
 

@@ -123,6 +123,8 @@ void import(char *path, char *xdPath) {
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
+    NSLog(@"Started monitoring file....");
+    [Sync startSync:inXDPath withXcode:importPath];
     /*[XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath xdPath:inXDPath error:&parseError];
     
     
