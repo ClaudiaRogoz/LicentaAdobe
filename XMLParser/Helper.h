@@ -54,6 +54,8 @@
 + (id) getValueForProperties:(NSArray *) properties inDict:(NSMutableDictionary *)dict;
 + (id) getAllOccurencesOf:(NSString*) substring in:(NSString *) string;
 + (id) getLastOccurencesOf:(NSString *)substring in:(NSString *)string fromOffset:(unsigned long) offset;
++ (BOOL) fileExists:(NSString *) pathForFile;
++ (NSString *) transformToPngFileName:(NSString *) svgName;
 
 @end
 

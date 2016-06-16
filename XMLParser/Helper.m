@@ -163,6 +163,12 @@
     return [[NSFileManager defaultManager] fileExistsAtPath:absolutePath];
 }
 
++ (BOOL) fileExists:(NSString *) pathForFile {
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return ([fileManager fileExistsAtPath:pathForFile]);
+}
+
 + (void) createXdFile:(NSString *) xdPath {
     
     NSTask *task = [[NSTask alloc] init];
@@ -173,18 +179,20 @@
     [task waitUntilExit];
 }
 
++ (NSString *) transformToPngFileName:(NSString *) svgName {
+    return [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
+}
+
 + (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke strokeWidth:(int )strokeWidth opacity:(float) opacity {
 
-    NSString *pngName = [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
+    NSString *pngName = [self transformToPngFileName:svgName];
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/local/bin/convert";
     NSString *fillColor = [NSString  stringWithFormat:@"#%@", hexColor];
     if (![hexColor isEqualToString:NONE])
         if (opacity != 0) {
             NSString *alphaProcent = [NSString stringWithFormat:@"%d%@", (int)(opacity * 100), CONVERT_PROCENT];
-            NSLog(@"AlphaProcent = %@", alphaProcent);
             task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, fillColor, CONVERT_ALPHA, CONVERT_ON, CONVERT_CHANNEL, CONVERT_CHANNEL_A, CONVERT_EVALUATE, CONVERT_SET, alphaProcent , CONVERT_BKG, CONVERT_NONE, svgName, pngName];
-            NSLog(@"args = %@", task.arguments);
         } else
             task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, fillColor, CONVERT_BKG, CONVERT_NONE, svgName, pngName];
     else
@@ -198,7 +206,7 @@
 
 + (NSString *) convertSvgLineToPng:(NSString *) svgName withFill:(NSString *) hexColor{
     
-    NSString *pngName = [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
+    NSString *pngName = [self transformToPngFileName:svgName];
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/local/bin/convert";
     task.arguments = @[CONVERT_BKG, CONVERT_NONE, CONVERT_FILL, [NSString  stringWithFormat:@"#%@", hexColor],svgName, pngName];

@@ -298,6 +298,7 @@
 
 -(NSString *) computeLine:(NSString *) initValue forDict:(NSDictionary *) agcDict {
 
+    NSString *pngName;
     NSRange range = [initValue rangeOfString:LINE];
     NSArray *paths = [[initValue substringFromIndex:range.location + LINE.length + 1] componentsSeparatedByString:SPACE];
     NSString *fileName = [self computeValue:[paths objectAtIndex:0] forDict:agcDict];
@@ -326,10 +327,15 @@
     NSString *line = [NSString stringWithFormat:@"x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\"", x1, y1, x2, y2];
     NSString *pathLine = [NSString stringWithFormat:@"%@ style=\"%@\"",line, style];
     fileName = [[fileName stringByAppendingString:[Helper computeSha1:pathLine]] stringByAppendingPathExtension:SVG];
-    fileName = [[self getProjHomePath] stringByAppendingPathComponent:fileName];
-    [self generateSVGFile:fileName FromLine:pathLine usingViewBox:viewBox];
-    /* convert the svg file into a png file */
-    NSString *pngName = [Helper convertSvgToPng:fileName withFill:fillColor strokeColor:fillColor strokeWidth:0 opacity:0];
+    fileName = [[self imagesPath] stringByAppendingPathComponent:fileName];
+    if ([Helper fileExists:fileName]) {
+        pngName = [Helper transformToPngFileName:fileName];
+    } else {
+        [self generateSVGFile:fileName FromLine:pathLine usingViewBox:viewBox];
+        /* convert the svg file into a png file */
+        pngName = [Helper convertSvgToPng:fileName withFill:fillColor strokeColor:fillColor strokeWidth:0 opacity:0];
+    }
+    
     return  pngName;
 
 }
@@ -383,16 +389,12 @@
     id strokeColor = [self computeValue:[paths objectAtIndex:5] forDict:agcDict];
     int colorWidth = [[self computeValue:[paths objectAtIndex:6]  forDict:agcDict] intValue];
     float opacity = [[self computeValue:[paths objectAtIndex:7] forDict:agcDict] floatValue];
-    NSLog(@"Path opacity = %f", opacity);
     int transformTx = [[transform objectForKey:TX] intValue];
     int transformTy = [[transform objectForKey:TY] intValue];
     fileName = [fileName stringByAppendingFormat:@"%@%@", DOT, SVG];
-    fileName = [[self getProjHomePath] stringByAppendingPathComponent:fileName];
+    fileName = [[self imagesPath] stringByAppendingPathComponent:fileName];
     id maxMinPath = [self getXYFromPath:pathStr];
-    float minx = INT_MAX - 1;
-    float maxx = INT_MIN + 1;
-    float miny = INT_MAX - 1;
-    float maxy = INT_MIN + 1;
+    float minx = INT_MAX - 1, maxx = INT_MIN + 1, miny = INT_MAX - 1, maxy = INT_MIN + 1;
     [self getMinMaxXY:maxMinPath minx:&minx maxx:&maxx miny:&miny maxy:&maxy];
     path_x = minx + transformTx;
     path_y = miny + transformTy;
@@ -400,9 +402,15 @@
     path_height = maxy - miny;
     NSString *viewBox = [NSString stringWithFormat:@"%f %f %f %f", minx + transformTx - colorWidth/2, miny + transformTy - colorWidth/2, maxx - minx + colorWidth, maxy - miny + colorWidth];
     NSString *translate = [NSString stringWithFormat:@"(%d %d)", transformTx, transformTy];
-    [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor usingViewBox:viewBox translation: translate];
-    /* convert the svg file into a png file */
-    NSString *pngName = [Helper convertSvgToPng:fileName withFill:hexColor strokeColor:strokeColor strokeWidth:colorWidth opacity:opacity];
+    NSString *pngName;
+    if ([Helper fileExists:fileName]) {
+        pngName = [Helper transformToPngFileName:fileName];
+    } else {
+        [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor usingViewBox:viewBox translation: translate];
+        /* convert the svg file into a png file */
+        pngName = [Helper convertSvgToPng:fileName withFill:hexColor strokeColor:strokeColor strokeWidth:colorWidth opacity:opacity];
+        
+    }
     return  pngName;
 }
 
@@ -1015,10 +1023,24 @@
     }
 }
 
+- (void) processGroupElements:(id)object addTo:(id *)objDict {
+
+    id transformGroup = [object objectForKey:TRANSFORM];
+    startXArtboard = startXArtboard - [[transformGroup objectForKey:TX] intValue];
+    startYArtboard = startYArtboard - [[transformGroup objectForKey:TY] intValue];
+    id groupChildren = [[object objectForKey:GROUP] objectForKey:CHILDREN];
+    id groupObjDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
+    [self processAgcScenes:&groupObjDict forDict:groupChildren];
+    startXArtboard = startXArtboard + [[transformGroup objectForKey:TX] intValue];
+    startYArtboard = startYArtboard + [[transformGroup objectForKey:TY] intValue];
+    for (id childGroup in groupObjDict)
+        [*objDict addObject:childGroup];
+}
+
 - (void) processAgcScenes:(id*) objDict forDict:(NSMutableDictionary *) dictValue {
     
-    NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:SUBVIEWS]]];
-    NSMutableDictionary *newObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [*objDict mutableCopy]]];
+    NSMutableDictionary *finalDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
+    NSMutableDictionary *newObjDict = [Helper deepCopy:[*objDict mutableCopy]];
     *objDict = [[NSMutableArray alloc] init];
     for (id object in dictValue) {
         /* obtain the type of each object
@@ -1032,18 +1054,9 @@
         type = [self getShapeType:type object:object];
         if (![type isKindOfClass:[NSString class]])
             continue;
-        NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
+        NSMutableDictionary *typeObjDict = [Helper deepCopy:[newObjDict objectForKey:type]];
         if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
-            id transformGroup = [object objectForKey:TRANSFORM];
-            startXArtboard = startXArtboard - [[transformGroup objectForKey:TX] intValue];
-            startYArtboard = startYArtboard - [[transformGroup objectForKey:TY] intValue];
-            id groupChildren = [[object objectForKey:GROUP] objectForKey:CHILDREN];
-            id groupObjDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
-            [self processAgcScenes:&groupObjDict forDict:groupChildren];
-            startXArtboard = startXArtboard + [[transformGroup objectForKey:TX] intValue];
-            startYArtboard = startYArtboard + [[transformGroup objectForKey:TY] intValue];
-            for (id childGroup in groupObjDict)
-                [*objDict addObject:childGroup];
+            [self processGroupElements:object addTo:objDict];
             continue;
         }
         [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict ofType:type];
@@ -1221,10 +1234,17 @@
     return [NSString stringWithFormat:@"%@\n%@\n%@", header, str, footer];
 }
 
+- (NSString *) imagesPath {
+    return [[self xmlPath] stringByAppendingPathComponent:RESOURCES_PATH];
+}
+
 -(void) copyImage:(NSImage *)image toProject:(NSString *)fileName {
     
-    NSString *resourcesXmlRes = [[self xmlPath] stringByAppendingPathComponent:RESOURCES_PATH];
+    NSString *resourcesXmlRes = [self imagesPath];
     NSString *resourcesXmlProj = [resourcesXmlRes stringByAppendingPathComponent:fileName];
+    if ([Helper fileExists:resourcesXmlProj]) {
+        return;
+    }
     NSLog(@"Writing image at %@ %@", [self xmlPath], resourcesXmlProj);
     BOOL isDir;
     NSError *error;
