@@ -329,7 +329,7 @@
     fileName = [[self getProjHomePath] stringByAppendingPathComponent:fileName];
     [self generateSVGFile:fileName FromLine:pathLine usingViewBox:viewBox];
     /* convert the svg file into a png file */
-    NSString *pngName = [Helper convertSvgToPng:fileName withFill:fillColor strokeColor:fillColor strokeWidth:0];
+    NSString *pngName = [Helper convertSvgToPng:fileName withFill:fillColor strokeColor:fillColor strokeWidth:0 opacity:0];
     return  pngName;
 
 }
@@ -382,6 +382,8 @@
     id transform = [agcDict objectForKey:[[paths objectAtIndex:4]substringFromIndex:1]];
     id strokeColor = [self computeValue:[paths objectAtIndex:5] forDict:agcDict];
     int colorWidth = [[self computeValue:[paths objectAtIndex:6]  forDict:agcDict] intValue];
+    float opacity = [[self computeValue:[paths objectAtIndex:7] forDict:agcDict] floatValue];
+    NSLog(@"Path opacity = %f", opacity);
     int transformTx = [[transform objectForKey:TX] intValue];
     int transformTy = [[transform objectForKey:TY] intValue];
     fileName = [fileName stringByAppendingFormat:@"%@%@", DOT, SVG];
@@ -400,7 +402,7 @@
     NSString *translate = [NSString stringWithFormat:@"(%d %d)", transformTx, transformTy];
     [self generateSVGFile:fileName FromPath:pathStr usingFill:hexColor usingViewBox:viewBox translation: translate];
     /* convert the svg file into a png file */
-    NSString *pngName = [Helper convertSvgToPng:fileName withFill:hexColor strokeColor:strokeColor strokeWidth:colorWidth];
+    NSString *pngName = [Helper convertSvgToPng:fileName withFill:hexColor strokeColor:strokeColor strokeWidth:colorWidth opacity:opacity];
     return  pngName;
 }
 

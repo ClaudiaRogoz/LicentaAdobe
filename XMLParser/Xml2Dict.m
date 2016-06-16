@@ -15,7 +15,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 + (NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)error
 {
     Xml2Dict *reader = [[Xml2Dict alloc] initWithError:error];
+    NSString *xmlContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSMutableArray *arrayOffset = [Helper getAllOccurencesOf:VIEW_TAG in:xmlContent];
+    id lastId = [arrayOffset lastObject];
     NSDictionary *rootDictionary = [reader objectWithData:data];
+    [arrayOffset addObject:[Helper getLastOccurencesOf:XMLSCENESF in:xmlContent fromOffset:[lastId longValue]]];
+    [rootDictionary setValue:arrayOffset forKey:VIEW_TAG];
     return rootDictionary;
 }
 
@@ -25,13 +30,9 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     return [Xml2Dict dictionaryForXMLData:data error:error];
 }
 
-
 - (id)initWithError:(NSError **)error
 {
-    if (self = [super init])
-    {
-
-    }
+    offset = 0;
     return self;
 }
 
@@ -70,7 +71,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 
     id parentDict = [dictionaryStack lastObject];
     id childDict;
-    
+    if ([elementName isEqualToString:ARTBOARD]) {
+        
+    }
+        
     if (![elementName isEqualToString:SUBVIEWS]) {
         childDict = [NSMutableDictionary dictionary];
         [childDict addEntriesFromDictionary:attributeDict];
@@ -81,15 +85,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
                     NSMutableArray *array = nil;
                     if ([existingValue isKindOfClass:[NSMutableArray class]]){
                         array = (NSMutableArray *) existingValue;
-                    
                     } else {
                         array = [NSMutableArray array];
                         [array addObject:existingValue];
                         [parentDict setObject:array forKey:elementName];
                     }
-                    
                     [array addObject:childDict];
-                
                 } else
                     [parentDict setObject:childDict forKey:elementName];
             } else
@@ -103,9 +104,6 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         childDict = [[NSMutableArray alloc] init];
         [parentDict setObject:childDict forKey:elementName];
     }
-    
-    
-
     [dictionaryStack addObject:childDict];
 }
 

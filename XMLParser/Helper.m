@@ -173,16 +173,23 @@
     [task waitUntilExit];
 }
 
-+ (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke strokeWidth:(int )strokeWidth {
++ (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke strokeWidth:(int )strokeWidth opacity:(float) opacity {
 
     NSString *pngName = [[svgName stringByDeletingPathExtension] stringByAppendingPathExtension:PNG];
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/local/bin/convert";
     NSString *fillColor = [NSString  stringWithFormat:@"#%@", hexColor];
     if (![hexColor isEqualToString:NONE])
-        task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, fillColor, CONVERT_BKG, CONVERT_NONE, svgName, pngName];
+        if (opacity != 0) {
+            NSString *alphaProcent = [NSString stringWithFormat:@"%d%@", (int)(opacity * 100), CONVERT_PROCENT];
+            NSLog(@"AlphaProcent = %@", alphaProcent);
+            task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, fillColor, CONVERT_ALPHA, CONVERT_ON, CONVERT_CHANNEL, CONVERT_CHANNEL_A, CONVERT_EVALUATE, CONVERT_SET, alphaProcent , CONVERT_BKG, CONVERT_NONE, svgName, pngName];
+            NSLog(@"args = %@", task.arguments);
+        } else
+            task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, fillColor, CONVERT_BKG, CONVERT_NONE, svgName, pngName];
     else
         task.arguments = @[CONVERT_DENSITY, CONVERT_VALUE, CONVERT_FILL, NONE, CONVERT_STROKE, [NSString  stringWithFormat:@"#%@", stroke], CONVERT_WIDTH, [NSString stringWithFormat:@"%d", strokeWidth], CONVERT_BKG, CONVERT_NONE, svgName, pngName];
+    
     [task launch];
     [task waitUntilExit];
     NSLog(@"[Task done] Export png at %@ %hhd", pngName, [[NSFileManager defaultManager] fileExistsAtPath:pngName]);
@@ -245,7 +252,31 @@
     task.currentDirectoryPath=unzipped_xd;
     [task launch];
     [task waitUntilExit];
+}
+
++ (id) getLastOccurencesOf:(NSString *)substring in:(NSString *)string fromOffset:(unsigned long) offset {
     
+    NSRange searchRange = NSMakeRange(offset,string.length - offset);
+    NSRange foundRange = [string rangeOfString:substring options:0 range:searchRange];
+    return [NSNumber numberWithLong:foundRange.location];
+}
+
++ (id) getAllOccurencesOf:(NSString*) substring in:(NSString *) string {
+    
+    NSMutableArray *arrayOffset = [[NSMutableArray alloc] init];
+    NSRange searchRange = NSMakeRange(0,string.length);
+    NSRange foundRange;
+    while (searchRange.location < string.length) {
+        searchRange.length = string.length-searchRange.location;
+        foundRange = [string rangeOfString:substring options:0 range:searchRange];
+        if (foundRange.location != NSNotFound) {
+            [arrayOffset addObject:[NSNumber numberWithLong:foundRange.location]];
+            searchRange.location = foundRange.location+foundRange.length;
+        } else {
+            break;
+        }
+    }
+    return arrayOffset;
 }
 
 @end

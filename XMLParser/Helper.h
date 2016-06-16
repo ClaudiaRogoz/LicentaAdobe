@@ -41,7 +41,7 @@
 /* returns all the files in a given directory */
 + (NSMutableArray *) findAllFiles: (NSString *)name inPath:(NSString *) initPath;
 
-+ (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke  strokeWidth:(int )strokeWidth;
++ (NSString *) convertSvgToPng:(NSString *) svgName withFill:(NSString *) hexColor strokeColor:(NSString *) stroke strokeWidth:(int )strokeWidth opacity:(float) opacity;
 + (NSString *) convertSvgLineToPng:(NSString *) svgName withFill:(NSString *) hexColor;
 + (NSString*) computeSha1:(NSString*)input;
 + (NSArray *) splitVariable:(NSString*) varName;
@@ -52,6 +52,9 @@
 + (NSArray *) getArrayProperties:(NSString *) property;
 
 + (id) getValueForProperties:(NSArray *) properties inDict:(NSMutableDictionary *)dict;
++ (id) getAllOccurencesOf:(NSString*) substring in:(NSString *) string;
++ (id) getLastOccurencesOf:(NSString *)substring in:(NSString *)string fromOffset:(unsigned long) offset;
+
 @end
 
 #endif /* Helper_h */

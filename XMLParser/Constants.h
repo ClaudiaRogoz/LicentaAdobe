@@ -100,6 +100,13 @@
 #define CONVERT_FILL    @"-fill"
 #define CONVERT_STROKE  @"-stroke"
 #define CONVERT_WIDTH   @"-strokewidth"
+#define CONVERT_ALPHA   @"-alpha"
+#define CONVERT_ON      @"on"
+#define CONVERT_CHANNEL @"-channel"
+#define CONVERT_CHANNEL_A    @"a"
+#define CONVERT_EVALUATE    @"-evaluate"
+#define CONVERT_SET     @"set"
+#define CONVERT_PROCENT @"%"
 
 
 #define RANDOM @"$rand"
@@ -327,7 +334,7 @@
 #define XMLFOOTERB   @" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x="
 #define XMLFOOTERC   @" y="
 #define XMLFOOTERD   @"/></scene>"
-
+#define VIEW_TAG      @"<view "
 #define SCENEHEADERA @"<!--View Controller--><scene sceneID="
 #define SCENEHEADERB @"><objects><viewController id="
 #define SCENEHEADERC @" customClass=\"ViewController\" sceneMemberID=\"viewController\"><layoutGuides><viewControllerLayoutGuide type=\"top\" id="

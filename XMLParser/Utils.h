@@ -121,14 +121,6 @@ void import(char *path, char *xdPath) {
     NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
     [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError usingXdPath:inXDPath xmlDirectory:inXmlPath];
     
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    [pasteboard clearContents];
-    NSPasteboardItem *clipboardItem = [[NSPasteboardItem alloc] init];
-    NSString *mainBundle = getProjHomePath();
-    
-    NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, ARTBOARDXML];
-    [clipboardItem setData:[NSData dataWithContentsOfFile:outFile] forType:SPARKLERCLIPBOARD];
-    [pasteboard writeObjects:[NSArray arrayWithObject:clipboardItem]];
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
     /*[XCode2XD dictionaryForXMLData:parser resources:inXmlPath outFile:importPath xdPath:inXDPath error:&parseError];

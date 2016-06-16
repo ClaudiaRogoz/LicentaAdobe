@@ -92,7 +92,7 @@
             },
             "rules" : {
                 "$header.id" : "$rand",
-                "$header.image" : "$PATH $shape.path $name $style.fill.type $style.fill.color.value $transform $style.stroke.color.value $style.stroke.width",
+                "$header.image" : "$PATH $shape.path $name $style.fill.type $style.fill.color.value $transform $style.stroke.color.value $style.stroke.width $style.opacity",
                 "rect" : {
                     "$transform" : {
                         "key" : "frame",
