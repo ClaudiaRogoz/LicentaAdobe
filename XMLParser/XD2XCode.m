@@ -1034,9 +1034,16 @@
             continue;
         NSMutableDictionary *typeObjDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [newObjDict objectForKey:type]]];
         if ([type isKindOfClass:[NSString class]] && [type isEqualToString:GROUP]) {
-            int minx = 600, miny = 600, maxx = 0, maxy = 0, maxw = 0, maxh = 0;
-            [self computeGroup:newObjDict agcDict:object finalDict:finalDict retDict:objDict
-                          minx:&minx miny:&miny maxx: &maxx maxy:&maxy maxh: &maxh maxw: &maxw];
+            id transformGroup = [object objectForKey:TRANSFORM];
+            startXArtboard = startXArtboard - [[transformGroup objectForKey:TX] intValue];
+            startYArtboard = startYArtboard - [[transformGroup objectForKey:TY] intValue];
+            id groupChildren = [[object objectForKey:GROUP] objectForKey:CHILDREN];
+            id groupObjDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
+            [self processAgcScenes:&groupObjDict forDict:groupChildren];
+            startXArtboard = startXArtboard + [[transformGroup objectForKey:TX] intValue];
+            startYArtboard = startYArtboard + [[transformGroup objectForKey:TY] intValue];
+            for (id childGroup in groupObjDict)
+                [*objDict addObject:childGroup];
             continue;
         }
         [self processTemplateDict:&typeObjDict agcDict:object finalDict:finalDict ofType:type];
