@@ -1,24 +1,32 @@
 
-	Xcode IDE
- 
-	args: ./XDXCodeTranslator [-h|-i|-e|-s] [file Paths]
+# Visual assets management
+
+###### Prerequisites
+
+1. XCode (it was tested for Version 7.2.1)
+2. Adobe Experience Design (it was tested for Version 0.5.4.28Beta)
+3. ImageMagick (the application makes use of the `convert` command within ImageMagick; used for exporting paths and lines)
+
+###### Build steps
+
+
+1. Run ``
+	mkdir [path-to-VisualAssetsManagement]
+	git clone git@git.corp.adobe.com:crogoz/VisualAssetsManagementXD.git
+	cd [path-to-VisualAssetsManagement]
+	``
+2. Open *XDXCodeTranslator.xcodeproj* with XCode
+3. Build the project
+4. Run 
+	`cd [path-to-VisualAssetsmanagement]/Build/Products/Debug/XDXCodeTranslator.app/Contents/MacOS`
+5. The executable file is named `XDXCodeTranslator`
+	* Available arguments: 
+		./XDXCodeTranslator [-h|-i|-e] [file Paths]
 	where 
 		-h  = help
 		-i <path>; imports given xcode project; teh result needs to be Ctrl+V into an XD project;
-		-e <path>; exports an XD project into the given xcode path
-		-s ; syncs an xd project with an xcode project
+		-e [-nosync] <path>; exports an XD project into the given xcode path
  
-1.Compilare si rulare
-
-Pasii pentru compilarea aplicatiei si obtinerea executabilului:
-
-	•	Proiectul este descarcat de la adresa [1]
-	•	Proiectul se deschide cu XCode si se compileaza
-	•	In urma compilarii, se genereaza un executabil: 
-	“VisualAssetsManagement/Build/Products/Debug/XDXCodeTranslator.app/Contents/MacOS/XDXCodeTranslator”
-
-Pasii pentru rularea aplicatiei:
-
 	•	Import:
 		o	<calea catre executabil> -i <calea catre proiectul xcode de la care se importa> <calea catre un fisier Xd>
 			♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
