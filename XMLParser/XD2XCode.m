@@ -202,6 +202,7 @@
     scaleImage = [[NSMutableArray alloc] init];
     inheritanceColor = [[NSMutableArray alloc] init];
     uuidMap = [[NSMutableDictionary alloc] init];
+    uuidViewMap = [[NSMutableDictionary alloc] init];
     uniqueList = [[NSMutableDictionary alloc] init];
     scaleNo = 0;
     transformObjects = [[NSMutableDictionary alloc] init];
@@ -259,6 +260,7 @@
     id interactions = [interactionsDict objectForKey:INTERACTIONS];
     NSString *uuid = [self getUniqueString];
     id agcId = [agcDict objectForKey:ID];
+    
     if (agcId != nil) {
         [uuidMap setObject:uuid forKey:agcId];
     }
@@ -268,7 +270,7 @@
     } else {
         transformInteraction = false;
     }
-    return uuid;
+    return [self getUniqueString];
 }
 
 -(NSString *) computeMultilineLabel:(NSString *) initValue forDict:(NSDictionary *) agcDict {
@@ -1333,14 +1335,18 @@
     if ([sceneId isEqualToString:homeArtboard]) {
         [*finalString appendString: initialArtboard];
         if (sceneId != nil)
-            [uuidMap setObject:initialArtboard forKey:sceneId];
+            [uuidViewMap setObject:initialArtboard forKey:sceneId];
         setInitial = true;
     }
     else {
+        
         id sceneID = [self getUniqueString];
         [*finalString appendString: sceneID];
-        if (sceneId != nil)
-            [uuidMap setObject:sceneID forKey:sceneId];
+        if (sceneId != nil) {
+            NSLog(@"Create a map between %@ %@", sceneId, sceneID);
+            [uuidViewMap setObject:sceneID forKey:sceneId];
+        }
+        NSLog(@"Views %@", uuidMap);
     }
     [*finalString appendString: SCENEHEADERC];
     [*finalString appendString: [self getUniqueString]];
@@ -1372,15 +1378,12 @@
 }
 
 - (NSString *) replaceConnections:(NSString *) xmlString {
-
-    for (id node in [uuidMap allKeys]) {
-        if (![node hasPrefix:NODE])
-            continue;
-        id value = [uuidMap objectForKey:node];
-        xmlString = [xmlString stringByReplacingOccurrencesOfString:node withString:value];
-
+    NSString *newString = [self deepCopy:xmlString];
+    id allKeys = [uuidViewMap allKeys];
+    for (id node in allKeys) {
+        newString = [newString stringByReplacingOccurrencesOfString:node withString:[uuidViewMap objectForKey:node]];
     }
-    return xmlString;
+    return newString;
 }
 
 -(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject{
@@ -1402,11 +1405,12 @@
         dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
         id artScene = [[typeAgcObject objectForKey:ARTBOARDS] objectForKey:[NSString stringWithFormat:@"%@%d", ART_SCENE, sceneNo + 1]];
         id sceneId = [[[typeAgcObject objectForKey:CHILDREN] objectAtIndex:sceneNo] objectForKey:ID];
-        int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
+        NSLog(@"[%d] tyepAgcObject = %@", sceneNo, sceneId);
+        //int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
        /*if (offset == 0 && !setInitial)
            setInitial = false;
        else setInitial = true;*/
-       sceneOffset = sceneOffset + XML_OFFSET_X;
+        sceneOffset = sceneOffset + XML_OFFSET_X;
         setInitial = [self generateSceneHeaderUsingString:&finalString
                                       withInitialArtboard:initialArtboard
                                               sceneOffset:sceneOffset
@@ -1423,6 +1427,7 @@
         resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
         [stringFooter appendString:resources];
     }
+
     [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
     xmlHeader =  [self surroundWithHeader:XMLHEADERA footer:XMLHEADERB string:initialArtboard];
     xmlFile = [self surroundWithHeader:xmlHeader footer:stringFooter string:xmlGen];

@@ -77,6 +77,7 @@ typedef enum NSTextType : NSUInteger {
     
     /* used for interactions */
     NSMutableDictionary *uuidMap;
+    NSMutableDictionary *uuidViewMap;
     NSMutableDictionary *interactionsDict;
     
     bool transformInteraction;
