@@ -45,9 +45,9 @@
 @property NSString *resourcesPath;
 @property NSString *xdPath;
 @property NSString *xmlPath;
+@property NSString *homeId;
 
-
-+ (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath xmlDirectory:(NSString *) xmlPath;
++ (id)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath xmlDirectory:(NSString *) xmlPath homeArtboard:(NSString *)homeArtboard;
 
 @end
 

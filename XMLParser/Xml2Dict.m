@@ -19,8 +19,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     NSMutableArray *arrayOffset = [Helper getAllOccurencesOf:VIEW_TAG in:xmlContent];
     id lastId = [arrayOffset lastObject];
     NSDictionary *rootDictionary = [reader objectWithData:data];
+    NSString *homeArtboard = [reader getHomeArtboard];
     [arrayOffset addObject:[Helper getLastOccurencesOf:XMLSCENESF in:xmlContent fromOffset:[lastId longValue]]];
     [rootDictionary setValue:arrayOffset forKey:VIEW_TAG];
+    [rootDictionary setValue:homeArtboard forKey:HOME_ARTBOARD];
     return rootDictionary;
 }
 
@@ -65,16 +67,18 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     return nil;
 }
 
+- (NSString*) getHomeArtboard {
+    return homeArtboard;
+}
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
 
     id parentDict = [dictionaryStack lastObject];
     id childDict;
-    if ([elementName isEqualToString:ARTBOARD]) {
-        
+    if ([elementName isEqualToString:DOCUMENT]) {
+        homeArtboard = [attributeDict objectForKey:HOME_ARTBOARD];
     }
-        
     if (![elementName isEqualToString:SUBVIEWS]) {
         childDict = [NSMutableDictionary dictionary];
         [childDict addEntriesFromDictionary:attributeDict];

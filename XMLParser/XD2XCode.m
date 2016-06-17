@@ -18,9 +18,7 @@
 
 @implementation XD2XCode
 
-
-
-+ (void)readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath {
++ (void) readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath {
     NSError *error;
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     NSString *xmlPath = [[outXmlPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
@@ -33,9 +31,11 @@
     [gen getXmlForAgcObject:agcTemplate];
 }
 
-+(NSString *) generateXmlForTag:(NSDictionary*)agcDict {
++(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath {
     NSError *error;
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
+    [gen setXdPath:xdPath];
+    [gen setXmlPath:xmlPath];
     [gen initWithSchemas];
     NSString *xmlTemplate = [gen getXmlForAgcObject:agcDict];
     if (!xmlTemplate) {
@@ -89,6 +89,7 @@
     NSString *interactionsDir = [unzipped_xd stringByAppendingPathComponent:interactionsJson];
     data = [NSData dataWithContentsOfFile:interactionsDir];
     interactionsDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    homeArtboard = [interactionsDict objectForKey:START_ARTBOARD];
     return agcTemplate;
 }
 
@@ -474,7 +475,7 @@
     for (id key in [*initDict allKeys]) {
         NSString *value = [*initDict objectForKey:key];
         BOOL toTransform = [value isKindOfClass:[NSString class]] && [value hasPrefix:TOTRANSFORM];
-        if (toTransform) {
+        if (toTransform && [paramDict objectForKey:key]) {
             [*initDict setObject:[paramDict objectForKey:key] forKey:key];
         }
     }
@@ -1329,7 +1330,7 @@
     [*finalString appendString: SCENEHEADERA];
     [*finalString appendString: [self getUniqueString]];
     [*finalString appendString: SCENEHEADERB];
-    if (!setInitial) {
+    if ([sceneId isEqualToString:homeArtboard]) {
         [*finalString appendString: initialArtboard];
         if (sceneId != nil)
             [uuidMap setObject:initialArtboard forKey:sceneId];

@@ -33,15 +33,13 @@
     
      /*dictionary containing mappings between scenes
       * and their offset (in the xml file )*/
-    NSMutableDictionary *offsetArtboards;
+    NSMutableArray *offsetArtboards;
     
     /**
      * json template for agc elements written as a mutableDictionary
      **/
     NSMutableDictionary *attributes;
-    
-    NSDictionary* shaList;
-    NSArray *offsetScenes;
+    NSMutableDictionary *tempHash;
     
     /**
      * rules needed for agc2xml export;
@@ -53,19 +51,13 @@
     NSString *xmlHeader;
     NSString *xmlFooter;
     
-    /*the ending offset of the last scene in the xml file*/
-    unsigned long lastOffset;
-    
-    /* the number of the current scene/artboard*/
-    int currentScene;
-    
 }
 
 @property NSString *xmlPath;
+@property NSString *xmlDir;
+@property NSString *xdPath;
 
-
-+ (void) startSync:(NSString *)path  withXcode:(NSString *)xmlPath;
-
++ (void) startSync:(NSString *) path withXcode:(NSString *) xmlPath offsetList:(NSMutableArray *)offset shaList:(NSMutableDictionary *)shaList;
 /**
  *  sync algorithm; monitors a file given as parameter
  *  PARAMS:

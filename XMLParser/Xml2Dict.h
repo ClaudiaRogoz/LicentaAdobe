@@ -19,6 +19,7 @@
     NSMutableArray *dictionaryStack;
     NSMutableString *textInProgress;
     unsigned long offset;
+    NSString *homeArtboard;
 }
 
 /* where we find all external resources: eg. images */

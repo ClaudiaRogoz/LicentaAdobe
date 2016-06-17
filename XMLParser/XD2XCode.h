@@ -47,7 +47,7 @@ typedef enum NSTextType : NSUInteger {
     
     NSMutableArray *scaleImage;
     
-    
+    NSString *homeArtboard;
     /* the start index for the current artboard */
     int startXArtboard;
     int startYArtboard;
@@ -102,8 +102,8 @@ typedef enum NSTextType : NSUInteger {
 @property NSString *xdPath;
 @property NSString *agcPath;
 
-+ (void)readTemplateUsingXML:(NSString *)xmlPath writeTo:(NSString *)outXml;
-+ (NSString *) generateXmlForTag:(NSDictionary*)agcDict;
++ (void)readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath;
++(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath;
 
 - (id)initWithError:(NSError **)error;
 

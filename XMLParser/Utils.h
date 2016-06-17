@@ -153,11 +153,13 @@ void import(char *path, char *xdPath) {
     /* Parse the XML into a dictionary */
     NSError *parseError = nil;
     NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
-    [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError usingXdPath:inXDPath xmlDirectory:inXmlPath];
+    NSMutableArray *offset = [xmlDictionary objectForKey:VIEW_TAG];
+    NSString *homeArtboard = [xmlDictionary objectForKey:HOME_ARTBOARD];
+    NSMutableDictionary*shaList = [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError usingXdPath:inXDPath xmlDirectory:inXmlPath homeArtboard:homeArtboard];
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
     openXdFile(inXDPath);
-    [Sync startSync:inXDPath withXcode:importPath];
+    [Sync startSync:inXDPath withXcode:importPath offsetList:offset shaList:shaList];
 }
 
 void export(char *xdPath, char *xmlPath) {
@@ -172,7 +174,7 @@ void export(char *xdPath, char *xmlPath) {
         printOptions();
         return;
     }
-    /* generate storyboard for xcode from xd */
+  
     [XD2XCode readTemplateUsingXML:inXdPath writeTo:exportPath];
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Export DONE] Time elapsed: %f", elapsedTime);
@@ -185,7 +187,7 @@ void export(char *xdPath, char *xmlPath) {
 void synch(char *XDPath, char *XMLPath) {
     NSString * xdPath= [NSString stringWithFormat:@"%s", XDPath];
     NSString * xmlPath= [NSString stringWithFormat:@"%s", XMLPath];
-    [Sync startSync:xdPath withXcode:xmlPath];
+    //[Sync startSync:xdPath withXcode:xmlPath];
 }
 
 #endif /* Utils_h */

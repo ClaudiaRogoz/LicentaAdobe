@@ -16,13 +16,15 @@
 @implementation Dict2Agc
 
 
-+ (void)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath xmlDirectory:(NSString *) xmlPath{
++ (id)processDict:(NSMutableDictionary *)dictionary  error:(NSError **)error usingXdPath:(NSString *) xdPath xmlDirectory:(NSString *) xmlPath
+    homeArtboard:(NSString *)homeArtboard {
     
     Dict2Agc *gen = [[Dict2Agc alloc] init];
     [gen initWithSchemas];
     [gen setXdPath:xdPath];
+    [gen setHomeId:homeArtboard];
     [gen setXmlPath:xmlPath];
-    [gen getXDForXmlObject:dictionary];
+    return [gen getXDForXmlObject:dictionary];
 }
 
 -(void) initWithSchemas {
@@ -55,11 +57,9 @@
     }
 }
 
--(NSString *) getXDForXmlObject:(NSMutableDictionary *) xmlDict {
-
-    NSMutableString *agcGen = [NSMutableString stringWithFormat:@""];
-    [self processWholeXmlFromAgc:xmlDict];
-    return agcGen;
+-(id) getXDForXmlObject:(NSMutableDictionary *) xmlDict {
+        return [self processWholeXmlFromAgc:xmlDict];
+    
 }
 
 
@@ -637,7 +637,7 @@
     startXArtboard = sceneNo * OFFSETBOARD;
     childNo = 0;
     id idViewController = [self processIDViewController:dict];
-    if (sceneNo == 0)
+    if ([idViewController isEqualToString:[self homeId]])
         homeArtboard = idViewController;
     [idMapping setObject:@[[NSNumber numberWithInt:sceneNo], [NSNumber numberWithInt:childNo++]] forKey:idViewController];
     id scene = [self processTemplateDict:&viewDict agcDict:dict finalDict:finalDict ofType:VIEW];
@@ -695,7 +695,7 @@
     return ids;
 }
 
-- (NSDictionary *) processWholeXmlFromAgc:(NSMutableDictionary *) xmlDict {
+- (id) processWholeXmlFromAgc:(NSMutableDictionary *) xmlDict {
 
     NSMutableDictionary *finalDict = [Helper deepCopy: [agcToXmlTemplate objectForKey:CONTENT]];
     NSArray *arr = [Helper splitVariable:[finalDict objectForKey:DEPENDENCY]];
@@ -722,10 +722,12 @@
     NSMutableDictionary *segues = [self computeSegues:interactionsDict usingIdMap:idMapping];
     NSArray *place_start = [idMapping objectForKey:homeArtboard];
     [self computeDict:homeArtboard scene:place_start dict:&segues];
+    NSMutableDictionary *shaList = [[NSMutableDictionary alloc] init];
     for (int i = 0; i< [sceneList count]; i++) {
         id tempScene = [sceneList objectAtIndex:i];
         [self addTo:&tempScene ids:[segues objectForKey:[NSNumber numberWithInt:i]]];
-        [XDCreator createArtworkContent:tempScene artboardNo:i+1 xdPath:[self xdPath]];
+        NSString *sha = [XDCreator createArtworkContent:tempScene artboardNo:i+1 xdPath:[self xdPath]];
+        [shaList setObject:[NSNumber numberWithInt:i] forKey:sha];
     }
     [XDCreator createInteractionContent:interactionsDict xdPath:[self xdPath] homeArtboard:homeArtboard];
     NSMutableDictionary *artboards = [NSMutableDictionary dictionary];
@@ -734,7 +736,7 @@
     [Helper createXdFile:[self xdPath]];
     [XDCreator releaseStorage:[self xdPath]];
     
-    return nil;
+    return shaList;
 }
 
 -(void)initializeWithDefs:(NSDictionary*)defDict rules:(NSDictionary*)ruleDict {
