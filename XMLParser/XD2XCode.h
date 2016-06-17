@@ -94,6 +94,8 @@ typedef enum NSTextType : NSUInteger {
     float path_height;
     
     NSTextType textType;
+    
+    int xmlSceneOffset;
 
 }
 

@@ -555,8 +555,9 @@
     if (!transformSize) {
         return translatedValue;
     }
-    float xScaleFactor = ((float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD);
-    float yScaleFactor = (float)HEIGHT_XML_ARTBOARD/HEIGHT_XD_ARTBOARD;
+    float xScaleFactor = ((float)widthXMLArtboard/WIDTH_XD_ARTBOARD);
+    float yScaleFactor = (float)heightXMLArtboard/HEIGHT_XD_ARTBOARD;
+    NSLog(@"xScale yscale = %f %f", xScaleFactor, yScaleFactor);
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
     float ratio = MIN(xScaleFactor,yScaleFactor);
@@ -581,7 +582,7 @@
 - (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize fontName:(NSString *)fontName fontMask:(NSUInteger) mask {
 
     
-    float xScaleFactor = (float)WIDTH_XML_ARTBOARD/WIDTH_XD_ARTBOARD;
+    float xScaleFactor = (float)widthXMLArtboard/WIDTH_XD_ARTBOARD;
     if (textLines > 3)
         textLen = MIN((int)[label length], textLen * xScaleFactor);
     NSString *firstLine = [label substringToIndex:textLen];
@@ -674,12 +675,9 @@
             else mask = 0;
             CGRect rect = [self computeTextFrame:label usingFontSize:fontSize fontName:fontName fontMask: mask];
             rect.size.width = ceil(rect.size.width);
-            if ((![type isEqualToString:TEXT_AREA]) || (([type isEqualToString:TEXT_AREA]) &&(textLines <= 3))) {
-                rect.size.height = rect.size.height * 1.1;
-            }
             
             [*objDict setValue:[NSNumber numberWithFloat:rect.size.height] forKey:HEIGHT];
-            [*objDict setValue:[NSNumber numberWithFloat:rect.size.width * 1.3] forKey:WIDTH];
+            [*objDict setValue:[NSNumber numberWithFloat:rect.size.width *1.2] forKey:WIDTH];
             if ([type isEqualToString:LABEL]) {
                 /* move the frame up with fontSize */
                 int initialYOffset = [[*objDict objectForKey:YARTBOARD] floatValue];
@@ -893,8 +891,8 @@
     id colorToString = [self deepCopy:[colorTag objectForKey:TOSTRING]];
     int prevWidth = widthXDArtboard;
     int prevHeight = heightXDArtboard;
-    widthXDArtboard = WIDTH_XML_ARTBOARD;
-    heightXDArtboard = HEIGHT_XML_ARTBOARD;
+    widthXDArtboard = widthXMLArtboard;
+    heightXDArtboard = heightXMLArtboard;
     int prevX = startXArtboard;
     int prevY = startYArtboard;
     startXArtboard = 0;
@@ -934,6 +932,14 @@
     else translatedStyle = FONT_SYSTEM; /* use default system font for other xd fonts */
     return translatedStyle;
 }
+- (int) getWidthXML {
+    return 414;
+}
+
+
+- (int) getHeightXML {
+    return 736;
+}
 
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
     
@@ -949,6 +955,9 @@
             startYArtboard = [[nodeValue objectForKey:YARTBOARD] intValue];
             widthXDArtboard = [[nodeValue objectForKey:WIDTH] intValue];
             heightXDArtboard = [[nodeValue objectForKey:HEIGHT] intValue];
+            widthXMLArtboard = [self getWidthXML];
+            heightXMLArtboard = [self getHeightXML];
+            xmlSceneOffset = widthXMLArtboard * 1.1;
         } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:LINES]){
             nodeValue = [*values objectAtIndex:0];
         } else if ([key hasPrefix:TOTRANSFORM] && [key isEqualToString:LINESDICT]){
@@ -1343,10 +1352,8 @@
         id sceneID = [self getUniqueString];
         [*finalString appendString: sceneID];
         if (sceneId != nil) {
-            NSLog(@"Create a map between %@ %@", sceneId, sceneID);
             [uuidViewMap setObject:sceneID forKey:sceneId];
         }
-        NSLog(@"Views %@", uuidMap);
     }
     [*finalString appendString: SCENEHEADERC];
     [*finalString appendString: [self getUniqueString]];
@@ -1403,14 +1410,8 @@
     while (sceneNo < artboardsNo) {
         finalString = [[NSMutableString alloc] init];
         dict = [[self processWholeXmlFromAgc:typeAgcObject] objectForKey: ARTBOARD];
-        id artScene = [[typeAgcObject objectForKey:ARTBOARDS] objectForKey:[NSString stringWithFormat:@"%@%d", ART_SCENE, sceneNo + 1]];
         id sceneId = [[[typeAgcObject objectForKey:CHILDREN] objectAtIndex:sceneNo] objectForKey:ID];
-        NSLog(@"[%d] tyepAgcObject = %@", sceneNo, sceneId);
-        //int offset = [[artScene objectForKey:XARTBOARD] intValue] / OFFSETBOARD;
-       /*if (offset == 0 && !setInitial)
-           setInitial = false;
-       else setInitial = true;*/
-        sceneOffset = sceneOffset + XML_OFFSET_X;
+        sceneOffset = sceneOffset + xmlSceneOffset;
         setInitial = [self generateSceneHeaderUsingString:&finalString
                                       withInitialArtboard:initialArtboard
                                               sceneOffset:sceneOffset

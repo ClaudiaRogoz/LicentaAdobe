@@ -73,6 +73,7 @@
                 id frame = [nodeValue objectForKey:FRAME];
                 widthArtboard = [[frame objectForKey:WIDTH] intValue];
                 heightArtboard = [[frame objectForKey:HEIGHT] intValue];
+                NSLog(@"Width = %d height = %d", widthArtboard, heightArtboard);
             }
         } else if ([*values isKindOfClass:[NSArray class]]){
             //eg. color.$key=backgroundColor
@@ -174,8 +175,9 @@
 - (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale {
     
     float translatedValue = initValue;
-    float xScaleFactor = ((float)WIDTH_XD_ARTBOARD/WIDTH_XML_ARTBOARD);
-    float yScaleFactor = (float)HEIGHT_XD_ARTBOARD/HEIGHT_XML_ARTBOARD;
+    float xScaleFactor = ((float)WIDTH_XD_ARTBOARD/widthArtboard);
+    float yScaleFactor = (float)HEIGHT_XD_ARTBOARD/heightArtboard;
+;
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
     if (scale ) {
@@ -192,7 +194,6 @@
         translatedValue = initValue * widthScaleFactor;
     } else if ([key isEqualToString:HEIGHT]) {
         translatedValue = initValue * heightScalefactor;
-
     }
     return translatedValue;
 }

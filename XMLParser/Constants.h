@@ -330,7 +330,7 @@
 #define XMLRESOURCESF  @"</resources>"
 #define XMLHEADERA   @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><document type=\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\" version=\"3.0\" toolsVersion=\"9532\" systemVersion=\"15E65\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\" initialViewController="
 #define XMLHEADERB  @"><dependencies><deployment identifier=\"iOS\"/><plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"9530\"/></dependencies><scenes>"
-#define XMLFOOTERA   @"</viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id="
+#define XMLFOOTERA   @"<simulatedScreenMetrics key=\"simulatedDestinationMetrics\" type=\"retina55\"/></viewController><placeholder placeholderIdentifier=\"IBFirstResponder\" id="
 #define XMLFOOTERB   @" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x="
 #define XMLFOOTERC   @" y="
 #define XMLFOOTERD   @"/></scene>"
