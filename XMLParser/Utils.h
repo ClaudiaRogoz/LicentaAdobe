@@ -58,7 +58,7 @@ void printOptions() {
     NSLog(@"\nUsage:\n\t./XDXCodeTranslator [arguments] [file paths ..]\n"
           "\n\n\t./XDXCodeTranslator -i <pathToXCodeProject> <pathToXdFile>\n\t\ttranslates an XCode project into an XD project;"
           "The XD info is put in Clipboard;\n\t\t the XD file will be updated using Cmd+V"
-          "\n\n\t./XDXCodeTranslator -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;"
+          "\n\n\t./XDXCodeTranslator -e <pathToExportProject>\n\t\ttranslates an XD project into an XCode project;If -nosync parameter is specified, then no synchronization will be made; otherwise, XD->XCode projects will synchronize (whenever the xd file is modified, the modifications will be seen in th XCode project; XCode->XD sync is not available)"
           "The XD info is put into ClipBoard (using Cmd+V).\n\t\t Using this command, the XD is translated into Xcode;"
           "\nArguments:\n"
           "\n\t-h\t\tPrint help message (this message) and exit"
@@ -136,7 +136,7 @@ NSString* sanityCheck(NSString *inXDPath) {
     return inXDPath;
 }
 
-void import(char *path, char *xdPath) {
+void import(char *path, char *xdPath, bool withSync) {
     
     CFTimeInterval startTime = CACurrentMediaTime();
     NSString *inXmlPath= [NSString stringWithFormat:@"%s", path];
@@ -159,7 +159,8 @@ void import(char *path, char *xdPath) {
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
     openXdFile(inXDPath);
-    [Sync startSync:inXDPath withXcode:importPath offsetList:offset shaList:shaList];
+    if (withSync)
+        [Sync startSync:inXDPath withXcode:importPath offsetList:offset shaList:shaList];
 }
 
 void export(char *xdPath, char *xmlPath) {

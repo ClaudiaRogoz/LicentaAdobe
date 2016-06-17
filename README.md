@@ -31,13 +31,3 @@ Pasii pentru rularea aplicatiei:
 			♣	<cale proiect> de forma <cale_root>/<nume_proiect>/<director in care se gaseste Base.lproj>
 		o	Se deschide automat reprezentarea echivalenta in Xcode
 
-2. TODO : 
-	- create import schema: transform to json -> apply export schema
-	- sync/ export multiple project
-    - multiline labels (pretty format)
-    - import transitions
-    - test multiple projects
-    - create demo
-    - arrange paths (offset, width/height)
-    - group (compute offset & frame size)
-    

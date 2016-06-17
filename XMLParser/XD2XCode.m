@@ -1399,7 +1399,7 @@
     }
     NSLog(@"There are %d artboards and ~ %d properties computed", sceneNo, noOfElements);
     if ([resourcesDict length]) {
-        // append resources
+        /* append resources */
         resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
         [stringFooter appendString:resources];
     }

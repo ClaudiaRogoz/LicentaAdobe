@@ -16,10 +16,13 @@ int main(int argc, const char * argv[]) {
         return 0;
     
     }else if (!strcmp(argv[1], IMPORT)) {
-        import((char*)argv[2], (char*)argv[3]);
+        if (!strcmp(argv[2], NOSYNC))
+            import((char*)argv[3], (char*)argv[4], false);
+        else
+            import((char*)argv[2], (char*)argv[3], true);
     
     }else if (!strcmp(argv[1], EXPORT)) {
-        export((char*)argv[2], (char*)argv[3]);
+            export((char*)argv[2], (char*)argv[3]);
     
     }else if (!strcmp(argv[1], SYNC)) {
         /*sync xdFile xcodeStoryboard */

@@ -72,6 +72,7 @@
 #define EXPORT  "-e"
 #define IMPORT  "-i"
 #define SYNC    "-sync"
+#define NOSYNC  "-nosync"
 
 /*args for creating xd file*/
 #define ZIP_RECURSIVE   @"-r"
