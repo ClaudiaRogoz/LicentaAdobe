@@ -555,9 +555,8 @@
     if (!transformSize) {
         return translatedValue;
     }
-    float xScaleFactor = ((float)widthXMLArtboard/WIDTH_XD_ARTBOARD);
-    float yScaleFactor = (float)heightXMLArtboard/HEIGHT_XD_ARTBOARD;
-    NSLog(@"xScale yscale = %f %f", xScaleFactor, yScaleFactor);
+    float xScaleFactor = ((float)widthXMLArtboard/WIDTH_XD_ARTBOARD_IPH6);
+    float yScaleFactor = (float)heightXMLArtboard/HEIGHT_XD_ARTBOARD_IPH6;
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
     float ratio = MIN(xScaleFactor,yScaleFactor);
@@ -582,7 +581,7 @@
 - (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize fontName:(NSString *)fontName fontMask:(NSUInteger) mask {
 
     
-    float xScaleFactor = (float)widthXMLArtboard/WIDTH_XD_ARTBOARD;
+    float xScaleFactor = (float)widthXMLArtboard/WIDTH_XD_ARTBOARD_IPH6;
     if (textLines > 3)
         textLen = MIN((int)[label length], textLen * xScaleFactor);
     NSString *firstLine = [label substringToIndex:textLen];
@@ -932,13 +931,15 @@
     else translatedStyle = FONT_SYSTEM; /* use default system font for other xd fonts */
     return translatedStyle;
 }
+
 - (int) getWidthXML {
-    return 414;
+    /*we transform Iphone6 XD scenes into Iphone XCode 5.5inch */
+    return WIDTH_XML_ARTBOARD_RETINA55;
 }
 
-
 - (int) getHeightXML {
-    return 736;
+    /*we transform Iphone6 XD scenes into Iphone XCode 5.5inch */
+    return HEIGHT_XML_ARTBOARD_RETINA55;
 }
 
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
@@ -972,7 +973,6 @@
 }
 
 -(void) copyDict:(NSDictionary*) defaultType toDict:(NSMutableDictionary **) genericDict {
-    
     for (id key in [defaultType allKeys]) {
         [*genericDict setObject:[defaultType objectForKey:key] forKey:key];
     }
@@ -980,7 +980,6 @@
 
 
 - (void) computeTextObject:(id)dictValue dependency:(NSString*) condition forDict:(NSMutableDictionary **) objDict {
-    
     int counter = (int)[dictValue count];
     textLines = MAX(counter, [[*objDict objectForKey:LEN] intValue]);
     [*objDict setObject:[NSNumber numberWithInt:textLines] forKey:LEN];
@@ -1009,7 +1008,6 @@
 }
 
 - (void) processGroupElements:(id)object addTo:(id *)objDict {
-
     id transformGroup = [object objectForKey:TRANSFORM];
     startXArtboard = startXArtboard - [[transformGroup objectForKey:TX] intValue];
     startYArtboard = startYArtboard - [[transformGroup objectForKey:TY] intValue];
@@ -1023,7 +1021,6 @@
 }
 
 - (void) processAgcScenes:(id*) objDict forDict:(NSMutableDictionary *) dictValue {
-    
     NSMutableDictionary *finalDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
     NSMutableDictionary *newObjDict = [Helper deepCopy:[*objDict mutableCopy]];
     *objDict = [[NSMutableArray alloc] init];
@@ -1052,7 +1049,6 @@
 }
 
 -(void) computeSeguesObjects:(id *) objDict {
-    
     id tempSegue = [*objDict objectForKey:SEGUE];
     id segue = [self deepCopy:tempSegue];
     for (id key in [segue allKeys]) {
@@ -1064,7 +1060,6 @@
 }
 
 - (id) getCorrespondingTemplate:(NSString *) rule {
-    
     id objDict;
     if ([rule isEqualToString:SUBVIEWS])
         objDict = [Helper deepCopy:[agcToXmlTemplate objectForKey:SUBVIEWS]];
@@ -1076,8 +1071,6 @@
 
 -(NSMutableDictionary *) computeObjects:(NSString *)rule condition:(NSArray*)cond params:(NSDictionary *)dict
                                 agcDict:agcParams type:(NSString *)type {
-    
-    
     id objDict = [self getCorrespondingTemplate:rule];
     if (!cond && [rule isEqualToString:CONNECTIONS]) {
         [self computeSeguesObjects:&objDict];
@@ -1120,14 +1113,12 @@
 
 
 - (void) transformIntoButton:(NSMutableDictionary **) templateDict usingTemplate:(NSMutableDictionary *) button ofType:(NSString *) type{
-    
     transformSize = false;
     [self processTemplateDict:templateDict agcDict:button finalDict:button ofType:type];
     transformSize = true;
 }
 
 -(void) processInteractions:(id*) templateDict type:(NSString *) type {
-    
     if (transformInteraction) {
         id value = *templateDict;
         id button = [[agcToXmlTemplate objectForKey:BUTTON_SEGUE] objectForKey:type];
@@ -1136,15 +1127,13 @@
             [self transformIntoButton: &genericButton usingTemplate:value ofType:BUTTON];
             *templateDict = genericButton;
             changeType = BUTTON;
-        } else
-            changeType = type;
+        } 
     } else {
         changeType = type;
     }
 }
 
 - (NSMutableDictionary *) processHeader:(NSMutableDictionary *)rulesDict rule:(NSString *)rule usingDict:(NSDictionary *)agcDict type:(NSString*)type {
-
     id cond;
     if ([rulesDict count] == 0)
         cond = nil;
@@ -1157,7 +1146,6 @@
 }
 
 -(void) processRules:(NSArray *)keys template:(id*) templateDict rulesDict:(id)rulesDict agcDict:(NSDictionary *)agcDict {
-    
     id val = *templateDict;
     for (id key in [keys subarrayWithRange:NSMakeRange(0, [keys count] -1)]) {
         val = [val objectForKey:key];
@@ -1179,7 +1167,6 @@
 
 -(NSDictionary*) processTemplateDict:(NSMutableDictionary **) templateDict agcDict:(NSDictionary *)agcDict
                            finalDict:(NSMutableDictionary *)finalDict ofType:(NSString *) type {
-    
     noOfElements++;
     NSMutableDictionary *rulesInitDict = [*templateDict objectForKey:RULES];
     NSMutableDictionary *rulesTempDict = [rulesInitDict mutableCopy];
@@ -1208,7 +1195,6 @@
 }
 
 -(NSDictionary*) processWholeXmlFromAgc:(NSDictionary *)agcDict {
-    
     NSMutableDictionary *finalDict = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: [agcToXmlTemplate objectForKey:CONTENT]]];
     NSMutableDictionary *viewDict = [finalDict objectForKey:ARTBOARD];
     return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict ofType:VIEW];
@@ -1224,7 +1210,6 @@
 }
 
 -(void) copyImage:(NSImage *)image toProject:(NSString *)fileName {
-    
     NSString *resourcesXmlRes = [self imagesPath];
     NSString *resourcesXmlProj = [resourcesXmlRes stringByAppendingPathComponent:fileName];
     if ([Helper fileExists:resourcesXmlProj]) {
@@ -1243,7 +1228,6 @@
 }
 
 -(void) processImage:(id) dict key:(id) key {
-    
     id attr = [dict objectForKey:key];
     if ([attr isKindOfClass:[NSDictionary class]] && [attr objectForKey:ISIMAGE]) {
         /* add image in the resources tag */
@@ -1280,13 +1264,10 @@
         if ([resourcesDict rangeOfString:str].location == NSNotFound) {
             [resourcesDict appendString:str];
         }
-        
     }
-    
 }
 
 -(NSMutableString *) parseToString:(NSMutableString *)str dict:(NSDictionary *)dict name:(NSString *) name{
-    
     NSMutableString* tmp = [NSMutableString stringWithFormat:@""];
     /* now we only have to translate the currentDict */
     for (id key in [dict objectForKey:TOSTRING]) {
@@ -1318,7 +1299,7 @@
             [tmp appendString:[NSString stringWithFormat:@"</%@>", key]];
         } else if ([[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]){
             BOOL inBetween = [[[agcToXmlTemplate objectForKey:SUBTAGS] objectForKey:key]objectForKey:BETWEEN] == nil;
-            /* just an ordinary leaf tag; create a one-line with the given attributes */
+            /* just an ordinary leaf tag; create a tag with the given attributes */
             NSString *ret = [self toString:attr name:key isLeaf:inBetween];
             [ tmp appendString: [NSString stringWithFormat:@"\n\t%@", ret]];
         }
@@ -1337,7 +1318,6 @@
 }
 -(bool) generateSceneHeaderUsingString:(NSMutableString **)finalString withInitialArtboard:(NSString*) initialArtboard
                            sceneOffset:(long)offset isInitialSet:(bool) setInitial dictionary:(NSDictionary *)dict sceneId: (id) sceneId {
-    
     [*finalString appendString: SCENEHEADERA];
     [*finalString appendString: [self getUniqueString]];
     [*finalString appendString: SCENEHEADERB];
@@ -1348,7 +1328,6 @@
         setInitial = true;
     }
     else {
-        
         id sceneID = [self getUniqueString];
         [*finalString appendString: sceneID];
         if (sceneId != nil) {
@@ -1374,9 +1353,7 @@
 }
 
 -(void) writeXmlString:(NSString *) xmlString {
-    
     NSError *err;
-   // NSLog(@"XmlString = %@", xmlString);
     NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
     NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
     NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
@@ -1394,7 +1371,6 @@
 }
 
 -(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject{
-    
     NSMutableString *xmlGen = [NSMutableString stringWithFormat:@""];
     NSMutableString *finalString;
     NSDictionary *dict;
@@ -1421,14 +1397,12 @@
         [xmlGen appendString:finalString];
         ++sceneNo;
     }
-    
     NSLog(@"There are %d artboards and ~ %d properties computed", sceneNo, noOfElements);
     if ([resourcesDict length]) {
         // append resources
         resources = [NSString stringWithFormat:@"%@\n%@\n%@",XMLRESOURCES, resourcesDict, XMLRESOURCESF];
         [stringFooter appendString:resources];
     }
-
     [stringFooter appendFormat:@"\n%@", XMLDOCUMENTF];
     xmlHeader =  [self surroundWithHeader:XMLHEADERA footer:XMLHEADERB string:initialArtboard];
     xmlFile = [self surroundWithHeader:xmlHeader footer:stringFooter string:xmlGen];
@@ -1437,8 +1411,7 @@
     return xmlGen;
 }
 
-- (id)initWithError:(NSError **)error
-{
+- (id)initWithError:(NSError **)error {
     return self;
 }
 

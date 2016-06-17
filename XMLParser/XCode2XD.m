@@ -1038,7 +1038,7 @@
         
         /* the length of a line should be ~length */
         length = length / [attributes[SAVED_LINES] intValue];
-        length = length * WIDTH_XD_ARTBOARD/ WIDTH_XML_ARTBOARD;
+        length = length * WIDTH_XD_ARTBOARD_IPH6/ WIDTH_XML_ARTBOARD_RETINA55;
     }
     
     [self setTextAttributes:strings

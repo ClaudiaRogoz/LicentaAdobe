@@ -306,22 +306,11 @@
                         "y" : "$ty",
                         "key" : "frame"
                     },
-                    "$style.font" : {
-                        "width" : "$size"
-                    },
-                    "$text" : {
-                        "height" : "$rawText"
-                    },
-                    "$text.paragraphs.$lineListNo.lines" : {
-                        "len"   :   "$len"
-                    },
-                    "$text.paragraphs" : {
-                        "len"   :   "$len"
-                    },
                     "$text.frame" : {
-                        "$" : "$GETTYPE $type"
+                        "width" : "$width",
+                        "height" : "$height"
                     },
-                    "order" : ["$text.paragraphs.$lineListNo.lines", "$transform", "$text.paragraphs" , "$text", "$style.font",  "$text.frame"]
+                    "order" : ["$transform", "$text.frame"]
                 },
                 "fontDescription" : {
                     "$style.font" :

@@ -175,8 +175,8 @@
 - (float) changeSize:(float) initValue key:(NSString *)key preserveRatio:(BOOL) preserveRatio preserveOffset: (BOOL) offset scale:(BOOL) scale {
     
     float translatedValue = initValue;
-    float xScaleFactor = ((float)WIDTH_XD_ARTBOARD/widthArtboard);
-    float yScaleFactor = (float)HEIGHT_XD_ARTBOARD/heightArtboard;
+    float xScaleFactor = ((float)WIDTH_XD_ARTBOARD_IPH6/widthArtboard);
+    float yScaleFactor = (float)HEIGHT_XD_ARTBOARD_IPH6/heightArtboard;
 ;
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
