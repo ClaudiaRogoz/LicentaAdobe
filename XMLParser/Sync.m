@@ -268,23 +268,14 @@ const NSString *xmlEndScene = @"</scene";
                                           }
                                           else {
                                               NSLog(@"-------------------------------------------------------\n\n\n");
-                                              arrayOfScenes = [[NSMutableArray alloc] init];
+                                              /*arrayOfScenes = [[NSMutableArray alloc] init];
                                               NSString *mainBundle = [self getProjHomePath];
                                               NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_UNZIP_PATH];
                                               [self unzipXD:[self xdPath] atPath:unzipped_xd];
                                               [self findChangesForPath:(NSString *)unzipped_xd];
                                               [self updateXmlFile];
-                                              
-                                              /* creates an unzip directory of the current XD project (**changes have been made ) */
-                                              /*arrayOfScenes = [[NSMutableArray alloc] init];
-                                              NSString *mainBundle = [self getProjHomePath];
-                                              NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_UNZIP_PATH];
-                                              [self unzipXD:path atPath:unzipped_xd];
-                                              [self findChangesForPath:(NSString *)unzipped_xd];
-                                              NSLog(@"[Sync DONE]");
-                                              [self updateXmlFile];
                                               */
-                                              //[XD2XCode readTemplateUsingXML:[self xdPath] writeTo:[self xmlPath]];
+                                              [XD2XCode readTemplateUsingXML:[self xdPath] writeTo:[self xmlPath]];
                                               
                                           }
                                       });
