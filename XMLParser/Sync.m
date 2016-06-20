@@ -47,8 +47,6 @@ const NSString *xmlEndScene = @"</scene";
     unsigned long xmlSize = [xmlContent length];
     xmlHeader = [xmlContent substringWithRange:NSMakeRange(0, firstOffset)];
     xmlFooter = [xmlContent substringWithRange:NSMakeRange(lastOffset, xmlSize - lastOffset)];
-    NSLog(@"Header = %@", xmlHeader);
-    NSLog(@"Footer = %@", xmlFooter);
     [self setXmlPath:xmlFile];
 }
 
@@ -131,9 +129,10 @@ const NSString *xmlEndScene = @"</scene";
     NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
     NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
     NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-    [xmlData writeToFile:@"/Users/crogoz/Desktop/here.xml" atomically:YES];
-    //if ([self xmlPath])
-      //  [xmlData writeToFile:[self xmlPath] atomically:YES];
+    //NSLog(@"Writing to %@", [self xmlPath]);
+    //[xmlData writeToFile:@"/Users/crogoz/Desktop/here.xml" atomically:YES];
+    if ([self xmlPath])
+        [xmlData writeToFile:[self xmlPath] atomically:YES];
 }
 
 - (void) updateXmlFile {
@@ -144,14 +143,12 @@ const NSString *xmlEndScene = @"</scene";
     for (int i= 0; i < [arrayOfScenes count]; i++) {
         offset = [finalXml length];
         NSString *xmlScene = [arrayOfScenes objectAtIndex:i];
-        NSLog(@"Scene1 = %@", xmlScene);
         [offsetArtboards addObject:[NSNumber numberWithLong:offset]];
         finalXml = [finalXml stringByAppendingString:xmlScene];
     }
     [offsetArtboards addObject:[NSNumber numberWithLong: [finalXml length]]];
     hashArtboards = [Helper deepCopy:tempHash];
     finalXml = [finalXml stringByAppendingString:xmlFooter];
-    NSLog(@"finalXml = %@", finalXml);
     [self writeXmlString:finalXml];
 }
 
@@ -199,7 +196,7 @@ const NSString *xmlEndScene = @"</scene";
         NSMutableDictionary *jsonDict = [self serializeFromPath:newArtboards];
         NSLog(@"NO :( %d", currentScene );
         [self mergeDict:&jsonDict withHeaderDict:[self getArtboardNo:currentScene forDict:jsonHeader] artboardNo:currentScene - 1];
-        NSString *xcodeString = [XD2XCode generateXmlForTag:jsonDict xdPath:[self xdPath] xmlPath:[self xmlDir]];
+        NSString *xcodeString = [XD2XCode generateXmlForTag:jsonDict xdPath:[self xdPath] xmlPath:[self xmlDir] sceneNo:currentScene];
         [arrayOfScenes addObject:xcodeString];
         [tempHash setObject:[NSNumber numberWithInt:currentScene - 1] forKey:jsonHash];
     }
@@ -271,13 +268,13 @@ const NSString *xmlEndScene = @"</scene";
                                           }
                                           else {
                                               NSLog(@"-------------------------------------------------------\n\n\n");
-                                              /*arrayOfScenes = [[NSMutableArray alloc] init];
+                                              arrayOfScenes = [[NSMutableArray alloc] init];
                                               NSString *mainBundle = [self getProjHomePath];
                                               NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_UNZIP_PATH];
                                               [self unzipXD:[self xdPath] atPath:unzipped_xd];
                                               [self findChangesForPath:(NSString *)unzipped_xd];
                                               [self updateXmlFile];
-                                              */
+                                              
                                               /* creates an unzip directory of the current XD project (**changes have been made ) */
                                               /*arrayOfScenes = [[NSMutableArray alloc] init];
                                               NSString *mainBundle = [self getProjHomePath];
@@ -287,7 +284,7 @@ const NSString *xmlEndScene = @"</scene";
                                               NSLog(@"[Sync DONE]");
                                               [self updateXmlFile];
                                               */
-                                              [XD2XCode readTemplateUsingXML:[self xdPath] writeTo:[self xmlPath]];
+                                              //[XD2XCode readTemplateUsingXML:[self xdPath] writeTo:[self xmlPath]];
                                               
                                           }
                                       });

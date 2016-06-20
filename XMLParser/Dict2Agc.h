@@ -39,6 +39,8 @@
     float lastHeight;
     NSString *lastId;
     NSString *homeArtboard;
+    
+    float imageFind;
 }
 
 /* where we find all external resources: eg. images */

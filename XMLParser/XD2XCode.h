@@ -96,6 +96,7 @@ typedef enum NSTextType : NSUInteger {
     NSTextType textType;
     
     int xmlSceneOffset;
+    long sceneOffset;
 
 }
 
@@ -106,7 +107,7 @@ typedef enum NSTextType : NSUInteger {
 @property NSString *agcPath;
 
 + (void)readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath;
-+(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath;
++(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath sceneNo:(int) currentScene;
 
 - (id)initWithError:(NSError **)error;
 

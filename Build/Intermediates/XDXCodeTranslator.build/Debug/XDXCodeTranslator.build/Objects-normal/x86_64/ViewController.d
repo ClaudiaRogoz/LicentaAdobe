@@ -1,3 +1,2 @@
-dependencies: \
-  /Users/crogoz/Desktop/VisualAssetsManagementXD/XMLParser/ViewController.m \
+dependencies: /Users/crogoz/Desktop/XMLParser/XMLParser/ViewController.m \
   XMLParser/ViewController.h

@@ -335,7 +335,7 @@
 #define XMLFOOTERB   @" userLabel=\"First Responder\" sceneMemberID=\"firstResponder\"/></objects><point key=\"canvasLocation\" x="
 #define XMLFOOTERC   @" y="
 #define XMLFOOTERD   @"/></scene>"
-#define VIEW_TAG      @"<view "
+#define SCENE_TAG      @"<scene "
 #define SCENEHEADERA @"<!--View Controller--><scene sceneID="
 #define SCENEHEADERB @"><objects><viewController id="
 #define SCENEHEADERC @" customClass=\"ViewController\" sceneMemberID=\"viewController\"><layoutGuides><viewControllerLayoutGuide type=\"top\" id="

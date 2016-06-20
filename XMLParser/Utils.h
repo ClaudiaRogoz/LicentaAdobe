@@ -153,10 +153,13 @@ void import(char *path, char *xdPath, bool withSync) {
     /* Parse the XML into a dictionary */
     NSError *parseError = nil;
     NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
-    NSMutableArray *offset = [xmlDictionary objectForKey:VIEW_TAG];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() ;
+    NSLog(@"[XML2Dict DONE] Time elapsed: %f", elapsedTime - startTime);
+    
+    NSMutableArray *offset = [xmlDictionary objectForKey:SCENE_TAG];
     NSString *homeArtboard = [xmlDictionary objectForKey:HOME_ARTBOARD];
     NSMutableDictionary*shaList = [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError usingXdPath:inXDPath xmlDirectory:inXmlPath homeArtboard:homeArtboard];
-    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    elapsedTime = CACurrentMediaTime() - elapsedTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);
     openXdFile(inXDPath);
     if (withSync)

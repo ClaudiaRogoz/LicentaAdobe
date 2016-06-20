@@ -1,3 +1,2 @@
-dependencies: \
-  /Users/crogoz/Desktop/VisualAssetsManagementXD/XMLParser/AppDelegate.m \
+dependencies: /Users/crogoz/Desktop/XMLParser/XMLParser/AppDelegate.m \
   XMLParser/AppDelegate.h

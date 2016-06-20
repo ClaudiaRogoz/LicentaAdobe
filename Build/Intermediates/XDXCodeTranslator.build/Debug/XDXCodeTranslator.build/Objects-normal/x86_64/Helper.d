@@ -1,3 +1,2 @@
-dependencies: \
-  /Users/crogoz/Desktop/VisualAssetsManagementXD/XMLParser/Helper.m \
+dependencies: /Users/crogoz/Desktop/XMLParser/XMLParser/Helper.m \
   XMLParser/Helper.h XMLParser/Constants.h

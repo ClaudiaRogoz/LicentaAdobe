@@ -16,12 +16,12 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 {
     Xml2Dict *reader = [[Xml2Dict alloc] initWithError:error];
     NSString *xmlContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSMutableArray *arrayOffset = [Helper getAllOccurencesOf:VIEW_TAG in:xmlContent];
+    NSMutableArray *arrayOffset = [Helper getAllOccurencesOf:SCENE_TAG in:xmlContent];
     id lastId = [arrayOffset lastObject];
     NSDictionary *rootDictionary = [reader objectWithData:data];
     NSString *homeArtboard = [reader getHomeArtboard];
     [arrayOffset addObject:[Helper getLastOccurencesOf:XMLSCENESF in:xmlContent fromOffset:[lastId longValue]]];
-    [rootDictionary setValue:arrayOffset forKey:VIEW_TAG];
+    [rootDictionary setValue:arrayOffset forKey:SCENE_TAG];
     [rootDictionary setValue:homeArtboard forKey:HOME_ARTBOARD];
     return rootDictionary;
 }

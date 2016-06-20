@@ -200,7 +200,8 @@
 
 - (void) computeHrefProperty:(NSMutableDictionary *) dictValue value:(id) tvalue key:(id)key intoDict:(NSMutableDictionary**) objDict{
     NSString *name = [dictValue objectForKey:tvalue];
-    NSString *directory = [[[self xmlPath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString *directory = [self xmlPath];
+    CFTimeInterval startTime = CACurrentMediaTime();
     NSString *imageName = [Helper findFile:name inPath:directory];
     [*objDict setValue:imageName forKey:key];
     NSImage *image = [[NSImage alloc]initWithContentsOfFile:imageName];
@@ -211,7 +212,8 @@
     [*objDict setObject:[NSNumber numberWithInt:image.size.height] forKey:HEIGHT];
     lastWidth = image.size.width;
     lastHeight = image.size.height;
-
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime ;
+    imageFind += elapsedTime;
 }
 
 - (void) transformSize:(float) initValue key:(NSString *) key inDict:(NSMutableDictionary **) objDict preserveRatio:(BOOL) preserveRatio{
@@ -724,19 +726,23 @@
     NSArray *place_start = [idMapping objectForKey:homeArtboard];
     [self computeDict:homeArtboard scene:place_start dict:&segues];
     NSMutableDictionary *shaList = [[NSMutableDictionary alloc] init];
+     CFTimeInterval startTime = CACurrentMediaTime();
     for (int i = 0; i< [sceneList count]; i++) {
         id tempScene = [sceneList objectAtIndex:i];
         [self addTo:&tempScene ids:[segues objectForKey:[NSNumber numberWithInt:i]]];
         NSString *sha = [XDCreator createArtworkContent:tempScene artboardNo:i+1 xdPath:[self xdPath]];
         [shaList setObject:[NSNumber numberWithInt:i] forKey:sha];
     }
+    
     [XDCreator createInteractionContent:interactionsDict xdPath:[self xdPath] homeArtboard:homeArtboard];
     NSMutableDictionary *artboards = [NSMutableDictionary dictionary];
     [artboards setValue:resources forKey:ARTBOARDS];
     [XDCreator createManifest:artboards xdPath:[self xdPath]];
     [Helper createXdFile:[self xdPath]];
     [XDCreator releaseStorage:[self xdPath]];
-    
+    CFTimeInterval elapsedTime = CACurrentMediaTime() ;
+    NSLog(@"[Creation XD] Time elapsed: %f", elapsedTime - startTime);
+    NSLog(@"ImageProcess = %f", imageFind);
     return shaList;
 }
 

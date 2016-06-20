@@ -23,7 +23,7 @@
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     NSString *xmlPath = [[outXmlPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
-    [gen initWithSchemas];
+    [gen initWithSchemas:XML_SCENE_X];
     [gen setXdPath:xdPath];
     [gen setXmlPath:xmlPath];
     [gen setOutXmlPath:outXmlPath];
@@ -31,12 +31,12 @@
     [gen getXmlForAgcObject:agcTemplate];
 }
 
-+(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath {
++(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath sceneNo:(int) currentScene{
     NSError *error;
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
     [gen setXdPath:xdPath];
     [gen setXmlPath:xmlPath];
-    [gen initWithSchemas];
+    [gen initWithSchemas:XML_SCENE_X  + WIDTH_XML_ARTBOARD_RETINA55 * 1.1 * currentScene];
     NSString *xmlTemplate = [gen getXmlForAgcObject:agcDict];
     if (!xmlTemplate) {
         NSLog(@"[ERROR] No translation can be achieved at the moment for %@", [agcDict objectForKey:TYPE]);
@@ -98,7 +98,7 @@
      return [pasteboard stringForType:SPARKLERCLIPBOARD];
 }
 
--(void) initWithSchemas {
+-(void) initWithSchemas:(long) sceneValue {
     NSError *error;
     NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
     NSString *def = [thisBundle pathForResource:DEF_PATH ofType:JSON];
@@ -107,6 +107,7 @@
     NSData *ruleData = [NSData dataWithContentsOfFile:rule];
     NSMutableDictionary *defDictionary = [NSJSONSerialization JSONObjectWithData:defData options:NSJSONReadingMutableContainers error:&error];
     NSDictionary *ruleDictionary = [NSJSONSerialization JSONObjectWithData:ruleData options:NSJSONReadingMutableContainers error:&error];
+    sceneOffset = sceneValue;
     [self releaseResources];
     [self initializeWithDefs:defDictionary rules:ruleDictionary];
 }
@@ -1377,7 +1378,7 @@
     NSMutableString *stringFooter = [NSMutableString stringWithFormat:XMLSCENESF];
     NSString *initialArtboard, *resources, *xmlHeader, *xmlFile;
     BOOL setInitial = false;
-    long sceneOffset = XML_SCENE_X;
+    //sceneOffset = XML_SCENE_X;
     int artboardsNo;
     // it was given the whole dictionary to process => goto @"content"; type = "view"
     artboardsNo = (int)[[typeAgcObject objectForKey:ARTBOARDS] count];

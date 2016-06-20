@@ -1,0 +1,209 @@
+{
+    "artboard" : {
+        "ref" : "artboard1"
+    },
+    
+    "textField" : {
+        "type" : "text",
+        "name" : "$text",
+        "transform" : {
+            "a" : "1",
+            "b" : "0",
+            "c" : "0",
+            "d" : "1",
+            "tx" : "$rect.x",
+            "ty" : "$rect.y"
+        },
+        "style" : {
+            "fill" : {
+                "type" : "solid",
+                "color" : {
+                    "mode" : "RGB",
+                    "value" : {
+                        "r" : "$color.red",
+                        "g" : "$color.green",
+                        "b" : "$color.blue"
+                        
+                    },
+                    "alpha" : "$color.alpha"
+                    
+                }
+                
+            },
+            "font" : {
+                "postscriptName" : "HelveticaNeue",
+                "family" : "Helvetica Neue",
+                "style" : "Regular",
+                "size" : "$fontDescription.pointSize"
+            }
+            
+        },
+        "text" : {
+            "frame" : {
+                "type" : "positioned"
+            },
+            "paragraphs" : [{
+                            "lines" : [[
+                                       {
+                                        "x" : 0,
+                                        "y" : 0,
+                                        "from" : 0,
+                                        "to" : 11
+                                        
+                                       }
+                                       
+                                       ]]
+            
+            }],
+            "rawText" :  "#text"
+        }
+    },
+    "rectangle" : {
+        "type" : "shape",
+        "transform" : {
+            "a" : "1",
+            "b" : "0",
+            "c" : "0",
+            "d" : "1",
+            "tx" : "$rect.x",
+            "ty" : "$rect.y"
+        },
+        "style" : {
+            "fill" : {
+                "type" : "solid",
+                "color" : {
+                    "mode" : "RGB",
+                    "value" : {
+                        "r" : "$color.red",
+                        "g" : "$color.green",
+                        "b" : "$color.blue"
+                        
+                    }
+                }
+            }
+        },
+        "shape" : {
+            "type" : "rect",
+            "x" : "0",
+            "y" : "0",
+            "width" : "$rect.width",
+            "height" : "$rect.height"
+        }
+        
+    },
+    "path" : {
+        "type" : "shape",
+        "transform" : {
+            "a" : "1",
+            "b" : "0",
+            "c" : "0",
+            "d" : "1",
+            "tx" : "$rect.x",
+            "ty" : "$rect.y"
+        },
+        "style" : {
+            "fill" : {
+                "type" : "solid",
+                "color" : {
+                    "mode" : "RGB",
+                    "value" : {
+                        "r" : "$color.red",
+                        "g" : "$color.green",
+                        "b" : "$color.blue"
+                        
+                    }
+                }
+            },
+            "stroke" : {
+                "color" : {
+                    "mode" : "RGB",
+                    "value" : {
+                        "r" : "$color.red",
+                        "g" : "$color.green",
+                        "b" : "$color.blue"
+                    }
+                },
+                "type" : "solid",
+                "sidth" : "$justAValue"
+            }
+        },
+        "shape" : {
+            "type" : "path",
+            "path" : ""
+        },
+        "visualBounds" : {
+            "x" : "$rect.x",
+            "y" : "$rect.y",
+            "width" : "$rect.width",
+            "height" : "$rect.height"
+            
+        }
+    },
+    "imageView" : {
+        "type" : "shape",
+        "transform" : {
+            "a" : "1",
+            "b" : "0",
+            "c" : "0",
+            "d" : "1",
+            "tx" : "$rect.x",
+            "ty" : "$rect.y"
+        },
+        "style" : {
+            "fill" : {
+                "type" : "pattern",
+                "pattern" : {
+                    "width" : "$justAValue",
+                    "height" : "$justAValue",
+                    "href" : "$image",
+                    "meta" : {
+                        "ux" : {
+                            "uid" : "$rand"
+                        }
+                        
+                    }
+                }
+                
+            }
+        },
+        "shape" : {
+            "type" : "rect",
+            "x" : "0",
+            "y" : "0",
+            "width" : "$rect.width",
+            "height" : "$rect.height"
+        }
+    },
+    "backgroundColor" : {
+        "style" : {
+            "fill" : {
+                "type" : "solid",
+                "color" : {
+                    "mode" : "RGB",
+                    "value" : {
+                        "r" : "$color.red",
+                        "g" : "$color.green",
+                        "b" : "$color.blue"
+                    }
+                }
+            }
+        }
+    },
+    "meta" : {
+        "ux" : {
+            "groupItems" : false
+        }
+    },
+    "viewSource" : {
+        "x" : "0",
+        "y" : "0",
+        "width" : "0",
+        "height" : 667
+    },
+    "resources" : {
+        "gradients" : {},
+        "clipPaths" : {}
+    },
+    "frame" : {}
+    
+}
