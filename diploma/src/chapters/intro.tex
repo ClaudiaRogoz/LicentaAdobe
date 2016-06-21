@@ -47,7 +47,7 @@ Elementele vizuale, atât în XCode, cât și în Adobe Experience Design, sunt 
 
 \section{Prezentare XCode}
 
-XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS. \ref{} XCode suportă cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de modele de programare (Cocoa, Carbon, Java, etc.). Aplicația principală a suitei este IDE-ul, numit de asemenea XCode. Suita XCode include pe lângă documentația Apple de dezvoltare și o aplicație built-in - Interface Builder, o componentă principală in dezvoltarea soluției propuse.
+XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS. \cite{Aboutxcode} XCode suportă cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de modele de programare (Cocoa, Carbon, Java, etc.). Aplicația principală a suitei este IDE-ul, numit de asemenea XCode. Suita XCode include pe lângă documentația Apple de dezvoltare și o aplicație built-in - Interface Builder, o componentă principală in dezvoltarea soluției propuse.
 
 Interface Builder este o aplicație de development de software pentru sistemul Apple Mac OS X, care permite dezvoltatorilor de Cocoa și Carbon să creeze interfețe pentru aplicații folosind interfață grafică. Interfața rezultată va fi stocată într-un fișier .nib (NeXT Interface Builder), sau .xib.
 
@@ -55,7 +55,7 @@ Interface Builder oferă palete de culori, colecții de elemente vizuale - text,
 
 Deoarece Cocoa și Cocoa Touch sunt construite folosind modelul Model-View-Controller, interfețele utilizator se pot realiza independent de implementările lor. Aceste interfețe vor fi stocate în fișierele .nib, iar la compilare, se vor crea dinamic legăturile între UI și implementare.
 
-O aplicație iOS este compusă din multiple scene între care un utilizator navighează. Relațiile dintre aceste scene sunt definite de fișierele .storyboard, care vor reprezenta întregul flow al aplicației. Prin intermediul Interface Builder, storyboard-ul este actualizat conform elementelor grafice afișate, prin crearea, modificarea și realizarea trazițiilor dintre scene.
+O aplicație iOS este compusă din multiple scene între care un utilizator navighează. Relațiile dintre aceste scene sunt definite de fișierele .storyboard \cite{StructuraXcode}, care vor reprezenta întregul flow al aplicației. Prin intermediul Interface Builder, storyboard-ul este actualizat conform elementelor grafice afișate, prin crearea, modificarea și realizarea trazițiilor dintre scene.
 
 XCode permite o serie de controllere pentru storyboard: Table View Controller, Collection View Controller, Navigation Controller, Tab Bar Controller, Page View Controller, GLKit View Controller sau Custom View Controller, însă pentru acest proiect soluția propusă rezolvă doar controllerul generic - View Controller. Pentru extinderea acestei soluții și pentru alte tipuri de controllere, va trebui extinsă schema de translatare care va fi prezentată ulterior, conform specificațiilor.
 
@@ -205,7 +205,7 @@ Schema de translatare propusă în acest proiect a fost folosită și în cadrul
 
 \section{Prezentare Adobe Experience Design}
 
-Adobe Experience Design este un nou utilitar pentru realizarea designului și prototipului de aplicații dedicate UX. Adobe XD este o soluție all-in-one care îi permite unui dezvoltator de iOS să creeze aplicații mobile și website-uri. 
+Adobe Experience Design este un nou utilitar pentru realizarea designului și prototipului de aplicații dedicate UX \cite{xd}. Adobe XD este o soluție all-in-one care îi permite unui dezvoltator de iOS să creeze aplicații mobile și website-uri. 
 
 \subsection{Structura unui fișier .xd}
 
@@ -708,7 +708,7 @@ Translatarea unui \textbfit{path} în format \textbfit{svg} se realizează prin 
 
 În urma translatării, se va obține un fișier svg cu elementul vizual regăsit în xd. 
 
-Din păcate, XCode-ul nu suportă formatul svg, de aceea pentru aducerea acestor asset-uri în aplicația XCode dezvoltată, mai este nevoie de un pas. Pasul constă în transformarea svg-ului într-un format png, suportat de XCode. Această transformare va fi realizată prin comanda convert din cadrul utilitarului ImageMagick. 
+Din păcate, XCode-ul nu suportă formatul svg, de aceea pentru aducerea acestor asset-uri în aplicația XCode dezvoltată, mai este nevoie de un pas. Pasul constă în transformarea svg-ului într-un format png, suportat de XCode. Această transformare va fi realizată prin comanda convert din cadrul utilitarului ImageMagick \cite{imageMagick}. 
 
 Apelul comenzii \textbf{convert} presupune crearea unui NSTask - un subprogram cu imaginea executabila, în cazul de față, \textbf{convert}, care va fi monitorizat de aplicația curentă. 
 
@@ -1004,11 +1004,11 @@ Aceste module și interacțiunea dintre ele este reprezentată în figura \ref{f
 În arhitectura prezentată, modulul XCode2XD poate fi interschimbat cu modulele Xml2Dict și Dict2Agc, întrucât aceasta implementează aceeași funcționalitate, dar prin scheme de translatare diferite.
 
 
-O tehnologie folosită pentru testarea și implementarea cu ajutorului Clipboardului este Clipboard Viewer. Această aplicație arată conținutul oricărui clipboard, în funcție de tipul dorit. În cazul de față, pentru obținerea clipboardului specific aplicației Adobe XD, tipul clipboardului este reprezentat de ``com.adobe.sparkler.design".
+O tehnologie folosită pentru testarea și implementarea cu ajutorului Clipboardului este Clipboard Viewer \cite{clipboard}. Această aplicație arată conținutul oricărui clipboard, în funcție de tipul dorit. În cazul de față, pentru obținerea clipboardului specific aplicației Adobe XD, tipul clipboardului este reprezentat de ``com.adobe.sparkler.design".
 
 \subsection{Demo}
 Aplicația este funcțională și implementează sincronizarea și translatarea directă și inversă a elementelor vizuale dintre Adobe XD și XCode. 
-Realizarea proiectului a fost testată pe un sistem MacOSX, aplicația fiind scrisă în ObjC cu ajutorul IDE-ului XCode. Pentru rularea aplicației este necesar proiectul curent  și , desigur, aplicația Adobe XD.
+Realizarea proiectului a fost testată pe un sistem MacOSX, aplicația fiind scrisă în ObjC cu ajutorul IDE-ului XCode. Pentru rularea aplicației este necesar proiectul curent \cite{repoGit} și , desigur, aplicația Adobe XD.
 Intern, proiectul se folosește de utilitarul ImageMagick pentru conversia între un format svg și un format png.
 
 \begin{figure}[!htbp]
