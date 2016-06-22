@@ -3,33 +3,33 @@
 \contentsline {chapter}{\numberline {1}Introducere}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Descrierea proiectului}{1}{section.1.1}
 \contentsline {subsection}{\numberline {1.1.1}Scop \IeC {{\textcommabelow s}}i motiva\IeC {{\textcommabelow t}}ie}{1}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Obiectivele Proiectului}{1}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.2}Obiectivele Proiectului}{2}{subsection.1.1.2}
 \contentsline {chapter}{\numberline {2}Prezentarea structurilor XCode \IeC {{\textcommabelow s}}i Adobe Experience Design}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Prezentare XCode}{3}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Structura unui fi\IeC {{\textcommabelow s}}ier .storyboard}{4}{subsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.1.1}Formatul xml}{7}{subsubsection.2.1.1.1}
-\contentsline {section}{\numberline {2.2}Prezentare Adobe Experience Design}{7}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Structura unui fi\IeC {{\textcommabelow s}}ier .xd}{7}{subsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.1.1}Formatul json}{8}{subsubsection.2.2.1.1}
-\contentsline {section}{\numberline {2.3}Translatarea \IeC {{\textcommabelow s}}i Scalarea dimensiunilor elementelor vizuale}{9}{section.2.3}
-\contentsline {subsubsection}{\numberline {2.3.0.1}Motiva\IeC {{\textcommabelow t}}ia prezent\IeC {\u a}rii celor dou\IeC {\u a} structuri}{10}{subsubsection.2.3.0.1}
-\contentsline {chapter}{\numberline {3}Prezentarea schemelor de translatare}{11}{chapter.3}
-\contentsline {section}{\numberline {3.1}Translatarea din XCode \IeC {\^\i }n Adobe Experience Design}{11}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Translatarea Switch-ului \IeC {{\textcommabelow s}}i a altor elemente grafice similare}{14}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Translatarea Interac\IeC {{\textcommabelow t}}iunilor XCode->XD}{15}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Translatarea din Adobe Experience Design \IeC {\^\i }n XCode}{15}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Translatarea Path-urilor \IeC {{\textcommabelow s}}i a diverselor figuri geometrice}{18}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Translatarea textului}{21}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Translatarea grupurilor}{21}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Translatarea imaginilor}{22}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{22}{subsection.3.2.5}
-\contentsline {section}{\numberline {3.3}Translatarea XCode-XD folosind a doua schem\IeC {\u a} de translatare}{23}{section.3.3}
-\contentsline {section}{\numberline {3.4}Sincronizarea scenelor \IeC {\^\i }ntre cele dou\IeC {\u a} reprezent\IeC {\u a}ri}{24}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Sincronizarea Adobe Experience Design - XCode}{24}{subsection.3.4.1}
-\contentsline {chapter}{\numberline {4}Implementare}{26}{chapter.4}
-\contentsline {section}{\numberline {4.1}Arhitectur\IeC {\u a}}{26}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Demo}{28}{subsection.4.1.1}
-\contentsline {section}{\numberline {4.2}Performan\IeC {{\textcommabelow t}}\IeC {\u a}}{29}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Compara\IeC {{\textcommabelow t}}ie Scheme de translatare}{31}{subsection.4.2.1}
-\contentsline {chapter}{\numberline {5}Concluzii}{32}{chapter.5}
-\contentsline {section}{\numberline {5.1}\IeC {\^I}mbun\IeC {\u a}t\IeC {\u a}\IeC {{\textcommabelow t}}iri ulterioare}{32}{section.5.1}
+\contentsline {subsubsection}{\numberline {2.1.1.1}Formatul xml}{8}{subsubsection.2.1.1.1}
+\contentsline {section}{\numberline {2.2}Prezentare Adobe Experience Design}{8}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Structura unui fi\IeC {{\textcommabelow s}}ier .xd}{8}{subsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.1.1}Formatul json}{9}{subsubsection.2.2.1.1}
+\contentsline {section}{\numberline {2.3}Translatarea \IeC {{\textcommabelow s}}i scalarea elementelor vizuale}{9}{section.2.3}
+\contentsline {subsubsection}{\numberline {2.3.0.1}Motiva\IeC {{\textcommabelow t}}ia prezent\IeC {\u a}rii celor dou\IeC {\u a} structuri}{11}{subsubsection.2.3.0.1}
+\contentsline {chapter}{\numberline {3}Prezentarea schemelor de translatare}{12}{chapter.3}
+\contentsline {section}{\numberline {3.1}Translatarea din XCode \IeC {\^\i }n Adobe Experience Design}{12}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Translatarea Switch-ului \IeC {{\textcommabelow s}}i a altor elemente grafice similare}{15}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Translatarea Interac\IeC {{\textcommabelow t}}iunilor XCode->XD}{16}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Translatarea din Adobe Experience Design \IeC {\^\i }n XCode}{16}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Translatarea Path-urilor \IeC {{\textcommabelow s}}i a diverselor figuri geometrice}{19}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Translatarea textului}{22}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Translatarea grupurilor}{22}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Translatarea imaginilor}{23}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{23}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}Translatarea XCode-XD folosind a doua schem\IeC {\u a} de translatare}{24}{section.3.3}
+\contentsline {section}{\numberline {3.4}Sincronizarea scenelor \IeC {\^\i }ntre cele dou\IeC {\u a} reprezent\IeC {\u a}ri}{25}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Sincronizarea Adobe Experience Design - XCode}{25}{subsection.3.4.1}
+\contentsline {chapter}{\numberline {4}Implementare}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}Arhitectur\IeC {\u a}}{27}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Demo}{29}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Performan\IeC {{\textcommabelow t}}\IeC {\u a}}{30}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Compara\IeC {{\textcommabelow t}}ie Scheme de translatare}{32}{subsection.4.2.1}
+\contentsline {chapter}{\numberline {5}Concluzii}{33}{chapter.5}
+\contentsline {section}{\numberline {5.1}\IeC {\^I}mbun\IeC {\u a}t\IeC {\u a}\IeC {{\textcommabelow t}}iri ulterioare}{33}{section.5.1}
