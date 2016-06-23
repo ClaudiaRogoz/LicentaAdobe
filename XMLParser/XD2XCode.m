@@ -20,6 +20,7 @@
 
 + (void) readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath {
     NSError *error;
+    NSLog(@"AHAAA");
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     NSString *xmlPath = [[outXmlPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
@@ -1358,6 +1359,7 @@
     NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
     NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
     NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
+    [xmlData writeToFile:@"/Users/crogoz/Desktop/here.xml" atomically:YES];
     if ([self outXmlPath])
         [xmlData writeToFile:[self outXmlPath] atomically:YES];
 }
@@ -1365,6 +1367,7 @@
 - (NSString *) replaceConnections:(NSString *) xmlString {
     NSString *newString = [self deepCopy:xmlString];
     id allKeys = [uuidViewMap allKeys];
+    NSLog(@"Replacing %@", uuidViewMap);
     for (id node in allKeys) {
         newString = [newString stringByReplacingOccurrencesOfString:node withString:[uuidViewMap objectForKey:node]];
     }

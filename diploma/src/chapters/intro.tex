@@ -3,8 +3,8 @@
 \chapter{Introducere}
 \label{chapter:intro}
 
-\par Proiectul de față este un produs software care vine în ajutorul developerilor și designerilor de aplicații user experience. În acest sens, se dorește realizarea unei scheme de translatare ale elementelor vizuale (asseturi - imagini, butopan, etc.) create în cele două cele mai complexe utilitare pentru construitrea interfețelor grafice pentru iOS -  IDE-ul XCode și  Adobe Experience Design.
-\par În capitolul acesta, se va realiza o scurtă descriere a proiectului, motivația și obiectivele aplicatiei, iar  în urmatoarele secțiuni se va detalia arhitectura și modul de implementare al acestuia.
+\par Proiectul de față este un produs software care vine în ajutorul developerilor și designerilor de aplicații user experience. În acest sens, se dorește realizarea unei scheme de translatare ale elementelor vizuale (asseturi - imagini, butoane, etc.) create în două dintre cele mai complexe utilitare pentru construirea interfețelor grafice pentru iOS -  IDE-ul XCode și  Adobe Experience Design.
+\par În capitolul acesta, voi realiza o scurtă descriere a proiectului, motivația și obiectivele aplicației, iar în urmatoarele secțiuni se va detalia arhitectura și modul de implementare al acesteia.
 
 \section{Descrierea proiectului}
 \label{sec:proj}
@@ -16,7 +16,7 @@ Pentru implementarea acestui proiect s-a luat în considerare structura internă
 
 \subsection{Scop și motivație}
 \label{sub-sec:proj-scope}
-Principalul scop al acestui proiect este construirea unei scheme de translatare dintre elementele vizuale ale două produse software destinate design-ului și prototipurilor de aplicații mobile și site-uri web, pentru a veni în ajutorul developerilor de iOS. Prin intermediul soluției descrise, crearea, sincronizarea, actualizarea, dar și colaborarea între membrii unei echipe de dezvolatare de aplicații se va realiza facil, asigurându-se o automatizare a modului de lucru.
+Principalul scop al acestui proiect este construirea unei scheme de translatare dintre elementele vizuale ale două produse software destinate design-ului și prototipurilor de aplicații mobile și site-uri web. Prin intermediul soluției descrise, crearea, sincronizarea, actualizarea, dar și colaborarea între membrii unei echipe de dezvolatare de aplicații se va realiza facil, asigurându-se o automatizare a modului de lucru.
 
 Un scop secundar este găsirea unei soluții eficiente de reprezentare și de translatare între cele două formate interne specifice XCode-ului, respectiv XD-ului, pentru a fi folosit și în alte domenii de aplicații.
 
@@ -25,13 +25,13 @@ Finalitatea acestei aplicații este crearea automată  a unei “punți” într
 \subsection{Obiectivele Proiectului}
 \label{sub-sec:proj-objectives}
 
-Obiectivul principal al acestei teme este acela de translatare a elementelor vizuale dintre un produs software dedicat dezvoltării unei aplicații (XCode) și o aplicație de design și de realizare de prototipuri (Adobe XD) \footnote{Mai multe detalii despre cele două aplicații se regăsesc în capitolul 2.}. Totodată, prin intermediul acestui proiect se dorește construirea automată a aplicației dezvoltate în XCode, pe baza prototipului obținut din XD.
+Obiectivul principal al acestei teme este acela de translatare a elementelor vizuale dintre un produs software dedicat dezvoltării unei aplicații (XCode) și o aplicație de design și de realizare de prototipuri (Adobe XD) \footnote{Mai multe detalii despre cele două aplicații se regăsesc în capitolul 2.}. Totodată, prin intermediul acestui proiect se dorește construirea automată a aplicației dezvoltate în XCode, pe baza prototipului obținut în XD.
 Astfel, soluția propusă va trebui să asigure următoarele funcționalități:
 
 \begin{enumerate}
 \item Soluția va permite unui dezvoltator iOS să creeze un fișier de design Adobe Experience Design care să conțină elementele vizuale din proiectul său iOS (din XCode)
-\item Un utilizator poate modifica ecranele aplicației, elmentele vizuale și tranzițiile pentru fișierul Adobe Experience Design creat mai sus. De asemenea, se pot crea noi elemente vizuale (inclusiv tranziții între scene).
-\item Soluția va permite dezvoltatorului de iOS să-și actualizeze proiectul său iOS pe baza ultimelor modificări aduse fișierului Adobe Experience Design creat. Sincronizarea se va putea face automat, în momentul în care se salveaza fișierul de design. 
+\item Un utilizator poate modifica ecranele aplicației, elementele vizuale și tranzițiile pentru fișierul Adobe Experience Design creat mai sus. De asemenea, se pot crea noi elemente vizuale (inclusiv tranziții între scene).
+\item Soluția va permite dezvoltatorului de iOS să-și actualizeze proiectul său iOS pe baza ultimelor modificări aduse fișierului Adobe Experience Design creat. Sincronizarea se va putea face automat, în momentul în care se salvează fișierul de design. 
 \item  Utilizatorul va putea să compileze aplicația sa iOS din XCode, iar modificările sunt văzute corespunzător. 
 \end{enumerate}
 
@@ -42,18 +42,20 @@ Astfel, soluția propusă se poate extinde, putând fi folosită în diferite do
 \chapter{Prezentarea structurilor XCode și Adobe Experience Design}
 
 
-Proiectul reprezintă un model de translatare între două aplicații, care va fi construit sub forma un plug-in adus aplicației Adobe Experience Design, pentru interacțiunea cu IDE-ul XCode. 
-Pentru a putea construi această translatare, se vor explica, în acest capitol, structurile și modul de lucru corespunzătoare celor două aplicații. În primul rând, însă, se vor defini noțiunile de elemente vizuale/grafice.
+Proiectul reprezintă un model de translatare între două aplicații, care va fi construit sub forma unui plug-in adus aplicației Adobe Experience Design, pentru interacțiunea cu IDE-ul XCode. 
+Pentru a putea construi această translatare, voi explica, în acest capitol, structurile și modul de lucru corespunzătoare celor două aplicații. În primul rând, însă, se vor defini noțiunile de elemente vizuale/grafice.
 
 Elementele vizuale, atât în XCode, cât și în Adobe Experience Design, sunt reprezentate prin mulțimea de asset-uri care se pot reprezenta în mod vizual pe suprafața de design (text, imagini, butoane, interacțiuni și scene). Fiecare element vizual are specificat un comportament specific, în funcție de categoria de asseturi în care se încadrează.
 
+În acest capitol voi prezenta structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, voi preciza asocierile care se pot construi între cele două formate. Aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare.
+
 \section{Prezentare XCode}
 
-XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS \cite{Aboutxcode}. XCode permite crearea de cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de framework-uri (Cocoa, Carbon, etc.). Aplicația principală a suitei este IDE-ul\footnote{Un IDE (ntegrated development environment - mediu intergrat de dezvoltare) este o aplicație software care oferă o serie de utilitare pentru programatori. Un IDE conține un editor de cod sursă, compilator, debugger și este prezentat utilizatorului printr-o interfață grafică, ușor de folosit.}, numit de asemenea XCode. Suita XCode include pe lângă documentația Apple de dezvoltare și o aplicație built-in - Interface Builder, o componentă principală in dezvoltarea soluției propuse.
+XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS \cite{Aboutxcode}. XCode permite crearea de cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de framework-uri (Cocoa, Carbon, etc.). Aplicația principală a suitei este IDE-ul\footnote{Un IDE (Integrated development environment - mediu intergrat de dezvoltare) este o aplicație software care oferă o serie de utilitare pentru programatori. Un IDE conține un editor de cod sursă, compilator, debugger și este prezentat utilizatorului printr-o interfață grafică, ușor de folosit.}, numit de asemenea XCode. Suita XCode include pe lângă documentația Apple de dezvoltare și o aplicație built-in - Interface Builder, o componentă principală in dezvoltarea soluției propuse.
 
-Interface Builder este o aplicație de development de software pentru sistemul Apple Mac OS X, care permite dezvoltatorilor de Cocoa și Carbon să creeze interfețe grafice pentru aplicații cu ajutorul unei interfețe grafice, ușor de folosit, puse la dispoziția utilizatorului . Interfața rezultată va fi stocată într-un fișier .nib (NeXT Interface Builder), sau .xib.
+Interface Builder este o aplicație de development de software pentru sistemul Apple Mac OS X, care permite dezvoltatorilor de Cocoa și Carbon să creeze interfețe grafice pentru aplicații cu ajutorul unei interfețe grafice, ușor de folosit, puse la dispoziția utilizatorului. Interfața rezultată va fi stocată într-un fișier .nib (NeXT Interface Builder), sau .xib.
 
-Interface Builder oferă palete de culori, colecții de elemente vizuale - text, tabele, meniuri, butoane, etc - necesare dezvoltatorilor de aplicații ObjC. Astfel , prin intermediul editorului Interface Builder, crearea interfeței grafice pentru utilizator se realizează ușor, fără a fi nevoie de cod. La baza managementului de elemente vizuale se află Drag \& Drop pe suprafața de lucru (canvas). 
+Interface Builder oferă palete de culori, colecții de elemente vizuale - text, tabele, meniuri, butoane, etc. - necesare dezvoltatorilor de aplicații ObjC. Astfel, prin intermediul editorului Interface Builder, crearea interfeței grafice pentru utilizator se realizează ușor, fără a fi nevoie de cod. La baza managementului de elemente vizuale se află Drag \& Drop pe suprafața de lucru (canvas). 
 
 Deoarece Cocoa și Cocoa Touch sunt construite folosind modelul Model-View-Controller, interfețele utilizator se pot realiza independent de implementările lor. Aceste interfețe vor fi stocate în fișierele .nib, iar la compilare se vor crea dinamic legăturile dintre UI și implementare.
 
@@ -65,10 +67,10 @@ Soluția propusă în acest proiect rezolvă doar controllerul generic - View Co
 
 \subsection{Structura unui fișier .storyboard}
 
-În această secțiune se va explica structura de bază a fișierului .storyboard (fișier de tip xml) și a câtorva tag-uri principale: \textbf{\textit{scene}}, \textbf{\textit{viewController}}, \textbf{\textit{view}}, \textbf{\textit{segue}}. De asemenea, se va explica modul de interacțiune între entități și modul în care acestea lucrează impreună pentru construirea interfețelor utilizator din Interface Builder.
+În această secțiune se va explica structura de bază a fișierului .storyboard (fișier de tip xml) și a câtorva tag-uri principale: \textbf{\textit{scene}}, \textbf{\textit{viewController}}, \textbf{\textit{view}}, \textbf{\textit{segue}}. De asemenea, se va explica modul de interacțiune între entități și modul în care acestea lucrează împreună pentru construirea interfețelor utilizator din Interface Builder.
 Un fișier “.storyboard” mapează elementele vizuale într-o reprezentare de tip xml. Așadar, fiecărui element vizual îi corespunde un tag cu atribute care specifică caracteristicile acestuia în mod formal. Întrucât tagurile au o reprezentare ierarhică, atributele acestora depind de tag-urile părinte. De exemplu, un tag de încadrare al unui element vizual este definit relativ la tagurile sale părinte de încadrare.
 
-În momentul în care un nou storyboard este creat, se va construi un fișier xml cu tag-ul părinte \textbf{\textit{document}} și cu o serie de atribute care conțin metainformații  (figura \ref{fig:document}):
+În momentul în care un nou storyboard este creat, se va construi un fișier xml cu tag-ul părinte \textbf{\textit{document}} și cu o serie de atribute care conțin metainformații (figura \ref{fig:document}):
 
 \begin{figure}[!htbp]
 \lstset{language=XML}
@@ -87,7 +89,7 @@ Un fișier “.storyboard” mapează elementele vizuale într-o reprezentare de
 
 Atributul \textbf{targetRuntime}  specifică sistemul de runtime în care storyboard-ul este folosit. \textbf{\textit{iOS.CocoaTouch}} specifică faptul că storyboard-ul este de tipul iOS, astfel încât scenele folosite sunt de tipul iPhone.
 
-Tag-ul \textbf{dependencies} identifică orice dependență necesară storyboard-ului, iar tag-ul copil \textbf{plugin} specifică pluginul necesar acestui storyboard - în acest caz ``com.apple.InterfaceBuilder.IBCocoaTouchPlugin". Aceste două taguri specifică metadate referitoare la aplicația dezvoltată precum vresiunea, tipul scenelor etc.
+Tag-ul \textbf{dependencies} identifică orice dependență necesară storyboard-ului, iar tag-ul copil \textbf{plugin} specifică pluginul necesar acestui storyboard - în acest caz ``com.apple.InterfaceBuilder.IBCocoaTouchPlugin". Aceste două taguri specifică metadate referitoare la aplicația dezvoltată, metadate precum vresiunea, tipul scenelor etc.
 
 Tag-ul \textbf{scenes} conține toate scenele (împreună cu view controller-ele asociate) din storyboard. 
 În cadrul aplicațiilor iPhone și iPod touch, un ecran, în general, este constituit dintr-o singură scenă care ocupă întreaga suprafață a ecranului. Pe iPad sau OS X, un ecran poate fi constituit din mai multe scene, de aceea se pot adăuga mai multe fișiere storyboard, pe măsură ce complexitatea crește.
@@ -136,7 +138,7 @@ Reprezentarea sub formă de arbore a blocurilor XML din cadrul reprezentării un
 
 Un atribut important de menționat ar fi \textbf{id}, atribut prezent în aproape toate tagurile. Atributul \textbf{id} specifică un număr de ordine unic pentru fiecare entitate din storyboard, astfel fiecare relație sau conexiune se referă la acest id.
 
-În momentul în care se adaugă o noua scenă, se creează un tag copil \textbf{\textit{scene}} în cadrul tagului \textbf{\textit{scenes}} în storyboard. Tag-ul \textbf{\textit{point}} specifică poziția scenei (offsetul) în cadrul canvas-ului de lucru.
+În momentul în care se adaugă o nouă scenă, se creează un tag copil \textbf{\textit{scene}} în cadrul tagului \textbf{\textit{scenes}} în storyboard. Tag-ul \textbf{\textit{point}} specifică poziția scenei (offsetul) în cadrul canvas-ului de lucru.
 
 Tag-ul \textbf{viewController} reprezintă View Controller-ul principal. Reprezentarea sa xml se poate vedea în figura \ref{fig:viewController}:
 
@@ -148,7 +150,7 @@ Tag-ul \textbf{viewController} reprezintă View Controller-ul principal. Repreze
 \caption{ViewController tag}\label{fig:viewController}
 \end{figure}
 
-Fiecare View Controller conține o scenă principală și este reprezentată de tag-ul \textbf{view}, așa cum se vede în figura \ref{fig:view}
+Fiecare View Controller conține o scenă principală care este reprezentată prin tag-ul \textbf{view}, așa cum se vede în figura \ref{fig:view}
 
 Proprietățile unei scene sunt reprezentate, așa cum se vede în xml-ul de mai sus, prin tagurile \textbf{rect}, \textbf{color}, iar atributul \textbf{key} specifică cartacteristica pe care tag-ul curent o definește.
 
@@ -181,7 +183,7 @@ Proprietățile unei scene sunt reprezentate, așa cum se vede în xml-ul de mai
 
 Toate proprietățile setate pentru un UIView (element vizual), oricare ar fi el - buton, text, imagine, etc. - se translatează automat în atribute sau taguri în fișierul xml.
 
-Prin intermediul unui segue (interacțiune/tranziție), se realizează, la nivel conceptual, tranziția între un view controller sau buton și alte view controllere, iar la nivel vizual, se realizează schimbarea scenei curente. De exemplu, în momentul în care se apasă un buton de pe o scenă \textbf{\textit{x}}, se face redirecționarea către o altă scenă \textbf{\textit{y}}. 
+Prin intermediul unui segue (interacțiune/tranziție), se realizează, la nivel conceptual, tranziția între un view controller sau buton și alte view controllere, iar, la nivel vizual, se realizează schimbarea scenei curente. De exemplu, în momentul în care se apasă un buton de pe o scenă \textbf{\textit{x}}, se face redirecționarea către o altă scenă \textbf{\textit{y}}. 
 
 În momentul în care două view controllere se conectează cu un segue, un tag numit \textbf{connections} este creat și este inclus în interiorul tag-ului \textbf{viewController}.
 
@@ -206,9 +208,8 @@ View Controllerele pot avea mai multe tranziții și pot pointa către mai multe
 
 XML (Extensible Markup Language) este un limbaj care definește un set de reguli pentru codificarea documentelor într-un format atât human-readable, cât și machine-readable. 
 
-Scopul XML-ului este acela de furnizare de simplicitate, uzabilitate și generalitate în cadrul Internetului. XML-ul este un limbaj care este folosit în cadrul a numeroase aplicații. Acesta a stat la baza unor protocoale de comunicatie, cum ar fi XMPP. De asemenea, aplicațiile pentru Microsoft .NET Framework folosesc fișiere xml de configurare. În cadrul fișierului xd pe care îl vom studia în capitolul următor, metadata de configurare este stabilită tot prin limbajul xml. 
-
-Schema de translatare propusă în acest proiect a fost folosită și în cadrul acestor fișiere de configurare din xd.
+Scopul XML-ului este acela de furnizare de simplicitate, uzabilitate și generalitate în cadrul Internetului. XML-ul este un limbaj care este folosit în cadrul a numeroase aplicații. Acesta a stat la baza unor protocoale de comunicație, cum ar fi XMPP. De asemenea, aplicațiile pentru Microsoft .NET Framework folosesc fișiere xml de configurare. 
+În cadrul fișierului xd pe care îl vom studia în capitolul următor, metadata de configurare este stabilită tot prin limbajul xml. Schema de translatare propusă în acest proiect a fost folosită și în cadrul acestor fișiere de configurare din xd.
 
 \section{Prezentare Adobe Experience Design}
 
@@ -217,9 +218,9 @@ Adobe Experience Design este un nou utilitar pentru realizarea designului și pr
 \subsection{Structura unui fișier .xd}
 
 În urma realizării unei aplicații Adobe Experience Design, se creează un fișier cu extensia .xd, care va conține reprezentarea elementelor vizuale. 
-Un fișier xd este realizat prin comprimarea mai multor fișiere de metadata cu extensia “.agc”, prin realizarea operației de zip. Fișierele cu extensia .agc conțin informații legate de scenele din XD în format json.
+Un fișier xd este realizat prin comprimarea mai multor fișiere de metadata cu extensia “.agc”, prin realizarea operației zip. Fișierele cu extensia .agc conțin informații legate de scenele din XD în format json.
 
-Ierarhia de fișiere din cadrul unui design .xd (în urma aplicării comenzii unzip) este de forma:
+Ierarhia de fișiere din cadrul unui fișier de design .xd (în urma aplicării comenzii unzip) este de forma:
 
 \begin{figure}[!htbp]
 \begin{tikzpicture}
@@ -246,7 +247,7 @@ Ierarhia de fișiere din cadrul unui design .xd (în urma aplicării comenzii un
 \caption{Ierarhie fișiere} \label{fig:ierarhie}
 \end{figure}
 
-Fișierul \textbf{metadata.xml} conține metadata referitoare la fișierul .xd - data de creare, de modificare, și id-urile canvas-ului.
+Fișierul \textbf{metadata.xml} conține metainformații referitoare la fișierul .xd - data de creare, de modificare, și id-urile canvas-ului.
 
 Directorul \textbf{artwork} conține o serie de fișiere cu informații în format json despre elementele vizuale ale fiecărei scene\footnote{Se vor folosi termenii scene și artboard interschimbabil} în parte. 
 
@@ -254,11 +255,11 @@ Directorul  \textbf{resources} conține o serie de imagini folosite în designul
 
 Directorul \textbf{interactions} conține informații legate de tranzițiile dintre scene.
 
-Fișierul \textbf{manifest} conține metadata referitoare la ierarhia de componente grafice din cadrul fișierului XD. 
+Fișierul \textbf{manifest} conține metadate referitoare la ierarhia de componente grafice din cadrul fișierului XD. 
 
-Fișierul  \textbf{mimetype} definește aplicația corespunzătoare XD-ului, în cazul de față - ``application/vnd.adobe.sparkler.project+dcx".
+Fișierul \textbf{mimetype} definește aplicația corespunzătoare XD-ului, în cazul de față - ``application/vnd.adobe.sparkler.project+dcx".
 
-Un fișier de descriere a unei scene este reprezentat printr-o serie de proprietăți:  \textbf{version} - specifică versiunea agc-ului, \textbf{resources}, respectiv \textbf{artboards} fac legătura cu restul fișierelor de descriere. Proprietatea  \textbf{children} descrie lista de elemente vizuale ale scenei, precizând, astfel, pentru fiecare entitate, caracteristicile specifice, cadranul de încadrare și offsetul față de ierarhia de elemente față de care depinde.
+Un fișier de descriere a unei scene este reprezentat printr-o serie de proprietăți:  \textbf{version} - specifică versiunea agc-ului, \textbf{resources}, respectiv \textbf{artboards} fac legătura cu restul fișierelor de descriere. Proprietatea  \textbf{children} descrie lista de elemente vizuale ale scenei, precizând, astfel, pentru fiecare entitate, caracteristicile specifice, cadranul de încadrare și offsetul față de ierarhia de elemente de care depinde (scene, grupuri).
 
 \subsubsection{Formatul json}
 
@@ -301,20 +302,20 @@ Pentru implementarea celei de-a doua variante, este nevoie de obținerea gradulu
 \[ yAxisScaleFactor=\frac{yAxisFinalArtboard}{yAxisInitialArtboard} \]
 cu precizarea că:
  ~$xAxisScaleFactor$, ~$yAxisScaleFactor$ reprezintă valorile de scalare pe axele X, respectiv Y,  ~$xAxisInitialArtboard$și ~$yAxisInitialArtboard$ reprezintă lungimea, respectiv lățimea scenei inițiale (de la care se face translatarea), iar ~$xAxisFinalArtboard$, ~$yAxisFinalArtboard$ reprezintă lungimea, respectiv lățimea scenei finale (în care se face translatarea).
-Pentru obținerea lățimii și lungimii obiectelor vizuale, se aplică formulele:
+Pentru obținerea lățimii și lungimii elementelor vizuale, se aplică formulele:
 \[ width =  {initialWidth}\cdot{xAxisScaleFactor}\]
 \[ height =  {initialHeight}\cdot{yAxisScaleFactor}\]
 cu precizarea că:
 ~$width$, ~$height$ reprezintă valorile finale ale lungimii, respectiv lățimii, ~$initialWidth$, ~$initialHeight$ reprezintă valorile inițiale ale lungimii, respectiv lățimii elementelor vizuale.
 
-În Xcode, offseturile elementelor vizuale din cadrul scenelor sunt relative la elemente părinte (scena în care se află, mulțimea de grupuri de care aparțin). De exemplu, în cazul unui view cu punctul de offset <x1, y2> și cu elementul vizual ``Asset1" cu punctul de offset <x2, y2>, valoarea absolută a lui ``Asset1" corespunde punctului <x1 + x2, y1 + y2>. 
+În Xcode, offseturile elementelor vizuale din cadrul scenelor sunt relative la elemente părinte (scena în care se află, mulțimea de grupuri de care aparțin). De exemplu, în cazul unui view cu punctul de offset <x1, y1> și cu elementul vizual $Asset1$ cu punctul de offset <x2, y2>, valoarea absolută a lui $Asset1$ corespunde punctului <x1 + x2, y1 + y2>. 
 
-În cadrul reprezentării sub formă de agc, un element vizual este caracterizat de un offset cu valoare absolută pe suprafața de design. Pentru obținerea valorilor relative la scena de care aparțin, este nevoie de calcularea offseturilor pe baza grupurilor și a scenelor de care aparțin.
+În cadrul reprezentării sub formă de agc, un element vizual este caracterizat de un offset cu valoare absolută pe suprafața de design. Pentru obținerea valorilor fiecărui asset, este nevoie de calcularea offseturilor pe baza grupurilor și a scenelor de care aparțin.
 
 Așadar pentru calcularea valorilor x (pentru fiecare element vizual ``X" ) în cazul translației XD-XCode, formulele aferente sunt:
-        \[ startXArtboard = startXArtboard - \sum{xValue} \]
+        \[ startXArtboard = startXArtboard - \sum_{i = \{GRP\}} xValue_{i} \]
         \[ translatedValue = (translatedValue - startXArtboard * xAxisScaleFactor;\]
-cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar, iar ~$startXArtboard$ reprezintă offsetul scenei din care face parte assetul ``X", la care se scade valoarea tuturor valorilor ``xValue" corespunzătoare grupurilor din care face parte assetul ``X". 
+cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar, iar ~$startXArtboard$ reprezintă offsetul scenei din care face parte assetul ``X", la care se scade valoarea tuturor valorilor ``xValue" corespunzătoare grupurilor din care face parte assetul ``X" (``GRP").
 
 Calculul valorilor x, respectiv y în cazul translației XCode-Xd se calculează astfel:
         \[ translatedValue = (translatedValue * xScaleFactor) + startXArtboard; \]
@@ -322,40 +323,33 @@ cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar
 
 Valorile ~$startXArtboard$, ~$startYArtboard$, ~$xValue$, ~$yValue$ se calculează pe baza valorilor atributelor ``tx", ``ty" ale proprietății ``transform" specifice scenelor, respectiv grupurilor.
 
-\subsubsection {Motivația prezentării celor două structuri} 
-
-În acest capitol s-a prezentat structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, s-au precizat asocierile care se pot construi între cele două formate. Aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare.
-
 \chapter{Prezentarea schemelor de translatare}
 
-În acest capitol se va prezenta modul de translatare între cele două reprezentări: XCode și XD sau, xml, respectiv json. 
+În acest capitol voi prezenta modul de translatare dintre cele două reprezentări: xml (specific XCode) și json (specific XD). 
 
 Formatul json este similar xml-ului prin faptul că amandouă reprezentările descriu structuri de date și obiecte serializabile. Multiple protocoale bazate pe xml reprezintă aceleași structuri de date ca json-ul, în mod interschimbabil.
 
-Găsirea unei scheme de translatare între cele două reprezentări se rezumă, așadar, la găsirea multiplelor mapări între tag-urile și atributele xml-ului, respectiv json-ului. De asemnea, există anumite dependențe între un tag din xml și o mulțime de proprietăți din json.
+Găsirea unei scheme de translatare între cele două reprezentări se rezumă, așadar, la găsirea multiplelor mapări între tag-urile și atributele xml-ului, respectiv json-ului. De asemenea, există anumite dependențe între tag-urile xml și submulțimi de proprietăți json (pe baza proprietatilor respective, in momentul translatarii, se decid tag-urile xml si atributele lor).
 
 \section{Translatarea din XCode în Adobe Experience Design}
 
-Importul elementelor vizuale din XCode în XD presupune parcurgerea fișierelor “storyboard” și inspectarea tagurilor cu atributele corespunzătoare. În urmă inspectării, trebuie să se obțină o reprezentare de tip json a fișierului de intrare.  De aceea, schema de translatare pe care o propun este descrierea unui model de asociere între tagurile xml și elementele json, schemă reprezentată, la rândul său, de un fișier .json.  
+Translatarea elementelor vizuale din XCode în XD presupune parcurgerea fișierelor “storyboard” și inspectarea tagurilor cu atributele corespunzătoare. În urmă inspectării, trebuie să se obțină o reprezentare de tip json a fișierului de intrare.  De aceea, schema de translatare pe care o propun constă într-un model de asociere între tagurile xml și elementele json, schemă reprezentată, la rândul său, de un fișier .json.  
 
-Această schemă va fi reprezentată într-un format json datorită caracteristicilor specifice acestui format: reprezentare human-readable, extensibilitate, serializabilitate, deserializabilitate rapidă în și dintr-un dicționar. Un astfel de dicționar asigură accesul la valori într-un timp constant.
+Această schemă va fi reprezentată într-un format json datorită caracteristicilor specifice acestui format: reprezentare human-readable, extensibilitate, serializabilitate, deserializabilitate rapidă în și dintr-un dicționar. Un astfel de dicționar (spre exemplu, un hash table) asigură căutarea cheilor și obținerea valorilor asociate într-un timp constant (amortizat).
 
 Schema de translatare din xml în json a avut parte de două versiuni. 
 
-Prima versiune se bazează pe reprezentarea fiecărei proprietăți din json sub o formă ușor de extins și eficientă din punct de vedere computațional. În acest sens, m-am folosit de mapări <cheie, valoare> care să reprezinte proprietățile și valorile corespunzătoare.
-
-Aceste mapări corespund unor serii de dicționare care reprezintă template-urile elementelor json (formatul în care vrem să translatăm). Așadar, schema propusă va fi construită dintr-un dicționar de template-uri specifice diferitelor proprietăți. 
+Prima versiune se bazează pe reprezentarea fiecărei proprietăți din json sub o formă ușor de extins și eficientă din punct de vedere computațional. În acest sens, m-am folosit de mapări <cheie, valoare> care să reprezinte proprietățile și valorile corespunzătoare. Fiecare valoare va fi reprezentată, la rândul său, tot de un dicționar care descrie un element vizual în format json (practic, valoarea reprezintă un template - structura pe care trebuie să o îndeplinească elementul vizual asociat cheii). Așadar, schema propusă va fi construită dintr-un dicționar de template-uri specifice diferitelor tipuri de asseturi.
 
 Fiecare cheie din acest dicționar principal reprezintă numele unei proprietăți din json, iar valoarea corespunzătoare - template-ul proprietății json. 
 
 Pe lângă acest dicționar - pe care o sa îl numim \textbf{rootDict} - avem nevoie de o mapare între tagurile xml și proprietățile json care specifică același element vizual/ logic. Pentru aceasta, ne folosim de un dicționar de mapare suplimentar care va fi sub forma (<nume_tag_xml>,  <nume_proprietate_json>). Pe acest dicționar îl vom numi în continuare \textbf{mapDict}.
 
-Așadar, prin intermediul celor două dicționare rezolvăm problema mapării dintre cele două reprezentări. Apare, însă altă problemă: cum rezolvăm legăturile dintre proprietăți ?
+Așadar, prin intermediul celor două dicționare rezolvăm problema mapării dintre cele două reprezentări. 
+În continuare, trebuie rezolvate dependențele dintre proprietăți și taguri dintre cele două reprezentări.
 
 
-\labelindexref{Figure}{img:schemaText}
-
-\fig[scale=0.5]{src/img/SchemaText.png}{img:schemaText}{Switch tag}
+\fig[scale=0.5]{src/img/SchemaText.png}{img:schemaText}{Reprezentare text XCode și XD}
 
 
 De exemplu, fie figura \ref{img:schemaText} care reprezintă formatul unui text în XCode, respectiv în XD și câteva asocieri dintre reprezentări.
@@ -363,26 +357,30 @@ Proprietățile care variază - dimensiunile cadranului (\textbf{rect}), culoril
 
 
 De aceea, introducem niște notații care ne ajută în realizarea acestor asocieri. 
-
+\\
 
 \newtheorem{mydef}{Afirmație}[chapter]
 \newtheorem{myNote}{Notă}[chapter]
 
 \begin{mydef}\label{dollar}
-Un string precedat de caracterul ``\$" reprezintă o valoare care trebuie să fie înlocuită, conform comportamentului definit de acesta.
+Un string precedat de caracterul ``\$" reprezintă o valoare temporară, care trebuie să fie înlocuită, conform comportamentului definit de schema de translatare.\\
 \end{mydef}
+
+
+\begin{mydef}\label{nivel}
+Nivelul de indirectare se definește în raport cu un dicționar imbricat. Un nivel de indirectare $n$ specifică un număr de $n$ entry-uri parcurse de forma <cheie, valoare>, unde $valoare$ reprezintă, la rândul său, un dicționar.\\
+\end{mydef}
+
 
 \begin{mydef}\label{dot}
-Un string care are în compoziția sa caracterul ``." reprezintă nivelele de indirectare într-o reprezentare json sau xml. Fiecare substring precedat de ``." reprezintă un nou nivel de indirectare al unui format care poate fi transformat într-un dicționar - pe care îl vom numi \textbf{generalDict} .
+Un string care are în compoziția sa caracterul ``." reprezintă nivelele de indirectare într-o reprezentare json sau xml. Fiecare substring precedat de ``." reprezintă un nou nivel de indirectare al unui format care poate fi transformat într-un dicționar - pe care îl vom numi \textbf{generalDict} .\\
 \end{mydef}
+
 
 \begin{mydef}\label{count}
-Fie string-ul ``x1.x2. ... .xn" care respectă afirmația \ref{dot}. Împărțim stringul inițial în mai multe substringuri delimitate de ``." și obținem un vector de substringuri de dimensiune n. Acest vector va avea următoarea proprietate: primele n-1 substringuri sunt chei în dicționarul \textbf{generalDict} prezentat în afirmația \label{dot}. 
+Fie string-ul ``$x_1$.$x_2$. ... .$x_n$" care respectă afirmația \ref{dot}, cu $x_1$, $x_2$, ... , $x_n$ reprezintă stringuri. Împărțim stringul inițial în mai multe substringuri delimitate de ``." și obținem un vector de substringuri de dimensiune n. Acest vector va avea următoarea proprietate: primele n-1 substringuri sunt chei în dicționarul \textbf{generalDict} (prezentat în afirmația \ref{dot}) . Un astfel de string poartă numele de ``cale". \\
 \end{mydef}
 
-\begin{mydef}
-Toate afirmațiile de mai sus sunt valabile și în cazul aplicării acestora simultan (pentru același string).
-\end{mydef}
 
 \begin{figure}[!htbp]
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -411,41 +409,34 @@ Toate afirmațiile de mai sus sunt valabile și în cazul aplicării acestora si
 \caption{Schemă translatare xcode->xd} \label{fig:XCode2XD Schema}
 \end{figure}
 
-Pentru a exemplifica afirmațiile de mai sus, ne vom folosi de figura \ref{fig:XCode2XD Schema} și de string-urile \$color.red, \$text. 
-
-Procedeul de aplicare al algoritmului de translatare este următorul:
+Pentru a exemplifica afirmațiile de mai sus, ne vom folosi de figura \ref{fig:XCode2XD Schema} și de string-urile \$color.red. Procedeul de aplicare al algoritmului de translatare este următorul:
 
 \begin{itemize} \label{modalitate}
 \item Pentru \$color.red (cheia ``r"): 
 \begin{enumerate}
 \item Stringul este precedat de caracterul ``\$", așadar acesta va trebui să fie înlocuit, conform afirmației \ref{dollar}
 \item Evaluam valoarea stringului, conform afirmației \ref{dot}
-\item Împărțim stringul color.red într-un vector de substringuri delimitate de ``." => generalDict = [color, red] unde n = |generalDict| = 2
-\item Vectorul specifică faptul că primele n-1 substringuri din generalDict vor fi chei, iar ultimul substring va reprezenta valoare (conform afirmației \ref{count}); Așadar, \$color.red va fi înlocuit cu valoarea atributului ``red" al tagului ``color".
+\item Împărțim stringul color.red într-un vector de substringuri delimitate de ``." => vectorul de substringuri = [color, red] unde dimensiunea sa este de n = 2
+\item Vectorul specifică faptul că primele n-1 substringuri sunt chei în dicționarul generalDict, iar ultimul substring va reprezenta valoarea corespunzătoare (conform afirmației \ref{count}); Așadar, \$color.red va fi înlocuit cu valoarea atributului ``red" al tagului ``color".
 \end{enumerate}
 \end{itemize}
 
 
-\begin{mydef}\label{cale}
-O cale reprezintă nivelele de indirectare din cadrul unui dicționar, relative la o valoare.
-Reprezentarea unei căi este realizată prin concatenarea cheilor în drumul spre valoarea dorită, delimitate prin ``.".
-\end{mydef}
-
-
 \begin{mydef}
-
 Un dicționar ``invers" se definește relativ la un alt dicționar. 
 Fie dicționarul ``invers" I, iar dicționarul principal P. 
-Fie o valoare de forma ``\$x1.x2. ... .xn" într-un nivel oarecare np în cadrul P. 
-Fie calea asociată acestei valori de forma ``c1.c2. ... .cn".
-Atunci I va conține o valoare egală cu ``c1.c2. ... .cn".
+Fie un entry din dicționarul P cu o cheie $key$ și cu valoarea ``$x_1$.$x_2$. ... .$x_n$".
+Fie calea asociată acestei valori de forma ``$c_1$.$c_2$. ... .$c_n$".
+Atunci I va conține un entry de forma <aKey, value>, unde $value$ este egală cu ``$c_1$.$c_2$. ... .$c_n$".
+\todo{exemplificare}
+\\
 \end{mydef}
 
 \begin{myNote}
 Construirea fișierului json final se realizează într-un dicționar pe care o sa îl numim \textbf{resultDict}.
 \end{myNote}
 
-Am stabilit, așadar, modul în care reprezentăm mapările, dar realizarea efectiv a aceste asocieri se realizează prin folosirea unui dicționar ``invers" care va fi stocat tot în \textbf{mapDict}, așa cum se poate vedea în figura \ref{fig:MapDict Schema}.
+Am stabilit, așadar, modul în care reprezentăm mapările. Realizarea efectivă ale acestor asocieri se realizează prin folosirea unui dicționar ``invers" care va fi stocat tot în \textbf{mapDict}, așa cum se poate vedea în figura \ref{fig:MapDict Schema}. Așadar, $mapDict$ va conține, pe lângă mapările <tag_XCode, proprietate_XD> și asocierile dintre valorile corespunzătoare celor două reprezentări.
 
 \begin{figure}[!htbp]
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -465,47 +456,42 @@ Am stabilit, așadar, modul în care reprezentăm mapările, dar realizarea efec
             ...
 }
 \end{lstlisting}
-\caption{Schemă translatare mapDict} \label{fig:MapDict Schema}
+\caption{Dicționarul mapDict în format json} \label{fig:MapDict Schema}
 \end{figure}
 
 
-Dicționarul invers ne va ajuta să găsim, pentru un anumit tip de element xml, proprietățile care trebuie înlocuite și să facem această modificare. 
+Dicționarul invers ne va ajuta să găsim și să modificăm, pentru un anumit tip de element xml, proprietățile care trebuie înlocuite. 
 
-Algoritmul pentru această metode este următorul:
+Algoritmul următor va specifica modul de translatare între Xcode și XD, cu ajutorul dicționarelor menționate mai sus:
 
 \begin{enumerate}
-\item Pentru a realiza o separare între cod și schemele de translatare, acestea din urmă vor fi stocate în fișiere separate, care la pornirea aplicației, vor fi încărcate în memorie.
-\item Se parcurge fișierul storyboard asociat aplicației XCode prin intermediul clasei NSXMLParser. Pe măsură ce se parcurge fișierul, obținem numele tagului curent și un dicționar cu atributele și valorile asociate.
+\item La pornirea aplicației, schemele de translatare vor fi încărcate în memorie, sub forma unor dicționare. (schemele de translatare sunt stocate în fișiere separate pentru a realiza o separare între acestea și codul sursă);
+\item Se parsează fișierul storyboard asociat aplicației XCode prin folosirea clasei NSXMLParser. Pe măsură ce se parcurge fișierul, obținem numele tagului curent și un dicționar cu atributele și valorile asociate;
 \item Verificăm dacă numele tagului curent apare în dicționarul mapDict
 \begin{itemize}
-\item \textbf{Cazul Adevarat}: Valoarea mapării găsite reprezintă denumirea proprietății în XD. Fie această valoare X. Se găsește entry-ul din dicționarul rootDict care are cheia egală cu X. Valoarea entry-ului va reprezenta template-ul elementului vizual în reprezentarea XD și va fi adăugat la rootDict.
-\item \textbf{Cazul Fals}: Tagul curent reprezintă o caracteristică de la care trebuie să preluam anumite informații. De aceea, căutăm în dicționarul invers numele tagului și obținem o valoare X. Valoare respectivă poate fi de două tipuri:
+\item \textbf{Dacă da}: Valoarea mapării găsite reprezintă denumirea proprietății în XD. Fie această valoare $X$. Se găsește entry-ul din dicționarul rootDict care are cheia egală cu $X$. Valoarea entry-ului va reprezenta template-ul elementului vizual în reprezentarea XD care va fi adăugat la rootDict.
+\item \textbf{Dacă nu}: Tagul curent reprezintă o caracteristică de la care trebuie să preluam anumite informații. De aceea, căutăm în dicționarul invers numele tagului și obținem o valoare $Y$. Valoarea respectivă poate fi de două tipuri:
 \begin{itemize}
-\item string : caz general, calea către obiectul care trebuie înlocuit este similară pentru orice tagș Se parcurge calea definită sub forma ``c1.c2. ... .cn" (conform dafirmației \ref{cale}) din dicționarul rootDict; Se obține o valoare Y sub forma ``\$x1.x2. ... .xn"; În continuare se procedează similar algorimtului din \ref{modalitate}.
-\item dicționar :
+\item string : (caz general) calea către obiectul care trebuie înlocuit este similară pentru orice tag. Se parcurge calea definită sub forma ``$c_1$.$c_2$. ... .$c_n$" (conform afirmației \ref{cale}) din dicționarul rootDict; Se obține o valoare $Z$ de forma ``$x_1$.$x_2$. ... .$x_n$"; În continuare se procedează similar algorimtului din \ref{modalitate}.
+\item dicționar : în acest caz, calea către valoarea care trebuie înlocuită depinde de tipul elementului vizual curent. 
 \end{itemize}
 \end{itemize}
 \end{enumerate}
 
+În urma obținerii dicționarului json, dorim ca scenele să fie puse în XD. Pentru aceasta, există două alternative. În primul rând, dicționarul obținut se poate copia în Clipboard-ul sistemului de operare (prin intermediul clasei NSPasteboard), urmând ca apoi, în urma unui acțiuni de Cmd + V, efectuate de utilizator, în aplicația XD, să se copieze elementele vizuale descrise în fișierul de design.
 
-Cea de-a doua metodă de translatare va explica ulterior, după translatarea din XD în XCode, din cauza unor noțiuni specificate în cadrul acelui capitol.
-
-În urma obținerii dicționarului json, există două posibilități. În primul rând, dicționarul obținut se poate copia în Clipboard (prin intermediul clasei NSPasteboard), urmând ca apoi, în urma unui acțiuni de Cmd + V în scena XD, să se copieze elementele vizuale în fișierul de design.
-
-A doua modalitate este reprezentată de construirea ierarhiei de fișiere, prin împărțirea fiecărei scene într-un fișier separat. De asemenea, trebuie generate automat id-uri unice în cadrul aplicației pentru fiecare element, fie el logic, sau vizual. Fișierul manifest va conține ierarhia de fișiere, descrisă în json, extinsă prin caracteristici precum id unic, cale către fișiere din ierarhie și dimensiune.
-
-
+A doua modalitate se bazează pe construirea ierarhiei de fișiere xd (așa cum se vede în fgura \ref{fig:ierarhie}), prin reprezentarea fiecărei scene într-un fișier separat. Fișierul manifest va conține ierarhia de fișiere, descrisă într-un format json, care va conține informații precum id-uri unice, calea către fișierele din ierarhie și dimensiunea fiecărei componente. Cu alte cuvinte, generăm proiectul .xd pe baza dicționarului obținut, proiect care se poate deschide sau importa cu ajutorul aplicației Adobe Experience Design.
 
 \subsection{Translatarea Switch-ului și a altor elemente grafice similare}
 
 Un switch permite utilizatorului pornirea sau oprirea rapidă a unor opțiuni mutual exclusive. 
-Interface Builder are un obiect de tip Switch care poate fi ușor adăugat aplicației. XD-ul, însă, nu are un element de sine stătător care să reprezinte un astfel de element vizual. Există librării care au construite anumite elemente vizuale (cum ar fi butonul, slider-ul, etc.), dar care descriu segmentele din care este alcătuit assetul. 
+Interface Builder are un obiect de tip Switch care poate fi ușor adăugat aplicației. XD-ul, însă, nu are un element de sine stătător care să reprezinte un astfel de element vizual. Există librării care au construite anumite elemente vizuale (cum ar fi butonul, slider-ul, etc.), prin descrierea segmentelor din care este alcătuit assetul. Mulțimea acestor segmente care alcătuiesc un element vizual se numesc, în XD, path-uri.
 
-De aceea, pentru translatarea acestor obiecte, se creează un fișier care conține template-ul obiectului respectiv din XD. Pentru modificarea caracteristicilor (dimensiuni cadran, culoare, etc.), se vor folosi schemele de translație, similar algoritmului prezentat anterior.
+De aceea, pentru translatarea acestor obiecte, se creează un fișier care conține template-ul obiectului respectiv din XD (descrierea path-ului). Pentru modificarea caracteristicilor (dimensiuni cadran, culoare, etc.), se vor folosi schemele de translatare, similar algoritmului prezentat anterior.
 
 \subsection{Translatarea Interacțiunilor XCode->XD}
 
-O interacțiune în XCode, denumită ``segue", este o conexiune care reprezintă tranziția dintre o scenă A și o altă scenă B. Relațiile și conexiunile sunt reprezentate vizual printr-o săgeată de la scena expeditor, la scena destinație. În mijlocul acestei săgeți se află o formă care specifică tipul de segue. Tipurile de segue se pot vedea în figura \ref{img:segue}. Soluția propusă are suport doar pentru Show segue.
+O interacțiune în XCode, denumită ``segue", reprezintă o tranziție dintre o scenă A și o altă scenă B. Relațiile și conexiunile sunt reprezentate vizual printr-o săgeată de la scena expeditor, la scena destinație. În mijlocul acestei săgeți se află o formă care specifică tipul de segue. Tipurile de segue se pot vedea în figura \ref{img:segue}. Soluția propusă are suport doar pentru Show segue.
 
 \labelindexref{Figure}{img:segue}
 
@@ -513,13 +499,13 @@ O interacțiune în XCode, denumită ``segue", este o conexiune care reprezintă
 
 O interacțiune între un element vizual și o scenă se realizează prin intermediul id-urilor unice, specifice fiecărui asset. Acest lucru este valabil atât în XCode, cât și în XD. De aceea este nevoie o mapare între un id și elementul vizual pe care îl specifică. 
 
-Astfel, soluția propusă implementează un dicționar cu mapări <id_unic, array> (pe care îl vom numi \textbf{segueDict}), unde array reprezintă un vector de două obiecte. Primul obiect este reprezentat de numărul scenei din care face parte assetul, iar al doilea - numărul de ordine al elementului vizual din scenă.
+Astfel, soluția propusă implementează un dicționar cu mapări <id_unic, array> (pe care îl vom numi \textbf{segueDict}), unde array reprezintă un vector de două obiecte. Primul obiect este reprezentat de numărul scenei din care face parte assetul, iar al doilea - numărul de ordine al elementului vizual din cadrul scenei.
 
-De asemenea, trebuie reținut ultimul id întalnit. Așa cum se vede în figura \ref{segueXML}, interacțiunea depinde de id-ul destinație (tr7-0U-dbu) și de id-ul elementului vizual curent (Z5v-SE-Hvj). Acesată mapare se va adăuga unui dicționar (pe care îl vom numi \textbf{segueDict})care va conține toate interacțiunile de pe canvas.
+De asemenea, trebuie reținut ultimul id întalnit. Așa cum se vede în figura \ref{segueXML}, interacțiunea depinde de id-ul destinație (tr7-0U-dbu) și de id-ul elementului vizual curent (Z5v-SE-Hvj). Acesată mapare va fi adăugată unui dicționar (pe care îl vom numi \textbf{segueDict}) care va conține toate interacțiunile de pe canvas.
 
 Pentru construirea interacțiunilor în XD, toate id-urile stocate în dicționarul \textbf{segueDict} trebuie să fie adăugate elementelor vizuale corespunzătoare, conform regulilor de mapare din dicționarul \textbf{segueDict}.
 
-Mapările din \textbf{segueDict} vor fi copiate în cele din urmă în fișierul interactions.json.
+Mapările din \textbf{segueDict} vor fi copiate în cele din urmă în fișierul interactions.json (fișierul se poate regăsi în figura \ref{fig:ierarhie})
 
 \section{Translatarea din Adobe Experience Design în XCode}
 
@@ -531,24 +517,24 @@ Pentru implementarea acestei scheme se vor folosi două dicționare cu mapari al
 
 
 \begin{mydef}\label{echivalent}
-Numim relație de echivalentă, relația în care cele două entități din json, respectiv din  xml reprezintă același obiect vizual (sau logic). 
+Numim relație de echivalentă, relația în care o entitate din XCode, respectiv o entitate din XD, reprezintă același obiect vizual (sau logic). 
 \end{mydef}
 
 \begin{myNote}\label{tip}
-Tipul oricărui element din XD este specificat prin proprietatea ``type", care există în cadrul oricărei reprezentări json al unui asset. De exemplu, pentru text, tipul se numește tot ``text";
+Tipul oricărui element din XD este specificat prin proprietatea ``type", care există în cadrul oricărei reprezentări json al unui asset. De exemplu, pentru text, valoarea proprietății ``type" este ``text";
 \end{myNote}
 
 \begin{myNote}\label{echivalent}
-Proprietatea ``type" din cadrul unei reprezentări nu specifică de una singură apartenența la o clasă logică de asset; În această categorie intră imaginile; Pentru a specifica apartenența la un anumit tip de asset trebuie îndeplinite o serie de reguli tipice categoriei respective.
+Proprietatea ``type" din cadrul unei reprezentări nu conține toate informațiile pentru determinarea apartenenței la o clasă logică de asset în XCode. Pentru a specifica apartenența la un anumit tip de asset trebuie îndeplinite o serie de reguli tipice categoriei respective.
 \end{myNote}
 
 De exemplu, obiectul vizual “label” corespunzător reprezentării .xml conține ca asociere în .json un obiect caracterizat de tipul “text”. Aplicarea afirmației \ref{echivalent} se poate observa în figura \ref{fig:XD2XCode Defs} care va fi stocată într-un prim dicționar \textbf{defDict}.
 
-Se poate observa faptul că acest dicționar conține o serie de mapări de tipul <Key, Value>, unde ``Key" reprezintă valoarea specifică proprietății ``type". ``Value" reprezintă fie un obiect de tip string, fie un obiect de tip dicționar. În cazul în care ``Value" este un string, vom ști faptul că tipul obiectului curent este stabilit prin valoarea lui ``Value". În caz contrar, ``Value" va reprezenta un alt dicționar ale carui chei sunt stringuri de forma \ref{count}. Aceste chei menționate vor reprezenta niveluri de indirectare în dicționarul xd. Toate aceste chei vor reprezenta, la nivel logic, branchuri if-else, care ne ajută la descoperirea categoriei din care face parte assetul curent. În momentul în care, prin parcurgerea nivelelor de indirectare specificate în cheie, vom ajunge la o valoare diferită de null, algoritmul se va aplica pentru noul dicționar obținut. În cele din urmă vom obține categoria din care face parte assetul curent. 
+Se poate observa faptul că acest dicționar conține o serie de mapări de tipul <Key, Value>, unde ``Key" reprezintă valoarea specifică proprietății ``type". ``Value" reprezintă fie un obiect de tip string, fie un obiect de tip dicționar. În cazul în care ``Value" este un string, vom ști faptul că tipul obiectului curent este stabilit prin valoarea lui ``Value". În caz contrar, ``Value" va reprezenta un alt dicționar ale carui chei sunt stringuri de forma \ref{count}. Aceste chei menționate vor reprezenta niveluri de indirectare în dicționarul xd. Toate aceste chei vor reprezenta, la nivel logic, branchuri if-else, care ne ajută la aflarea categoriei din care face parte assetul curent. În momentul în care, prin parcurgerea nivelelor de indirectare specificate în cheie, vom ajunge la o valoare diferită de null, algoritmul se va aplica pentru noul dicționar obținut. În cele din urmă vom obține categoria din care face parte assetul curent. 
 
 \begin{myNote}\label{tip similar}
 
-Pentru o a numită categorie de asseturi (de ex. pentru shape), pot exista mai multe modele de reprezentare, sau mai multe tipuri de asocieri, În funcție de fișierul .xml.
+Pentru o anumită categorie de asseturi (de ex. pentru ``shape"), pot exista mai multe modele de reprezentare, sau mai multe tipuri de asocieri, În funcție de fișierul .xml.
 \end{myNote}
 
 \begin{figure}[!htbp]
@@ -571,7 +557,7 @@ Pentru o a numită categorie de asseturi (de ex. pentru shape), pot exista mai m
 \caption{XD2XCode Defs} \label{fig:XD2XCode Defs}
 \end{figure}
 
-În cazul în care tipul obținut în urma aplicării algoritmului menționat mai devreme, se obține un string de forma afirmației \ref{dollar}, atunci acel tip corespunde notei \ref{tip similar}.
+În cazul în care, în urma aplicării algoritmului menționat mai devreme, se obține un string de forma afirmației \ref{dollar}, atunci stringul se va conforma definiției din 
 
 De aceea, trebuie să păstrăm și această mapare în dicționarul din figura \ref{fig:XD2XCode Defs}.
 
@@ -811,7 +797,7 @@ Deoarece id-urile destinație pot reprezenta scene care încă nu au fost proces
 
 Pentru realizarea corectă a translatărilor din XD în XCode, trebuie luată în considerare diferența majoră între tipurile de obiecte care suportă tranziții. În Xcode, obiectele care suportă tranziții sunt: \textbf{button} sau \textbf{view}, în timp ce în XD, nu există restricții de tip. De aceea, în momentul în care se realizează translatarea XCode - XD, inspectăm dicționarul \textbf{segueDict}. În momentul în care găsim un obiect cu id-ul prezent în dicționarul  \textbf{segueDict}, obiectul respectiv va fi translatat într-un obiect xml de tip \textbf{button}.
 
-\section {Translatarea XCode-XD folosind a doua schemă de translatare}
+\section {Translatarea XCode-XD folosind a doua schemă de translatare} \label{xcxd2schema}
 
 Translatarea XCode-XD folosind prima schemă de translatare, descrisă în secțiunea anterioară, are o serie de neajunsuri. Principalul dezavantaj ar fi faptul că tipul unui obiect se poate afla în urma parcurgerii și a translatătării mai multor tag-uri și subtaguri. În momentul în care se descoperă un atribut care conduce către modificarea tipului curent, se va regenera template-ul json corespunzător noului tip.  
 Un dezavantaj secundar ar fi folosirea a două scheme de translatare separate pentru import și export.
@@ -1179,7 +1165,7 @@ O altă diferență majoră dintre cele două scheme de translatare ar fi ușuri
 
 \chapter{Concluzii}
 
-În cadrul acestui proiect am prezentat o schemă de translatare între doua sisteme de design, respectiv de implementare a aplicațiilor mobile. Aceste scheme prezentate se pot extinde pentru translatarea diferitelor formate (de ex. xml în json , json în xml). De asemenea, s-a prezentat o soluție de sincronizare a elementelor grafice între XD și XCode, la nivel de scenă. Sincronizarea inversă se poate realiza în același mod, prin implementarea algporitmului propus.
+În cadrul acestui proiect am prezentat o schemă de translatare între două aplicații de management al conținutului vizual pentru aplicații iOS - pe de o parte XCode, iar pe de altă parte Adobe Experience Design. Aceste scheme prezentate se pot extinde pentru translatarea formatelor care se pot serializa într-un dicționar (de ex. xml, json). De asemenea, s-a prezentat o soluție de sincronizare ale elementelor grafice între XD și XCode, la nivel de scenă. Sincronizarea inversă se poate realiza în același mod, prin implementarea algoritmului propus.
 
 Această schemă de translatare se poate folosi în primul rând pentru managementul elementelor vizuale, așa cum este prezentată soluția de fața, dar se poate extinde pentru o serie de aplicații, datorită schemei generale de translatare.
 
