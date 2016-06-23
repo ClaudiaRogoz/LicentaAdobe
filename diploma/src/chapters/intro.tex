@@ -323,7 +323,7 @@ cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar
 
 Valorile ~$startXArtboard$, ~$startYArtboard$, ~$xValue$, ~$yValue$ se calculează pe baza valorilor atributelor ``tx", ``ty" ale proprietății ``transform" specifice scenelor, respectiv grupurilor.
 
-\chapter{Prezentarea schemelor de translatare}
+\chapter{Implementare}
 
 În acest capitol voi prezenta modul de translatare dintre cele două reprezentări: xml (specific XCode) și json (specific XD). 
 
@@ -879,12 +879,9 @@ unde ~$offsetList$ reprezintă lista de offseturi, iar ~$sceneNo$ numărul scene
 \end{itemize}
 
 
-
-\chapter{Implementare}
-
-În acest capitol vor oferi detalii despre arhitectură. De asemnea, voi prezenta o statistică a timpilor de rulare și modele de îmbunătățire ale aplicației.
-
 \section{Arhitectură}
+
+În acest capitol voi oferi detalii despre arhitectură și despre modulele care alcătuiesc soluția prezentată.
 
 Managementul elementelor vizuale prezentat în capitolele precedente este implementat integral în Objective C. 
 
@@ -1016,13 +1013,15 @@ Intern, proiectul se folosește de utilitarul ImageMagick pentru conversia într
 \caption{Flow-ul aplicației} \label{fig:Prezentare}
 \end{figure}
 
-\section{Performanță}
+\chapter{Rezultate}
+
+În acest capitol voi prezenta o statistică a timpilor de rulare și voi compara schemele de translatare prezentate în capitolele anterioare.
 
 Realizarea translatării este realizată în formatul .json din considerente de performanță. Un format json poate fi deserializat cu ușurință într-un dicționar imbricat, rezultând astfel o căutare rapidă a mapării dorite. Un astfel de dicționar asigură o complexitate de O(nn), unde nn reprezintă numărul de niveluri de imbricare ale dicționarului. În această aplicație, numărul de niveluri nu depășește cinci.  
 
 În continuare voi prezenta graficele care specifică dependența între asset-uri și timpul de procesare al acestora.
 
-Assets processed se referă la numărul de proprietăți (scene, elemente vizuale, dar și proprietăți)
+$Assets processed$ se referă la numărul de proprietăți (scene, elemente vizuale, dar și proprietăți)
 
 \begin{figure}[!htbp]
 \centering

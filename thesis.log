@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  23 JUN 2016 18:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  23 JUN 2016 19:46
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1082,14 +1082,14 @@ File: uni-2.def 2013/05/13 UCS: Unicode data U+0200..U+02FF
 (/opt/local/share/texmf-texlive/tex/latex/ucs/data/uni-1.def
 File: uni-1.def 2013/05/13 UCS: Unicode data U+0100..U+01FF
 )
-<src/img/branding/upb.png, id=131, 598.235pt x 598.235pt>
+<src/img/branding/upb.png, id=127, 598.235pt x 598.235pt>
 File: src/img/branding/upb.png Graphic file (type png)
 
 <use src/img/branding/upb.png>
 Package pdftex.def Info: src/img/branding/upb.png used on input line 12.
 (pdftex.def)             Requested size: 53.63545pt x 53.62888pt.
 
-<src/img/branding/cs.png, id=132, 695.59875pt x 307.1475pt>
+<src/img/branding/cs.png, id=128, 695.59875pt x 307.1475pt>
 File: src/img/branding/cs.png Graphic file (type png)
 
 <use src/img/branding/cs.png>
@@ -1122,12 +1122,6 @@ No file thesis.nls.
 
  (./src/chapters/intro.tex
 Capitolul 1.
-
-Overfull \hbox (1.80606pt too wide) in paragraph at lines 7--8
-[][]\T1/cmr/m/n/10 În capi-tolul acesta, se va re-al-iza o scurt  de-scriere a 
-proiec-tu-lui, motiva[]ia []i obiec-tivele aplica[]iei,
- []
-
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\textcommabelow' on input line 17.
@@ -1178,7 +1172,7 @@ Overfull \hbox (76.53781pt too wide) in paragraph at lines 92--93
 y-board - în acest caz ``com.apple.InterfaceBuilder.IBCocoaTouchPlugin".
  []
 
-[4] [5] <src/img/views.png, id=275, 473.77pt x 350.30875pt>
+[4] [5] <src/img/views.png, id=270, 473.77pt x 350.30875pt>
 File: src/img/views.png Graphic file (type png)
 
 <use src/img/views.png>
@@ -1204,7 +1198,7 @@ or-mat p -tratic, în care width=height=600.
 Capitolul 3.
 [12
 
-] <src/img/SchemaText.png, id=362, 553.06625pt x 335.2525pt>
+] <src/img/SchemaText.png, id=357, 553.06625pt x 335.2525pt>
 File: src/img/SchemaText.png Graphic file (type png)
 
 <use src/img/SchemaText.png>
@@ -1271,16 +1265,14 @@ l.386 ...{lstlisting}[language=json,firstnumber=1]
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[13 <./src/img/SchemaText.png>]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 415.
-
 
 (/opt/local/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 415.
-
+ [13 <./src/img/SchemaText.png>]
 Overfull \hbox (1.23438pt too wide) in paragraph at lines 420--421
 \T1/cmr/m/n/10 Dict, iar ul-timul sub-string va reprezenta val-oarea core-spun-
 z -toare (con-form afirma[]iei
@@ -1354,7 +1346,7 @@ Package hyperref Warning: Glyph not defined in PD1 encoding,
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\textcommabelow' on input line 492.
 
-<src/img/segue.png, id=445, 207.77625pt x 275.0275pt>
+<src/img/segue.png, id=440, 207.77625pt x 275.0275pt>
 File: src/img/segue.png Graphic file (type png)
  <use src/img/segue.png>
 Package pdftex.def Info: src/img/segue.png used on input line 498.
@@ -1548,7 +1540,7 @@ l.729 ...{lstlisting}[language=json,firstnumber=1]
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[22] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
@@ -1582,6 +1574,7 @@ l.750 ...{lstlisting}[language=json,firstnumber=1]
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
+[22]
 ! Undefined control sequence.
 l.765 ...odificate conform valorilor lui \textbfit
                                                   {transform}.
@@ -1591,7 +1584,6 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[23]
 ! Misplaced alignment tab character &.
 l.784 ...r trebui sÄƒ fie adÄƒugate manual (Drag &
                                                    Drop) Ã®n directorul ``Su...
@@ -1602,6 +1594,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
+[23]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\textcommabelow' on input line 788.
@@ -1657,17 +1650,14 @@ Package hyperref Warning: Glyph not defined in PD1 encoding,
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\u' on input line 845.
 
-[25] [26] [27]
-Capitolul 4.
+[25]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 887.
+(hyperref)                removing `\u' on input line 882.
 
-[28
-
-]
+[26]
 ! Undefined control sequence.
-l.966 ...rile corespunzÄƒtoare tagurilor \textbfit
+l.963 ...rile corespunzÄƒtoare tagurilor \textbfit
                                                   {scene} È™i \textbfit{subv...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1676,7 +1666,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.966 ... tagurilor \textbfit{scene} È™i \textbfit
+l.963 ... tagurilor \textbfit{scene} È™i \textbfit
                                                   {subviews} vor fi transfor...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1684,55 +1674,55 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-
-Overfull \hbox (32.05371pt too wide) in paragraph at lines 969--970
+[27]
+Overfull \hbox (32.05371pt too wide) in paragraph at lines 966--967
 [][]\T1/cmr/m/n/10 XD2XCode: im-ple-menteaz  func[]ionalitatea de trans-latare 
 din reprezentarea XD în reprezentarea
  []
 
-[29] <src/img/xd.png, id=659, 818.05624pt x 698.61pt>
+[28] <src/img/xd.png, id=651, 818.05624pt x 698.61pt>
 File: src/img/xd.png Graphic file (type png)
  <use src/img/xd.png>
-Package pdftex.def Info: src/img/xd.png used on input line 1010.
+Package pdftex.def Info: src/img/xd.png used on input line 1007.
 (pdftex.def)             Requested size: 165.02347pt x 140.92409pt.
 
-<src/img/xcode.png, id=660, 1244.65pt x 656.4525pt>
+<src/img/xcode.png, id=652, 1244.65pt x 656.4525pt>
 File: src/img/xcode.png Graphic file (type png)
  <use src/img/xcode.png>
-Package pdftex.def Info: src/img/xcode.png used on input line 1012.
+Package pdftex.def Info: src/img/xcode.png used on input line 1009.
 (pdftex.def)             Requested size: 206.28249pt x 108.79079pt.
 
+[29 <./src/img/xd.png> <./src/img/xcode.png>]
+Capitolul 4.
+[30
+
+]
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 1132.
+
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1019.
+(hyperref)                removing `\textcommabelow' on input line 1132.
 
-
-Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 1019.
-
-[30 <./src/img/xd.png> <./src/img/xcode.png>] [31]
-
-Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1133.
-
-[32] [33]
+[31] [32] [33]
 Capitolul 5.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 1172.
+(hyperref)                removing `\u' on input line 1171.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 1172.
+(hyperref)                removing `\u' on input line 1171.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1172.
+(hyperref)                removing `\textcommabelow' on input line 1171.
 
 [34
 
 ]
-Overfull \hbox (26.24576pt too wide) in paragraph at lines 1211--1212
+Overfull \hbox (26.24576pt too wide) in paragraph at lines 1210--1211
 [][]\T1/cmr/m/n/10 https://developer.apple.com/library/mac/samplecode/Clipboard
 Viewer/Introduction/Intro.html 
  []
@@ -1747,9 +1737,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 32.
 (./thesis.aux (./src/chapters/intro.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 32.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 32.
-Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 2577D9DFABCDC7FC7BA471E78DA69081;2564.
 
+
+Package rerunfilecheck Warning: File `thesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `thesis.out':
+(rerunfilecheck)             Before: D8E14CD82EFA1C403CD63AC8AC95A14B;2458
+(rerunfilecheck)             After:  93B2CA4FADA50BE101E0AE7646848BF8;2473.
 
 LaTeX Warning: There were undefined references.
 
@@ -1759,46 +1755,55 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 32.
  ) 
 Here is how much of TeX's memory you used:
- 34894 strings out of 494185
- 782700 string characters out of 6156888
+ 34896 strings out of 494185
+ 782725 string characters out of 6156888
  1067599 words of memory out of 5000000
  37177 multiletter control sequences out of 15000+600000
  30039 words of font info for 70 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 62i,21n,102p,1803b,2201s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/op
-t/local/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</opt/local/share/texmf
--texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texlive/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/a
-msfonts/cm/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfon
-ts/cm/cmsy7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfb
-i1000.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0500.
-pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0600.pfb></
-opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0700.pfb></opt/lo
-cal/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1000.pfb></opt/local/sh
-are/texmf-texlive/fonts/type1/public/cm-super/sfbx1200.pfb></opt/local/share/te
-xmf-texlive/fonts/type1/public/cm-super/sfbx1440.pfb></opt/local/share/texmf-te
-xlive/fonts/type1/public/cm-super/sfbx1728.pfb></opt/local/share/texmf-texlive/
-fonts/type1/public/cm-super/sfbx2074.pfb></opt/local/share/texmf-texlive/fonts/
-type1/public/cm-super/sfbx2488.pfb></opt/local/share/texmf-texlive/fonts/type1/
-public/cm-super/sfrm0500.pfb></opt/local/share/texmf-texlive/fonts/type1/public
-/cm-super/sfrm0600.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-su
-per/sfrm0700.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sf
-rm0800.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1000
-.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1440.pfb><
-/opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb></opt/l
-ocal/share/texmf-texlive/fonts/type1/public/cm-super/sfrm2488.pfb></opt/local/s
-hare/texmf-texlive/fonts/type1/public/cm-super/sfti0500.pfb></opt/local/share/t
-exmf-texlive/fonts/type1/public/cm-super/sfti1000.pfb></opt/local/share/texmf-t
-exlive/fonts/type1/urw/courier/ucrb8a.pfb></opt/local/share/texmf-texlive/fonts
-/type1/urw/courier/ucrr8a.pfb>
-Output written on thesis.pdf (39 pages, 4247505 bytes).
+ 62i,21n,102p,1803b,2203s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{section.6.1} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{chapter.6} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.5.0.1} has been referenced but does not 
+exist, replaced by a fixed one
+
+{/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/opt/
+local/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</opt/local/share/texmf-t
+exlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmsy7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbi1
+000.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0500.pf
+b></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0600.pfb></op
+t/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0700.pfb></opt/loca
+l/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1000.pfb></opt/local/shar
+e/texmf-texlive/fonts/type1/public/cm-super/sfbx1200.pfb></opt/local/share/texm
+f-texlive/fonts/type1/public/cm-super/sfbx1440.pfb></opt/local/share/texmf-texl
+ive/fonts/type1/public/cm-super/sfbx1728.pfb></opt/local/share/texmf-texlive/fo
+nts/type1/public/cm-super/sfbx2074.pfb></opt/local/share/texmf-texlive/fonts/ty
+pe1/public/cm-super/sfbx2488.pfb></opt/local/share/texmf-texlive/fonts/type1/pu
+blic/cm-super/sfrm0500.pfb></opt/local/share/texmf-texlive/fonts/type1/public/c
+m-super/sfrm0600.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-supe
+r/sfrm0700.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm
+0800.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1000.p
+fb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1440.pfb></o
+pt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb></opt/loc
+al/share/texmf-texlive/fonts/type1/public/cm-super/sfrm2488.pfb></opt/local/sha
+re/texmf-texlive/fonts/type1/public/cm-super/sfti0500.pfb></opt/local/share/tex
+mf-texlive/fonts/type1/public/cm-super/sfti1000.pfb></opt/local/share/texmf-tex
+live/fonts/type1/urw/courier/ucrb8a.pfb></opt/local/share/texmf-texlive/fonts/t
+ype1/urw/courier/ucrr8a.pfb>
+Output written on thesis.pdf (39 pages, 4247979 bytes).
 PDF statistics:
- 890 PDF objects out of 1000 (max. 8388607)
- 799 compressed objects within 8 object streams
- 358 named destinations out of 1000 (max. 500000)
- 296 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 888 PDF objects out of 1000 (max. 8388607)
+ 797 compressed objects within 8 object streams
+ 360 named destinations out of 1000 (max. 500000)
+ 288 words of extra memory for PDF output out of 10000 (max. 10000000)
 

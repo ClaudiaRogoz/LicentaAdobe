@@ -4,7 +4,7 @@
 \label{chapter:intro}
 
 \par Proiectul de față este un produs software care vine în ajutorul developerilor și designerilor de aplicații user experience. În acest sens, se dorește realizarea unei scheme de translatare ale elementelor vizuale (asseturi - imagini, butoane, etc.) create în două dintre cele mai complexe utilitare pentru construirea interfețelor grafice pentru iOS -  IDE-ul XCode și  Adobe Experience Design.
-\par În capitolul acesta, se va realiza o scurtă descriere a proiectului, motivația și obiectivele aplicației, iar în urmatoarele secțiuni se va detalia arhitectura și modul de implementare al acesteia.
+\par În capitolul acesta, voi realiza o scurtă descriere a proiectului, motivația și obiectivele aplicației, iar în urmatoarele secțiuni se va detalia arhitectura și modul de implementare al acesteia.
 
 \section{Descrierea proiectului}
 \label{sec:proj}
@@ -43,11 +43,11 @@ Astfel, soluția propusă se poate extinde, putând fi folosită în diferite do
 
 
 Proiectul reprezintă un model de translatare între două aplicații, care va fi construit sub forma unui plug-in adus aplicației Adobe Experience Design, pentru interacțiunea cu IDE-ul XCode. 
-Pentru a putea construi această translatare, se vor explica, în acest capitol, structurile și modul de lucru corespunzătoare celor două aplicații. În primul rând, însă, se vor defini noțiunile de elemente vizuale/grafice.
+Pentru a putea construi această translatare, voi explica, în acest capitol, structurile și modul de lucru corespunzătoare celor două aplicații. În primul rând, însă, se vor defini noțiunile de elemente vizuale/grafice.
 
 Elementele vizuale, atât în XCode, cât și în Adobe Experience Design, sunt reprezentate prin mulțimea de asset-uri care se pot reprezenta în mod vizual pe suprafața de design (text, imagini, butoane, interacțiuni și scene). Fiecare element vizual are specificat un comportament specific, în funcție de categoria de asseturi în care se încadrează.
 
-În acest capitol voi prezenta structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, se vor preciza asocierile care se pot construi între cele două formate. Aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare.
+În acest capitol voi prezenta structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, voi preciza asocierile care se pot construi între cele două formate. Aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare.
 
 \section{Prezentare XCode}
 
@@ -323,9 +323,9 @@ cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar
 
 Valorile ~$startXArtboard$, ~$startYArtboard$, ~$xValue$, ~$yValue$ se calculează pe baza valorilor atributelor ``tx", ``ty" ale proprietății ``transform" specifice scenelor, respectiv grupurilor.
 
-\chapter{Prezentarea schemelor de translatare}
+\chapter{Implementare}
 
-În acest capitol se va prezenta modul de translatare dintre cele două reprezentări: xml (specific XCode) și json (specific XD). 
+În acest capitol voi prezenta modul de translatare dintre cele două reprezentări: xml (specific XCode) și json (specific XD). 
 
 Formatul json este similar xml-ului prin faptul că amandouă reprezentările descriu structuri de date și obiecte serializabile. Multiple protocoale bazate pe xml reprezintă aceleași structuri de date ca json-ul, în mod interschimbabil.
 
@@ -378,7 +378,7 @@ Un string care are în compoziția sa caracterul ``." reprezintă nivelele de in
 
 
 \begin{mydef}\label{count}
-Fie string-ul ``$x_1$.$x_2$. ... .$x_n$" care respectă afirmația \ref{dot}, cu $x_1$, $x_2$, ... , $x_n$ reprezintă stringuri. Împărțim stringul inițial în mai multe substringuri delimitate de ``." și obținem un vector de substringuri de dimensiune n. Acest vector va avea următoarea proprietate: primele n-1 substringuri sunt chei în dicționarul \textbf{generalDict} (prezentat în afirmația \ref{dot}) . Un astfel de string se va denumi ``cale". \\
+Fie string-ul ``$x_1$.$x_2$. ... .$x_n$" care respectă afirmația \ref{dot}, cu $x_1$, $x_2$, ... , $x_n$ reprezintă stringuri. Împărțim stringul inițial în mai multe substringuri delimitate de ``." și obținem un vector de substringuri de dimensiune n. Acest vector va avea următoarea proprietate: primele n-1 substringuri sunt chei în dicționarul \textbf{generalDict} (prezentat în afirmația \ref{dot}) . Un astfel de string poartă numele de ``cale". \\
 \end{mydef}
 
 
@@ -501,7 +501,7 @@ O interacțiune între un element vizual și o scenă se realizează prin interm
 
 Astfel, soluția propusă implementează un dicționar cu mapări <id_unic, array> (pe care îl vom numi \textbf{segueDict}), unde array reprezintă un vector de două obiecte. Primul obiect este reprezentat de numărul scenei din care face parte assetul, iar al doilea - numărul de ordine al elementului vizual din cadrul scenei.
 
-De asemenea, trebuie reținut ultimul id întalnit. Așa cum se vede în figura \ref{segueXML}, interacțiunea depinde de id-ul destinație (tr7-0U-dbu) și de id-ul elementului vizual curent (Z5v-SE-Hvj). Acesată mapare se va adăuga unui dicționar (pe care îl vom numi \textbf{segueDict}) care va conține toate interacțiunile de pe canvas.
+De asemenea, trebuie reținut ultimul id întalnit. Așa cum se vede în figura \ref{segueXML}, interacțiunea depinde de id-ul destinație (tr7-0U-dbu) și de id-ul elementului vizual curent (Z5v-SE-Hvj). Acesată mapare va fi adăugată unui dicționar (pe care îl vom numi \textbf{segueDict}) care va conține toate interacțiunile de pe canvas.
 
 Pentru construirea interacțiunilor în XD, toate id-urile stocate în dicționarul \textbf{segueDict} trebuie să fie adăugate elementelor vizuale corespunzătoare, conform regulilor de mapare din dicționarul \textbf{segueDict}.
 
@@ -879,12 +879,9 @@ unde ~$offsetList$ reprezintă lista de offseturi, iar ~$sceneNo$ numărul scene
 \end{itemize}
 
 
-
-\chapter{Implementare}
-
-În acest capitol vor oferi detalii despre arhitectură. De asemnea, voi prezenta o statistică a timpilor de rulare și modele de îmbunătățire ale aplicației.
-
 \section{Arhitectură}
+
+În acest capitol voi oferi detalii despre arhitectură și despre modulele care alcătuiesc soluția prezentată.
 
 Managementul elementelor vizuale prezentat în capitolele precedente este implementat integral în Objective C. 
 
@@ -1016,13 +1013,15 @@ Intern, proiectul se folosește de utilitarul ImageMagick pentru conversia într
 \caption{Flow-ul aplicației} \label{fig:Prezentare}
 \end{figure}
 
-\section{Performanță}
+\chapter{Rezultate}
+
+În acest capitol voi prezenta o statistică a timpilor de rulare și voi compara schemele de translatare prezentate în capitolele anterioare.
 
 Realizarea translatării este realizată în formatul .json din considerente de performanță. Un format json poate fi deserializat cu ușurință într-un dicționar imbricat, rezultând astfel o căutare rapidă a mapării dorite. Un astfel de dicționar asigură o complexitate de O(nn), unde nn reprezintă numărul de niveluri de imbricare ale dicționarului. În această aplicație, numărul de niveluri nu depășește cinci.  
 
 În continuare voi prezenta graficele care specifică dependența între asset-uri și timpul de procesare al acestora.
 
-Assets processed se referă la numărul de proprietăți (scene, elemente vizuale, dar și proprietăți)
+$Assets processed$ se referă la numărul de proprietăți (scene, elemente vizuale, dar și proprietăți)
 
 \begin{figure}[!htbp]
 \centering
