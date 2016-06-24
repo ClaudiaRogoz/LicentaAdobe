@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  24 JUN 2016 19:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  24 JUN 2016 23:04
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1355,18 +1355,9 @@ Package pdftex.def Info: src/img/segue.png used on input line 497.
 (pdftex.def)             Requested size: 103.88786pt x 137.51341pt.
 
 [16 <./src/img/segue.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 515--518
 
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.519 \begin
-            {mydef}\label{echivalent}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
+ []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 520--521
@@ -1417,6 +1408,12 @@ l.541 ...{lstlisting}[language=json,firstnumber=1]
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
+
+Overfull \hbox (365.929pt too wide) in paragraph at lines 564--565
+[][]\T1/cmr/m/n/10 Cel de-al doilea dic[]ionar va con[]ine o se-rie de entr-uri
+ de forma <key, value>.  [][][][][][]
+ []
+
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
@@ -1463,11 +1460,11 @@ Overfull \hbox (1.10254pt too wide) in paragraph at lines 616--617
 n". În mo-men-tul în care, aceste propriet []i
  []
 
+[19]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\textcommabelow' on input line 621.
 
-[19]
 ! Undefined control sequence.
 l.678 Translatarea unui \textbfit
                                  {path} Ã®n format \textbfit{svg} se realize...
@@ -1495,7 +1492,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+[20] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
@@ -1529,7 +1526,7 @@ l.681 ...{lstlisting}[language=json,firstnumber=1]
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[20] [21] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+[21] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
@@ -1702,19 +1699,19 @@ Overfull \hbox (32.05371pt too wide) in paragraph at lines 968--969
 din reprezentarea XD în reprezentarea
  []
 
-<src/img/xd.png, id=645, 818.05624pt x 698.61pt>
+[28] <src/img/xd.png, id=657, 818.05624pt x 698.61pt>
 File: src/img/xd.png Graphic file (type png)
  <use src/img/xd.png>
 Package pdftex.def Info: src/img/xd.png used on input line 1005.
 (pdftex.def)             Requested size: 165.02347pt x 140.92409pt.
 
-<src/img/xcode.png, id=646, 1244.65pt x 656.4525pt>
+<src/img/xcode.png, id=658, 1244.65pt x 656.4525pt>
 File: src/img/xcode.png Graphic file (type png)
  <use src/img/xcode.png>
 Package pdftex.def Info: src/img/xcode.png used on input line 1007.
 (pdftex.def)             Requested size: 206.28249pt x 108.79079pt.
 
-[28] [29 <./src/img/xd.png> <./src/img/xcode.png>]
+[29 <./src/img/xd.png> <./src/img/xcode.png>]
 Capitolul 4.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
@@ -1768,8 +1765,8 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 32.
  ) 
 Here is how much of TeX's memory you used:
- 34892 strings out of 494185
- 782656 string characters out of 6156888
+ 34894 strings out of 494185
+ 782686 string characters out of 6156888
  1067599 words of memory out of 5000000
  37176 multiletter control sequences out of 15000+600000
  30741 words of font info for 71 fonts, out of 8000000 for 9000
@@ -1805,10 +1802,10 @@ exmf-texlive/fonts/type1/public/cm-super/sfti0500.pfb></opt/local/share/texmf-t
 exlive/fonts/type1/public/cm-super/sfti1000.pfb></opt/local/share/texmf-texlive
 /fonts/type1/urw/courier/ucrb8a.pfb></opt/local/share/texmf-texlive/fonts/type1
 /urw/courier/ucrr8a.pfb>
-Output written on thesis.pdf (39 pages, 4252318 bytes).
+Output written on thesis.pdf (39 pages, 4254105 bytes).
 PDF statistics:
- 891 PDF objects out of 1000 (max. 8388607)
- 799 compressed objects within 8 object streams
- 356 named destinations out of 1000 (max. 500000)
+ 896 PDF objects out of 1000 (max. 8388607)
+ 803 compressed objects within 9 object streams
+ 358 named destinations out of 1000 (max. 500000)
  280 words of extra memory for PDF output out of 10000 (max. 10000000)
 

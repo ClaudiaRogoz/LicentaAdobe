@@ -541,6 +541,8 @@ Pentru o anumită categorie de asseturi (de ex. pentru ``shape"), pot exista mai
 \begin{lstlisting}[language=json,firstnumber=1]
   {...
   "text"     :   "label",
+  "$frame"   :   "imageView",
+  ...
   "shape"     :   {
         "shape.type.rect" : {
             "style.fill.type.pattern" : "imageView",
@@ -557,11 +559,9 @@ Pentru o anumită categorie de asseturi (de ex. pentru ``shape"), pot exista mai
 \caption{XD2XCode Defs} \label{fig:XD2XCode Defs}
 \end{figure}
 
-În cazul în care, în urma aplicării algoritmului menționat mai devreme, se obține un string de forma afirmației \ref{dollar}, atunci stringul se va conforma definiției din \todo{Here}
+\textbf{\textit{Exemplificare afirmație \ref{tip similar}}}: În cazul în care în urma aplicării algoritmului menționat mai devreme se obține un string de forma afirmației \ref{dollar}, atunci stringul respectiv va specifica un asset din XCode care are mai multe reprezentări. Un exemplu al acestui caz se regăsește în figura \ref{fig:XD2XCode Defs}. Stringurile $\$imageView$, $\$lineView$, $\$frame$ vor specifica tipuri temporare care vor fi transformate în categorii clasice din XCode (imagine, text, etc.). Pentru a stoca legătura dintre tipul temporar ($\$imageView$, $\$lineView$, $\$frame$) și categoria principală din Xcode (imagine, text, etc.), este nevoie de mapări <tip_temporar, categorie_pricipală_XCode>. Această mapare se poate regăsi în figura \ref{fig:XD2XCode Defs}.
 
-De aceea, trebuie să păstrăm și această mapare în dicționarul din figura \ref{fig:XD2XCode Defs}.
-
-Cel de-al doilea dicționar va conține un template al reprezentării în care se va dori translatarea. Acest template este scris într-un format .json, datorită modului facil de reprezentare și extindere. De asemenea, un astfel de format poate fi deserializat intr-un dictionar. 
+Cel de-al doilea dicționar va conține o serie de entr-uri de forma <key, value>. \todo{AM ramas aici} al reprezentării în care se va dori translatarea. Acest template este scris într-un format .json, datorită modului facil de reprezentare și extindere. De asemenea, un astfel de format poate fi deserializat intr-un dictionar. 
 
 Organizarea acestei scheme de translatare .json este realizată după modelul din Figura \ref{fig:XD2XCode Schema}. Tag-urile din xml se pot împarți în trei categorii, în funcție de elementul reprezentat. Categoriile specificate sunt următoarele: content, subViews, subTags. Prin specificarea acestora, se dorește modularizarea implementării și separarea elementelor logice din cadrul proiectului. Fiecare tag, indiferent de categoria în care se află, se va conforma formatului prezentat în Figura \ref{fig:XD2XCode Schema}.
 
