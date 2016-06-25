@@ -267,7 +267,7 @@ JSON (numit și JavaScript Object Notation) este un format care folosește text 
 
 Un dicționar declară programatic obiectul care realizează asocieri între chei și valori. O pereche cheie-valoare din dicționar se numește un ``entry". În interiorul dicționarului, cheile sunt stringuri unice, nenule. Tipul valorii nu are restricții, în afară de imposibilitatea declarării unei valori nule.
 
-\section{Translatarea și scalarea elementelor vizuale}
+\section{Translatarea și scalarea elementelor vizuale}\label{transScal}
 
 În momentul în care se face translatarea dintre XD - XCode, este nevoie de aplicarea unor operații de scalare și de translatare ale dimensiunilor și ale punctelor <x, y> ale tuturor elementelor vizuale. Aceste operații sunt dependente de dimensiunile ``height" și ``width" ale scenelor din XD, respectiv din XCode. 
 
@@ -559,13 +559,18 @@ Pentru o anumită categorie de asseturi (de ex. pentru ``shape"), pot exista mai
 \caption{XD2XCode Defs} \label{fig:XD2XCode Defs}
 \end{figure}
 
-\textbf{\textit{Exemplificare afirmație \ref{tip similar}}}: În cazul în care în urma aplicării algoritmului menționat mai devreme se obține un string de forma afirmației \ref{dollar}, atunci stringul respectiv va specifica un asset din XCode care are mai multe reprezentări. Un exemplu al acestui caz se regăsește în figura \ref{fig:XD2XCode Defs}. Stringurile $\$imageView$, $\$lineView$, $\$frame$ vor specifica tipuri temporare care vor fi transformate în categorii clasice din XCode (imagine, text, etc.). Pentru a stoca legătura dintre tipul temporar ($\$imageView$, $\$lineView$, $\$frame$) și categoria principală din Xcode (imagine, text, etc.), este nevoie de mapări <tip_temporar, categorie_pricipală_XCode>. Această mapare se poate regăsi în figura \ref{fig:XD2XCode Defs}.
+\textbf{\textit{Exemplificare afirmație \ref{tip similar}}}: În cazul în care în urma aplicării algoritmului menționat mai devreme se obține un string de forma afirmației \ref{dollar}, atunci stringul respectiv va specifica un tip de asset din XCode care are mai multe reprezentări. Un exemplu al acestui caz se regăsește în figura \ref{fig:XD2XCode Defs}. Stringurile $\$imageView$, $\$lineView$, $\$frame$ vor specifica tipuri temporare care vor fi transformate în categorii clasice din XCode (imagine, text, etc.). Pentru a stoca legătura dintre tipul temporar ($\$imageView$, $\$lineView$, $\$frame$) și categoria principală din Xcode (imagine, text, etc.), este nevoie de mapări <tip_temporar, categorie_pricipală_XCode>. Această mapare se poate regăsi în figura \ref{fig:XD2XCode Defs}.
 
-Cel de-al doilea dicționar va conține o serie de entr-uri de forma <key, value>. \todo{AM ramas aici} al reprezentării în care se va dori translatarea. Acest template este scris într-un format .json, datorită modului facil de reprezentare și extindere. De asemenea, un astfel de format poate fi deserializat intr-un dictionar. 
+Cel de-al doilea dicționar va conține o serie de entry-uri de forma <key, value>. Acest dicționar va avea trei chei principale $key$ : $content$, $subViews$, $subTags$. Aceste chei denotă nivelele ierarhice din cadrul reprezentării în care se va dori translatarea. Prin specificarea acestora, se dorește modularizarea implementării și separarea elementelor logice din cadrul proiectului. Fiecare tag, indiferent de categoria în care se află, se va conforma formatului prezentat în Figura \ref{fig:XD2XCode Schema}.
+Schema prezentată în figura \ref{fig:XD2XCode Schema} este scrisă într-un format .json datorită modului facil de reprezentare și de extindere. De asemenea, un astfel de format poate fi deserializat într-un dictionar. 
 
-Organizarea acestei scheme de translatare .json este realizată după modelul din Figura \ref{fig:XD2XCode Schema}. Tag-urile din xml se pot împarți în trei categorii, în funcție de elementul reprezentat. Categoriile specificate sunt următoarele: content, subViews, subTags. Prin specificarea acestora, se dorește modularizarea implementării și separarea elementelor logice din cadrul proiectului. Fiecare tag, indiferent de categoria în care se află, se va conforma formatului prezentat în Figura \ref{fig:XD2XCode Schema}.
+Proprietatea $content$ specifică structura primului nivel de indirectare. Această structură, specifică reprezentării XD,  trebuie să conțină dimensiunile cadranului, culorile scenei și elementele vizuale componente (care vor fi regăsite în $subViews$).
 
-O mapare corectă a unui tag trebuie să corespundă anumitor reguli de compunere și de afișare. De asemenea, construcția unui tag trebuie, în anumite cazuri, să respecte o anumită ordine. Acest lucru este necesar întrucât, în anumite cazuri, regulile de translatare între cele două reprezentări se bazează pe “moștenire”. Această relație garantează faptul că un tag care apare la un nivel inferior, va moșteni atributele părintelui - atributele copilului sunt “relative” la atributele părintelui. O bună exemplificare a acestei proprietăți este “moștenirea” cadrului în care se află un părinte. Tag-ul copil (tag care se află la un nivel inferior față de tag-ul de bază) va avea offsetul relativ la cadranul părintelui, iar dimensiunea în care “copilul” va putea fi așezat este dimensiunea spațiului “parinte”. Aceste specificații sunt reprezentate prin adăugarea elementului “order” cu lista de ordine corespunzătoare.
+Proprietatea $subViews$ specifică toate tipurile de elemente vizuale care pot fi întâlnite în cadrul scenei (text, imagine, etc.). Pentru descrierea acestor asset-uri, ne vom folosi de informațiile stocate în $subTags$.
+
+Proprietatea $subTags$ specifică o serie de dicționare care intră în componența dicționarelor din $subViews$. Acestea vor descrie elemente precum transformarea unui obiect vizual (rotire, translatare), culorile unui asset (valori pentru $red$, $green$, $blue$) etc.
+
+O translatare corectă a unei proprietăți json (specific XD-ului) într-un tag xml (specific XCode-ului) trebuie să corespundă anumitor reguli de compunere și de afișare. De asemenea, construcția unui tag trebuie, în anumite cazuri, să respecte o anumită ordine. Acest lucru este necesar întrucât, în anumite cazuri, regulile de translatare între cele două reprezentări se bazează pe “moștenire”. Această relație garantează faptul că un tag care apare la un nivel inferior, va moșteni atributele părintelui - atributele copilului sunt “relative” la atributele părintelui. O bună exemplificare a acestei proprietăți este “moștenirea” cadrului în care se află un părinte. Tag-ul copil (tag care se află la un nivel inferior față de tag-ul de bază) va avea offsetul relativ la cadranul părintelui, iar dimensiunea în care “copilul” va putea fi așezat este dimensiunea spațiului “parinte”. Aceste specificații sunt reprezentate prin adăugarea elementului $order$ cu lista de ordine corespunzătoare.
 
 \begin{figure}
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -593,34 +598,31 @@ O mapare corectă a unui tag trebuie să corespundă anumitor reguli de compuner
 \caption{XD2XCode Schema} \label{fig:XD2XCode Schema}
 \end{figure}
 
+Dependențele și regulile de mapare vor fi specificate în cadrul elementului json $rules$. Acesta va conține un dicționar cu mapari <Key, Value>, unde Key reprezintă tagul/atributul care va fi modificat, iar Value va reprezenta la rândul său un dicționar de mapari <KeyDep, ValueDep>.  $KeyDep$ va reprezenta dependența tagului $Key$ față de valorile $KeyDep$. Mapările explicite sunt specificate prin intermediul valorilor $ValueDep$ prin mapari de tipul <key_of_tag, value_from_KeyDep>. 
+Parsarea și, în cele din urmă afișarea reprezentării în format “xml”, va fi specificată prin intermediul tag-ului $toString$. 
 
+O proprietate din acest dicționar trebuie să conțină, la rândul său alte 4 proprietăți: $header$, $rules$, $toString$ și, opțional, $order$. 
 
+$Header$ va conține toate atributele specifice tag-ului xml în care va fi realizată translația. 
 
-Dependențele și regulile de mapare vor fi specificate în cadrul elementului json “rules”. Acesta va conține un dicționar cu mapari <Key, Value>, unde Key reprezintă tagul/atributul care va fi modificat, iar Value va reprezenta la rândul său un dicționar de mapari <KeyDep, ValueDep>.  “KeyDep” va reprezenta dependența tagului Key față de valorile “KeyDep”. Maparile explicite sunt specificate în cadrul ValueDep prin mapari de tipul <key_of_tag, value_from_KeyDep>. 
-Parsarea și, în cele din urmă afișarea reprezentării în format “xml” va fi specificată prin intermediul tag-ului “toString”. 
+Proprietatea $toString$ va conține un vector de chei care va specifica ordinea de translatare și de afișare a atributelor unui tag xml. 
 
-O proprietate din acest dicționar trebuie să conțină, la rândul său alte 4 proprietăți: \textbf{header}, \textbf{rules}, \textbf{toString} și, opțional, \textbf{order}. 
-
-\textbf{Header} va conține toate atributele specifice tag-ului xml în care va fi realizată translația. 
-
-Proprietatea \textbf{toString} va conține un vector de chei care va specifica ordinea de translatare și de afișare a atributelor unui tag xml. 
-
-Proprietatea \textbf{rules} specifică regulile care trebuie îndeplinite pentru o translatare corectă a elementului vizual curent. Această proprietate corespunde unui dicționar cu entry-uri de forma <regulă, modificator>.
+Proprietatea $rules$ specifică regulile care trebuie îndeplinite pentru o translatare corectă a elementului vizual curent. Această proprietate corespunde unui dicționar cu entry-uri de forma <regulă, modificator>.
 O regulă poate specifica două tipuri de stringuri:
 
 \begin{itemize}  
-\item o caracteristică din cadrul headerului, specificată prin forma ``\$header.<nume_atribut>"; acest lucru va sugera faptul că <nume_atribut> trebuie înlocuit conform valorii  din modificator.
-\item un nume de copil tag; în acest caz obiectul \textbf{modificator} este un dicționar cu entr-uri de forma <dependență, <dicționar de asocieri>>.
+\item o caracteristică din cadrul headerului, specificată prin forma ``\$header.<nume_atribut>"; acest lucru va sugera faptul că $nume_atribut$ trebuie înlocuit conform valorii  din $modificator$. Acest caz corespunde înlocuirii unei valori de atribut din cadrul unui tag xml. În general, atributul modificat este $id$-ul unic al elementelr vizuale (vezi figura \ref{fig:view})
+\item un nume de copil tag; în acest caz obiectul $modificator$ este un dicționar cu entry-uri de forma <dependență, <dicționar de asocieri>>. $Dependență$ specifică o serie de nivele de indirectare care aparțin de dicționarului de la care se face translatarea (dicționarul agc în acest caz). Valoarea corespunzătoare nivelelor de indirecatre specificate prin $dependență$ va fi numită în continuare $agcDict$. $Regulă$ corespunde unei intrări din dicționarul $subTags$. Această intrare va fi tot un dicționar pe care o sa îl numim $subTagDict$. $Dicționarul de asocieri$ este reprezentat din mapări <cheie_regulă, valoare_dependență>, unde $cheie_regulă$ corespunde unei chei din dicționarul $subTagDict$. $Valoare_dependență$ specifică un string de forma \ref{dollar}, care va specifica o cheie din $agcDict$. Această valoare va fi atribuită intrarii corespunzătoare cheii $cheie_regulă$ din $subTagDict$. 
 \end{itemize}
  
- O altă proprietate, care este opțională, este proprietatea ``default" care se întâlnește la proprietățile care aparțin clasei de asset-uri ``color", ``fontDescription". În momentul în care, aceste proprietăți lipsesc din reprezentarea xml, în momentul în care se reaizează translatarea, aceste proprietăți vor primi valorile implicite - specificate prin dicționarul ``default".
+ O altă proprietate, care este opțională, este proprietatea $default$ care se întâlnește la proprietățile care aparțin clasei de asset-uri $color$ și $fontDescription$. În momentul în care aceste proprietăți lipsesc din reprezentarea xml, în momentul în care se realizează translatarea, aceste proprietăți vor primi valorile sale implicite - specificate prin dicționarul $default$.
 
- În anumite cazuri, pentru translatarea dintr-un format în altul, este nevoie de defininirea unor comportamente specifice. De exemplu, în cazul în obținerii numărului de linii al unui element vizual de tip ``text area", este nevoie de obținerea a două valori din formatul agc. Prelucrarea acestor valori se realizează prin intermediul unei funcții, care primește ca parametrii cele două valori. 
+ În anumite cazuri, pentru translatarea dintr-un format în altul, este nevoie de defininirea unor comportamente specifice. De exemplu, în cazul obținerii numărului de linii al unui element vizual de tip $text area$, este nevoie de obținerea a două valori din formatul agc. Prelucrarea acestor valori se realizează prin intermediul unei funcții, care primește ca parametrii cele două valori. 
  Precizarea acestor comportamente, la nivel de schemă de translatare se realizează prin string-uri de forma ``\$<COMPORTAMENT> <param1> ... <paramN>".
 
 \subsection{Translatarea Path-urilor și a diverselor figuri geometrice}
 
-Pe măsură ce se desenează în cadrul unei scene se creează o linie numită \textbf{path}, care este compusă din unul sau mai multe segmente drepte sau curbe care pot fi manipulate cu precizie ridicată.
+Pe măsură ce se desenează în cadrul unei scene, se creează o linie numită \textbf{\textit{path}}, care este compusă din unul sau mai multe segmente drepte sau curbe care pot fi manipulate cu precizie ridicată.
 
 Un path este reprezentat în XD sub forma unei proprietăți json sub forma (figura \ref{fig:path}):
 
@@ -652,9 +654,9 @@ Scalable Vector Graphics sau SVG este un format de reprezentare al imaginilor ve
 Pentru translatarea din formatul json în formatul xml este nevoie de substituirea proprietăților \textbf{viewBox}, \textbf{fill}, \textbf{stroke}, \textbf{d} din \textbf{path} cu caracteristicile specificate în schema json (Figura \ref{fig:PathExport})
 
 
-\textbf{ViewBox} reprezintă cadranul în care path-ul este vizibil. Acesta va fi construit prin găsirea maximului și al minimului pe axele X, respectiv y. Valorile de minim vor reprezenta primele valori din viewBox (offsetul de pornire), iar diferența între minim și maxim pe axele x și y vor reprezenta lățimea și lungimea cadranului.
+$ViewBox$ reprezintă cadranul în care path-ul este vizibil. Acesta va fi construit prin găsirea maximului și al minimului pe axele $X$, respectiv $Y$. Valorile de minim vor reprezenta primele valori din viewBox (offsetul de pornire), iar diferența între minim și maxim pe axele x și y vor reprezenta lățimea și lungimea cadranului.
 
-Valoarea \textbf{path} va conține reprezentarea segmentelor din care forma geometrică este constituită.
+Valoarea $path$ va conține reprezentarea segmentelor din care este constituită forma geometrică.
 
 \begin{figure}
 \lstset{language=XML}
@@ -675,7 +677,7 @@ Valoarea \textbf{path} va conține reprezentarea segmentelor din care forma geom
 \caption{Svg template}\label{fig:svg}
 \end{figure}
 
-Translatarea unui \textbfit{path} în format \textbfit{svg} se realizează prin intermediul schemei XCode-Xd prezentată anterior. În figura \ref{fig:PathExport} se specifică un comportament particular prin intermediul string-ului \textbfit{\$PATH}. La nivel de implementare acest comportament particular este specificat printr-o funcție de prelucrare în funcție de argumentele specificate în schemă. Valorile obținute din procesarea reprezentării json din figură vor fi înlocuite într-un fișier svg template, conform proprietăților pe care acestea le definesc. 
+Translatarea unui $path$ în format $svg$ se realizează prin intermediul schemei XCode-XD prezentată anterior. În figura \ref{fig:PathExport} se specifică un comportament particular prin intermediul string-ului $\$PATH$. La nivel de implementare, acest comportament particular este specificat printr-o funcție de prelucrare în funcție de argumentele specificate în schemă. Valorile obținute din procesarea reprezentării json din figură vor fi înlocuite într-un fișier svg template, conform proprietăților pe care acestea le definesc. 
 
 \begin{figure}[!htbp]
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -699,31 +701,31 @@ Translatarea unui \textbfit{path} în format \textbfit{svg} se realizează prin 
 \end{figure}
 
 
-În urma translatării, se va obține un fișier svg cu elementul vizual regăsit în xd. 
+În urma translatării se va obține un fișier svg cu elementul vizual regăsit în xd. 
 
-Din păcate, XCode-ul nu suportă formatul svg, de aceea pentru aducerea acestor asset-uri în aplicația XCode dezvoltată, mai este nevoie de un pas. Pasul constă în transformarea svg-ului într-un format png, suportat de XCode. Această transformare va fi realizată prin comanda convert din cadrul utilitarului ImageMagick \cite{imageMagick}. 
+Din păcate, XCode-ul nu suportă formatul svg, de aceea pentru aducerea acestor asset-uri în aplicația XCode dezvoltată, mai este nevoie de un pas. Pasul constă în transformarea svg-ului într-un format png, suportat de XCode. Această transformare va fi realizată prin comanda $convert$ din cadrul utilitarului ImageMagick \cite{imageMagick}. 
 
-Apelul comenzii \textbf{convert} presupune crearea unui NSTask - un subprogram cu imaginea executabila, în cazul de față, \textbf{convert}, care va fi monitorizat de aplicația curentă. 
+Apelul comenzii \textbf{convert} presupune crearea unui NSTask - un subprogram cu imaginea executabila, în cazul de față - \textbf{convert} - care va fi monitorizat de aplicația curentă. 
 
-Numele fișierului png rezultat în urma comenzii ImageMagick se va compune din valoarea proprietății ``name" și o valoare sha corespunzătoare obiectului path. S-a ales acest tip de denumire din următoarea cauză: ``name" nu este o valoare unică - pot exista mai multe path-uri cu aceeași denumire. De aceea, pentru diferențierea path-urilor se va adăuga un id unic. O primă variantă ar fi folosirea unui id unic generat, însă în cazul în care s-ar realiza translatări multiple XCode-XD-XCode, s-ar genera o serie de imagini cu același conținu, dar cu nume diferit. De aceea, id-ul unic va fi reprezentat din valoarea SHA a obiectului ``path".
+Numele fișierului png rezultat în urma comenzii ImageMagick se va compune din valoarea proprietății $name$ și o valoare $sha$ corespunzătoare obiectului path. S-a ales acest tip de denumire din următoarea cauză: $name$ nu este o valoare unică - pot exista mai multe path-uri cu aceeași denumire. De aceea, pentru diferențierea path-urilor se va adăuga un id unic. O primă variantă ar fi folosirea unui id unic generat, însă în cazul în care s-ar realiza translatări multiple XCode-XD-XCode, s-ar genera o serie de imagini cu același conținut, dar cu nume diferit. Acest lucru ar implica importarea tuturor imaginilor în proiectul XCode, fapt care ar conduce, astfel, la un overhead inutil. De aceea, id-ul unic va fi reprezentat din valoarea SHA a obiectului $path$.
 
 Pentru a asigura conversia dimensiunilor și păstrarea proporțiilor din XD în XCode a imaginilor, aplicăm următoarea formulă:
 
 \begin{itemize}  
-\item Se calculează valoarea pentru scalarea elementelor pe axele X, respectiv Y.
-\item Se aplică minimul dintre cele două valori obținute anterior.
+\item Se calculează valoarea pentru scalarea elementelor pe axele X, respectiv Y. (conform algoritmului prezentat în scțiunea \ref{transScal})
+\item Valoarea $scaleFactor$ va fi reprezentată de minimul dintre cele două valori de scalare pe axele X și Y (obținute anterior).
 \end{itemize}
 
-Similar, se poate construi fișierul svg pentru linii prin adăugarea tag-ului <line ...> în cadrul svg-ului.
+Similar, se poate construi fișierul svg pentru linii prin adăugarea tag-ului <line ...> în cadrul template-ului de svg.
 
-Pentru toate elementele convertite din svg în png, se transmit o serie de parametrii comenzii \textbf{convert}, cum ar fi valoarea ``none" pentru ``background". De asemenea, culorile se vor specifica și prin linia de comandă pentru a asigura conversia corectă a tuturor parametrilor path-ului inițial.
+Pentru conversia din svg ]n png, comanda $convert$ va primi o serie de parametrii precum: valoarea ``none" pentru ``background" (pentru a specifica un fundal transparent). De asemenea, culorile ($storke$, $fill$, etc.) se vor specifica și prin linia de comandă pentru a asigura conversia corectă a tuturor parametrilor path-ului inițial.
 
 \subsection{Translatarea textului}
 
-În XD, există două tipuri de text: text area (un cadran de o dimensiune variabilă în care se va pune text) și text simplu (cadranul e fix, relativ la textul pe care îl încadrează). Modalitatea de translatare a celor două tipuri de text este diferită din cauza modului de așezare și de reprezentare. 
+În XD, există două tipuri de text: $text area$ (un cadran de o dimensiune variabilă în care se va pune text) și $text$ simplu (cadranul e fix, relativ la textul pe care îl încadrează). Modalitatea de translatare a celor două tipuri de text este diferită din cauza modului de așezare și de reprezentare. 
 
-În cadrul elementelor de tip ``text area", pentru calcularea cadranului este nevoie de offset-urile ``x", respectiv ``y" și de dimensiunile ``width" și ``height" specificate direct în proprietățile agc-ului corespunzător. Însă, în cazul elementelor de tip ``text" simplu, este nevoie de câteva procesări suplimentare.
-O proprietate specifică textului în XD este modalitatea de reprezentare a numărului de caractere pe linie. Acest lucru se poate observa în figura: \ref{fig:Paragraphs}. Prin intermediul atributului ``paragraphs" se obține numărul de linii, iar numărul maxim de caractere se obține prin atributul ``lines" (prin formula  MAX(lines.to - lines.from)). De asemenea, este nevoie de cunoașterea tipului și dimensiunii fontului pentru calcularea dreptunghiului în care se încadrează textul dat.
+În cadrul elementelor de tip $text area$, pentru calcularea cadranului este nevoie de offset-urile $x$, respectiv $y$ și de dimensiunile $width$ și $height$ specificate direct în proprietățile agc-ului corespunzător. Însă, în cazul elementelor de tip $text$ simplu, este nevoie de câteva procesări suplimentare.
+O proprietate specifică textului în XD este modalitatea de reprezentare a numărului de caractere pe linie. Acest lucru se poate observa în figura: \ref{fig:Paragraphs}. Prin intermediul atributului $paragraphs$ se obține numărul de linii, iar numărul maxim de caractere se obține prin atributul $lines$ (prin formula  \[MAX(lines.to - lines.from)\]). De asemenea, este nevoie de cunoașterea tipului și dimensiunii fontului pentru calcularea dreptunghiului în care se încadrează textul dat.
 
 \begin{figure}[!htbp]
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -738,11 +740,11 @@ O proprietate specifică textului în XD este modalitatea de reprezentare a num�
 \caption{Paragraphs} \label{fig:Paragraphs}
 \end{figure}
 
-Elementele vizuale de tip ``text", în forma de reprezentare agc, sunt caracterizate prin perechea <x, y> pentru a specifica offsetul în cadrul artboardului. Valoarea <x> specifică valoarea pe axa X a punctului stânga-jos a cadranului textului. Valoarea <y> însă este repreznetată prin valoarea pe axa Y a punctului stânga-jos a cadranului, la care se adaugă dimensiunea fontului. De aceea, pentru translatarea în reprezentarea xml echivalentă, se realizează calcularea punctului <x, y> conform specificațiilor de mai sus.
+Elementele vizuale de tip $text$, în forma de reprezentare $agc$, sunt caracterizate prin perechea $<x, y>$ pentru a specifica offsetul în cadrul artboard-ului. Valoarea $x$ specifică valoarea pe axa $X$ a punctului stânga-jos a cadranului textului. Valoarea $y$ este reprezentată prin valoarea pe axa $Y$ a punctului stânga-jos a cadranului la care se adaugă dimensiunea fontului. De aceea, pentru translatarea unui text în reprezentarea xml echivalentă, se realizează calcularea punctului $<x, y>$ pe baza specificațiilor de mai sus.
 
 \subsection{Translatarea grupurilor}
 
-Un grup în XD reprezintă o organizare logică a mai multor asset-uri într-o singură entitate. În urma acestei conversii, asseturile se vor comporta ca o singură entitate. Se pot aplica operații de translatare sau rotire asupra tuturor elementelor interne. 
+Un grup în XD reprezintă o organizare logică a mai multor asset-uri într-o singură entitate. În urma operației de ``grupare", asseturile se vor comporta ca o singură entitate. Se pot aplica operații de translatare sau rotire asupra tuturor elementelor interne. 
 
 Reprezentarea sub forma unui json al unui grup este specificată în figura \ref{fig:Group}. 
 
@@ -762,12 +764,12 @@ Reprezentarea sub forma unui json al unui grup este specificată în figura \ref
 \caption{Group} \label{fig:Group}
 \end{figure}
 
-Proprietatea ``transform" specifică modul de translatare sau rotire a groupului. Toate elementele care aparțin grupului (dicționarele care aparțin listei ``children") vor fi modificate conform valorilor lui \textbfit{transform}.
+Proprietatea $transform$ specifică modul de translatare sau de rotire a groupului. Toate elementele care aparțin grupului (dicționarele care aparțin listei $children$) vor fi modificate conform valorilor lui $transform$.
 
 În Xcode, noțiunea de group este inexistentă, dar se poate face o asociere grup (în XD) - view (în Xcode).  
-Pentru construirea dimensiunilor view-ului, se poate realiza o parcurgere inversă de la elementele constitunte grupului, la dimensiunea grupului. Ideea acestui algoritm s-ar baza pe parcurgerea colecției de elemente din grup și calcularea offsetului minim și maxim pentru ficare element. Cadranul grupului (view-ului din Xcode) va fi încadrat între offsetul minim al axelor x și y și offsetul maxim al acestora.
+Pentru construirea dimensiunilor view-ului, se poate realiza o parcurgere inversă de la elementele constituente grupului. Ideea acestui algoritm s-ar baza pe parcurgerea colecției de elemente din grup și calcularea offsetului minim și maxim pentru ficare element. Cadranul grupului (view-ului din Xcode) va fi încadrat între offsetul minim al axelor $X$ și $Y$ și offsetul maxim al acestora.
 
-În XD, organizarea elementelor vizuale sub forma grupurilor duce la obținerea mai multor nivele de imbricare. De aceea, în urma translatării, în XCode se vor obține o serie de view-uri imbricate. În general, translatarea în mai multe view-uri imbricate nu corespunde, la nivel logic, cu organizarea la nivel de grup în XD. De asemnea, construirea implementării aplicației în Xcode, pe baza mai multor view-uri imbricate din Interface Builder, este destul de anevoiasă, și, posibil, nu corespunde cu cerințele aplicației. De aceea, am renunțat la asocierea grup-view. În acest sens, în momentul în care se întâlnește în reprezentarea agc un element de tip ``group", se rețin valorile de offset, ``tx" și ``ty", continuându-se translatarea cu elementele care aparțin grupului.  Cele două valori ``tx" și ``ty" ne ajută la obținerea valorilor absolute ale asseturilor corespunzătoare unui grup. De aceea, aceste valori se adaugă offsetului inițial al artboardului, așa cum a fost explicat în secțiunea de scalare și translatare.
+În XD, organizarea elementelor vizuale sub forma grupurilor duce la obținerea mai multor nivele de imbricare. De aceea, în urma translatării, în XCode se vor obține o serie de view-uri imbricate. În general, translatarea în mai multe view-uri imbricate nu corespunde, la nivel logic, cu organizarea la nivel de grup în XD. De asemnea, construirea implementării aplicației în Xcode pe baza mai multor view-uri imbricate din Interface Builder, este destul de anevoiasă și, posibil, nu corespunde cu cerințele aplicației. De aceea, am renunțat la asocierea grup-view. În acest sens, în momentul în care se întâlnește în reprezentarea agc un element de tip $group$, se rețin valorile de offset, $tx$ și $ty$, continuându-se translatarea cu elementele care aparțin grupului.  Cele două valori $tx$ și $ty$ ne ajută la obținerea valorilor asseturilor (independente de grupul sau grupurile de care elementul vizual curent aparține) corespunzătoare unui grup. De aceea, aceste valori se adaugă offsetului inițial al artboardului curent, așa cum a fost explicat în secțiunea de scalare și translatare (\ref{transScal}).
 
 \subsection{Translatarea imaginilor}
 
@@ -777,25 +779,25 @@ De aceea, este nevoie de obținerea căii absolute ale imaginilor care trebuie p
 Obținerea căii absolute se realizează prin două metode:
 
 \begin{itemize}  
-\item obținerea valorii pentru proprietatea ``href", duce la obțierea căii către imaginea dorită
-\item Un fișier xd, după decomprimare, așa cum s-a prezentat în figura \ref{fig:ierarhie} conține un director resources care, pe lângă fișierul de descreiere al scenelor, conține și imaginile din XD. Numele imaginilor sunt reprezentate printr-un id unic, care se regăsește și în fișierul de descriere al XD-ului.
+\item Proprietatea $href$ conține calea absolută a imaginii dorite;
+\item Un fișier xd, după decomprimare, așa cum s-a prezentat în figura \ref{fig:ierarhie} conține un director resources care, pe lângă fișierul de descriere al scenelor (graphics/graphicContent.agc), conține și imaginile din XD. Numele imaginilor sunt reprezentate printr-un id unic, care se regăsește și în fișierul de descriere al XD-ului.
 \end{itemize}
 
-În urma obținerii căii absolute ale imaginilor, se face o copie locală a acestora într-un director ``Resources" din cadrul proiectului XCode. Aceste fișiere vor trebui să fie adăugate manual (Drag & Drop) în directorul ``Supported Files" ale aplicației XCode.
+În urma obținerii căii absolute ale imaginilor, se face o copie locală a acestora într-un director $Resources$ din cadrul proiectului XCode. Aceste fișiere vor trebui să fie adăugate manual (Drag & Drop) în directorul $Supported Files$ ale aplicației XCode.
 
-În cazul în care se realizează o serie de operații de translatare între XCode și XD (import, export, sincronizare), nu este nevoie de o copiere la fiecare astfel de operație, întrucât aceasta ar presupune suprascrierea unor fișiere cu aceleași informații. Acest lucru ar duce la un overhead destul de semnificativ, de aceea, înainte de realizarea copierii, se verifică existența fișierului în directorul ``Resources".
+În cazul în care se realizează o serie de operații de translatare între XCode și XD (import, export, sincronizare), nu este nevoie de o copiere la fiecare astfel de operație, întrucât aceasta ar presupune suprascrierea unor fișiere cu aceleași informații. Acest lucru ar duce la un overhead destul de semnificativ, de aceea, înainte de realizarea copierii, se verifică existența fișierului în directorul $Resources$.
 
 \subsection{Translatarea interacțiunilor}
 
-O interacțiune în XD reprezintă o legătură între un element vizual dintr-o scenă și o altă scenă. Prin interacțiuni, aplicația este animată și se pot realiza tranziții între scene, în funcție de comportamentul descris. 
+O interacțiune în XD reprezintă o legătură dintre un element vizual dintr-o scenă și o altă scenă. Prin interacțiuni, aplicația este animată și se pot realiza tranziții între scene, în funcție de comportamentul descris. 
 
-Pentru a realiza translatarea interacțiunilor, se citește fișierul interaction.json, obținându-se astfel un dicționar cu mapări între id-uri - pe care o sa în numim \textbf{segueDict}. 
+Pentru a realiza translatarea interacțiunilor, se citește fișierul $interaction.json$, obținându-se astfel un dicționar cu mapări între id-uri - pe care o sa în numim \textbf{segueDict}. 
 
 Următoarea etapă constă în parcurgerea dicționarului cu reprezentarea tutoror scenelor, și obținerea mapărilor între id și elementul vizual curent (mapări stocate într-un dicționar \textbf{mapDict}). În momentul în care se obține un id care există sub formă de cheie în dicționarul \textbf{segueDict}, se adaugă la \textbf{resultDict} - template-ul pentru obiectul de tip interacțiune. 
 
 Deoarece id-urile destinație pot reprezenta scene care încă nu au fost procesate, dicționarul final va trebui să fie parcurs încă o dată pentru înlocuirea id-urilor conform informațiilor descrise în \textbf{mapDict}.
 
-Pentru realizarea corectă a translatărilor din XD în XCode, trebuie luată în considerare diferența majoră între tipurile de obiecte care suportă tranziții. În Xcode, obiectele care suportă tranziții sunt: \textbf{button} sau \textbf{view}, în timp ce în XD, nu există restricții de tip. De aceea, în momentul în care se realizează translatarea XCode - XD, inspectăm dicționarul \textbf{segueDict}. În momentul în care găsim un obiect cu id-ul prezent în dicționarul  \textbf{segueDict}, obiectul respectiv va fi translatat într-un obiect xml de tip \textbf{button}.
+Pentru realizarea corectă a translatărilor din XD în XCode, trebuie luată în considerare diferența majoră între tipurile de obiecte care suportă tranziții. În Xcode, obiectele care suportă tranziții sunt: \textbf{button} sau \textbf{view}, în timp ce în XD nu există restricții de tip. De aceea, în momentul în care se realizează translatarea XCode - XD, inspectăm dicționarul \textbf{segueDict}. În momentul în care găsim un obiect cu id-ul prezent în dicționarul \textbf{segueDict}, obiectul respectiv va fi translatat într-un obiect xml de tip \textbf{button}.
 
 \section {Translatarea XCode-XD folosind a doua schemă de translatare} \label{xcxd2schema}
 
