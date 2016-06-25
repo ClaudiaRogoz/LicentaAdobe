@@ -331,7 +331,7 @@ Formatul json este similar xml-ului prin faptul că amandouă reprezentările de
 
 Găsirea unei scheme de translatare între cele două reprezentări se rezumă, așadar, la găsirea multiplelor mapări între tag-urile și atributele xml-ului, respectiv json-ului. De asemenea, există anumite dependențe între tag-urile xml și submulțimi de proprietăți json (pe baza proprietatilor respective, in momentul translatarii, se decid tag-urile xml si atributele lor).
 
-\section{Translatarea din XCode în Adobe Experience Design}
+\section{Translatarea din XCode în Adobe Experience Design} \label{xcode2xdv1}
 
 Translatarea elementelor vizuale din XCode în XD presupune parcurgerea fișierelor “storyboard” și inspectarea tagurilor cu atributele corespunzătoare. În urmă inspectării, trebuie să se obțină o reprezentare de tip json a fișierului de intrare.  De aceea, schema de translatare pe care o propun constă într-un model de asociere între tagurile xml și elementele json, schemă reprezentată, la rândul său, de un fișier .json.  
 
@@ -506,7 +506,7 @@ Pentru construirea interacțiunilor în XD, toate id-urile stocate în dicționa
 
 Mapările din \textbf{segueDict} vor fi copiate în cele din urmă în fișierul interactions.json (fișierul se poate regăsi în figura \ref{fig:ierarhie})
 
-\section{Translatarea din Adobe Experience Design în XCode}
+\section{Translatarea din Adobe Experience Design în XCode}\label{xd2xcodev1}
 
 Exportul elementelor vizuale din Adobe XD în Xcode presupune parcurgerea fiserelor ``agc" și inspectarea elementelor acestuia. Particularizarea problemei presupune găsirea schemei de translatare de la un format de tip json la un format de tip xml. Așa cum s-a precizat în secțiunea anterioară, translatarea dintre reprezentările XD - Xcode este o mapare complexă de tip one-to-one, care se bazează pe moștenire și pe aplicare de operații. 
 
@@ -799,23 +799,23 @@ Deoarece id-urile destinație pot reprezenta scene care încă nu au fost proces
 
 Pentru realizarea corectă a translatărilor din XD în XCode, trebuie luată în considerare diferența majoră între tipurile de obiecte care suportă tranziții. În Xcode, obiectele care suportă tranziții sunt: \textbf{button} sau \textbf{view}, în timp ce în XD nu există restricții de tip. De aceea, în momentul în care se realizează translatarea XCode - XD, inspectăm dicționarul \textbf{segueDict}. În momentul în care găsim un obiect cu id-ul prezent în dicționarul \textbf{segueDict}, obiectul respectiv va fi translatat într-un obiect xml de tip \textbf{button}.
 
-\section {Translatarea XCode-XD folosind a doua schemă de translatare} \label{xcxd2schema}
+\section {Translatarea din XCode în XD folosind a doua schemă de translatare} \label{xcxd2schema}
 
-Translatarea XCode-XD folosind prima schemă de translatare, descrisă în secțiunea anterioară, are o serie de neajunsuri. Principalul dezavantaj ar fi faptul că tipul unui obiect se poate afla în urma parcurgerii și a translatătării mai multor tag-uri și subtaguri. În momentul în care se descoperă un atribut care conduce către modificarea tipului curent, se va regenera template-ul json corespunzător noului tip.  
-Un dezavantaj secundar ar fi folosirea a două scheme de translatare separate pentru import și export.
+Translatarea XCode - XD folosind prima schemă de translatare, descrisă în secțiunea \ref{xcode2xdv1}, are o serie de neajunsuri. Principalul dezavantaj ar fi faptul că tipul unui obiect se poate afla în urma parcurgerii și a translatătării mai multor taguri și subtaguri. În momentul în care se descoperă un atribut care conduce către modificarea tipului curent, se va regenera template-ul json corespunzător noului tip.  
+Un dezavantaj secundar ar fi folosirea a două scheme separate de translatare pentru import și export.
 
-De aceea, se va folosi schema prezentată în secțiunea de translatare XD-Xcode. Pentru aceasta, trebuie construit echivalentul json pentru fișierul de intrare .storyboard. În urma transformării în format json echivalent, prin intermediul clasei XSXMLParser, se va aplica o schemă de transalatare similară celei descrise în secțiunea anterioară.
+De aceea, se va folosi o schemă similară celei prezentate în secțiunea de translatare XD - Xcode \ref{xd2xcodev1}. Pentru a ne folosi de această schemă de translatare, trebuie construit echivalentul json pentru fișierul de intrare .storyboard ( fișier cu format xml). Pentru realizarea acestei translatări intermediare xml-json, ne vom folosi de clasa NSXMLParser. În urma transformării în format json echivalent, se va aplica o schemă de translatare similară celei descrise în secțiunea \ref{xd2xcodev1}.
 
-Schema de translatare XCode-Xd are următoarele atribute: \textbf{artwork}, \textbf{content}, \textbf{children}, \textbf{subtags}. Atributul ``artworks" specifică template-ul unui fișier agc corespunzător unei scene. Atributul ``content" specifică caracteristicile care trebuie preluate dintr-o scenă. Atributul ``children" specifică elementele vizuale care pot fi desenate pe scene, iar atributul ``subtags" specifică proprietățile corespunzătoare elementelor vizuale.
+Schema de translatare XCode - XD din această secțiune are următoarele atribute: \textbf{artwork}, \textbf{content}, \textbf{children}, \textbf{subtags}. Atributul $artworks$ specifică template-ul unui fișier agc corespunzător unei scene. Atributul $content$ specifică caracteristicile care trebuie preluate dintr-o scenă. Atributul $children$ specifică elementele vizuale care pot fi desenate pe scene, iar atributul $subtags$ specifică proprietățile corespunzătoare elementelor vizuale.
 
-Se definesc două tipuri de atribute speciale: ``dependency", ``saveId" și ``toRemove". Atributul ``dependency" specifică
-dependența unei scene față de valoarea definită de acesta. Acest element se folosește pentru descrierea unui artboard: culoare, dimensiuni și localizare.
+Se definesc trei tipuri de atribute speciale: $dependency$, $saveId$ și $toRemove$. Atributul $dependency$ specifică
+dependența unei scene față de valoarea definită de atributul $dependency$. Acest element se folosește pentru descrierea unui artboard: culoare, dimensiuni și localizare.
 
-Atributul ``toRemove" specifică numele atributelor care nu sunt necesare pentru descrierea elementului vizual curent.
-O altă diferență față de schema de translatare XD-XCode ar fi modul de accesare al elementelor din subtags.
-Spre deosebire de translatarea XD-XCode, în schema de față, subtags va conține o serie de chei care au corespondent dicționare imbricate. Pentru obținerea acestor dicționare și pentru modificarea elementelor din interior, se va folosi formula definită în afirmația \ref{count}.
+Atributul $toRemove$ specifică numele atributelor care nu sunt necesare pentru descrierea elementului vizual curent.
+O altă diferență față de schema de translatare XD-XCode ar fi modul de accesare al elementelor din $subtags$.
+Spre deosebire de translatarea XD-XCode, în schema de față $subtags$ va conține o serie de chei care corespund unor dicționare imbricate. Pentru obținerea acestor dicționare și pentru modificarea elementelor din interior, se va folosi formula definită în afirmația \ref{count}.
 
-Cu ajutorul atributului ``saveId", se salvează id-ul elementului curent pentru a putea fi folosit pentru generarea interacțiunilor XD.
+Cu ajutorul atributului $saveId$, se salvează id-ul elementului curent pentru a putea fi folosit pentru generarea interacțiunilor XD.
 
 Figura \ref{fig:Schema2} specifică modul de reprezentare al schemei de translatare XCode-XD.
 
@@ -844,57 +844,61 @@ Figura \ref{fig:Schema2} specifică modul de reprezentare al schemei de translat
 \caption{Schema XCode-XD} \label{fig:Schema2}
 \end{figure}
 
-\section{Sincronizarea scenelor între cele două reprezentări}
+Algoritmul XCode-XD din această secțiune va fi similar cu algoritmul de translatare XD-XCode (din secțiunea \ref{xd2xcodev1}), cu diferența că acesta va fi extins conform specificațiilor de mai sus.
 
-Sincronizarea se referă la modul în care elementele vizuale vor fi updatate în momentul în care se realizează o modificare în proiectul XD, sau în proiectul XCode.
-Voi incepe cu prezentarea sicronizării de la XD si Xcode, sincronizarea inversă urmând să fie implementată ulterior.
+\section{Sincronizarea scenelor între cele două reprezentări} \label{syncme}
+
+Sincronizarea se referă la modul în care elementele vizuale vor fi updatate în momentul în care se realizează o modificare în proiectul XD sau în proiectul XCode.
+Voi incepe cu prezentarea sincronizării de la XD la Xcode, sincronizarea inversă urmând să fie implementată ulterior.
 
 \subsection{Sincronizarea Adobe Experience Design - XCode}
 
-O variantă brută de implementare a sincronizării se poate constitui din două etape: monitorizarea fișierului de design și generarea tuturor scenelor, indiferent de elementele modificate. Generarea scenelor s-ar baza pe modulul de translatare XD-Xcode, însă aceast algoritm ar presupune un overhead destul de mare. În cazul în care fișierul de design se va modifica doar pentru câteva scene, regenerarea tuturor artboard-urilor ar fi costisitoare. De aceea, trebuie să se țină cont de obiectele modificate. Scenele care nu au fost modificate vor avea aceeași reprezentare în fișierul storyboard.
+O variantă brută de implementare a sincronizării se poate constitui din două etape: monitorizarea fișierului de design și generarea tuturor scenelor, indiferent de elementele modificate (sau de scenele modificate). Generarea scenelor s-ar baza pe modulul de translatare XD-Xcode, însă aceast algoritm ar presupune un overhead destul de mare. În cazul în care fișierul de design se va modifica doar pentru câteva scene, regenerarea tuturor artboard-urilor ar fi costisitoare. De aceea, trebuie să se țină cont de obiectele modificate. Scenele care nu au fost modificate vor avea aceeași reprezentare în fișierul storyboard.
 
 În continuare voi prezenta algoritmul de sincronizare care se bazează pe detecția modificărilor.
 
-Implementarea sincronizării se bazează pe monitorizarea fișierului de design prin intermediul tool-ului Grand Central Dispatch (GCD) dispatch queues. \textbf{Dispatch queues} permit executarea unor blocuri de cod sincron, sau asincron, în funcție de modul de implementare. Acestea se pot folosi pentru rularea unor task-uri în thread separat față de aplicația principală. 
+Implementarea sincronizării se bazează pe monitorizarea fișierului de design prin intermediul tool-ului Grand Central Dispatch (GCD) dispatch queues. \textbf{Dispatch queues} permit executarea unor blocuri de cod sincron, sau asincron, în funcție de modul de implementare. Acestea se pot folosi pentru rularea unor task-uri în threaduri separate față de aplicația principală. 
 
-În cazul de față, \textbf{task}-ul implementat se referă la monitorizarea unui fișier de design specificat prin calea sa absolută. În momentul în care un fișier XD este modificat, aplicația va fi notificată și va începe căutarea scenelor modificate. 
-Această căutare se bazează pe o pre-salvare atât a offseturilor scenelor din Xcode cât și a sha-urilor corespunzătoare reprezintărilor agc ale acestora. 
+În cazul de față, \textbf{task}-ul se referă la monitorizarea unui fișier de design specificat prin calea sa absolută. În momentul în care un fișier XD este modificat, aplicația va fi notificată și va începe căutarea scenelor modificate. 
+Această căutare se bazează pe o pre-salvare atât a offseturilor scenelor din Xcode cât și a sha-urilor corespunzătoare reprezentărilor agc ale acestora. 
 
-Offsetul este necesar deoarece un fișier Xcode conține toate scenele din storyboardul reprezentat.  Scenele nemodificate sunt reprezentate prin scenele care au sha-ul în dicționarul de sha-uri presalvate. Maparea acestui sha este realizat împreună cu numărul de ordine al scenei corespunzătoare. 
-În cazul în care o scenă s-a detectat că fiind modificată, se re-generează codul corespunzător (așa cum s-a prezentat în secțiunile anterioare).  La fiecare nouă updatare, dicționarele cu offseturi și cu sha-uri trebuie refăcute.
+Offsetul este necesar deoarece toate scenele dintr-un proiect XCode sunt reprezentate într-un singur fișier storyboard. Așadar, fiecare scenă va avea asociat offsetul din cadrul fișierului storyboard de la care începe reprezentarea acestuia. 
+Scenele nemodificate sunt reprezentate prin scenele (reprezentate în format agc) care au sha-ul în dicționarul de sha-uri presalvate. Fiecare sha salvat este mapat împreună cu numărul de ordine al scenei pe care o descrie. 
+În cazul în care o scenă s-a detectat că fiind modificată, se re-generează reprezentarea xml corespunzătoare (așa cum s-a prezentat în secțiunile anterioare).  La fiecare nouă updatare, dicționarele cu offseturi și cu sha-uri trebuie refăcute.
 
 Algoritmul de sincronizare rulează implicit în momentul în care se realizează translatarea din XCode în Adobe Experience Design. Pașii acestui algoritm sunt:
 
 \begin{itemize}  
-\item Se creează translatarea XCode-XD prin conversia fișierului xml în format json. De asemenea, se construiește un vector cu n+1 offseturi, în care primele n valori reprezintă offseturile tag-urilor ``scene" din cadrul fișierului .storyboard, iar ultimul offset, al n+1-lea, va reprezenta offsetul ultimului tag ``/scene". Ultimul offset este necesar pentru obținerea dimensiunii ultimei scene. Pentru înlocuirea scenelor pe baza modificărilor întâlnite, este necesară obținerea offsetului de început, dar și a dimensiunii în cadrul fișierului storyboard obținut prin formula: 
+\item Se creează translatarea XCode-XD prin conversia fișierului xml în format json. De asemenea, se construiește un vector cu n+1 offseturi, în care primele n valori reprezintă offseturile tag-urilor $scene$ din cadrul fișierului .storyboard, iar ultimul offset, al n+1-lea, va reprezenta offsetul ultimului tag $/scene$. Ultimul offset este necesar pentru obținerea dimensiunii ultimei scene. 
+Pentru înlocuirea scenelor modificate este necesară obținerea offseturilor și ale dimensiunilor acestora în cadrul fișierului storyboard. Dimensiunea unei scene este calculată prin aplicarea următoarei formule:
 \[offsetList[sceneNo + 1] - offsetList[sceneNo]\]
-unde ~$offsetList$ reprezintă lista de offseturi, iar ~$sceneNo$ numărul scenei curente. Se salvează sha-ul fiecărei scene translatate într-un dicționar ``shaDict"
+unde ~$offsetList$ reprezintă lista de offseturi, iar ~$sceneNo$ numărul scenei curente. Se salvează sha-ul fiecărei scene translatate într-un dicționar numit $shaDict$;
 
-\item Începe monitorizarea fișierului de design .xd. În momentul în care se realizează salvarea fișierului xd, se realizează decompresia acestuia și se parcurge lista de fișiere din cadrul directorului ``artworks". Se obțin valoarile sha ale fiecărui fișier destinat reprezentării scenelor. 
-\item Se verifică apartenența fiecărui sha în lista de sha-uri presalvate (shaDict). Apar două situații:
+\item Începe monitorizarea fișierului de design .xd. În momentul în care se realizează salvarea fișierului xd, se realizează decompresia acestuia și se parcurge lista de fișiere din cadrul directorului $artworks$. Se obțin valorile sha ale fiecărui fișier care conține reprezentările scenelor (/artowks/artboard-artboard$sceneNo$/greaphicContent.agc conform \ref{fig:ierarhie}); 
+\item Se verifică apartenența fiecărui sha în lista de sha-uri presalvate ( în $shaDict$). Apar două situații:
     \begin{itemize}  
-    \item Sha-ul se află în shaDict. În acest caz, scena curentă nu a fost modificată și reprezentarea în xml va fi aceeași.
-    \item Sha-ul nu se află în shaDict. În acest caz, scena curentă a fost modificată și se va realiza translatarea XD-XCode pentru aceasta.
+    \item Sha-ul se află în $shaDict$. În acest caz, scena curentă nu a fost modificată și reprezentarea în xml va fi aceeași;
+    \item Sha-ul nu se află în $shaDict$. În acest caz, scena curentă a fost modificată și se va realiza translatarea XD-XCode pentru aceasta;
     \end{itemize}
-\item Se updatează fișierul storyboard, lista de offseturi și dicționarul de sha-uri pe baza scenelor modifcate
+\item Se updatează fișierul storyboard, lista de offseturi și dicționarul de sha-uri pe baza scenelor modifcate;
 \item Algoritmul se reia pentru fiecare salvare a fișierului de design xd.
 \end{itemize}
 
 
 \section{Arhitectură}
 
-În acest capitol voi oferi detalii despre arhitectură și despre modulele care alcătuiesc soluția prezentată.
+În acestă secțiune voi oferi detalii despre arhitectură și despre modulele care alcătuiesc soluția prezentată.
 
-Aplicația este funcțională și implementează sincronizarea și translatarea directă și inversă a elementelor vizuale dintre Adobe XD și XCode. 
-Realizarea proiectului a fost testată pe un sistem MacOSX, aplicația fiind scrisă în ObjC cu ajutorul IDE-ului XCode. Pentru rularea aplicației este necesar proiectul curent \cite{repoGit} și , desigur, aplicația Adobe XD.
-Intern, proiectul se folosește de utilitarul ImageMagick pentru conversia între un format svg și un format png.
+Aplicația este funcțională și implementează sincronizarea și translatarea directă și inversă a elementelor vizuale dintre Adobe Experience Design și XCode. 
+Realizarea proiectului a fost testată pe un sistem Mac OS X, aplicația fiind scrisă în ObjC cu ajutorul IDE-ului XCode. Pentru rularea aplicației este necesar proiectul curent \cite{repoGit} și, desigur, aplicația Adobe XD \cite{xd}.
+Intern, proiectul se folosește de utilitarul ImageMagick \cite{imageMagick} pentru conversia între un format svg și un format png.
 
 Interacțiunea cu fișierele de design XD s-au realizat în două moduri: prin intermediul Clipboardului și prin crearea ierarhiei de fișiere xd.
 
-În primă etapă, preluarea elementelor grafice din Adobe XD s-a realizat prin intermediul Clipboardului. Astfel, interacțiunea cu artboardurile din XD s-a realizat prin mecanismele de copy și paste ale scenelor.
-După translatarea din format XCode în format XD, rezultă un singur fișier .agc care va conține toate informațiile necesare creării fișierului de design. Conținutul acestui fișier va fi pus în Clipboard cu tipul \textbf{com.adobe.sparkler.design}, care va fi apoi copiat în fișierul xd.
+În primă etapă, preluarea elementelor grafice din Adobe XD s-a realizat prin intermediul Clipboardului sistemului de operare. Astfel, interacțiunea cu artboardurile din XD s-a realizat prin mecanismele de copy și paste ale scenelor.
+După translatarea din format XCode în format XD rezultă un singur fișier .agc care va conține toate informațiile necesare creării fișierului de design. Conținutul acestui fișier va fi pus în Clipboard cu tipul \textbf{com.adobe.sparkler.design}. Acest conținut agc va fi apoi copiat din Clipboard prin efectuarea comenzii Cmd + V de către utilizator în fișierul xd.
 
-Flow-ul importului prin intermediul Clipboardului se regăsește în figura \ref{fig:Clipboard Import}, iar al exportului, prin intermediul Clipboardului, se regăsește în figura \ref{fig:Clipboard Export}.
+Flow-ul translatării XCode-XD prin intermediul Clipboardului se regăsește în figura \ref{fig:Clipboard Import}, iar al translatării XD-Xcode prin intermediul Clipboardului se regăsește în figura \ref{fig:Clipboard Export}.
 
 
 \begin{figure}[!htbp]
@@ -929,7 +933,7 @@ Flow-ul importului prin intermediul Clipboardului se regăsește în figura \ref
 În a doua etapă - etapa finala - s-a renunțat la folosirea Clipboardului, în favoarea creării fișierului xd. 
 Acest lucru s-a realizat din două motive: În primul rând, folosirea Clipboardului implica un flow mai greoi al aplicației și o interacțiune suplimentară a utilizatorului (overhead adus de copy și paste). Cel de-al doilea motiv implică imposibilitatea copierii tranzițiilor prin Clipboard.
 
-Așadar, pentru preluarea informațiilor din cadrul unui fișier xd, se va realiza decomprimarea acestuia prin apelul comenzii \textbf{zip}. În urma acestui apel, se va obține ierarhia de fișiere așa cum a fost descrisă în capitolele 1, respectiv 2.
+Așadar, pentru preluarea informațiilor din cadrul unui fișier xd, se va realiza decomprimarea acestuia prin apelul comenzii \textbf{unzip}. În urma acestui apel, se va obține ierarhia de fișiere așa cum a fost descrisă în figura \ref{fig:ierarhie}.
 
 În urma translatării din XCode în XD, se va construi ierarhia de fișiere care va fi fi apoi comprimată în format .xd. Această comprimare se va realiza prin intermediul comenzii \textbf{zip -r --no-dir-entries <design xd> <ierarhie fișiere>}. 
 
@@ -961,16 +965,29 @@ Arhitectura acestui model de lucru se regăsește în figurile \ref{fig:Export},
 \caption{Simple Export} \label{fig:Export}
 \end{figure}
 
+Flow-ul aplicației se poate observa în figura \ref{fig:Prezentare}. În această figură se poate observa legătura dintre o aplicație în XCode și o aplicație XD realizată prin operațiile de translatare și de sincronizare. BlackBox-ul din figură constituie soluția care implementează operațiile descrise în secțiunile \ref{xcxd2schema}, \ref{xd2xcodev1}, \ref{syncme}.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[node distance = 4cm, auto]
+\node (xd) at (0, 0) {\includegraphics[width=.40\textwidth]{src/img/xd.png}};
+\node (solutie) at (7, 0) {BlackBox Soluție};
+\node (xcode) at (7, -5) {\includegraphics[width=.50\textwidth]{src/img/xcode.png}};
+\draw [<->](solutie) -- (xd);
+\draw [<->] (xcode) -- (solutie);
+\end{tikzpicture}
+\caption{Flow-ul aplicației} \label{fig:Prezentare}
+\end{figure}
 
 Soluția prezentată (sau BlackBox-ul prezentat în figura \ref{fig:Prezentare}) se împarte într-o serie de module care implementează diferite concepte și funcționalități:
 \begin{itemize} 
-\item Xml2Dict: realizează translatarea din formatul xml corespunzător fișierului .storyboard într-un format json. SubTagurile corespunzătoare tagurilor \textbfit{scene} și \textbfit{subviews} vor fi transformate ]ntr-un vector de scene, respectiv de elemente vizuale.
-\item Dict2Agc: se folosește de dicționarul json obținut de Xml2Dict și se folosește de o schemă de translatare XD - XCode pentru obținerea ierarhiei de fișiere xd;
-\item XCode2XD: implementează funcționalitatea de translatare din reprezentarea XCode în reprezentarea XD; la baza acestui modul se află schema de translatare xml->json;
-\item XD2XCode: implementează funcționalitatea de translatare din reprezentarea XD în reprezentarea XCode; la baza acestui modul se află schema de translatare json->xml;
-\item XDCreator: Creează ierarhia de fișiere .agc pentru construirea unui fișier de design xd
-\item Sync: implementează funcționalitatea de sincronizare între XD și XCode; monitorizează un fișier .xd, astfel încât orice modificare realizată în momentul salvării acestuia, să se revadă și în proiectul XCode asociat
-\item Helper: modul care implementează o serie de funcționalități generale necesare tuturor celorlalte module (ex. lucrul cu fișiere, crearea task-urilor pentru efectuarea de operații zip sau convert)
+\item Xml2Dict: realizează translatarea din formatul xml corespunzător fișierului .storyboard într-un format json. SubTagurile corespunzătoare tagurilor $scene$ și $subviews$ vor fi transformate într-un vector de scene, respectiv de elemente vizuale.
+\item Dict2Agc: primește ca input dicționarul json obținut de la modulul Xml2Dict și se folosește de o schemă de translatare XD - XCode (\ref{xcxd2schema}) pentru obținerea ierarhiei de fișiere xd;
+\item XCode2XD: implementează funcționalitatea de translatare din reprezentarea XCode în reprezentarea XD (folosind prima schemă de translatare \ref{xcode2xdv1}); la baza acestui modul se află schema de translatare xml->json;
+\item XD2XCode: implementează funcționalitatea de translatare din reprezentarea XD în reprezentarea XCode (\ref{xcxd2schema}); la baza acestui modul se află schema de translatare json->xml;
+\item XDCreator: Creează ierarhia de fișiere .agc pentru construirea unui fișier de design xd (\ref{fig:ierarhie});
+\item Sync: implementează funcționalitatea de sincronizare între XD și XCode(\ref{syncme}); monitorizează un fișier .xd, astfel încât orice modificare realizată în momentul salvării acestuia, să se revadă și în proiectul XCode asociat;
+\item Helper: modul care implementează o serie de funcționalități generale necesare tuturor celorlalte module (ex. lucrul cu fișierele, crearea task-urilor pentru efectuarea de operații zip sau convert, etc.)
 \end{itemize}
 
 Aceste module și interacțiunea dintre ele este reprezentată în figura \ref{fig:Arhitectura}.
@@ -997,38 +1014,23 @@ Aceste module și interacțiunea dintre ele este reprezentată în figura \ref{f
 
 În arhitectura prezentată, modulul XCode2XD poate fi interschimbat cu modulele Xml2Dict și Dict2Agc, întrucât aceasta implementează aceeași funcționalitate, dar prin scheme de translatare diferite.
 
-
 O tehnologie folosită pentru testarea și implementarea cu ajutorului Clipboardului este Clipboard Viewer \cite{clipboard}. Această aplicație arată conținutul oricărui clipboard, în funcție de tipul dorit. În cazul de față, pentru obținerea clipboardului specific aplicației Adobe XD, tipul clipboardului este reprezentat de ``com.adobe.sparkler.design".
 
 
-\begin{figure}[!htbp]
-\centering
-\begin{tikzpicture}[node distance = 4cm, auto]
-\node (xd) at (0, 0) {\includegraphics[width=.40\textwidth]{src/img/xd.png}};
-\node (solutie) at (7, 0) {BlackBox Soluție};
-\node (xcode) at (7, -5) {\includegraphics[width=.50\textwidth]{src/img/xcode.png}};
-\draw [<->](solutie) -- (xd);
-\draw [<->] (xcode) -- (solutie);
-\end{tikzpicture}
-\caption{Flow-ul aplicației} \label{fig:Prezentare}
-\end{figure}
-
 \chapter{Performanțe}
 
-În acest capitol voi prezenta o statistică a timpilor de rulare și voi compara schemele de translatare prezentate în capitolele anterioare.
+În acest capitol voi prezenta o statistică a timpilor de rulare și voi compara schemele de translatare prezentate în capitolele anterioare (\ref{xcode2xdv1} și \ref{xcxd2schema}).
 
-Realizarea translatării este realizată în formatul .json din considerente de performanță. Un format json poate fi deserializat cu ușurință într-un dicționar imbricat, rezultând astfel o căutare rapidă a mapării dorite. Un astfel de dicționar asigură o complexitate de O(nn), unde nn reprezintă numărul de niveluri de imbricare ale dicționarului. În această aplicație, numărul de niveluri nu depășește cinci.  
+Schema de translatare este reprezentată într-un format .json din considerente de performanță. Un format json poate fi deserializat cu ușurință într-un dicționar imbricat, rezultând astfel o căutare rapidă a mapării dorite. Un astfel de dicționar asigură o complexitate de O(nn), unde nn reprezintă numărul de niveluri de imbricare ale dicționarului. În această aplicație numărul de niveluri nu depășește nn = 5.  
 
-În continuare voi prezenta graficele care specifică dependența între asset-uri și timpul de procesare al acestora.
-
-$Assets processed$ se referă la numărul de proprietăți (scene, elemente vizuale, dar și proprietăți)
+În continuare, voi prezenta graficele care specifică dependența dintre asset-uri ($Assets_processed$) și timpul de procesare al acestora ($Time_spent$) în funcție de schema de translatare aleasă.
 
 \begin{figure}[!htbp]
 \centering
     \begin{tikzpicture}
     \begin{axis}[
-        xlabel=$Assets processed$,
-        ylabel=$Time spent$]
+        xlabel=$Assets_processed$,
+        ylabel=$Time_spent$]
     \addplot[smooth,mark=*,blue] plot coordinates {
         (51,0.004)
         (73,0.005)
@@ -1061,8 +1063,8 @@ $Assets processed$ se referă la numărul de proprietăți (scene, elemente vizu
 \centering
 \begin{tikzpicture}
     \begin{axis}[
-        xlabel=$Assets processed$,
-        ylabel=$Time spent$]
+        xlabel=$Assets_processed$,
+        ylabel=$Time_spent$]
     \addplot[smooth,mark=*,blue] plot coordinates {
         (51,0.185)
         (73,0.189)
@@ -1079,7 +1081,9 @@ $Assets processed$ se referă la numărul de proprietăți (scene, elemente vizu
 \caption{Grafic XD->XCode (Schema Translatare 2)} \label{fig:Grafic1}
 \end{figure}
 
-Se poate observa faptul că cele două scheme de trnslatare XD->XCode, respectiv XCode->XD au timpi similari de rulare. Acest lucru era de așteptat, având în vedere că implementările se bazează pe același model de schemă de translație. Un overhead se poate observa în cazul translatării din XCode în XD, din cauza etapei intermediare de transformare a xml-ului într-un format json. De asemnea, în cazul translatării XCode->XD, apare o etapă computațională în plus față de translatarea XD->XCode. Această etapă constă în găsirea căii absolute a imaginilor care se regăsesc în aplicația curentă. O primă variantă a fost căutarea recursivă în directorul proiectului XCode, însă această abordare are două dezavantaje. În primul rând, există posibilitatea ca imaginile căutate să nu fie în directorul proiectului curent, iar în al doilea rând, așa cum se vede în figura \ref{fig:Tabimport} (coloana trei), timpii de căutare să fie mult mai mari decât timpul prpriu-zis de translatare. De aceea, se vor folosi informațiile din fișierul ``project.pbxproj". Acest fișier se poate regăsi în orice proiect de tipul XCode și va conține metadate legate de aplcația dezvoltată. Printre aceste metadate se află si informații cu privire la locația imaginilor folosite. Timpii de rulare pentru această metodă se regăsesc în tabelul \ref{fig:Tabimport} (coloana patru). Toți timpii de rulare din tabelul \ref{fig:Tabimport} sunt relativ la numărul de scene, respectiv numărul de proprietăți (coloanele cinci și șase). În prima coloană se specifică timpul de translatare dintr-un fișier xml (în cazul de față - storyboard-ul) într-un fișier json asociat.
+Se poate observa faptul că cele două scheme de translatare XD - XCode, respectiv XCode - XD au timpi similari de rulare. Acest lucru era de așteptat având în vedere că implementările se bazează pe același model de schemă de translație. Un overhead se poate observa în cazul translatării din XCode în XD din cauza etapei intermediare de transformare a xml-ului într-un format json echivalent. De asemenea, în cazul translatării XCode - XD, apare o etapă computațională în plus față de translatarea XD - XCode. Această etapă constă în găsirea căii absolute ale imaginilor care se regăsesc în aplicația curentă. 
+
+O primă variantă a aflării căii absolute ale acestor imagini a fost căutarea recursivă în directorul proiectului XCode, însă această abordare are două dezavantaje. În primul rând, există posibilitatea ca imaginile căutate să nu fie în directorul proiectului curent, iar în al doilea rând, așa cum se vede în figura \ref{fig:Tabimport} (coloana trei), timpii de căutare să fie mult mai mari decât timpul prpriu-zis de translatare. De aceea, se vor folosi informațiile din fișierul $project.pbxproj$. Acest fișier se poate regăsi în orice proiect de tipul XCode și va conține metadate legate de aplcația dezvoltată. Printre aceste metadate se află si informații cu privire la locația imaginilor folosite. Timpii de rulare pentru această metodă se regăsesc în tabelul \ref{fig:Tabimport} (coloana patru). Toți timpii de rulare din tabelul \ref{fig:Tabimport} sunt relativi la numărul de scene, respectiv numărul de proprietăți (coloanele cinci și șase). În prima coloană se specifică timpul de translatare dintr-un fișier xml (în cazul de față - storyboard-ul) într-un fișier json echivalent.
 
 \begin{figure}[!htbp]
 \centering
@@ -1099,14 +1103,14 @@ Se poate observa faptul că cele două scheme de trnslatare XD->XCode, respectiv
 \caption{Tabel Import} \label{fig:Tabimport}
 \end{figure}
 
-În figura \ref{fig:GraficSinc2} se pot observa diferențele între timpii de rulare a celor două metode de sincronizare. În graficul de culoare roșie se reprezintă sincronizarea XD-XCode prin generarea tuturor scenelor, independent de numărul de scene modificate. Graficul de culoare albastră specifică sincronizarea XD-Xcode, dependentă de scenele modificate. Se poate observa o diferență semnificativă a timpilor de rulare în cazul în care un număr mic de scene vor fi modificate. Axa X este reprezentată de numărul de scene modificate, iar axa Y este reprezentată de timpul de rulare corespunzător metodei de sincronizare ales. Cele două grafice au fost generate pentru un număr de scene = 6.
+În figura \ref{fig:GraficSinc2} se pot observa diferențele dintre timpii de rulare a celor două metode de sincronizare. În graficul de culoare roșie se reprezintă sincronizarea XD - XCode prin generarea tuturor scenelor, independent de numărul de scene modificate. Graficul de culoare albastră specifică sincronizarea XD - XCode, dependentă de scenele modificate. Se poate observa o diferență semnificativă a timpilor de rulare în cazul în care un număr mic de scene vor fi modificate. Axa $X$ este reprezentată de numărul de scene modificate ($Modified_scenes$), iar axa $Y$ este reprezentată de timpul de rulare corespunzător metodei de sincronizare alese ($Time_spent$). Cele două grafice au fost generate pentru un număr de scene = 6.
 
 \begin{figure}[!htbp]
 \centering
 \begin{tikzpicture}
     \begin{axis}[
-        xlabel=$Modified scenes$,
-        ylabel=$Time spent$]
+        xlabel=$Modified_scenes$,
+        ylabel=$Time_spent$]
     \addplot[smooth,color=blue,mark=x]
         plot coordinates {
             (1,0.11)
@@ -1129,14 +1133,13 @@ Se poate observa faptul că cele două scheme de trnslatare XD->XCode, respectiv
 \caption{Grafic Sincronizare} \label{fig:GraficSinc2}
 \end{figure}
 
-\section{Comparație Scheme de translatare}
+\section{Comparație scheme de translatare}
 
-După cum se observă în descrierea procedeelor de translatare XCode - XD  (prima variantă) și XD - XCode, cele două scheme au metode de implementare destul de diferite. 
+După cum se observă în descrierea procedeelor de translatare XCode - XD(prima variantă - \ref{xcode2xdv1} )) și XD - XCode (\ref{xcxd2schema}), cele două scheme au metode de implementare destul de diferite. 
 
 Prima schemă de translatare XCode - XD se bazează pe parcurgerea fișierului de input și pe realizarea translației pe măsură ce se procesează fișierul. Pentru ficare tag întâlnit se oferă un template care va fi procesat la rândul său pe baza regulilor definte. 
 
-Există însă o serie de dezavantaje. În primul rând, fiecare template al unui tag va fi parcurs de două ori (prima oară pentru copiere, iar a doua oară pentru înlocuirea anumitor proprietăți, conform schemei). 
-Shema de translație nu poate însă afla categoria din care face parte un element vizual, analizând numai tagul curent. De aceea, pe baza tagului părinte curent se va genera un template, apoi pe măsură ce se observă alte elemente care indică faptul că tipul assetului curent este altul, se modifică și template-ul. Un exemplu al acestui caz este regăsit în cazul butoanelor. Un buton este reprezentat în următoarea formă:
+Există însă un dezavantaj major. Schema de translație XCode - XD nu poate afla categoria din care face parte un element vizual analizând numai tagul curent. De aceea, pe baza tagului părinte curent se va genera un template apoi, pe măsură ce se observă alte subtag-uri care indică faptul că tipul assetului curent este altul, se modifică și template-ul. Un exemplu al acestui caz este regăsit în cazul butoanelor. Un buton este reprezentat în figura \ref{fig:state}.
 
 \begin{figure}[!htbp]
 \lstset{language=XML}
@@ -1149,24 +1152,24 @@ Shema de translație nu poate însă afla categoria din care face parte un eleme
 \caption{Tipuri de butoane specificate prin tag-ul state} \label{fig:state}
 \end{figure}
 
-Tag-ul copil \textbf{state} specifică faptul că butonul e fie de tip \textbf{text}, fie de tip \textbf{imagine}, în funcție de atributele prezente - \textbf{title}, respectiv \textbf{image}.
+Tag-ul copil $state$ specifică faptul că butonul e fie de tip $text$, fie de tip $imagine$, în funcție de atributele prezente - $title$, respectiv $image$.
 
-În momentul în care se ajunge la tag-ul \textbf{button}, se va construi un template json care specifică tipul - în mod default un buton de tip text. Dacă, însă, în momentul în care se ajunge la tag-ul copil \textbf{state}, iar atributul său corespuzător este \textbf{image}, tipul template-ului trebuie înlocuit.
+În momentul în care se ajunge la tag-ul $button$, se va construi un template json care specifică tipul - în mod default un buton de tip text. Dacă, însă, în momentul în care se ajunge la tag-ul copil $state$, iar atributul său corespuzător este $image$, template-ul trebuie înlocuit.
 
-Acest neajuns este eliminat prin schema de translație XD - XCode. Această schemă asigură obținerea tipului corect de la începutul procesării, datorită modului de procesare a tuturor caracteristicilor specifice unui element vizual. 
-Așadar în cazul de față, această schemă de translatare ar asigura găsirea corectă a tipului assetului prin verificarea tag-ului parinte și a atributelor specifice tag-ului \textbf{state}. Așsadar, pentru a afla tipul corect al butonului - de tip text sau imagine, se verifică prezența atributelor ``title" sau ``image". În cazul în care apar ambele atribute, în reprezentarea agc vor fi construite două elemente vizuale - unul de tip text, și altul de tip imagine. 
+Acest neajuns este eliminat prin schema de translație XD - XCode. Această schemă asigură obținerea tipului corect de la începutul procesării datorită modului de obținere a tuturor caracteristicilor specifice unui element vizual. 
+Așadar, în cazul de față, această schemă de translatare ar asigura găsirea corectă a tipului assetului prin verificarea tag-ului parinte și a atributelor specifice tag-ului $state$. De aceea, pentru a afla tipul corect al butonului - de tip text sau imagine, se verifică prezența atributelor $title$ sau $image$. În cazul în care apar ambele atribute în reprezentarea agc, vor fi construite două elemente vizuale - unul de tip text și altul de tip imagine. 
 
-În principiu, neajunsul specificat în prima schemă este datorat tipului de fișier de intrare xml, care permite procesarea unui singur tag la un mement dat. Complexitatea de procesare este de asemenea mai ridicată față de cea de-a doua schemă.
-Schema de translatare folosită pentru conversia de la XD la XCode se poate folosi și în cazul translatării XCode - XD, prin conversia mai întâi a fișierului de input din xml în json.
+În principiu, neajunsul specificat în prima schemă de translatare este datorat tipului de fișier de intrare - xml - care permite procesarea unui singur tag la un moment dat. Complexitatea de procesare este de asemenea mai ridicată față de cea de-a doua schemă.
+Schema de translatare folosită pentru conversia de la XD la XCode se poate folosi și în cazul translatării XCode - XD, prin conversia mai întâi a fișierului de input din xml în json (Această metodă a fost prezentată în detaliu în secțiunea \ref{xcxd2schema}).
 
-O altă diferență majoră dintre cele două scheme de translatare ar fi ușurința de extindere, dar și de înțelegere. Schema de translatare XD - XCode asigură extensibilitate, prin construirea template-ului, mapărilor și specificarea valorilor default într-o reprezentare ușuară și intuitivă. Specificarea unui comportament particularizat se poate construi prin adăugarea acestuia în cadrul schemi de translație și adăugarea unei funcții de implementare. 
+O altă diferență majoră dintre cele două scheme de translatare ar fi ușurința de extindere, dar și de înțelegere. Schema de translatare XD - XCode asigură extensibilitate prin construirea template-ului, mapărilor și specificarea valorilor default într-o reprezentare ușoară și intuitivă. Specificarea unui comportament particularizat se poate construi prin adăugarea acestuia în cadrul schemei de translație și prin adăugarea unei funcții echivalente de implementare. 
 
 
 \chapter{Concluzii}
 
-În cadrul acestui proiect am prezentat o schemă de translatare între două aplicații de management al conținutului vizual pentru aplicații iOS - pe de o parte XCode, iar pe de altă parte Adobe Experience Design. Aceste scheme prezentate se pot extinde pentru translatarea formatelor care se pot serializa într-un dicționar (de ex. xml, json). De asemenea, s-a prezentat o soluție de sincronizare ale elementelor grafice între XD și XCode, la nivel de scenă. Sincronizarea inversă se poate realiza în același mod, prin implementarea algoritmului propus.
+În cadrul acestui proiect am prezentat o schemă de translatare dintre două aplicații de management al conținutului vizual pentru aplicații iOS - pe de o parte XCode, iar pe de altă parte Adobe Experience Design. Aceste scheme prezentate se pot extinde pentru translatarea formatelor care se pot serializa într-un dicționar (de ex. xml, json). De asemenea, s-a prezentat o soluție de sincronizare ale elementelor grafice între XD și XCode la nivel de scenă. Sincronizarea inversă se poate realiza în același mod prin implementarea algoritmului propus.
 
-Această schemă de translatare se poate folosi în primul rând pentru managementul elementelor vizuale, așa cum este prezentată soluția de fața, dar se poate extinde pentru o serie de aplicații, datorită schemei generale de translatare.
+Această schemă de translatare se poate folosi în primul rând pentru managementul elementelor vizuale, așa cum este prezentată soluția de fața, dar se poate extinde pentru o serie de aplicații datorită schemei generale de translatare.
 
 \section{Îmbunătățiri ulterioare}
 
@@ -1175,12 +1178,12 @@ Câteva îmbunătățiri care se pot aduce acestei aplicații sunt:
 
 \begin{enumerate}
 \item Suport pentru multiple tipuri de controllere (Table View Controller, Collection View Controller, Navigation Controller, Tab Bar Controller, Page View Controller, GLKit View Controller sau Custom View Controller); Acest lucru se poate realiza prin extinderea schemei de translatare - definirea noilor mapări și dependențe;
-\item Adăugare constrângeri pentru folosirea Auto Layout din cadrul Interface Builder
-\item Suport pentru multiple tipuri de interacțiuni (Show Detail etc.)
-\item Translatarea multiplelor path-uri/figuri geometrice care aparțin aceluiași grup într-o singură imagine. 
-\item Reprezentarea vizuală a mapărilor - pentru extinderea facilă a aplicației
+\item Adăugare constrângeri pentru folosirea Auto Layout din cadrul Interface Builder;
+\item Suport pentru multiple tipuri de interacțiuni (Show Detail etc.);
+\item Translatarea multiplelor path-uri/figuri geometrice care aparțin aceluiași grup într-o singură imagine;
+\item Reprezentarea vizuală a mapărilor - pentru extinderea facilă a aplicației;
 \item Permiterea sincronizării pentru multiple fișiere; Acest lucru se va poate realiza prin modificarea ierarhiei de fișiere create în interiorul aplicției XCode;
-\item Sincronizarea din XCode în XD, similar sincronizării inverse; Suport pentru apariția conflictelor (versionare);
+\item Sincronizarea din XCode în XD - similar sincronizării inverse; Suport pentru apariția conflictelor de sincronizare (versionare);
 \end{enumerate}
 
 

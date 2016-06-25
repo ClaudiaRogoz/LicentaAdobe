@@ -22,11 +22,11 @@
 \contentsline {subsection}{\numberline {3.2.3}Translatarea grupurilor}{23}{subsection.3.2.3}
 \contentsline {subsection}{\numberline {3.2.4}Translatarea imaginilor}{24}{subsection.3.2.4}
 \contentsline {subsection}{\numberline {3.2.5}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{25}{subsection.3.2.5}
-\contentsline {section}{\numberline {3.3}Translatarea XCode-XD folosind a doua schem\IeC {\u a} de translatare}{25}{section.3.3}
+\contentsline {section}{\numberline {3.3}Translatarea din XCode \IeC {\^\i }n XD folosind a doua schem\IeC {\u a} de translatare}{25}{section.3.3}
 \contentsline {section}{\numberline {3.4}Sincronizarea scenelor \IeC {\^\i }ntre cele dou\IeC {\u a} reprezent\IeC {\u a}ri}{26}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Sincronizarea Adobe Experience Design - XCode}{26}{subsection.3.4.1}
-\contentsline {section}{\numberline {3.5}Arhitectur\IeC {\u a}}{27}{section.3.5}
+\contentsline {section}{\numberline {3.5}Arhitectur\IeC {\u a}}{28}{section.3.5}
 \contentsline {chapter}{\numberline {4}Performan\IeC {{\textcommabelow t}}e}{31}{chapter.4}
-\contentsline {section}{\numberline {4.1}Compara\IeC {{\textcommabelow t}}ie Scheme de translatare}{33}{section.4.1}
+\contentsline {section}{\numberline {4.1}Compara\IeC {{\textcommabelow t}}ie scheme de translatare}{33}{section.4.1}
 \contentsline {chapter}{\numberline {5}Concluzii}{35}{chapter.5}
 \contentsline {section}{\numberline {5.1}\IeC {\^I}mbun\IeC {\u a}t\IeC {\u a}\IeC {{\textcommabelow t}}iri ulterioare}{35}{section.5.1}
