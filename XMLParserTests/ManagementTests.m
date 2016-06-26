@@ -119,10 +119,15 @@
     
     NSError *parseError = nil;
     NSString *mainBundle = [Helper getProjHomePath];
-    NSString *importPath = [mainBundle stringByAppendingPathComponent:@"TestMultipleViews.xml"];
+    NSString *importPath = [mainBundle stringByAppendingPathComponent:@"TestMultipleAssets.xml"];
     NSData *parser = [NSData dataWithContentsOfFile:importPath];
     NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
-    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&parseError];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSString *outFile = [NSString stringWithFormat:@"%@/RefMultipleAssets.json", mainBundle];
+    [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
 }
 

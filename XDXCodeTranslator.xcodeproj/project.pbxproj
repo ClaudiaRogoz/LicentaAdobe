@@ -20,6 +20,7 @@
 		C9543F581D203326005A8320 /* TestMultipleViews.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9543F571D203326005A8320 /* TestMultipleViews.xml */; };
 		C9543F5A1D203337005A8320 /* RefMultipleViews.json in Resources */ = {isa = PBXBuildFile; fileRef = C9543F591D203337005A8320 /* RefMultipleViews.json */; };
 		C9543F5C1D203919005A8320 /* TestMultipleAssets.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9543F5B1D203919005A8320 /* TestMultipleAssets.xml */; };
+		C9543F5E1D203E9E005A8320 /* RefMultipleAssets.json in Resources */ = {isa = PBXBuildFile; fileRef = C9543F5D1D203E9E005A8320 /* RefMultipleAssets.json */; };
 		C95EA96A1C8D7EBA004FFBA1 /* myXMLfile.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */; };
 		C96E8FCD1CC22FC100956B49 /* TestParagraphs.json in Resources */ = {isa = PBXBuildFile; fileRef = C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */; };
 		C9722E7D1D007EF600ABC77D /* SvgLineTemplate.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9722E7C1D007EF600ABC77D /* SvgLineTemplate.svg */; };
@@ -100,6 +101,7 @@
 		C9543F571D203326005A8320 /* TestMultipleViews.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TestMultipleViews.xml; sourceTree = "<group>"; };
 		C9543F591D203337005A8320 /* RefMultipleViews.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RefMultipleViews.json; sourceTree = "<group>"; };
 		C9543F5B1D203919005A8320 /* TestMultipleAssets.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TestMultipleAssets.xml; sourceTree = "<group>"; };
+		C9543F5D1D203E9E005A8320 /* RefMultipleAssets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RefMultipleAssets.json; sourceTree = "<group>"; };
 		C95EA9691C8D7EBA004FFBA1 /* myXMLfile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = myXMLfile.xml; sourceTree = "<group>"; };
 		C95EA96B1C8DC2F5004FFBA1 /* XCODELoaderSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCODELoaderSession.h; sourceTree = "<group>"; };
 		C96E8FCC1CC22FC100956B49 /* TestParagraphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestParagraphs.json; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				C9543F551D201401005A8320 /* RefSingleView.json */,
 				C9543F591D203337005A8320 /* RefMultipleViews.json */,
+				C9543F5D1D203E9E005A8320 /* RefMultipleAssets.json */,
 			);
 			name = RefFiles;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				C99186D21C8B664A0071A25F /* Assets.xcassets in Resources */,
 				C97340331CC7BC78008F8E8D /* TestBigImage.json in Resources */,
 				C9DBD91A1C9967D0006A9638 /* myXMLfileDown.xml in Resources */,
+				C9543F5E1D203E9E005A8320 /* RefMultipleAssets.json in Resources */,
 				C9A8B5F11C9AA5F2007BF6B9 /* XMLImages.xml in Resources */,
 				C9730EA71CB687D100A10C52 /* Rules.json in Resources */,
 				C9543F581D203326005A8320 /* TestMultipleViews.xml in Resources */,
