@@ -3,9 +3,41 @@
 <plist version="1.0">
 <dict>
 	<key>files</key>
-	<dict/>
+	<dict>
+		<key>Resources/XDXCodeTranslator-67FA755F-E3A8-4857-A993-65A3EDB1A191.xctestconfiguration</key>
+		<data>
+		DmEv27v4UUxszGom4e8FDdwMih4=
+		</data>
+		<key>Resources/XDXCodeTranslator-D872D0FE-0FAE-4E5E-90CC-883B196A6794.xctestconfiguration</key>
+		<data>
+		GXRQrb5pokQl7umYhQ2zakwx1k8=
+		</data>
+	</dict>
 	<key>files2</key>
-	<dict/>
+	<dict>
+		<key>Resources/XDXCodeTranslator-67FA755F-E3A8-4857-A993-65A3EDB1A191.xctestconfiguration</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DmEv27v4UUxszGom4e8FDdwMih4=
+			</data>
+			<key>hash2</key>
+			<data>
+			cIOAVjNLzwhESAwWYLpPuZdaW5SflMdP+g+HLPEJQOw=
+			</data>
+		</dict>
+		<key>Resources/XDXCodeTranslator-D872D0FE-0FAE-4E5E-90CC-883B196A6794.xctestconfiguration</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GXRQrb5pokQl7umYhQ2zakwx1k8=
+			</data>
+			<key>hash2</key>
+			<data>
+			1qji68cz8VWzsGI9WqPtnlUDIWi6Llr13VVUUEDkuE0=
+			</data>
+		</dict>
+	</dict>
 	<key>rules</key>
 	<dict>
 		<key>^Resources/</key>

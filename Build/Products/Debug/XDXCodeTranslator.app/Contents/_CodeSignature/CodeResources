@@ -68,6 +68,10 @@
 		<data>
 		+1zwoJRrSBNYxwd9tIVSonAnOHs=
 		</data>
+		<key>Resources/RefSingleView.json</key>
+		<data>
+		qepBntEbFw9/1mHlCyZOuim12Og=
+		</data>
 		<key>Resources/ResourcesManifest.json</key>
 		<data>
 		q6hjCJ3VxYC/Z9LrzguVBoV5PqE=
@@ -139,6 +143,10 @@
 		<key>Resources/TestPaths.json</key>
 		<data>
 		33JWl1jDusoVuKCMYYsi5RtMnlc=
+		</data>
+		<key>Resources/TestSingleView.xml</key>
+		<data>
+		CAe8l/kIoAiKdJlGOcsgZLxxhm0=
 		</data>
 		<key>Resources/TestTextGroup.json</key>
 		<data>
@@ -310,6 +318,17 @@
 			<key>hash2</key>
 			<data>
 			kGOt7VeLybUYIixy9A2D1RUfAweKSUDKOe/xzzg29cw=
+			</data>
+		</dict>
+		<key>Resources/RefSingleView.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qepBntEbFw9/1mHlCyZOuim12Og=
+			</data>
+			<key>hash2</key>
+			<data>
+			/Gfs36UqiDZkU8sggKUmk74zf7ybRiOuZ0ksiA/9vyA=
 			</data>
 		</dict>
 		<key>Resources/ResourcesManifest.json</key>
@@ -508,6 +527,17 @@
 			<key>hash2</key>
 			<data>
 			qT8J0pratFzRY8Yq4rBnf/2PhXqTrK54YVGv910u1Aw=
+			</data>
+		</dict>
+		<key>Resources/TestSingleView.xml</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CAe8l/kIoAiKdJlGOcsgZLxxhm0=
+			</data>
+			<key>hash2</key>
+			<data>
+			pi3PPxbjv9RKtLmI0YgNY22x6GnYpHXRfucmRWC+gEM=
 			</data>
 		</dict>
 		<key>Resources/TestTextGroup.json</key>
