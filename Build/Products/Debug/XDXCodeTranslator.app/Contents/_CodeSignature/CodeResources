@@ -68,6 +68,10 @@
 		<data>
 		+1zwoJRrSBNYxwd9tIVSonAnOHs=
 		</data>
+		<key>Resources/RefMultipleViews.json</key>
+		<data>
+		Vtg8P0SxI+VDOAUc04oHClly30Y=
+		</data>
 		<key>Resources/RefSingleView.json</key>
 		<data>
 		qepBntEbFw9/1mHlCyZOuim12Og=
@@ -131,6 +135,10 @@
 		<key>Resources/TestMultiple.json</key>
 		<data>
 		HJvoFtBq5Btfyp89Sd+ikm0P9Vw=
+		</data>
+		<key>Resources/TestMultipleViews.xml</key>
+		<data>
+		9fmZK1EsFUtl+rpo6brLxNSq4AQ=
 		</data>
 		<key>Resources/TestParaGroup.json</key>
 		<data>
@@ -320,6 +328,17 @@
 			kGOt7VeLybUYIixy9A2D1RUfAweKSUDKOe/xzzg29cw=
 			</data>
 		</dict>
+		<key>Resources/RefMultipleViews.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Vtg8P0SxI+VDOAUc04oHClly30Y=
+			</data>
+			<key>hash2</key>
+			<data>
+			JnlB430zoFyB5l0ZoiRbxcEjvpxtHjm3wlps/Q/sUnQ=
+			</data>
+		</dict>
 		<key>Resources/RefSingleView.json</key>
 		<dict>
 			<key>hash</key>
@@ -494,6 +513,17 @@
 			<key>hash2</key>
 			<data>
 			4m/hayggmSUwxAjjAPsmLpCXDcfksISfIoRPqvKUwRg=
+			</data>
+		</dict>
+		<key>Resources/TestMultipleViews.xml</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9fmZK1EsFUtl+rpo6brLxNSq4AQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			y4dtuZgcnkpJ4o2MKGyx6giDr2w4OJyi0vLGH2M43o8=
 			</data>
 		</dict>
 		<key>Resources/TestParaGroup.json</key>

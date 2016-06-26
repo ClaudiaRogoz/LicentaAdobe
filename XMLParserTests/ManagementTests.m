@@ -59,6 +59,24 @@
     return true;
 }
 
+- (void) writeToFile:(NSDictionary*)xmlDictionary file:(NSString*) file computeSha:(int)sha {
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSString *mainBundle = [Helper getProjHomePath];
+        NSString *outFile = [NSString stringWithFormat:@"%@/.%@", mainBundle, file];
+        [[NSFileManager defaultManager] createFileAtPath:outFile contents:nil attributes:nil];
+        [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    }
+}
+
+
 - (void)testSingleView {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -80,15 +98,32 @@
     // Use XCTAssert and related functions to verify your tests produce the correct results.
     NSError *parseError = nil;
     NSString *mainBundle = [Helper getProjHomePath];
-    NSString *importPath = [mainBundle stringByAppendingPathComponent:@"TestSingleView.xml"];
+    NSString *importPath = [mainBundle stringByAppendingPathComponent:@"TestMultipleViews.xml"];
     NSData *parser = [NSData dataWithContentsOfFile:importPath];
     NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
-    NSString *refPath = [mainBundle stringByAppendingPathComponent:@"RefSingleView.json"];
+    /*NSData *jsonData = [NSJSONSerialization dataWithJSONObject:xmlDictionary
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&parseError];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSString *outFile = [NSString stringWithFormat:@"%@/RefMultipleViews.json", mainBundle];
+    [jsonString writeToFile:outFile atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    */
+    NSString *refPath = [mainBundle stringByAppendingPathComponent:@"RefMultipleViews.json"];
     NSData *refData = [NSData dataWithContentsOfFile:refPath];
     NSDictionary *refDictionary = [NSJSONSerialization JSONObjectWithData:refData options:NSJSONReadingMutableContainers error:&parseError];
     BOOL isEqual = [self match:xmlDictionary second:refDictionary];
     XCTAssert(isEqual, "Pass");
 }
 
+- (void) testMultipleViewsWithAssets {
+    
+    NSError *parseError = nil;
+    NSString *mainBundle = [Helper getProjHomePath];
+    NSString *importPath = [mainBundle stringByAppendingPathComponent:@"TestMultipleViews.xml"];
+    NSData *parser = [NSData dataWithContentsOfFile:importPath];
+    NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
+    
+
+}
 
 @end

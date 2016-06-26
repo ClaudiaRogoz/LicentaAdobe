@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/XDXCodeTranslator-1D4BEAC1-BBD0-4A63-944B-58C3B05A93AB.xctestconfiguration</key>
+		<data>
+		5Hh+9pOHk4td/SREAkJuIGr8C+o=
+		</data>
 		<key>Resources/XDXCodeTranslator-3A4FA8C3-E852-49C4-B368-07D07ACB2DD8.xctestconfiguration</key>
 		<data>
 		qkncxgk9zlFIwUetNNZr5S8N2FQ=
@@ -16,6 +20,10 @@
 		<data>
 		jKzOBi+VqXnZBKiDWu9kEAUPWMk=
 		</data>
+		<key>Resources/XDXCodeTranslator-5EAFA718-E9D5-41D6-85AC-40A34A47082E.xctestconfiguration</key>
+		<data>
+		Jzt97pqBfS1/XhB0JVjKRmygXOU=
+		</data>
 		<key>Resources/XDXCodeTranslator-67FA755F-E3A8-4857-A993-65A3EDB1A191.xctestconfiguration</key>
 		<data>
 		DmEv27v4UUxszGom4e8FDdwMih4=
@@ -23,6 +31,14 @@
 		<key>Resources/XDXCodeTranslator-952F5A64-35A1-455D-B225-010F4C1DA323.xctestconfiguration</key>
 		<data>
 		Qu0Q7yhA6YOTgCVDg4VTgnAAM10=
+		</data>
+		<key>Resources/XDXCodeTranslator-9F132BB4-3FF8-40E1-ACEE-117B7DEAD904.xctestconfiguration</key>
+		<data>
+		DdvVUlRdRiOYQQElvDa1NXDVOXA=
+		</data>
+		<key>Resources/XDXCodeTranslator-A7BCA11F-B563-4838-8601-A0DD628E45CC.xctestconfiguration</key>
+		<data>
+		XZ6oXsYo+PeciSjJI51Q3YYoU3c=
 		</data>
 		<key>Resources/XDXCodeTranslator-BE6065DB-02B1-4EF1-8E06-45B37550C9DF.xctestconfiguration</key>
 		<data>
@@ -39,6 +55,17 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Resources/XDXCodeTranslator-1D4BEAC1-BBD0-4A63-944B-58C3B05A93AB.xctestconfiguration</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5Hh+9pOHk4td/SREAkJuIGr8C+o=
+			</data>
+			<key>hash2</key>
+			<data>
+			YkJovbkNJXU4MPa7deAgYDMOMO9d5LF5uLbuKJByQos=
+			</data>
+		</dict>
 		<key>Resources/XDXCodeTranslator-3A4FA8C3-E852-49C4-B368-07D07ACB2DD8.xctestconfiguration</key>
 		<dict>
 			<key>hash</key>
@@ -72,6 +99,17 @@
 			hRRC1i4Xb0C4zOO2BuKC/FAiY7wgE1UMDu5dePtxtVk=
 			</data>
 		</dict>
+		<key>Resources/XDXCodeTranslator-5EAFA718-E9D5-41D6-85AC-40A34A47082E.xctestconfiguration</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Jzt97pqBfS1/XhB0JVjKRmygXOU=
+			</data>
+			<key>hash2</key>
+			<data>
+			s3WiRrorwd2fwN4dQwIx5iTcDWN6no3rXmPScjeQfmM=
+			</data>
+		</dict>
 		<key>Resources/XDXCodeTranslator-67FA755F-E3A8-4857-A993-65A3EDB1A191.xctestconfiguration</key>
 		<dict>
 			<key>hash</key>
@@ -92,6 +130,28 @@
 			<key>hash2</key>
 			<data>
 			e5aKu38iyLsEXnyAA7mgYHgQQv7tO+n3KaB5asqXm4c=
+			</data>
+		</dict>
+		<key>Resources/XDXCodeTranslator-9F132BB4-3FF8-40E1-ACEE-117B7DEAD904.xctestconfiguration</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DdvVUlRdRiOYQQElvDa1NXDVOXA=
+			</data>
+			<key>hash2</key>
+			<data>
+			UNRzMgnNNR7DNiF7bBqkSuorYGK7Ofayc3lX9EElECY=
+			</data>
+		</dict>
+		<key>Resources/XDXCodeTranslator-A7BCA11F-B563-4838-8601-A0DD628E45CC.xctestconfiguration</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XZ6oXsYo+PeciSjJI51Q3YYoU3c=
+			</data>
+			<key>hash2</key>
+			<data>
+			0HcUpXtVci4H99frWDUr8OtT2LrIfVb8tc0eMuAaJY4=
 			</data>
 		</dict>
 		<key>Resources/XDXCodeTranslator-BE6065DB-02B1-4EF1-8E06-45B37550C9DF.xctestconfiguration</key>
