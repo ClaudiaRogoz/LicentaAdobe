@@ -4,7 +4,7 @@
 \label{chapter:intro}
 
 \par Proiectul de față este un produs software care vine în ajutorul developerilor și designerilor de aplicații user experience. În acest sens, se dorește realizarea unei scheme de translatare ale elementelor vizuale (asseturi - imagini, butoane, etc.) create în două dintre cele mai complexe utilitare pentru construirea interfețelor grafice pentru iOS -  IDE-ul XCode și  Adobe Experience Design.
-\par În capitolul acesta, voi realiza o scurtă descriere a proiectului, motivația și obiectivele aplicației, iar în urmatoarele secțiuni se va detalia arhitectura și modul de implementare al acesteia.
+\par În capitolul acesta, voi realiza o scurtă descriere a proiectului, motivația și obiectivele aplicației, iar în următoarele secțiuni se va detalia arhitectura și modul de implementare al acesteia.
 
 \section{Descrierea proiectului}
 \label{sec:proj}
@@ -481,14 +481,14 @@ Algoritmul următor va specifica modul de translatare între Xcode și XD, cu aj
 
 A doua modalitate se bazează pe construirea ierarhiei de fișiere xd (așa cum se vede în fgura \ref{fig:ierarhie}), prin reprezentarea fiecărei scene într-un fișier separat. Fișierul manifest va conține ierarhia de fișiere, descrisă într-un format json, care va conține informații precum id-uri unice, calea către fișierele din ierarhie și dimensiunea fiecărei componente. Cu alte cuvinte, generăm proiectul .xd pe baza dicționarului obținut, proiect care se poate deschide sau importa cu ajutorul aplicației Adobe Experience Design.
 
-\subsection{Translatarea Switch-ului și a altor elemente grafice similare}
+\subsection{Translatarea switch-ului și a altor elemente grafice similare}
 
 Un switch permite utilizatorului pornirea sau oprirea rapidă a unor opțiuni mutual exclusive. 
 Interface Builder are un obiect de tip Switch care poate fi ușor adăugat aplicației. XD-ul, însă, nu are un element de sine stătător care să reprezinte un astfel de element vizual. Există librării care au construite anumite elemente vizuale (cum ar fi butonul, slider-ul, etc.), prin descrierea segmentelor din care este alcătuit assetul. Mulțimea acestor segmente care alcătuiesc un element vizual se numesc, în XD, $path-uri$.
 
 De aceea, pentru translatarea acestor obiecte, se creează un fișier care conține template-ul obiectului respectiv din XD (descrierea path-ului). Pentru modificarea caracteristicilor (dimensiuni cadran, culoare, etc.), se vor folosi schemele de translatare, similar algoritmului prezentat anterior.
 
-\subsection{Translatarea Interacțiunilor XCode->XD}
+\subsection{Translatarea interacțiunilor}
 
 O interacțiune în XCode, denumită ``segue", reprezintă o tranziție dintre o scenă A și o altă scenă B. Relațiile și conexiunile sunt reprezentate vizual printr-o săgeată de la scena expeditor la scena destinație. În mijlocul acestei săgeți se află o formă care specifică tipul de segue. Tipurile de segue se pot vedea în figura \ref{img:segue}. Soluția propusă are suport doar pentru Show segue.
 
@@ -620,7 +620,7 @@ O regulă poate specifica două tipuri de stringuri:
  În anumite cazuri, pentru translatarea dintr-un format în altul, este nevoie de defininirea unor comportamente specifice. De exemplu, în cazul obținerii numărului de linii al unui element vizual de tip $text area$, este nevoie de obținerea a două valori din formatul agc. Prelucrarea acestor valori se realizează prin intermediul unei funcții, care primește ca parametrii cele două valori. 
  Precizarea acestor comportamente, la nivel de schemă de translatare se realizează prin string-uri de forma ``\$<COMPORTAMENT> <param1> ... <paramN>".
 
-\subsection{Translatarea Path-urilor și a diverselor figuri geometrice}
+\subsection{Translatarea path-urilor și a altor elemente grafice similare}
 
 Pe măsură ce se desenează în cadrul unei scene, se creează o linie numită \textbf{\textit{path}}, care este compusă din unul sau mai multe segmente drepte sau curbe care pot fi manipulate cu precizie ridicată.
 
@@ -970,9 +970,9 @@ Flow-ul aplicației se poate observa în figura \ref{fig:Prezentare}. În aceast
 \begin{figure}[!htbp]
 \centering
 \begin{tikzpicture}[node distance = 4cm, auto]
-\node (xd) at (0, 0) {\includegraphics[width=.40\textwidth]{src/img/xd.png}};
+\node (xd) at (0, 0) {\includegraphics[width=.40\textwidth]{src/img/xdApp.png}};
 \node (solutie) at (7, 0) {BlackBox Soluție};
-\node (xcode) at (7, -5) {\includegraphics[width=.50\textwidth]{src/img/xcode.png}};
+\node (xcode) at (7, -5) {\includegraphics[width=.50\textwidth]{src/img/XcodeApp.png}};
 \draw [<->](solutie) -- (xd);
 \draw [<->] (xcode) -- (solutie);
 \end{tikzpicture}

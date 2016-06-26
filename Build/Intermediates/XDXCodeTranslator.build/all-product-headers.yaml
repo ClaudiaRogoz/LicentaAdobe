@@ -1,0 +1,28 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/crogoz/Desktop/XMLParser/Build/Products/Debug/XDXCodeTranslator.app/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "XDXCodeTranslator-Swift.h",
+          'external-contents': "/Users/crogoz/Desktop/XMLParser/Build/Products/Debug/XDXCodeTranslator.app/Contents/Headers/XDXCodeTranslator-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/crogoz/Desktop/XMLParser/Build/Products/Debug/XDXCodeTranslator.app/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/crogoz/Desktop/XMLParser/Build/Intermediates/XDXCodeTranslator.build/Debug/XDXCodeTranslator.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

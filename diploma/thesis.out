@@ -11,10 +11,10 @@
 \BOOKMARK [1][-]{section.2.3}{2.3 Translatarea si scalarea elementelor vizuale}{chapter.2}% 11
 \BOOKMARK [0][-]{chapter.3}{3 Implementare}{}% 12
 \BOOKMARK [1][-]{section.3.1}{3.1 Translatarea din XCode \356n Adobe Experience Design}{chapter.3}% 13
-\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Translatarea Switch-ului si a altor elemente grafice similare}{section.3.1}% 14
-\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Translatarea Interactiunilor XCode->XD}{section.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Translatarea switch-ului si a altor elemente grafice similare}{section.3.1}% 14
+\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Translatarea interactiunilor}{section.3.1}% 15
 \BOOKMARK [1][-]{section.3.2}{3.2 Translatarea din Adobe Experience Design \356n XCode}{chapter.3}% 16
-\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Translatarea Path-urilor si a diverselor figuri geometrice}{section.3.2}% 17
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Translatarea path-urilor si a altor elemente grafice similare}{section.3.2}% 17
 \BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Translatarea textului}{section.3.2}% 18
 \BOOKMARK [2][-]{subsection.3.2.3}{3.2.3 Translatarea grupurilor}{section.3.2}% 19
 \BOOKMARK [2][-]{subsection.3.2.4}{3.2.4 Translatarea imaginilor}{section.3.2}% 20
