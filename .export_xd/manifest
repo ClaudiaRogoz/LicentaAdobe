@@ -2,21 +2,21 @@
   "manifest-format-version" : 6,
   "state" : "modified",
   "uxdesign#userDidSetPrototypeName" : "false",
-  "id" : "6EF30B32-7130-4A0C-A2B3-A9E529EE84C8",
+  "id" : "1B7202C7-5195-455C-9F08-8BA7B92F14CE",
   "children" : [
     {
       "path" : "artwork",
-      "id" : "477887B9-C717-46DD-869D-1C885BF94B34",
+      "id" : "3E85D551-3ACE-4691-AB82-82C2395F354D",
       "name" : "artwork",
       "children" : [
         {
           "path" : "pasteboard",
-          "id" : "DDCCF8C4-80C7-48F6-91EE-A619EF3E2715",
+          "id" : "720B525A-6CA3-45B7-BF99-340D5F76C847",
           "name" : "pasteboard"
         },
         {
           "path" : "artboard-artboard1",
-          "id" : "38707102-38F1-4CA8-88A2-D574D4E0A08C",
+          "id" : "1189984A-5702-45E6-A894-80CA00B3B4D2",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -30,11 +30,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "82052D84-C308-492C-AC9C-34D8884856A2",
+              "id" : "F9DE5310-7C4B-4E50-9CAC-D4D1544D0EDA",
               "components" : [
                 {
-                  "length" : 22143,
-                  "id" : "513EE4EE-0B2E-4AAE-86D9-75EEF623794C",
+                  "length" : 10506,
+                  "id" : "4F0B55AC-00CD-4DDB-A70B-D1C79C66DB32",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -47,7 +47,7 @@
         },
         {
           "path" : "artboard-artboard2",
-          "id" : "7C1B2D8A-DCA9-4335-A0EB-F3B0C66D7DBF",
+          "id" : "96308876-2CC5-4337-8BBD-6B9A6DF4FCFE",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -61,11 +61,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "2CD9243C-A335-4CBA-845F-BE776376FBF8",
+              "id" : "1DFA10CC-5A94-4857-81D7-B9E9A467DE65",
               "components" : [
                 {
-                  "length" : 10855,
-                  "id" : "FE76019B-E66A-4310-A5F1-11B970561088",
+                  "length" : 19940,
+                  "id" : "9FD89D6E-1798-4028-9450-582A165A176F",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -78,7 +78,7 @@
         },
         {
           "path" : "artboard-artboard3",
-          "id" : "5FD5E528-073D-4A61-8136-45A60484A97B",
+          "id" : "753FD461-B9DD-441B-9606-14EFC70C1CDC",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -92,11 +92,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "4CDE24BB-FE1A-4EA7-B267-AAAF5E51BD2E",
+              "id" : "933B669E-4078-4F52-A546-C6207A190332",
               "components" : [
                 {
-                  "length" : 10923,
-                  "id" : "ADAB4AB6-10A4-4537-AD16-BF7F60C259AE",
+                  "length" : 12466,
+                  "id" : "572B0F4F-0AA7-4745-B8FF-669DFC301B65",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -109,7 +109,7 @@
         },
         {
           "path" : "artboard-artboard4",
-          "id" : "52662BA8-6BCE-426B-9833-C63121FDBB34",
+          "id" : "EBEA03CF-E89B-471E-8357-2789A6AA0EA1",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -123,11 +123,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "70CED409-80E4-4143-BFF5-6515137CA0A0",
+              "id" : "28E09DA9-8FF9-4F07-8ECB-D5D98991A62B",
               "components" : [
                 {
-                  "length" : 12465,
-                  "id" : "FE464F47-EA69-4034-AB89-FAC45A80D05E",
+                  "length" : 10959,
+                  "id" : "22B249D3-379C-4A49-A8FC-626AB26224A4",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -140,7 +140,7 @@
         },
         {
           "path" : "artboard-artboard5",
-          "id" : "262196AB-AD41-4FF6-9189-B29E8E4898C7",
+          "id" : "AD0130B7-EC73-4974-B3BF-C1F4E75D5BAB",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -154,11 +154,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "31845330-C1A9-439F-B99A-82C6914A7E38",
+              "id" : "C0418BEC-BCCD-44CB-9AC7-E2521FB7C245",
               "components" : [
                 {
-                  "length" : 19956,
-                  "id" : "31C3DE50-3743-4EE4-BD2A-1ACB126822CA",
+                  "length" : 10855,
+                  "id" : "73F1274A-3B67-4DBD-986F-193A26A1C19B",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -171,7 +171,7 @@
         },
         {
           "path" : "artboard-artboard6",
-          "id" : "9D12F27A-CF34-4B4E-8B19-46AB1577A0A0",
+          "id" : "5FE8E93E-CA0C-41FA-9B61-FB7C716B1031",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -185,11 +185,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "4E3E0DCA-8004-42C0-839D-68C44CAA356F",
+              "id" : "A0E97335-8122-4CA4-AE30-2EB041E17E50",
               "components" : [
                 {
-                  "length" : 10478,
-                  "id" : "03F672F5-2900-4BB3-BBB8-F42321667D12",
+                  "length" : 22105,
+                  "id" : "A07F9A4C-45F7-4B80-838E-8F1707EE161F",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -202,7 +202,7 @@
         },
         {
           "path" : "artboard-artboard7",
-          "id" : "C593266A-2FA8-40DF-9B40-F41BBF0DDF28",
+          "id" : "2E427A83-AFD6-4542-89AA-77D33DD85943",
           "uxdesign#viewport" : {
             "height" : 667
           },
@@ -216,11 +216,11 @@
           "children" : [
             {
               "path" : "graphics",
-              "id" : "2FD756BC-5C0D-4296-B4E8-3AB68E2C6BBB",
+              "id" : "5EFB81B3-49E5-4487-9D2F-474EEC5CB3D5",
               "components" : [
                 {
-                  "length" : 20887,
-                  "id" : "962EC393-2044-44AE-88B1-BDC916BEB0DB",
+                  "length" : 20865,
+                  "id" : "6E3B63F3-EAE4-4A85-8792-E1BE2FB9F6BB",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
@@ -235,163 +235,19 @@
     },
     {
       "path" : "resources",
-      "id" : "6F682E28-92D7-4CD2-9D34-8BFBEAB590CE",
+      "id" : "85E04DCB-0311-43F6-9D56-4E3D52BC24CE",
       "components" : [
         {
-          "length" : 433,
-          "id" : "CD97FAB8-30CF-47EF-9438-A1A209DE8699",
+          "length" : 499714,
+          "id" : "71CE0F7C-C3B0-4698-8C5E-4D6975CDCE3A",
           "rel" : "primary",
-          "path" : "c0acac893840a2bdac75a8d4117db874",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 370,
-          "id" : "AC3714EB-F3B4-46CF-9E43-B737D85D1FFB",
-          "rel" : "primary",
-          "path" : "b2201d348b549e0e5477d766a35d2202",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 3551,
-          "id" : "5C7422B3-CEC9-4B00-A2B8-799301753C33",
-          "rel" : "primary",
-          "path" : "3fe38e21ecfd3c2ac944f7464bb24c6b",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 1979,
-          "id" : "C9B0B9BF-299A-4BCA-829F-00B3EDAB5119",
-          "rel" : "primary",
-          "path" : "0cd2999c2b3de0a41702920ee54651ad",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 1982,
-          "id" : "5F3D0FD6-5E61-477D-9422-2B62EFC9B02F",
-          "rel" : "primary",
-          "path" : "ba516f17694d304e8b760e0f271693e4",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 3155,
-          "id" : "C96E24F9-6C40-4104-A642-F0229BF8C6F3",
-          "rel" : "primary",
-          "path" : "0a55534db62f7b252d9dc5fc98152543",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 1758,
-          "id" : "CD4B29BB-3025-41D0-8177-B5D0E5FEE749",
-          "rel" : "primary",
-          "path" : "1c9a708157e884429c560131e20715f8",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 654,
-          "id" : "B78EACAE-E90A-4602-8D04-38085C567856",
-          "rel" : "primary",
-          "path" : "f7d5a5a8083c879306cb8999923f36d9",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 35511,
-          "id" : "9155B99C-E34B-4F11-A0FA-BA932C9CFC56",
-          "rel" : "primary",
-          "path" : "8f4b33db5335b2d29160b3b06308afe5",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 32367,
-          "id" : "4B88FC5B-F5D8-4BC6-B245-9290B25BD8FE",
-          "rel" : "primary",
-          "path" : "b7ada7a0361376035da4ed1ec6c17c48",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 858,
-          "id" : "AFCC4C61-601B-49E3-A382-216D89A3A82A",
-          "rel" : "primary",
-          "path" : "17aefadb81554c684b4e8d3e7a9c2953",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 7027,
-          "id" : "537670EB-5373-433B-A1D3-0CAC751F69BB",
-          "rel" : "primary",
-          "path" : "a0e510ca686e261c6dd031f860761d54",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 6113,
-          "id" : "7C5A4858-BF32-4F0C-9853-9120AD6B4335",
-          "rel" : "primary",
-          "path" : "f42a58e997f1794efda4ba111245ac79",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 1345,
-          "id" : "ACCB9C58-0B53-44B2-9EC1-B3995E608779",
-          "rel" : "primary",
-          "path" : "8e5ccc422035278355380ec47b7d325f",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 2304,
-          "id" : "8CBE54DD-7827-455C-BD1F-39A8A4EACAB0",
-          "rel" : "primary",
-          "path" : "f94e87e303656fee6a39cf7684b3cc19",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 7708,
-          "id" : "2C88BC46-3064-4BD7-870C-B462F8E000BB",
-          "rel" : "primary",
-          "path" : "ec4d01b65411c21daf4c400fdb5ed851",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 514465,
-          "id" : "89709274-9167-4DE9-B49F-6A1A68C6C285",
-          "rel" : "primary",
-          "path" : "d67a83b81913254fb7365935e738271c",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 386,
-          "id" : "2C8F64C3-8832-489E-A538-9BD3630EB4EC",
-          "rel" : "primary",
-          "path" : "d810f03aa05ab19555fecde8a50743da",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 4592,
-          "id" : "7BCDD104-5273-4CD1-9BA4-AAEB96BB3057",
-          "rel" : "primary",
-          "path" : "39c6b972846c0b414eeac6a24f39600a",
+          "path" : "1a66a77782ec9cd2dc66fca6adc6b26d",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
           "length" : 7989,
-          "id" : "60396780-D4C3-49DB-AFCB-77FB85BF1E4D",
+          "id" : "BB646538-1169-4BBD-B918-F81BF8653A17",
           "rel" : "primary",
           "path" : "4a4bf5e96f3d3f582d08716d997114c6",
           "type" : "image\/png",
@@ -399,7 +255,7 @@
         },
         {
           "length" : 2034,
-          "id" : "75D87992-F29E-4307-987D-77F2DFDD4E5E",
+          "id" : "65BAFFE5-196A-4FBF-B42E-130D4480E671",
           "rel" : "primary",
           "path" : "0d6fd325b694374c5dd959e7c479dece",
           "type" : "image\/png",
@@ -407,79 +263,63 @@
         },
         {
           "length" : 2878,
-          "id" : "B5A8889D-8465-4630-BE10-B8A5C68455EA",
+          "id" : "25AC5395-B926-4BB6-BFF3-443788353ECC",
           "rel" : "primary",
           "path" : "bb271690c01c192ff8ee0ef4abc1bdd9",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 488903,
-          "id" : "E1BF756E-E749-4CF8-9233-7CD74EBB9002",
+          "length" : 3551,
+          "id" : "33562AB4-B3F5-4C32-AAED-23A7DC30C944",
           "rel" : "primary",
-          "path" : "fa228eed0b6669a4c114c74cf4e6ac53",
+          "path" : "3fe38e21ecfd3c2ac944f7464bb24c6b",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 499714,
-          "id" : "FEC506A4-62AE-4FA9-8A95-F26AEFF22E0D",
+          "length" : 1979,
+          "id" : "0AD7ACAF-91BE-4005-A721-9895E72CA0C9",
           "rel" : "primary",
-          "path" : "1a66a77782ec9cd2dc66fca6adc6b26d",
+          "path" : "0cd2999c2b3de0a41702920ee54651ad",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 7331,
-          "id" : "18BCD98C-95CF-473E-B763-1B8E2AFB8E15",
+          "length" : 1982,
+          "id" : "FEDE06C5-462E-4178-9178-BD59130BEF8A",
           "rel" : "primary",
-          "path" : "ea05b9980349988d5c00afbee69e0265",
+          "path" : "ba516f17694d304e8b760e0f271693e4",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 801440,
-          "id" : "4334B705-87FF-4E23-B1A1-255EDED8622F",
+          "length" : 3155,
+          "id" : "3E4C9CD0-0D1D-4BB8-8E30-58401FAC5CFC",
           "rel" : "primary",
-          "path" : "15fdffaec7e466b70dde69fe5211de8b",
+          "path" : "0a55534db62f7b252d9dc5fc98152543",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 2378,
-          "id" : "DE04B15A-21E1-46A0-9CE7-C73D302B4F6E",
+          "length" : 1758,
+          "id" : "C327C84B-3722-426A-A064-54F854C8A106",
           "rel" : "primary",
-          "path" : "4b2ad31b0bf485f15f99a3735023b9c5",
+          "path" : "1c9a708157e884429c560131e20715f8",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 2540,
-          "id" : "B5DA9344-674B-41D9-A43A-7FC18B035C20",
+          "length" : 654,
+          "id" : "7BAED453-31FD-4794-BAD6-1D740A373ACD",
           "rel" : "primary",
-          "path" : "44d696292fea83eb5e73597e4cfafe71",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 2733,
-          "id" : "255E0F5A-CE28-4548-B1E1-C6F2AE1943A4",
-          "rel" : "primary",
-          "path" : "5af5c78ed0d03600b610cebf6912006b",
-          "type" : "image\/png",
-          "name" : "resources"
-        },
-        {
-          "length" : 1308,
-          "id" : "3233883E-5543-4BF6-820B-C4E9DBED688F",
-          "rel" : "primary",
-          "path" : "8908d23d3216041d2ec864d89b18582c",
+          "path" : "f7d5a5a8083c879306cb8999923f36d9",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
           "length" : 1685720,
-          "id" : "B907FB9F-58E3-49D9-B594-5AB4F26A1448",
+          "id" : "5AB00C03-97FF-4161-9198-2975F5F44D0F",
           "rel" : "primary",
           "path" : "01c1fd43d0929bfc8f1dea6f418aca3d",
           "type" : "image\/png",
@@ -487,7 +327,7 @@
         },
         {
           "length" : 385,
-          "id" : "B1C68D06-099C-445D-8146-7AFB1B526F58",
+          "id" : "59C40DFE-1FAB-409A-9D57-462FC63CC88B",
           "rel" : "primary",
           "path" : "3c4eadf393a0729889de9b186f7c90a1",
           "type" : "image\/png",
@@ -495,7 +335,7 @@
         },
         {
           "length" : 23007,
-          "id" : "635330CB-30E0-4695-9D40-EC586CFF0EE9",
+          "id" : "3C6BF528-700B-4464-B88C-4F2F9D415899",
           "rel" : "primary",
           "path" : "5cbd132ab82aa4adf84ed82c1408fe08",
           "type" : "image\/png",
@@ -503,15 +343,23 @@
         },
         {
           "length" : 4011,
-          "id" : "0E896D13-B391-4635-B86E-A457F77252AC",
+          "id" : "661CEB31-82C6-4866-8E0D-4C1418222414",
           "rel" : "primary",
           "path" : "0d200f61cdc142e841c765d0a32f9f09",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
+          "length" : 4592,
+          "id" : "C56E98D0-7717-4F58-9216-FD83DC5C7D82",
+          "rel" : "primary",
+          "path" : "39c6b972846c0b414eeac6a24f39600a",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
           "length" : 492,
-          "id" : "4E3B2E8F-58B4-4BCC-8921-476E2262D5CF",
+          "id" : "1B49AD2A-8C70-4FFC-84FC-A3FE676D1C51",
           "rel" : "primary",
           "path" : "b126b799d71959d76eff8765e63aab59",
           "type" : "image\/png",
@@ -519,15 +367,167 @@
         },
         {
           "length" : 3676,
-          "id" : "4453A81D-C798-4F1B-8BC3-D4121E230AFB",
+          "id" : "2EC97026-4FCB-49F5-8030-03D0E50CDA2D",
           "rel" : "primary",
           "path" : "74c141c67a69c790646bb31230309819",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
+          "length" : 801440,
+          "id" : "9AF15808-0A34-47C3-9272-E8FA208C6D66",
+          "rel" : "primary",
+          "path" : "15fdffaec7e466b70dde69fe5211de8b",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 386,
+          "id" : "D201F9DF-C12A-4DCF-8E33-969668D02B33",
+          "rel" : "primary",
+          "path" : "d810f03aa05ab19555fecde8a50743da",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2378,
+          "id" : "2E571DC8-56C2-4E84-A190-0980C6B5186E",
+          "rel" : "primary",
+          "path" : "4b2ad31b0bf485f15f99a3735023b9c5",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2540,
+          "id" : "C9E6260F-8E5F-4F45-BB77-F2DADD535DE6",
+          "rel" : "primary",
+          "path" : "44d696292fea83eb5e73597e4cfafe71",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2733,
+          "id" : "93A982A4-308B-44F2-A791-80CE5CFBBF80",
+          "rel" : "primary",
+          "path" : "5af5c78ed0d03600b610cebf6912006b",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1308,
+          "id" : "FBEFB8C5-1FD6-4183-93BE-7D7F07868976",
+          "rel" : "primary",
+          "path" : "8908d23d3216041d2ec864d89b18582c",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 7331,
+          "id" : "3569CAB1-8B80-4D0B-9531-6EBFC94D0B89",
+          "rel" : "primary",
+          "path" : "ea05b9980349988d5c00afbee69e0265",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 488903,
+          "id" : "C798B332-9AF2-4552-969C-C8EC14E44561",
+          "rel" : "primary",
+          "path" : "fa228eed0b6669a4c114c74cf4e6ac53",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 514465,
+          "id" : "EAFEC68F-E3AD-4958-A368-FDB47786153C",
+          "rel" : "primary",
+          "path" : "d67a83b81913254fb7365935e738271c",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 433,
+          "id" : "72E98DC3-C6D4-4E9A-9DCD-6EED8D0CCFE4",
+          "rel" : "primary",
+          "path" : "c0acac893840a2bdac75a8d4117db874",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 370,
+          "id" : "BBAA2F30-01F3-432C-B941-FF033F276DBA",
+          "rel" : "primary",
+          "path" : "b2201d348b549e0e5477d766a35d2202",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 35511,
+          "id" : "43D4903D-C0DD-488F-B167-4AF4AD9F3E59",
+          "rel" : "primary",
+          "path" : "8f4b33db5335b2d29160b3b06308afe5",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 32367,
+          "id" : "FA1E3370-984A-4E32-86FE-D1BF7F9634E9",
+          "rel" : "primary",
+          "path" : "b7ada7a0361376035da4ed1ec6c17c48",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 858,
+          "id" : "3D7F9409-9196-45D3-B618-FFEB54E3EC5A",
+          "rel" : "primary",
+          "path" : "17aefadb81554c684b4e8d3e7a9c2953",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 7027,
+          "id" : "AC2F9BB1-96A9-402C-97F5-72F824294DBE",
+          "rel" : "primary",
+          "path" : "a0e510ca686e261c6dd031f860761d54",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 6113,
+          "id" : "4FC68A22-05D8-4DEF-A7F6-688634727481",
+          "rel" : "primary",
+          "path" : "f42a58e997f1794efda4ba111245ac79",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1345,
+          "id" : "E4B5702E-E0CA-427F-851C-069B05225CB7",
+          "rel" : "primary",
+          "path" : "8e5ccc422035278355380ec47b7d325f",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2304,
+          "id" : "7FC9CE88-88B0-4CA1-A125-C841637F74F4",
+          "rel" : "primary",
+          "path" : "f94e87e303656fee6a39cf7684b3cc19",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 7708,
+          "id" : "ED463E37-9CEA-4A67-B68F-D7A4CAF7590C",
+          "rel" : "primary",
+          "path" : "ec4d01b65411c21daf4c400fdb5ed851",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
           "length" : 2900,
-          "id" : "96085C1C-D47B-4584-AD63-A859C00EE1C6",
+          "id" : "AC81FA40-9BA6-4D52-8937-EDF942C1F630",
           "rel" : "primary",
           "path" : "5139844bf1cdb7d9864492ea01ef2fc5",
           "type" : "image\/png",
@@ -535,7 +535,7 @@
         },
         {
           "length" : 716526,
-          "id" : "400B7123-261F-4539-8EC9-460BDFA70E99",
+          "id" : "C63A4E0F-674E-467D-8EF8-FE1E3FB819F2",
           "rel" : "primary",
           "path" : "64b294ebaa88e73875aca63d6446d645",
           "type" : "image\/png",
@@ -543,7 +543,7 @@
         },
         {
           "length" : 1571,
-          "id" : "7F734B6C-12CE-4C00-AF31-ACB0ADDC2ED3",
+          "id" : "F721F075-B7C6-4083-BB44-68AB3E89EEC5",
           "rel" : "primary",
           "path" : "03c1bb2e93cd2108057f53ea41798470",
           "type" : "image\/png",
@@ -551,7 +551,7 @@
         },
         {
           "length" : 374,
-          "id" : "F7BFA9D7-B7CC-4364-B26C-53A61B38541A",
+          "id" : "82D99E81-2475-4395-BF2B-B9A4BC9D6380",
           "rel" : "primary",
           "path" : "0c5bf6d058c7ff9a9ddf08e984d347d4",
           "type" : "image\/png",
@@ -559,7 +559,7 @@
         },
         {
           "length" : 8344,
-          "id" : "7B0B7C3D-45E4-4553-8575-A169592AFAD8",
+          "id" : "C1C78344-37C1-4B80-A93F-179CD7738CCF",
           "rel" : "primary",
           "path" : "f2dc77ec4cbf46213916d09d19dcd218",
           "type" : "image\/png",
@@ -567,7 +567,7 @@
         },
         {
           "length" : 1013,
-          "id" : "3743D6FB-D54A-437A-A314-68914AD0B47A",
+          "id" : "81390E4C-5BC4-44BC-9EF1-15B8D9865149",
           "rel" : "primary",
           "path" : "7212871af39e31a93fe05bc25f68f41b",
           "type" : "image\/png",
@@ -575,7 +575,7 @@
         },
         {
           "length" : 19065,
-          "id" : "5855BB21-0B4D-452A-812A-38C57AF2B486",
+          "id" : "B836F42B-D9B1-4085-A0F2-205AB2AA8B9D",
           "rel" : "primary",
           "path" : "ab7a74bbe687bd2b0443719669ef29f0",
           "type" : "image\/png",
@@ -586,11 +586,11 @@
       "children" : [
         {
           "path" : "graphics",
-          "id" : "37BDE939-28DB-4111-BDBA-A43A73E963B1",
+          "id" : "5473C9BA-0AE2-47A6-A372-4EF7128BC25B",
           "components" : [
             {
               "length" : 921,
-              "id" : "96C70CD5-8F8C-4326-BFF0-450FE4168522",
+              "id" : "8AE2F088-B4DF-4514-9301-1137E257244F",
               "rel" : "primary",
               "path" : "graphicContent.agc",
               "type" : "application\/vnd.adobe.agc+dcx",
@@ -603,11 +603,11 @@
     },
     {
       "path" : "interactions",
-      "id" : "FF2A6770-CFEB-4BC4-BDA7-F6210895E4A1",
+      "id" : "75371D48-803F-493D-84B6-ECE1AEEFAC59",
       "components" : [
         {
-          "length" : 1635,
-          "id" : "07D2D437-3C1F-4F87-BC00-BAA52D2ADF6E",
+          "length" : 2750,
+          "id" : "141C970B-6931-4528-9BC9-BEC9B38CAC45",
           "rel" : "primary",
           "path" : "interactions.json",
           "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -620,7 +620,7 @@
   "components" : [
     {
       "length" : 1323,
-      "id" : "4F8EB623-C076-4AA3-AB33-AF4C6AFF2214",
+      "id" : "5BACAF66-5581-4FCE-9EF2-3B064ADD8869",
       "rel" : "metadata",
       "path" : "META-INF\/metadata.xml",
       "type" : "application\/rdf+xml",

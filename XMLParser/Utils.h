@@ -158,6 +158,10 @@ void import(char *path, char *xdPath, bool withSync) {
     
     NSMutableArray *offset = [xmlDictionary objectForKey:SCENE_TAG];
     NSString *homeArtboard = [xmlDictionary objectForKey:HOME_ARTBOARD];
+    if (homeArtboard == nil) {
+        NSLog(@"[ERROR] No intial View controller! Please set one and try again");
+        return;
+    }
     NSMutableDictionary*shaList = [Dict2Agc processDict:[xmlDictionary mutableCopy] error:&parseError usingXdPath:inXDPath xmlDirectory:inXmlPath homeArtboard:homeArtboard];
     elapsedTime = CACurrentMediaTime() - elapsedTime;
     NSLog(@"[Import DONE] Time elapsed: %f", elapsedTime);

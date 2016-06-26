@@ -1364,10 +1364,28 @@
         [xmlData writeToFile:[self outXmlPath] atomically:YES];
 }
 
+- (NSArray *) sortUid {
+    NSMutableArray *values = [[uuidViewMap allKeys] mutableCopy];
+    return [values sortedArrayUsingFunction:comparatorFunction context:nil];
+}
+
+NSInteger comparatorFunction(id num1, id num2, void *context)
+{
+    num1 = [num1 substringFromIndex:[@"node" length]];
+    num2 = [num2 substringFromIndex:[@"node" length]];
+    int v1 = [num1 intValue];
+    int v2 = [num2 intValue];
+    if (v1 < v2)
+        return NSOrderedDescending;
+    else if (v1 > v2)
+        return NSOrderedAscending;
+    else
+        return NSOrderedSame;
+}
+
 - (NSString *) replaceConnections:(NSString *) xmlString {
     NSString *newString = [self deepCopy:xmlString];
-    id allKeys = [uuidViewMap allKeys];
-    NSLog(@"Replacing %@", uuidViewMap);
+    id allKeys = [self sortUid];
     for (id node in allKeys) {
         newString = [newString stringByReplacingOccurrencesOfString:node withString:[uuidViewMap objectForKey:node]];
     }

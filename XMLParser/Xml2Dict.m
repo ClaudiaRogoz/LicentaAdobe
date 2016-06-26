@@ -23,6 +23,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     [arrayOffset addObject:[Helper getLastOccurencesOf:XMLSCENESF in:xmlContent fromOffset:[lastId longValue]]];
     [rootDictionary setValue:arrayOffset forKey:SCENE_TAG];
     [rootDictionary setValue:homeArtboard forKey:HOME_ARTBOARD];
+    NSLog(@"homeArtboard = %@", homeArtboard);
     return rootDictionary;
 }
 
