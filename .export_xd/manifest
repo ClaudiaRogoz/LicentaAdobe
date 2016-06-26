@@ -1,60 +1,44 @@
 {
-  "uxdesign#prototypeName" : "xd_tutorial",
   "manifest-format-version" : 6,
+  "state" : "modified",
   "uxdesign#userDidSetPrototypeName" : "false",
+  "id" : "FD748673-D6D2-43BC-9947-F207C5B18B77",
   "children" : [
     {
       "path" : "artwork",
-      "id" : "6B6DFFF1-C4F6-4406-B115-D7EAECF31C10",
+      "id" : "6D492E46-6E4B-432A-B7A7-8E0A44745B44",
       "name" : "artwork",
       "children" : [
         {
           "path" : "pasteboard",
-          "id" : "B07F534F-2BDD-4E7C-BAF9-51E04E0F7508",
-          "name" : "pasteboard",
-          "children" : [
-            {
-              "path" : "graphics",
-              "id" : "CA41B269-E35C-4A00-A85B-D229453C6AB2",
-              "components" : [
-                {
-                  "length" : 76262,
-                  "id" : "1C79770B-4697-4FB0-BFE7-5C90287E357D",
-                  "rel" : "primary",
-                  "path" : "graphicContent.agc",
-                  "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "pasteboard"
-                }
-              ],
-              "name" : "graphics"
-            }
-          ]
+          "id" : "00D45BB0-03AB-4283-9EDA-C84E30B8F366",
+          "name" : "pasteboard"
         },
         {
           "path" : "artboard-artboard1",
-          "id" : "744ADFE3-928E-48DC-9EA5-3D8CDC3260BA",
+          "id" : "D41E3330-6F91-4876-8886-326988DD18D9",
           "uxdesign#viewport" : {
             "height" : 667
           },
-          "name" : "Campvibes - Home",
+          "name" : "iPhone 6 – 5",
           "uxdesign#bounds" : {
-            "y" : 40,
-            "x" : 1647,
+            "y" : 0,
+            "x" : 1600,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "D2A7229D-A650-4B0D-B03A-3873D6F9DAFF",
+              "id" : "888BD6FA-00FB-464C-9F0C-95BC43218382",
               "components" : [
                 {
-                  "length" : 22580,
-                  "id" : "FA013E23-0C88-40BC-8E1C-F2BE1EDF5339",
+                  "length" : 22156,
+                  "id" : "3086C89E-2EAB-4DCB-A98B-F57832D71569",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "Campvibes - Home"
+                  "name" : "iPhone 6 – 5"
                 }
               ],
               "name" : "graphics"
@@ -63,29 +47,29 @@
         },
         {
           "path" : "artboard-artboard2",
-          "id" : "9521AA11-7530-4010-99DC-FEB6E622A790",
+          "id" : "4E436519-3436-4528-8AAC-2C89463C0D67",
           "uxdesign#viewport" : {
             "height" : 667
           },
-          "name" : "Campvibes - Adventure 1",
+          "name" : "iPhone 6 – 3",
           "uxdesign#bounds" : {
-            "y" : 897,
-            "x" : 992,
+            "y" : 0,
+            "x" : 800,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "E6CA2FC6-40FD-4AAD-B46F-0740A003C077",
+              "id" : "B4558367-620E-4EB7-A5D7-236EACF76ACD",
               "components" : [
                 {
-                  "length" : 27870,
-                  "id" : "E4B7AB15-B78C-4ED9-AED6-8D861268DC08",
+                  "length" : 10919,
+                  "id" : "4522C3F4-9352-480F-8627-B3BFF98FDC03",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "Campvibes - Adventure 1"
+                  "name" : "iPhone 6 – 3"
                 }
               ],
               "name" : "graphics"
@@ -94,29 +78,29 @@
         },
         {
           "path" : "artboard-artboard3",
-          "id" : "3D29CD8D-C48B-4951-8C02-E3D99E91D9EB",
+          "id" : "C199FEEA-FAFE-4B80-877E-EDD6B7C265EB",
           "uxdesign#viewport" : {
             "height" : 667
           },
-          "name" : "Campvibes - Adventure 2",
+          "name" : "iPhone 6 – 1",
           "uxdesign#bounds" : {
-            "y" : 897,
-            "x" : 1647,
+            "y" : 0,
+            "x" : 0,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "68AD0E98-77FF-4C52-A15A-1A7A00C1EA6D",
+              "id" : "95FFC26F-3CE2-416D-8FDA-F1167143F419",
               "components" : [
                 {
-                  "length" : 27068,
-                  "id" : "C952B72E-70A1-482E-A470-D6AE6E00E921",
+                  "length" : 10924,
+                  "id" : "DC76DC23-C324-43EF-A714-13AFD7711712",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "Campvibes - Adventure 2"
+                  "name" : "iPhone 6 – 1"
                 }
               ],
               "name" : "graphics"
@@ -125,29 +109,29 @@
         },
         {
           "path" : "artboard-artboard4",
-          "id" : "4C569EF2-A079-40AC-B472-1909A7496256",
+          "id" : "2EA7605D-5115-4F58-A02E-69A64D7EDFC5",
           "uxdesign#viewport" : {
             "height" : 667
           },
-          "name" : "Campvibes - Featured",
+          "name" : "iPhone 6 – 6",
           "uxdesign#bounds" : {
-            "y" : 40,
-            "x" : 2302,
+            "y" : 0,
+            "x" : 2000,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "4B918461-AA2F-4F50-A5C8-418ADD55972B",
+              "id" : "5EEF9F37-EE02-40C3-B140-0C746CBCCAA4",
               "components" : [
                 {
-                  "length" : 38948,
-                  "id" : "09BB1DD3-FE39-4CB1-BB99-26B725F79E96",
+                  "length" : 12479,
+                  "id" : "9F81D545-CA50-4597-A5F8-0B93284FAD6E",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "Campvibes - Featured"
+                  "name" : "iPhone 6 – 6"
                 }
               ],
               "name" : "graphics"
@@ -156,29 +140,29 @@
         },
         {
           "path" : "artboard-artboard5",
-          "id" : "8432D72B-2912-4224-8172-726497E6AACD",
+          "id" : "53AB85CF-6E6E-4841-8EA4-B6136A524E01",
           "uxdesign#viewport" : {
             "height" : 667
           },
-          "name" : "Campvibes - Welcome",
+          "name" : "iPhone 6 – 4",
           "uxdesign#bounds" : {
-            "y" : 40,
-            "x" : 992,
+            "y" : 0,
+            "x" : 1200,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "F74E6383-4F28-4A21-B0B4-0515499181C1",
+              "id" : "B1E476DA-E119-40BF-BA4C-F695B3C7425B",
               "components" : [
                 {
-                  "length" : 34932,
-                  "id" : "47EB9961-F150-4159-8CE5-F738DE41E918",
+                  "length" : 19972,
+                  "id" : "2DD07EDD-1295-46D1-96EF-4293282F7B18",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "Campvibes - Welcome"
+                  "name" : "iPhone 6 – 4"
                 }
               ],
               "name" : "graphics"
@@ -187,29 +171,29 @@
         },
         {
           "path" : "artboard-artboard6",
-          "id" : "B975E159-0AB0-402D-B7E5-4CDBAE6A78E4",
+          "id" : "47DCBFDD-800E-4CD1-9636-D72199A7297B",
           "uxdesign#viewport" : {
             "height" : 667
           },
-          "name" : "Campvibes - Adventure 3",
+          "name" : "iPhone 6 – 2",
           "uxdesign#bounds" : {
-            "y" : 897,
-            "x" : 2302,
+            "y" : 0,
+            "x" : 400,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "835A7E93-2173-423E-B542-F11FE9069CEE",
+              "id" : "EF35AF91-B129-47CE-A8CA-5221CEE012E4",
               "components" : [
                 {
-                  "length" : 28084,
-                  "id" : "4DCFDFB9-B746-406C-BADC-75F3C0447CB5",
+                  "length" : 10516,
+                  "id" : "DEE42E6D-4D4B-44F9-AC18-653E78B33974",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "Campvibes - Adventure 3"
+                  "name" : "iPhone 6 – 2"
                 }
               ],
               "name" : "graphics"
@@ -218,29 +202,29 @@
         },
         {
           "path" : "artboard-artboard7",
-          "id" : "5A9518E3-95AD-4277-94F4-3769E45843AE",
+          "id" : "2B358613-F2EC-49B3-82E5-4423C3D53266",
           "uxdesign#viewport" : {
             "height" : 667
           },
-          "name" : "Campvibes - Adventure 4",
+          "name" : "iPhone 6 – 7",
           "uxdesign#bounds" : {
-            "y" : 897,
-            "x" : 2930,
+            "y" : 0,
+            "x" : 2400,
             "width" : 375,
             "height" : 667
           },
           "children" : [
             {
               "path" : "graphics",
-              "id" : "296194EF-F418-4F4B-91AA-81F8BD7C90AD",
+              "id" : "EF23B938-770C-4FFE-9793-83835D0407D9",
               "components" : [
                 {
-                  "length" : 43431,
-                  "id" : "4E4D4C5B-5C47-4B33-A47A-1007FB41C0CB",
+                  "length" : 20859,
+                  "id" : "06A63F6F-B044-40B7-AA88-1C5911930754",
                   "rel" : "primary",
                   "path" : "graphicContent.agc",
                   "type" : "application\/vnd.adobe.agc+dcx",
-                  "name" : "Campvibes - Adventure 4"
+                  "name" : "iPhone 6 – 7"
                 }
               ],
               "name" : "graphics"
@@ -251,59 +235,219 @@
     },
     {
       "path" : "resources",
-      "id" : "0AF7CB24-4F75-435A-B362-24742A849DA6",
+      "id" : "A1146C61-BEA7-490D-A435-8EB33373A4BD",
       "components" : [
         {
-          "length" : 97617,
-          "id" : "0FF18BFC-F289-4EC7-AACA-E75B3D6F0AE5",
+          "length" : 433,
+          "id" : "81861DD4-3B88-4F8C-B8C2-BE75A1EFFCCB",
           "rel" : "primary",
-          "path" : "3bdd51e5a96a3847017da8968f808779",
-          "type" : "image\/jpeg",
-          "name" : "resources"
-        },
-        {
-          "length" : 116971,
-          "id" : "7D33B541-AD71-4EB9-844E-5DF043CE9663",
-          "rel" : "primary",
-          "path" : "1c1fc5558af504893061b883e964558f",
-          "type" : "image\/jpeg",
-          "name" : "resources"
-        },
-        {
-          "length" : 98379,
-          "id" : "827F90FA-1E74-4A03-85F0-F3481E90FC7B",
-          "rel" : "primary",
-          "path" : "5f3c399519d24930c5561b690c08fa11",
-          "type" : "image\/jpeg",
-          "name" : "resources"
-        },
-        {
-          "length" : 225275,
-          "id" : "91827567-7393-45AE-951E-840E58E458D0",
-          "rel" : "primary",
-          "path" : "a501b8f826bbb7df8834ae9adbe49e23",
-          "type" : "image\/jpeg",
-          "name" : "resources"
-        },
-        {
-          "length" : 12141,
-          "id" : "8807CBF4-DAF1-4B5C-BFBF-794E445CDAF0",
-          "rel" : "primary",
-          "path" : "1e3480f6787ebcf2c6b584f557fa7d2d",
+          "path" : "c0acac893840a2bdac75a8d4117db874",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 193790,
-          "id" : "FF5C171F-5686-462B-9DAE-5A9F68DE0EEB",
+          "length" : 370,
+          "id" : "2A31D30A-3B7A-4367-B303-70AB128031AE",
           "rel" : "primary",
-          "path" : "c3f42ed89af66e3fbee2ca6025985939",
-          "type" : "image\/jpeg",
+          "path" : "b2201d348b549e0e5477d766a35d2202",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 3551,
+          "id" : "0A90B9F0-4569-4D15-B7F1-2F671BF0C2F0",
+          "rel" : "primary",
+          "path" : "3fe38e21ecfd3c2ac944f7464bb24c6b",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1979,
+          "id" : "81A03B64-329F-486E-88E5-280C4DD7D9F2",
+          "rel" : "primary",
+          "path" : "0cd2999c2b3de0a41702920ee54651ad",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1982,
+          "id" : "9385F66A-5FB0-4780-BCBF-31B761175AEC",
+          "rel" : "primary",
+          "path" : "ba516f17694d304e8b760e0f271693e4",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 3155,
+          "id" : "2A55E87C-2DDE-4F5A-8C4C-153C2298CD70",
+          "rel" : "primary",
+          "path" : "0a55534db62f7b252d9dc5fc98152543",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1758,
+          "id" : "FEFC4807-52A3-44B8-9965-E6B3B7201258",
+          "rel" : "primary",
+          "path" : "1c9a708157e884429c560131e20715f8",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 654,
+          "id" : "BD1A9417-0CDA-41AF-AABD-5BA1423B40E4",
+          "rel" : "primary",
+          "path" : "f7d5a5a8083c879306cb8999923f36d9",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 35511,
+          "id" : "4EC229F0-2AD1-43FA-A6AE-60C5931E4613",
+          "rel" : "primary",
+          "path" : "8f4b33db5335b2d29160b3b06308afe5",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 32367,
+          "id" : "7CACA6BB-DB69-42CD-B23F-0273FB9DF9E9",
+          "rel" : "primary",
+          "path" : "b7ada7a0361376035da4ed1ec6c17c48",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 858,
+          "id" : "2D92415D-6BA7-4E72-9A13-71066B10D36E",
+          "rel" : "primary",
+          "path" : "17aefadb81554c684b4e8d3e7a9c2953",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 7027,
+          "id" : "AB1E2507-7ECA-44D7-81FB-3A93D8DD19D4",
+          "rel" : "primary",
+          "path" : "a0e510ca686e261c6dd031f860761d54",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 6113,
+          "id" : "63DF1BF1-FE8B-4F1C-A276-CE627E945A9B",
+          "rel" : "primary",
+          "path" : "f42a58e997f1794efda4ba111245ac79",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1345,
+          "id" : "58F6BE2C-EACE-4C4E-94F6-B1F1570F3C24",
+          "rel" : "primary",
+          "path" : "8e5ccc422035278355380ec47b7d325f",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2304,
+          "id" : "CDE62EAA-04AA-45E4-9184-59BC2CC65E7E",
+          "rel" : "primary",
+          "path" : "f94e87e303656fee6a39cf7684b3cc19",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 7708,
+          "id" : "2E3359A0-E9D9-4513-8A52-A7C2279239FE",
+          "rel" : "primary",
+          "path" : "ec4d01b65411c21daf4c400fdb5ed851",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 514465,
+          "id" : "0A0AF23E-31F2-4236-B51D-E9D2795F9A98",
+          "rel" : "primary",
+          "path" : "d67a83b81913254fb7365935e738271c",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 386,
+          "id" : "59F812A6-A2E6-45D4-BDAA-1FCCA29A7D80",
+          "rel" : "primary",
+          "path" : "d810f03aa05ab19555fecde8a50743da",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 4592,
+          "id" : "60632856-7D7B-40B8-8D77-F5C42AB9862A",
+          "rel" : "primary",
+          "path" : "39c6b972846c0b414eeac6a24f39600a",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 7989,
+          "id" : "FFCB4179-402D-41B7-B984-32DB4BD6D58D",
+          "rel" : "primary",
+          "path" : "4a4bf5e96f3d3f582d08716d997114c6",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2034,
+          "id" : "2FE71936-620B-44C2-8E9F-A496B425F1F0",
+          "rel" : "primary",
+          "path" : "0d6fd325b694374c5dd959e7c479dece",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2878,
+          "id" : "0971B682-1138-4F25-B522-A618902C71F1",
+          "rel" : "primary",
+          "path" : "bb271690c01c192ff8ee0ef4abc1bdd9",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 488903,
+          "id" : "F4EC69BC-92BD-490E-84FE-2D26573371C0",
+          "rel" : "primary",
+          "path" : "fa228eed0b6669a4c114c74cf4e6ac53",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 499714,
+          "id" : "14534308-7FAD-4ED6-88ED-8A555DD9B7C6",
+          "rel" : "primary",
+          "path" : "1a66a77782ec9cd2dc66fca6adc6b26d",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 7331,
+          "id" : "D6CD1F6A-612C-4688-AC10-69D8D8787107",
+          "rel" : "primary",
+          "path" : "ea05b9980349988d5c00afbee69e0265",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 801440,
+          "id" : "ECC0311C-F503-412C-B0CF-F4996A094FA9",
+          "rel" : "primary",
+          "path" : "15fdffaec7e466b70dde69fe5211de8b",
+          "type" : "image\/png",
           "name" : "resources"
         },
         {
           "length" : 2378,
-          "id" : "B62D3984-A294-44FA-8376-E5F4864D6C15",
+          "id" : "26175654-E59B-4E04-A760-EAD914A5BBF7",
           "rel" : "primary",
           "path" : "4b2ad31b0bf485f15f99a3735023b9c5",
           "type" : "image\/png",
@@ -311,7 +455,7 @@
         },
         {
           "length" : 2540,
-          "id" : "2365EA01-8B20-48FE-9CBA-B8CE0E1263A2",
+          "id" : "E21017FE-8579-47C5-8555-AE1D563523D3",
           "rel" : "primary",
           "path" : "44d696292fea83eb5e73597e4cfafe71",
           "type" : "image\/png",
@@ -319,7 +463,7 @@
         },
         {
           "length" : 2733,
-          "id" : "A1D54F00-8E7A-405E-9157-BE3AEECDABB8",
+          "id" : "3C3CF4EE-707C-4C63-AA8C-D91D603CB568",
           "rel" : "primary",
           "path" : "5af5c78ed0d03600b610cebf6912006b",
           "type" : "image\/png",
@@ -327,25 +471,113 @@
         },
         {
           "length" : 1308,
-          "id" : "361C44B0-BAD5-42D7-A5C4-FE98412AD645",
+          "id" : "06C45BDE-8068-4A10-A63B-C5248FB29FA6",
           "rel" : "primary",
           "path" : "8908d23d3216041d2ec864d89b18582c",
           "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 182919,
-          "id" : "C8FF88A2-4760-49AD-92B5-E87A9F152591",
+          "length" : 1685720,
+          "id" : "D5EDA9E6-60ED-4C98-86B3-4A53F2B98091",
           "rel" : "primary",
-          "path" : "8825310fd798dadc075c1805fed4f659",
-          "type" : "image\/jpeg",
+          "path" : "01c1fd43d0929bfc8f1dea6f418aca3d",
+          "type" : "image\/png",
           "name" : "resources"
         },
         {
-          "length" : 20551,
-          "id" : "656E7762-108F-4C46-B9B1-A5A0824DA39E",
+          "length" : 385,
+          "id" : "602959AB-BDD9-4949-8C4E-D43B39F93D22",
           "rel" : "primary",
-          "path" : "5a24cff77a007eacb4202bef3d6b3324",
+          "path" : "3c4eadf393a0729889de9b186f7c90a1",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 23007,
+          "id" : "35F3F38D-00FF-440D-8575-6B0CFB877F28",
+          "rel" : "primary",
+          "path" : "5cbd132ab82aa4adf84ed82c1408fe08",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 4011,
+          "id" : "88043146-9265-46D6-B836-34BC31C22153",
+          "rel" : "primary",
+          "path" : "0d200f61cdc142e841c765d0a32f9f09",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 492,
+          "id" : "337D9454-5DAC-4117-9AA0-C8E29915F8B5",
+          "rel" : "primary",
+          "path" : "b126b799d71959d76eff8765e63aab59",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 3676,
+          "id" : "952F0C17-4600-4065-9DEB-7072D647F815",
+          "rel" : "primary",
+          "path" : "74c141c67a69c790646bb31230309819",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 2900,
+          "id" : "4350844E-3E22-43A3-9B4B-95B90B5953C2",
+          "rel" : "primary",
+          "path" : "5139844bf1cdb7d9864492ea01ef2fc5",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 716526,
+          "id" : "D961A2B6-5A74-4792-A80E-B9557AF46CC2",
+          "rel" : "primary",
+          "path" : "64b294ebaa88e73875aca63d6446d645",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1571,
+          "id" : "A0ACFF35-3F76-48FA-9283-6E49E04B679F",
+          "rel" : "primary",
+          "path" : "03c1bb2e93cd2108057f53ea41798470",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 374,
+          "id" : "E428C8B7-80AF-48CF-8934-221785A7A801",
+          "rel" : "primary",
+          "path" : "0c5bf6d058c7ff9a9ddf08e984d347d4",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 8344,
+          "id" : "82D7751C-C14B-4847-BCB1-D7D41F4564F6",
+          "rel" : "primary",
+          "path" : "f2dc77ec4cbf46213916d09d19dcd218",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 1013,
+          "id" : "3DD5DD16-FB1A-443D-943E-1F016A35DB26",
+          "rel" : "primary",
+          "path" : "7212871af39e31a93fe05bc25f68f41b",
+          "type" : "image\/png",
+          "name" : "resources"
+        },
+        {
+          "length" : 19065,
+          "id" : "0EAFFEC1-1E7F-438B-8243-6487151594CF",
+          "rel" : "primary",
+          "path" : "ab7a74bbe687bd2b0443719669ef29f0",
           "type" : "image\/png",
           "name" : "resources"
         }
@@ -354,11 +586,11 @@
       "children" : [
         {
           "path" : "graphics",
-          "id" : "E65A4FB1-1F3C-479A-9138-C3DCF1826A68",
+          "id" : "546C52A4-1C35-458E-B9AF-537EE430D6BA",
           "components" : [
             {
-              "length" : 2920,
-              "id" : "4B98F620-11DF-4BFC-AC82-243F6FD10384",
+              "length" : 921,
+              "id" : "2107961A-7D2E-4BDE-A107-4FB7F3B8A86A",
               "rel" : "primary",
               "path" : "graphicContent.agc",
               "type" : "application\/vnd.adobe.agc+dcx",
@@ -371,11 +603,11 @@
     },
     {
       "path" : "interactions",
-      "id" : "50030CDE-B42A-4A9E-BED7-7E07EAB99AAA",
+      "id" : "957E6300-C76E-4DC2-B2B0-7D16715521A1",
       "components" : [
         {
-          "length" : 1000,
-          "id" : "8AEDBC24-293F-4D69-B432-05BA51BF2392",
+          "length" : 2111,
+          "id" : "42DDA546-D141-4465-AE1C-090B5E3C2DB6",
           "rel" : "primary",
           "path" : "interactions.json",
           "type" : "application\/vnd.adobe.uxdesign.interactions+json",
@@ -385,12 +617,10 @@
       "name" : "interactions"
     }
   ],
-  "id" : "6536AE2E-9BAD-4776-8C39-966FC340B45C",
-  "state" : "modified",
   "components" : [
     {
       "length" : 1323,
-      "id" : "99B1A4DF-189F-4267-BC52-BD528956634B",
+      "id" : "179BE4B3-784D-4067-85EE-36EC90F639AB",
       "rel" : "metadata",
       "path" : "META-INF\/metadata.xml",
       "type" : "application\/rdf+xml",
