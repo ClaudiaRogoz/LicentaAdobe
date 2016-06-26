@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FormatVersion</key>
+	<string>1.2</string>
+	<key>RunDestination</key>
+	<dict>
+		<key>LocalComputer</key>
+		<dict>
+			<key>BusSpeedInMHz</key>
+			<integer>100</integer>
+			<key>CPUCount</key>
+			<integer>1</integer>
+			<key>CPUKind</key>
+			<string>Intel Core i7</string>
+			<key>CPUSpeedInMHz</key>
+			<integer>2700</integer>
+			<key>Identifier</key>
+			<string>55E2EC25-79A6-5356-94F2-E05D21EC33A9</string>
+			<key>IsConcreteDevice</key>
+			<true/>
+			<key>LogicalCPUCoresPerPackage</key>
+			<integer>8</integer>
+			<key>ModelCode</key>
+			<string>MacBookPro10,1</string>
+			<key>ModelName</key>
+			<string>MacBook Pro</string>
+			<key>ModelUTI</key>
+			<string>com.apple.macbookpro-15-retina-display</string>
+			<key>Name</key>
+			<string>My Mac</string>
+			<key>NativeArchitecture</key>
+			<string>x86_64</string>
+			<key>OperatingSystemVersion</key>
+			<string>10.11.4</string>
+			<key>OperatingSystemVersionWithBuildNumber</key>
+			<string>10.11.4 (15E65)</string>
+			<key>PhysicalCPUCoresPerPackage</key>
+			<integer>4</integer>
+			<key>Platform</key>
+			<dict>
+				<key>Identifier</key>
+				<string>com.apple.platform.macosx</string>
+				<key>Name</key>
+				<string>OS X</string>
+			</dict>
+			<key>RAMSizeInMegabytes</key>
+			<integer>16384</integer>
+		</dict>
+		<key>Name</key>
+		<string>My Mac</string>
+		<key>TargetArchitecture</key>
+		<string>x86_64</string>
+		<key>TargetDevice</key>
+		<dict>
+			<key>BusSpeedInMHz</key>
+			<integer>100</integer>
+			<key>CPUCount</key>
+			<integer>1</integer>
+			<key>CPUKind</key>
+			<string>Intel Core i7</string>
+			<key>CPUSpeedInMHz</key>
+			<integer>2700</integer>
+			<key>Identifier</key>
+			<string>55E2EC25-79A6-5356-94F2-E05D21EC33A9</string>
+			<key>IsConcreteDevice</key>
+			<true/>
+			<key>LogicalCPUCoresPerPackage</key>
+			<integer>8</integer>
+			<key>ModelCode</key>
+			<string>MacBookPro10,1</string>
+			<key>ModelName</key>
+			<string>MacBook Pro</string>
+			<key>ModelUTI</key>
+			<string>com.apple.macbookpro-15-retina-display</string>
+			<key>Name</key>
+			<string>My Mac</string>
+			<key>NativeArchitecture</key>
+			<string>x86_64</string>
+			<key>OperatingSystemVersion</key>
+			<string>10.11.4</string>
+			<key>OperatingSystemVersionWithBuildNumber</key>
+			<string>10.11.4 (15E65)</string>
+			<key>PhysicalCPUCoresPerPackage</key>
+			<integer>4</integer>
+			<key>Platform</key>
+			<dict>
+				<key>Identifier</key>
+				<string>com.apple.platform.macosx</string>
+				<key>Name</key>
+				<string>OS X</string>
+			</dict>
+			<key>RAMSizeInMegabytes</key>
+			<integer>16384</integer>
+		</dict>
+		<key>TargetSDK</key>
+		<dict>
+			<key>Identifier</key>
+			<string>macosx10.11</string>
+			<key>IsInternal</key>
+			<false/>
+			<key>Name</key>
+			<string>OS X 10.11</string>
+			<key>OperatingSystemVersion</key>
+			<string>10.11</string>
+		</dict>
+	</dict>
+	<key>TestableSummaries</key>
+	<array>
+		<dict>
+			<key>ProjectPath</key>
+			<string>XDXCodeTranslator.xcodeproj</string>
+			<key>TargetName</key>
+			<string>XDXCodeTranslatorTests</string>
+			<key>TestName</key>
+			<string>XDXCodeTranslator</string>
+			<key>TestObjectClass</key>
+			<string>IDESchemeActionTestableSummary</string>
+			<key>Tests</key>
+			<array>
+				<dict>
+					<key>Subtests</key>
+					<array>
+						<dict>
+							<key>Subtests</key>
+							<array>
+								<dict>
+									<key>FailureSummaries</key>
+									<array>
+										<dict>
+											<key>FileName</key>
+											<string>/Users/crogoz/Desktop/XMLParser/XMLParserTests/ManagementTests.m</string>
+											<key>LineNumber</key>
+											<integer>33</integer>
+											<key>Message</key>
+											<string>failed: caught "NSInvalidArgumentException", "-[__NSCFNumber allKeys]: unrecognized selector sent to instance 0x22237"
+(
+	0   CoreFoundation                      0x00007fff99bd04f2 __exceptionPreprocess + 178
+	1   libobjc.A.dylib                     0x00007fff904fa73c objc_exception_throw + 48
+	2   CoreFoundation                      0x00007fff99c3a1ad -[NSObject(NSObject) doesNotRecognizeSelector:] + 205
+	3   CoreFoundation                      0x00007fff99b40571 ___forwarding___ + 1009
+	4   CoreFoundation                      0x00007fff99b400f8 _CF_forwarding_prep_0 + 120
+	5   XDXCodeTranslator                   0x00000001092daacc -[ManagementTests match:second:] + 124
+	6   XDXCodeTranslator                   0x00000001092daf93 -[ManagementTests match:second:] + 1347
+	7   XDXCodeTranslator                   0x00000001092db371 -[ManagementTests testExample] + 481
+	8   CoreFoundation                      0x00007fff99b41a6c __invoking___ + 140
+	9   CoreFoundation                      0x00007fff99b418fe -[NSInvocation invoke] + 286
+	10  XCTest                              0x0000000100089598 __24-[XCTestCase invokeTest]_block_invoke_2 + 159
+	11  XCTest                              0x00000001000bd02e -[XCTestContext performInScope:] + 184
+	12  XCTest                              0x00000001000894e8 -[XCTestCase invokeTest] + 169
+	13  XCTest                              0x0000000100089983 -[XCTestCase performTest:] + 443
+	14  XCTest                              0x0000000100087654 -[XCTestSuite performTest:] + 377
+	15  XCTest                              0x0000000100087654 -[XCTestSuite performTest:] + 377
+	16  XCTest                              0x0000000100075892 __25-[XCTestDriver _runSuite]_block_invoke + 51
+	17  XCTest                              0x000000010009aa1b -[XCTestObservationCenter _observeTestExecutionForBlock:] + 611
+	18  XCTest                              0x00000001000757db -[XCTestDriver _runSuite] + 408
+	19  XCTest                              0x000000010007638a -[XCTestDriver _checkForTestManager] + 696
+	20  XCTest                              0x00000001000be29f _XCTestMain + 628
+	21  CoreFoundation                      0x00007fff99b654ac __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__ + 12
+	22  CoreFoundation                      0x00007fff99b44d05 __CFRunLoopDoBlocks + 341
+	23  CoreFoundation                      0x00007fff99b444ce __CFRunLoopRun + 910
+	24  CoreFoundation                      0x00007fff99b43ed8 CFRunLoopRunSpecific + 296
+	25  HIToolbox                           0x00007fff86438935 RunCurrentEventLoopInMode + 235
+	26  HIToolbox                           0x00007fff86438677 ReceiveNextEventCommon + 184
+	27  HIToolbox                           0x00007fff864385af _BlockUntilNextEventMatchingListInModeWithFilter + 71
+	28  AppKit                              0x00007fff885c9efa _DPSNextEvent + 1067
+	29  AppKit                              0x00007fff885c932a -[NSApplication _nextEventMatchingEventMask:untilDate:inMode:dequeue:] + 454
+	30  AppKit                              0x00007fff885bde84 -[NSApplication run] + 682
+	31  AppKit                              0x00007fff8858746c NSApplicationMain + 1176
+	32  XDXCodeTranslator                   0x0000000100018372 main + 354
+	33  libdyld.dylib                       0x00007fff92cf35ad start + 1
+)</string>
+											<key>PerformanceFailure</key>
+											<false/>
+										</dict>
+									</array>
+									<key>TestIdentifier</key>
+									<string>ManagementTests/testExample</string>
+									<key>TestName</key>
+									<string>testExample</string>
+									<key>TestObjectClass</key>
+									<string>IDESchemeActionTestSummary</string>
+									<key>TestStatus</key>
+									<string>Failure</string>
+									<key>TestSummaryGUID</key>
+									<string>8BCB102D-A996-402D-A3E5-3CCDA4945163</string>
+								</dict>
+							</array>
+							<key>TestIdentifier</key>
+							<string>ManagementTests</string>
+							<key>TestName</key>
+							<string>ManagementTests</string>
+							<key>TestObjectClass</key>
+							<string>IDESchemeActionTestSummaryGroup</string>
+						</dict>
+					</array>
+					<key>TestIdentifier</key>
+					<string>Selected tests</string>
+					<key>TestName</key>
+					<string>Selected tests</string>
+					<key>TestObjectClass</key>
+					<string>IDESchemeActionTestSummaryGroup</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

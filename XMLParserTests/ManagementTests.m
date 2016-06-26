@@ -30,35 +30,36 @@
 
 - (BOOL) match:(id) first second:(id) second {
     
-    id firstKeys = [first allKeys];
-    for (id key in firstKeys) {
-        id firstValue = [first objectForKey:key];
-        id secondValue = [second objectForKey:key];
-        if (secondValue == nil)
+        if (second == nil)
             return false;
-        if (![secondValue isKindOfClass:[firstValue class]])
+        if (![second isKindOfClass:[first class]])
             return false;
-        if ([secondValue isKindOfClass:[NSString class]] && ![secondValue isEqualToString:firstValue])
+        else if ([second isKindOfClass:[NSString class]] && ![second isEqualToString:first])
             return false;
-        if ([secondValue isKindOfClass:[NSDictionary class]]) {
-            BOOL ok = [self match:firstValue second:secondValue];
-            if (ok == false)
-                return ok;
-        } else if ([secondValue isKindOfClass:[NSArray class]]) {
-            if ([secondValue count] != [firstValue count])
+        else if ([second isKindOfClass:[NSNumber class]] && second != first)
+            return false;
+        else if ([second isKindOfClass:[NSDictionary class]]) {
+            id firstKeys = [first allKeys];
+            for (id key in firstKeys) {
+                id firstValue = [first objectForKey:key];
+                id secondValue = [second objectForKey:key];
+                BOOL ok = [self match:firstValue second:secondValue];
+                if (ok == false)
+                    return ok;
+            }
+        } else if ([second isKindOfClass:[NSArray class]]) {
+            if ([second count] != [first count])
                 return false;
-            for (int i = 0; i< [secondValue count]; i++) {
-                BOOL ok = [self match:[firstValue objectAtIndex:i] second:[secondValue objectAtIndex:i]]
+            for (int i = 0; i< (int)[second count]; i++) {
+                BOOL ok = [self match:[first objectAtIndex:i] second:[second objectAtIndex:i]];
                 if (!ok)
                     return false;
             }
         }
-    
-    }
     return true;
 }
 
-- (void)testExample {
+- (void)testSingleView {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
     NSError *parseError = nil;
@@ -70,8 +71,24 @@
     NSData *refData = [NSData dataWithContentsOfFile:refPath];
     NSDictionary *refDictionary = [NSJSONSerialization JSONObjectWithData:refData options:NSJSONReadingMutableContainers error:&parseError];
     BOOL isEqual = [self match:xmlDictionary second:refDictionary];
-    NSLog(@"xmlDict = %@ %@", xmlDictionary, isEqual);
-    XCTAssert(true, "Pass");
+    XCTAssert(isEqual, "Pass");
 }
+
+
+- (void)testMultipleViews {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    NSError *parseError = nil;
+    NSString *mainBundle = [Helper getProjHomePath];
+    NSString *importPath = [mainBundle stringByAppendingPathComponent:@"TestSingleView.xml"];
+    NSData *parser = [NSData dataWithContentsOfFile:importPath];
+    NSDictionary *xmlDictionary = [Xml2Dict dictionaryForXMLData:parser error:&parseError];
+    NSString *refPath = [mainBundle stringByAppendingPathComponent:@"RefSingleView.json"];
+    NSData *refData = [NSData dataWithContentsOfFile:refPath];
+    NSDictionary *refDictionary = [NSJSONSerialization JSONObjectWithData:refData options:NSJSONReadingMutableContainers error:&parseError];
+    BOOL isEqual = [self match:xmlDictionary second:refDictionary];
+    XCTAssert(isEqual, "Pass");
+}
+
 
 @end
