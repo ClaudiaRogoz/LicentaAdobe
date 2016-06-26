@@ -16,7 +16,7 @@ Pentru implementarea acestui proiect s-a luat în considerare structura internă
 
 \subsection{Scop și motivație}
 \label{sub-sec:proj-scope}
-Principalul scop al acestui proiect este construirea unei scheme de translatare dintre elementele vizuale ale două produse software destinate design-ului și prototipurilor de aplicații mobile și site-uri web. Prin intermediul soluției descrise, crearea, sincronizarea, actualizarea, dar și colaborarea între membrii unei echipe de dezvolatare de aplicații se va realiza facil, asigurându-se o automatizare a modului de lucru.
+Principalul scop al acestui proiect este construirea unei scheme de translatare între elementele vizuale corespunzătoare a două produse software destinate design-ului și prototipurilor de aplicații mobile și site-uri web. Prin intermediul soluției descrise, crearea, sincronizarea, actualizarea, dar și colaborarea între membrii unei echipe de dezvoltare de aplicații se va realiza facil, asigurându-se o automatizare a modului de lucru.
 
 Un scop secundar este găsirea unei soluții eficiente de reprezentare și de translatare între cele două formate interne specifice XCode-ului, respectiv XD-ului, pentru a fi folosit și în alte domenii de aplicații.
 
@@ -308,20 +308,20 @@ Pentru obținerea lățimii și lungimii elementelor vizuale, se aplică formule
 cu precizarea că:
 ~$width$, ~$height$ reprezintă valorile finale ale lungimii, respectiv lățimii, ~$initialWidth$, ~$initialHeight$ reprezintă valorile inițiale ale lungimii, respectiv lățimii elementelor vizuale.
 
-În Xcode, offseturile elementelor vizuale din cadrul scenelor sunt relative la elemente părinte (scena în care se află, mulțimea de grupuri de care aparțin). De exemplu, în cazul unui view cu punctul de offset <x1, y1> și cu elementul vizual $Asset1$ cu punctul de offset <x2, y2>, valoarea absolută a lui $Asset1$ corespunde punctului <x1 + x2, y1 + y2>. 
+În Xcode, offseturile elementelor vizuale din cadrul scenelor sunt relative la elemente părinte (scena în care se află, mulțimea de grupuri de care aparțin). De exemplu, în cazul unui view cu punctul de offset <x1, y1> și cu elementul vizual $Asset1$ cu punctul de offset <$x_2$, $y_2$>, valoarea absolută a lui $Asset1$ corespunde punctului <$x_1$ + $x_2$, $y_1$ + $y_2$>. 
 
 În cadrul reprezentării sub formă de agc, un element vizual este caracterizat de un offset cu valoare absolută pe suprafața de design. Pentru obținerea valorilor fiecărui asset, este nevoie de calcularea offseturilor pe baza grupurilor și a scenelor de care aparțin.
 
-Așadar pentru calcularea valorilor x (pentru fiecare element vizual ``X" ) în cazul translației XD-XCode, formulele aferente sunt:
+Așadar pentru calcularea valorilor x (pentru fiecare element vizual $X$ ) în cazul translației XD-XCode, formulele aferente sunt:
         \[ startXArtboard = startXArtboard - \sum_{i = \{GRP\}} xValue_{i} \]
-        \[ translatedValue = (translatedValue - startXArtboard * xAxisScaleFactor;\]
-cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar, iar ~$startXArtboard$ reprezintă offsetul scenei din care face parte assetul ``X", la care se scade valoarea tuturor valorilor ``xValue" corespunzătoare grupurilor din care face parte assetul ``X" (``GRP").
+        \[ translatedValue = (translatedValue - {startXArtboard} \cdot{xAxisScaleFactor};\]
+cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar, iar ~$startXArtboard$ reprezintă offsetul scenei din care face parte assetul $X$, la care se scade valoarea tuturor valorilor $xValue$ corespunzătoare grupurilor din care face parte assetul $X$ ($GRP$).
 
 Calculul valorilor x, respectiv y în cazul translației XCode-Xd se calculează astfel:
-        \[ translatedValue = (translatedValue * xScaleFactor) + startXArtboard; \]
+        \[ translatedValue = ({translatedValue} \cdot{xScaleFactor}) + startXArtboard; \]
 cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar.
 
-Valorile ~$startXArtboard$, ~$startYArtboard$, ~$xValue$, ~$yValue$ se calculează pe baza valorilor atributelor ``tx", ``ty" ale proprietății ``transform" specifice scenelor, respectiv grupurilor.
+Valorile ~$startXArtboard$, ~$startYArtboard$, ~$xValue$, ~$yValue$ se calculează pe baza valorilor atributelor $tx$, $ty$ ale proprietății $transform$ specifice scenelor, respectiv grupurilor.
 
 \chapter{Implementare}
 
@@ -494,7 +494,7 @@ O interacțiune în XCode, denumită ``segue", reprezintă o tranziție dintre o
 
 \labelindexref{Figure}{img:segue}
 
-\fig[scale=0.5]{src/img/segue.png}{img:segue}{Switch tag}
+\fig[scale=0.5]{src/img/segue.png}{img:segue}{Tipuri de tranziții}
 
 O interacțiune între un element vizual și o scenă se realizează prin intermediul id-urilor unice, specifice fiecărui asset. Acest lucru este valabil atât în XCode, cât și în XD. De aceea este nevoie o mapare între un id și elementul vizual pe care îl identifică. 
 
@@ -612,7 +612,7 @@ O regulă poate specifica două tipuri de stringuri:
 
 \begin{itemize}  
 \item o caracteristică din cadrul headerului, specificată prin forma ``\$header.<nume_atribut>"; acest lucru va sugera faptul că $nume_atribut$ trebuie înlocuit conform valorii  din $modificator$. Acest caz corespunde înlocuirii unei valori de atribut din cadrul unui tag xml. În general, atributul modificat este $id$-ul unic al elementelr vizuale (vezi figura \ref{fig:view})
-\item un nume de copil tag; în acest caz obiectul $modificator$ este un dicționar cu entry-uri de forma <dependență, <dicționar de asocieri>>. $Dependență$ specifică o serie de nivele de indirectare care aparțin de dicționarului de la care se face translatarea (dicționarul agc în acest caz). Valoarea corespunzătoare nivelelor de indirecatre specificate prin $dependență$ va fi numită în continuare $agcDict$. $Regulă$ corespunde unei intrări din dicționarul $subTags$. Această intrare va fi tot un dicționar pe care o sa îl numim $subTagDict$. $Dicționarul de asocieri$ este reprezentat din mapări <cheie_regulă, valoare_dependență>, unde $cheie_regulă$ corespunde unei chei din dicționarul $subTagDict$. $Valoare_dependență$ specifică un string de forma \ref{dollar}, care va specifica o cheie din $agcDict$. Această valoare va fi atribuită intrarii corespunzătoare cheii $cheie_regulă$ din $subTagDict$. 
+\item un nume de copil tag; în acest caz obiectul $modificator$ este un dicționar cu entry-uri de forma <dependență, <dicționar de asocieri> >. $Dependență$ specifică o serie de nivele de indirectare care aparțin de dicționarului de la care se face translatarea (dicționarul agc în acest caz). Valoarea corespunzătoare nivelelor de indirecatre specificate prin $dependență$ va fi numită în continuare $agcDict$. $Regulă$ corespunde unei intrări din dicționarul $subTags$. Această intrare va fi tot un dicționar pe care o sa îl numim $subTagDict$. $Dicționarul de asocieri$ este reprezentat din mapări <cheie_regulă, valoare_dependență>, unde $cheie_regulă$ corespunde unei chei din dicționarul $subTagDict$. $Valoare_dependență$ specifică un string de forma \ref{dollar}, care va specifica o cheie din $agcDict$. Această valoare va fi atribuită intrarii corespunzătoare cheii $cheie_regulă$ din $subTagDict$. 
 \end{itemize}
  
  O altă proprietate, care este opțională, este proprietatea $default$ care se întâlnește la proprietățile care aparțin clasei de asset-uri $color$ și $fontDescription$. În momentul în care aceste proprietăți lipsesc din reprezentarea xml, în momentul în care se realizează translatarea, aceste proprietăți vor primi valorile sale implicite - specificate prin dicționarul $default$.
@@ -1023,14 +1023,14 @@ O tehnologie folosită pentru testarea și implementarea cu ajutorului Clipboard
 
 Schema de translatare este reprezentată într-un format .json din considerente de performanță. Un format json poate fi deserializat cu ușurință într-un dicționar imbricat, rezultând astfel o căutare rapidă a mapării dorite. Un astfel de dicționar asigură o complexitate de O(nn), unde nn reprezintă numărul de niveluri de imbricare ale dicționarului. În această aplicație numărul de niveluri nu depășește nn = 5.  
 
-În continuare, voi prezenta graficele care specifică dependența dintre asset-uri ($Assets_processed$) și timpul de procesare al acestora ($Time_spent$) în funcție de schema de translatare aleasă.
+În continuare, voi prezenta graficele care specifică dependența dintre asset-uri ($Assets\_processed$) și timpul de procesare al acestora ($Time\_spent$) în funcție de schema de translatare aleasă.
 
 \begin{figure}[!htbp]
 \centering
     \begin{tikzpicture}
     \begin{axis}[
-        xlabel=$Assets_processed$,
-        ylabel=$Time_spent$]
+        xlabel=$Assets\_processed$,
+        ylabel=$Time\_spent (s)$]
     \addplot[smooth,mark=*,blue] plot coordinates {
         (51,0.004)
         (73,0.005)
@@ -1063,8 +1063,8 @@ Schema de translatare este reprezentată într-un format .json din considerente 
 \centering
 \begin{tikzpicture}
     \begin{axis}[
-        xlabel=$Assets_processed$,
-        ylabel=$Time_spent$]
+        xlabel=$Assets\_processed$,
+        ylabel=$Time\_spent(s)$]
     \addplot[smooth,mark=*,blue] plot coordinates {
         (51,0.185)
         (73,0.189)
@@ -1103,14 +1103,14 @@ O primă variantă a aflării căii absolute ale acestor imagini a fost căutare
 \caption{Tabel Import} \label{fig:Tabimport}
 \end{figure}
 
-În figura \ref{fig:GraficSinc2} se pot observa diferențele dintre timpii de rulare a celor două metode de sincronizare. În graficul de culoare roșie se reprezintă sincronizarea XD - XCode prin generarea tuturor scenelor, independent de numărul de scene modificate. Graficul de culoare albastră specifică sincronizarea XD - XCode, dependentă de scenele modificate. Se poate observa o diferență semnificativă a timpilor de rulare în cazul în care un număr mic de scene vor fi modificate. Axa $X$ este reprezentată de numărul de scene modificate ($Modified_scenes$), iar axa $Y$ este reprezentată de timpul de rulare corespunzător metodei de sincronizare alese ($Time_spent$). Cele două grafice au fost generate pentru un număr de scene = 6.
+În figura \ref{fig:GraficSinc2} se pot observa diferențele dintre timpii de rulare a celor două metode de sincronizare. În graficul de culoare roșie se reprezintă sincronizarea XD - XCode prin generarea tuturor scenelor, independent de numărul de scene modificate. Graficul de culoare albastră specifică sincronizarea XD - XCode, dependentă de scenele modificate. Se poate observa o diferență semnificativă a timpilor de rulare în cazul în care un număr mic de scene vor fi modificate. Axa $X$ este reprezentată de numărul de scene modificate ($Modified\_scenes$), iar axa $Y$ este reprezentată de timpul de rulare corespunzător metodei de sincronizare alese ($Time\_spent$). Cele două grafice au fost generate pentru un număr de scene = 6.
 
 \begin{figure}[!htbp]
 \centering
 \begin{tikzpicture}
     \begin{axis}[
-        xlabel=$Modified_scenes$,
-        ylabel=$Time_spent$]
+        xlabel=$Modified\_scenes$,
+        ylabel=$Time\_spent$]
     \addplot[smooth,color=blue,mark=x]
         plot coordinates {
             (1,0.11)
@@ -1167,9 +1167,9 @@ O altă diferență majoră dintre cele două scheme de translatare ar fi ușuri
 
 \chapter{Concluzii}
 
-În cadrul acestui proiect am prezentat o schemă de translatare dintre două aplicații de management al conținutului vizual pentru aplicații iOS - pe de o parte XCode, iar pe de altă parte Adobe Experience Design. Aceste scheme prezentate se pot extinde pentru translatarea formatelor care se pot serializa într-un dicționar (de ex. xml, json). De asemenea, s-a prezentat o soluție de sincronizare ale elementelor grafice între XD și XCode la nivel de scenă. Sincronizarea inversă se poate realiza în același mod prin implementarea algoritmului propus.
+În cadrul acestui proiect am prezentat o schemă de translatare între două aplicații de management al conținutului vizual pentru aplicații iOS - pe de o parte XCode, iar pe de altă parte Adobe Experience Design. Metodele prezentate se pot extinde pentru a realiza translatarea între oricare două formate care se pot serializa într-un dictionar (de ex. xml, json). De asemenea, am prezentat o soluție de sincronizare ale elementelor grafice între XD și XCode la nivel de scenă. Sincronizarea inversă se poate realiza în același mod prin implementarea algoritmului propus în secțiunea \ref{syncme}.
 
-Această schemă de translatare se poate folosi în primul rând pentru managementul elementelor vizuale, așa cum este prezentată soluția de fața, dar se poate extinde pentru o serie de aplicații datorită schemei generale de translatare.
+Datorită generalității algoritmului de translatare, acesta se poate adapta și extinde ușor pentru a fi folosit și în cadrul altor aplicații.
 
 \section{Îmbunătățiri ulterioare}
 
@@ -1182,8 +1182,8 @@ Câteva îmbunătățiri care se pot aduce acestei aplicații sunt:
 \item Suport pentru multiple tipuri de interacțiuni (Show Detail etc.);
 \item Translatarea multiplelor path-uri/figuri geometrice care aparțin aceluiași grup într-o singură imagine;
 \item Reprezentarea vizuală a mapărilor - pentru extinderea facilă a aplicației;
-\item Permiterea sincronizării pentru multiple fișiere; Acest lucru se va poate realiza prin modificarea ierarhiei de fișiere create în interiorul aplicției XCode;
-\item Sincronizarea din XCode în XD - similar sincronizării inverse; Suport pentru apariția conflictelor de sincronizare (versionare);
+\item Permiterea sincronizării pentru multiple fișiere. Acest lucru se va poate realiza prin modificarea ierarhiei de fișiere create în interiorul aplicației XCode;
+\item Sincronizarea din XCode în XD - similar sincronizării inverse. Suport pentru apariția conflictelor de sincronizare (versionare).
 \end{enumerate}
 
 
