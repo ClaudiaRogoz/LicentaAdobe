@@ -216,6 +216,7 @@
     transformObjects[SCALE][HEIGHT] = [NSNumber numberWithInt:1];
     transformObjects[SCALE][FRAMED] = [NSNumber numberWithInt:1];
     transformObjects[SCALE][IMAGEVIEW] = [NSNumber numberWithInt:1];
+    transformObjects[SCALE][TEXT_AREA] = [NSNumber numberWithInt:1];
     transformObjects[COLOR] = [[NSMutableDictionary alloc] init];
     transformObjects[COLOR][RED] = [NSNumber numberWithInt:1];
     transformObjects[COLOR][GREEN] = [NSNumber numberWithInt:1];
@@ -1371,8 +1372,8 @@
 
 NSInteger comparatorFunction(id num1, id num2, void *context)
 {
-    num1 = [num1 substringFromIndex:[@"node" length]];
-    num2 = [num2 substringFromIndex:[@"node" length]];
+    num1 = [num1 substringFromIndex:[NODE length]];
+    num2 = [num2 substringFromIndex:[NODE length]];
     int v1 = [num1 intValue];
     int v2 = [num2 intValue];
     if (v1 < v2)
