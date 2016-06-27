@@ -18,14 +18,14 @@
 \contentsline {subsection}{\numberline {3.1.2}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{15}{subsection.3.1.2}
 \contentsline {section}{\numberline {3.2}Translatarea din Adobe Experience Design \IeC {\^\i }n XCode}{16}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Translatarea path-urilor \IeC {{\textcommabelow s}}i a altor elemente grafice similare}{19}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Translatarea textului}{22}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.2}Translatarea textului}{21}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Translatarea grupurilor}{22}{subsection.3.2.3}
 \contentsline {subsection}{\numberline {3.2.4}Translatarea imaginilor}{23}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{24}{subsection.3.2.5}
+\contentsline {subsection}{\numberline {3.2.5}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{23}{subsection.3.2.5}
 \contentsline {section}{\numberline {3.3}Translatarea din XCode \IeC {\^\i }n XD folosind a doua schem\IeC {\u a} de translatare}{24}{section.3.3}
 \contentsline {section}{\numberline {3.4}Sincronizarea scenelor \IeC {\^\i }ntre cele dou\IeC {\u a} reprezent\IeC {\u a}ri}{25}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Sincronizarea Adobe Experience Design - XCode}{25}{subsection.3.4.1}
-\contentsline {section}{\numberline {3.5}Arhitectur\IeC {\u a}}{27}{section.3.5}
+\contentsline {section}{\numberline {3.5}Arhitectur\IeC {\u a}}{26}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluare \IeC {{\textcommabelow s}}i Testare}{30}{chapter.4}
 \contentsline {section}{\numberline {4.1}Testare}{32}{section.4.1}
 \contentsline {section}{\numberline {4.2}Compara\IeC {{\textcommabelow t}}ie scheme de translatare}{32}{section.4.2}
