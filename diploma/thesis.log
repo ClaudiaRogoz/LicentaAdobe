@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  27 JUN 2016 10:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  27 JUN 2016 13:04
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1079,14 +1079,14 @@ File: uni-2.def 2013/05/13 UCS: Unicode data U+0200..U+02FF
 (/opt/local/share/texmf-texlive/tex/latex/ucs/data/uni-1.def
 File: uni-1.def 2013/05/13 UCS: Unicode data U+0100..U+01FF
 )
-<src/img/branding/upb.png, id=123, 598.235pt x 598.235pt>
+<src/img/branding/upb.png, id=127, 598.235pt x 598.235pt>
 File: src/img/branding/upb.png Graphic file (type png)
 
 <use src/img/branding/upb.png>
 Package pdftex.def Info: src/img/branding/upb.png used on input line 12.
 (pdftex.def)             Requested size: 53.63545pt x 53.62888pt.
 
-<src/img/branding/cs.png, id=124, 695.59875pt x 307.1475pt>
+<src/img/branding/cs.png, id=128, 695.59875pt x 307.1475pt>
 File: src/img/branding/cs.png Graphic file (type png)
 
 <use src/img/branding/cs.png>
@@ -1121,11 +1121,11 @@ No file thesis.nls.
 Capitolul 1.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 17.
+(hyperref)                removing `\textcommabelow' on input line 18.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 17.
+(hyperref)                removing `\textcommabelow' on input line 18.
 
 (/opt/local/share/texmf-texlive/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
@@ -1136,10 +1136,10 @@ File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 Capitolul 2.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 42.
+(hyperref)                removing `\textcommabelow' on input line 43.
 
 
-Overfull \hbox (13.05331pt too wide) in paragraph at lines 59--60
+Overfull \hbox (13.05331pt too wide) in paragraph at lines 60--61
 [][]\T1/cmr/m/n/10 Deoarece Co-coa []i Co-coa Touch sunt con-stru-ite folosind 
 mod-elul Model-View-Controller, interfe[]ele
  []
@@ -1149,7 +1149,7 @@ mod-elul Model-View-Controller, interfe[]ele
 ]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 67.
+(hyperref)                removing `\textcommabelow' on input line 68.
 
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
@@ -1157,15 +1157,15 @@ File: lstlang1.sty 2014/09/06 1.5e listings language file
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
 )
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 78.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 79.
 
 (/opt/local/share/texmf-texlive/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 79.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 80.
 
-Overfull \hbox (35.57326pt too wide) in paragraph at lines 93--94
+Overfull \hbox (35.57326pt too wide) in paragraph at lines 94--95
 \T1/cmr/bx/n/10 gin \T1/cmr/m/n/10 speci-fic  plug-inul nece-sar aces-tui sto-r
 y-board ($\OML/cmm/m/it/10 com:apple:InterfaceBuilder:IBCocoaTouchPlugin$\T1/cm
 r/m/n/10 ).
@@ -1174,15 +1174,15 @@ r/m/n/10 ).
 [4] [5] [6]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 216.
+(hyperref)                removing `\textcommabelow' on input line 219.
 
 [7] [8]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 268.
+(hyperref)                removing `\textcommabelow' on input line 271.
 
 
-Overfull \hbox (13.24771pt too wide) in paragraph at lines 274--275
+Overfull \hbox (13.24771pt too wide) in paragraph at lines 277--278
 [][]\T1/cmr/m/n/10 În XCode, în mod im-plicit, scena de-fault este o scen  de f
 or-mat p -tratic, în care width=height=600.
  []
@@ -1191,36 +1191,36 @@ or-mat p -tratic, în care width=height=600.
 Capitolul 3.
 [11
 
-] <src/img/SchemaText.png, id=342, 553.06625pt x 335.2525pt>
+] <src/img/SchemaText.png, id=347, 553.06625pt x 335.2525pt>
 File: src/img/SchemaText.png Graphic file (type png)
 
 <use src/img/SchemaText.png>
-Package pdftex.def Info: src/img/SchemaText.png used on input line 351.
+Package pdftex.def Info: src/img/SchemaText.png used on input line 354.
 (pdftex.def)             Requested size: 276.53244pt x 167.62584pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 358--360
+Underfull \hbox (badness 10000) in paragraph at lines 361--363
 
  []
 
 \c@mydef=\count187
 \c@myNote=\count188
 
-Underfull \hbox (badness 10000) in paragraph at lines 365--366
+Underfull \hbox (badness 10000) in paragraph at lines 368--369
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 375--376
+Underfull \hbox (badness 10000) in paragraph at lines 378--379
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 380--381
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
 
  []
 
@@ -1240,7 +1240,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.385 ...{lstlisting}[language=json,firstnumber=1]
+l.388 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1253,24 +1253,29 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.385 ...{lstlisting}[language=json,firstnumber=1]
+l.388 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [12 <./src/img/SchemaText.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 414.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 417.
 
 
 (/opt/local/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 414.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 417.
 
-Overfull \hbox (13.35666pt too wide) in paragraph at lines 419--420
+Overfull \hbox (13.35666pt too wide) in paragraph at lines 422--423
 [][]\T1/cmr/m/n/10 Vectorul speci-fic  fap-tul c  primele n-1 sub-stringuri sun
 t chei în dic[]ionarul $\OML/cmm/m/it/10 generalDict$\T1/cmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--423
+
  []
 
 
@@ -1280,7 +1285,20 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.432 \textbf
+l.427 \begin
+            {mydef} \label{invers}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.435 \textbf
              {\textit{Exemplificare afirmaÈ›ie \ref{invers}}}: Fie figura \r...
 
 Your command was ignored.
@@ -1288,7 +1306,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 432--434
+Underfull \hbox (badness 10000) in paragraph at lines 435--437
 
  []
 
@@ -1308,7 +1326,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.441 ...{lstlisting}[language=json,firstnumber=1]
+l.444 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1321,49 +1339,49 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.441 ...{lstlisting}[language=json,firstnumber=1]
+l.444 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [13]
-Overfull \hbox (2.61142pt too wide) in paragraph at lines 463--464
-[][]\T1/cmr/m/n/10 Algoritmul ur-m -tor va speci-fica modul de trans-latare în-
-tre Xcode []i XD, cu aju-torul dic[]ionarelor
+Overfull \hbox (8.16562pt too wide) in paragraph at lines 466--467
+[][]\T1/cmr/m/n/10 Algoritmul ur-m -tor va speci-fica modul de trans-latare din
+-tre Xcode []i XD, cu aju-torul dic[]ionarelor
  []
 
 [14]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 483.
+(hyperref)                removing `\textcommabelow' on input line 486.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 490.
+(hyperref)                removing `\textcommabelow' on input line 493.
 
-<src/img/segue.png, id=432, 207.77625pt x 275.0275pt>
+<src/img/segue.png, id=437, 207.77625pt x 275.0275pt>
 File: src/img/segue.png Graphic file (type png)
  <use src/img/segue.png>
-Package pdftex.def Info: src/img/segue.png used on input line 496.
+Package pdftex.def Info: src/img/segue.png used on input line 499.
 (pdftex.def)             Requested size: 103.88786pt x 137.51341pt.
 
 [15 <./src/img/segue.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 514--517
+Underfull \hbox (badness 10000) in paragraph at lines 517--520
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 519--520
+Underfull \hbox (badness 10000) in paragraph at lines 522--523
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 523--524
+Underfull \hbox (badness 10000) in paragraph at lines 526--527
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
+Underfull \hbox (badness 10000) in paragraph at lines 530--531
 
  []
 
@@ -1383,7 +1401,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.540 ...{lstlisting}[language=json,firstnumber=1]
+l.543 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1396,18 +1414,18 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.540 ...{lstlisting}[language=json,firstnumber=1]
+l.543 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-
-Overfull \hbox (0.63043pt too wide) in paragraph at lines 572--573
+[17]
+Overfull \hbox (0.63043pt too wide) in paragraph at lines 575--576
 \T1/cmr/m/n/10 ului) tre-buie s  core-spund  an-u-mi-tor reg-uli de com-punere 
 []i de afi[]are. De aseme-nea, construc[]ia
  []
 
-[17] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
@@ -1423,7 +1441,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.575 ...{lstlisting}[language=json,firstnumber=1]
+l.578 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1436,56 +1454,56 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.575 ...{lstlisting}[language=json,firstnumber=1]
+l.578 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [18]
-Overfull \hbox (8.4784pt too wide) in paragraph at lines 613--614
+Overfull \hbox (8.4784pt too wide) in paragraph at lines 616--617
 \T1/cmr/m/n/10 acest lu-cru va sug-era fap-tul c  $\OML/cmm/m/it/10 nume[]tribu
 t$ \T1/cmr/m/n/10 tre-buie în-locuit con-form val-orii din $\OML/cmm/m/it/10 mo
 dificator$\T1/cmr/m/n/10 .
  []
 
 
-LaTeX Warning: Command \textcommabelow invalid in math mode on input line 614.
+LaTeX Warning: Command \textcommabelow invalid in math mode on input line 617.
 
 
-LaTeX Warning: Command \u invalid in math mode on input line 614.
-
-Missing character: There is no   in font cmr10!
-
-LaTeX Warning: Command \textcommabelow invalid in math mode on input line 614.
-
-
-LaTeX Warning: Command \u invalid in math mode on input line 614.
+LaTeX Warning: Command \u invalid in math mode on input line 617.
 
 Missing character: There is no   in font cmr10!
 
-LaTeX Warning: Command \u invalid in math mode on input line 614.
+LaTeX Warning: Command \textcommabelow invalid in math mode on input line 617.
+
+
+LaTeX Warning: Command \u invalid in math mode on input line 617.
 
 Missing character: There is no   in font cmr10!
 
-LaTeX Warning: Command \textcommabelow invalid in math mode on input line 614.
-
-
-LaTeX Warning: Command \u invalid in math mode on input line 614.
+LaTeX Warning: Command \u invalid in math mode on input line 617.
 
 Missing character: There is no   in font cmr10!
 
-LaTeX Warning: Command \textcommabelow invalid in math mode on input line 614.
+LaTeX Warning: Command \textcommabelow invalid in math mode on input line 617.
 
 
-LaTeX Warning: Command \u invalid in math mode on input line 614.
-
-Missing character: There is no   in font cmr10!
-
-LaTeX Warning: Command \u invalid in math mode on input line 614.
+LaTeX Warning: Command \u invalid in math mode on input line 617.
 
 Missing character: There is no   in font cmr10!
 
-Overfull \hbox (3.80934pt too wide) in paragraph at lines 617--618
+LaTeX Warning: Command \textcommabelow invalid in math mode on input line 617.
+
+
+LaTeX Warning: Command \u invalid in math mode on input line 617.
+
+Missing character: There is no   in font cmr10!
+
+LaTeX Warning: Command \u invalid in math mode on input line 617.
+
+Missing character: There is no   in font cmr10!
+
+Overfull \hbox (3.80934pt too wide) in paragraph at lines 620--621
 [][]\T1/cmr/m/n/10 O alt  pro-pri-etate, care este op[]ional , este pro-pri-eta
 tea $\OML/cmm/m/it/10 default$ \T1/cmr/m/n/10 care se întâlne[]te la propriet [
 ]ile
@@ -1493,7 +1511,75 @@ tea $\OML/cmm/m/it/10 default$ \T1/cmr/m/n/10 care se întâlne[]te la propriet [
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 622.
+(hyperref)                removing `\textcommabelow' on input line 625.
+
+[19] [20] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2014/09/06 1.5e listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2014/09/06 1.5e listings language file
+)
+
+! Package Listings Error: Couldn't load requested language.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.683 ...{lstlisting}[language=json,firstnumber=1]
+                                                  
+The following languages weren't loadable:
+    ,json$
+This may cause errors in the sequel.
+
+
+! Package Listings Error: language json undefined.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.683 ...{lstlisting}[language=json,firstnumber=1]
+                                                  
+The language is not loadable. Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[21] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2014/09/06 1.5e listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2014/09/06 1.5e listings language file
+)
+
+! Package Listings Error: Couldn't load requested language.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.731 ...{lstlisting}[language=json,firstnumber=1]
+                                                  
+The following languages weren't loadable:
+    ,json$
+This may cause errors in the sequel.
+
+
+! Package Listings Error: language json undefined.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.731 ...{lstlisting}[language=json,firstnumber=1]
+                                                  
+The language is not loadable. Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
@@ -1511,7 +1597,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.682 ...{lstlisting}[language=json,firstnumber=1]
+l.752 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1524,81 +1610,14 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.682 ...{lstlisting}[language=json,firstnumber=1]
-                                                  
-The language is not loadable. Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[19] [20] [21] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2014/09/06 1.5e listings language file
-) (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2014/09/06 1.5e listings language file
-)
-(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang3.sty
-File: lstlang3.sty 2014/09/06 1.5e listings language file
-)
-
-! Package Listings Error: Couldn't load requested language.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.730 ...{lstlisting}[language=json,firstnumber=1]
-                                                  
-The following languages weren't loadable:
-    ,json$
-This may cause errors in the sequel.
-
-
-! Package Listings Error: language json undefined.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.730 ...{lstlisting}[language=json,firstnumber=1]
-                                                  
-The language is not loadable. Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2014/09/06 1.5e listings language file
-)
-(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2014/09/06 1.5e listings language file
-)
-(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang3.sty
-File: lstlang3.sty 2014/09/06 1.5e listings language file
-)
-
-! Package Listings Error: Couldn't load requested language.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.751 ...{lstlisting}[language=json,firstnumber=1]
-                                                  
-The following languages weren't loadable:
-    ,json$
-This may cause errors in the sequel.
-
-
-! Package Listings Error: language json undefined.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.751 ...{lstlisting}[language=json,firstnumber=1]
+l.752 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [22]
 ! Misplaced alignment tab character &.
-l.785 ...r trebui sÄƒ fie adÄƒugate manual (Drag &
+l.786 ...r trebui sÄƒ fie adÄƒugate manual (Drag &
                                                    Drop) Ã®n directorul $Sup...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -1607,14 +1626,14 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-
-Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 789.
-
 [23]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 801.
+(hyperref)                removing `\textcommabelow' on input line 790.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\u' on input line 802.
 
 [24] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
@@ -1632,7 +1651,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.822 ...{lstlisting}[language=json,firstnumber=1]
+l.823 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1645,39 +1664,39 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.822 ...{lstlisting}[language=json,firstnumber=1]
+l.823 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 848.
+(hyperref)                removing `\u' on input line 849.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 848.
+(hyperref)                removing `\u' on input line 849.
 
 [25]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 887.
+(hyperref)                removing `\u' on input line 888.
 
-[26] <src/img/xdApp.png, id=649, 1144.275pt x 784.9325pt>
+[26] <src/img/xdApp.png, id=654, 1144.275pt x 784.9325pt>
 File: src/img/xdApp.png Graphic file (type png)
 
 <use src/img/xdApp.png>
-Package pdftex.def Info: src/img/xdApp.png used on input line 972.
+Package pdftex.def Info: src/img/xdApp.png used on input line 973.
 (pdftex.def)             Requested size: 165.02347pt x 113.19547pt.
 
-<src/img/XcodeApp.png, id=650, 1444.39626pt x 822.07124pt>
+<src/img/XcodeApp.png, id=655, 1444.39626pt x 822.07124pt>
 File: src/img/XcodeApp.png Graphic file (type png)
 
 <use src/img/XcodeApp.png>
-Package pdftex.def Info: src/img/XcodeApp.png used on input line 974.
+Package pdftex.def Info: src/img/XcodeApp.png used on input line 975.
 (pdftex.def)             Requested size: 206.28249pt x 117.39723pt.
  [27]
-Overfull \hbox (32.05371pt too wide) in paragraph at lines 986--987
+Overfull \hbox (32.05371pt too wide) in paragraph at lines 987--988
 [][]\T1/cmr/m/n/10 XD2XCode: im-ple-menteaz  func[]ionalitatea de trans-latare 
 din reprezentarea XD în reprezentarea
  []
@@ -1686,10 +1705,10 @@ din reprezentarea XD în reprezentarea
 Capitolul 4.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1019.
+(hyperref)                removing `\textcommabelow' on input line 1020.
 
 
-Overfull \hbox (8.1233pt too wide) in paragraph at lines 1025--1026
+Overfull \hbox (8.1233pt too wide) in paragraph at lines 1026--1027
 [][]\T1/cmr/m/n/10 În con-tin-uare, voi prezenta graficele care speci-fic  depe
 nden[]a din-tre asset-uri ($\OML/cmm/m/it/10 Assets[]processed$\T1/cmr/m/n/10 )
 
@@ -1697,29 +1716,29 @@ nden[]a din-tre asset-uri ($\OML/cmm/m/it/10 Assets[]processed$\T1/cmr/m/n/10 )
 
 [30
 
-]
+] [31]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1135.
+(hyperref)                removing `\textcommabelow' on input line 1142.
 
-[31] [32] [33]
+[32] [33]
 Capitolul 5.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 1173.
+(hyperref)                removing `\u' on input line 1179.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 1173.
+(hyperref)                removing `\u' on input line 1179.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1173.
+(hyperref)                removing `\textcommabelow' on input line 1179.
 
 [34
 
 ]
-Overfull \hbox (26.24576pt too wide) in paragraph at lines 1212--1213
+Overfull \hbox (26.24576pt too wide) in paragraph at lines 1218--1219
 [][]\T1/cmr/m/n/10 https://developer.apple.com/library/mac/samplecode/Clipboard
 Viewer/Introduction/Intro.html 
  []
@@ -1735,7 +1754,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 32.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 32.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 32.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 633FF4ADA30D73262E1679664B86BC01;2407.
+(rerunfilecheck)             Checksum: F4EB9E2D95C7F0EB32F65FAFB945241F;2473.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1744,12 +1763,12 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 32.
  ) 
 Here is how much of TeX's memory you used:
  34882 strings out of 494185
- 782472 string characters out of 6156888
+ 782466 string characters out of 6156888
  1056599 words of memory out of 5000000
- 37168 multiletter control sequences out of 15000+600000
+ 37167 multiletter control sequences out of 15000+600000
  30741 words of font info for 71 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 62i,21n,102p,1232b,2201s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,21n,102p,1344b,2201s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/op
 t/local/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</opt/local/share/texmf
 -texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/share/texmf-texl
@@ -1780,10 +1799,10 @@ exmf-texlive/fonts/type1/public/cm-super/sfti0500.pfb></opt/local/share/texmf-t
 exlive/fonts/type1/public/cm-super/sfti1000.pfb></opt/local/share/texmf-texlive
 /fonts/type1/urw/courier/ucrb8a.pfb></opt/local/share/texmf-texlive/fonts/type1
 /urw/courier/ucrr8a.pfb>
-Output written on thesis.pdf (39 pages, 3207732 bytes).
+Output written on thesis.pdf (39 pages, 3209384 bytes).
 PDF statistics:
- 919 PDF objects out of 1000 (max. 8388607)
- 828 compressed objects within 9 object streams
- 355 named destinations out of 1000 (max. 500000)
- 275 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 924 PDF objects out of 1000 (max. 8388607)
+ 833 compressed objects within 9 object streams
+ 356 named destinations out of 1000 (max. 500000)
+ 283 words of extra memory for PDF output out of 10000 (max. 10000000)
 
