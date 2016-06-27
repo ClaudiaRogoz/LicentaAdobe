@@ -7,26 +7,26 @@
 \contentsline {chapter}{\numberline {2}Prezentarea structurilor XCode \IeC {{\textcommabelow s}}i Adobe Experience Design}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Prezentare XCode}{3}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Structura unui fi\IeC {{\textcommabelow s}}ier .storyboard}{4}{subsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.1.1}Formatul xml}{8}{subsubsection.2.1.1.1}
-\contentsline {section}{\numberline {2.2}Prezentare Adobe Experience Design}{8}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Structura unui fi\IeC {{\textcommabelow s}}ier .xd}{8}{subsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.1.1}Formatul json}{9}{subsubsection.2.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.1.1}Formatul xml}{7}{subsubsection.2.1.1.1}
+\contentsline {section}{\numberline {2.2}Prezentare Adobe Experience Design}{7}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Structura unui fi\IeC {{\textcommabelow s}}ier .xd}{7}{subsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.1.1}Formatul json}{8}{subsubsection.2.2.1.1}
 \contentsline {section}{\numberline {2.3}Translatarea \IeC {{\textcommabelow s}}i scalarea elementelor vizuale}{9}{section.2.3}
-\contentsline {chapter}{\numberline {3}Implementare}{12}{chapter.3}
-\contentsline {section}{\numberline {3.1}Translatarea din XCode \IeC {\^\i }n Adobe Experience Design}{12}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Translatarea switch-ului \IeC {{\textcommabelow s}}i a altor elemente grafice similare}{16}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{16}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Translatarea din Adobe Experience Design \IeC {\^\i }n XCode}{17}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Translatarea path-urilor \IeC {{\textcommabelow s}}i a altor elemente grafice similare}{20}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Translatarea textului}{23}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Translatarea grupurilor}{23}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Translatarea imaginilor}{24}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{25}{subsection.3.2.5}
-\contentsline {section}{\numberline {3.3}Translatarea din XCode \IeC {\^\i }n XD folosind a doua schem\IeC {\u a} de translatare}{25}{section.3.3}
-\contentsline {section}{\numberline {3.4}Sincronizarea scenelor \IeC {\^\i }ntre cele dou\IeC {\u a} reprezent\IeC {\u a}ri}{26}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Sincronizarea Adobe Experience Design - XCode}{26}{subsection.3.4.1}
-\contentsline {section}{\numberline {3.5}Arhitectur\IeC {\u a}}{28}{section.3.5}
-\contentsline {chapter}{\numberline {4}Performan\IeC {{\textcommabelow t}}e}{31}{chapter.4}
-\contentsline {section}{\numberline {4.1}Compara\IeC {{\textcommabelow t}}ie scheme de translatare}{33}{section.4.1}
-\contentsline {chapter}{\numberline {5}Concluzii}{35}{chapter.5}
-\contentsline {section}{\numberline {5.1}\IeC {\^I}mbun\IeC {\u a}t\IeC {\u a}\IeC {{\textcommabelow t}}iri ulterioare}{35}{section.5.1}
+\contentsline {chapter}{\numberline {3}Implementare}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}Translatarea din XCode \IeC {\^\i }n Adobe Experience Design}{11}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Translatarea switch-ului \IeC {{\textcommabelow s}}i a altor elemente grafice similare}{15}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{15}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Translatarea din Adobe Experience Design \IeC {\^\i }n XCode}{16}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Translatarea path-urilor \IeC {{\textcommabelow s}}i a altor elemente grafice similare}{19}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Translatarea textului}{22}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Translatarea grupurilor}{22}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Translatarea imaginilor}{23}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Translatarea interac\IeC {{\textcommabelow t}}iunilor}{24}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}Translatarea din XCode \IeC {\^\i }n XD folosind a doua schem\IeC {\u a} de translatare}{24}{section.3.3}
+\contentsline {section}{\numberline {3.4}Sincronizarea scenelor \IeC {\^\i }ntre cele dou\IeC {\u a} reprezent\IeC {\u a}ri}{25}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Sincronizarea Adobe Experience Design - XCode}{25}{subsection.3.4.1}
+\contentsline {section}{\numberline {3.5}Arhitectur\IeC {\u a}}{27}{section.3.5}
+\contentsline {chapter}{\numberline {4}Performan\IeC {{\textcommabelow t}}e}{30}{chapter.4}
+\contentsline {section}{\numberline {4.1}Compara\IeC {{\textcommabelow t}}ie scheme de translatare}{32}{section.4.1}
+\contentsline {chapter}{\numberline {5}Concluzii}{34}{chapter.5}
+\contentsline {section}{\numberline {5.1}\IeC {\^I}mbun\IeC {\u a}t\IeC {\u a}\IeC {{\textcommabelow t}}iri ulterioare}{34}{section.5.1}

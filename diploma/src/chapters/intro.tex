@@ -25,7 +25,7 @@ Finalitatea acestei aplicații este crearea automată  a unei “punți” într
 \subsection{Obiectivele Proiectului}
 \label{sub-sec:proj-objectives}
 
-Obiectivul principal al acestei teme este acela de translatare a elementelor vizuale dintre un produs software dedicat dezvoltării unei aplicații (XCode) și o aplicație de design și de realizare de prototipuri (Adobe XD) \footnote{Mai multe detalii despre cele două aplicații se regăsesc în capitolul 2.}. Totodată, prin intermediul acestui proiect se dorește construirea automată a aplicației dezvoltate în XCode, pe baza prototipului obținut în XD.
+Obiectivul principal al acestei teme este acela de translatare ale elementelor vizuale dintre un produs software dedicat dezvoltării unei aplicații (XCode) și o aplicație de design și de realizare de prototipuri (Adobe XD) \footnote{Mai multe detalii despre cele două aplicații se regăsesc în capitolul 2.}. Totodată, prin intermediul acestui proiect se dorește construirea automată a aplicației dezvoltate în XCode, pe baza prototipului obținut în XD.
 Astfel, soluția propusă va trebui să asigure următoarele funcționalități:
 
 \begin{enumerate}
@@ -43,11 +43,10 @@ Astfel, soluția propusă se poate extinde, putând fi folosită în diferite do
 
 
 Proiectul reprezintă un model de translatare între două aplicații, care va fi construit sub forma unui plug-in adus aplicației Adobe Experience Design, pentru interacțiunea cu IDE-ul XCode. 
-Pentru a putea construi această translatare, voi explica, în acest capitol, structurile și modul de lucru corespunzătoare celor două aplicații. În primul rând, însă, se vor defini noțiunile de elemente vizuale/grafice.
+În acest capitol voi prezenta structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, voi preciza asocierile care se pot construi între cele două formate. Aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare. În primul rând, însă, se vor defini noțiunile de elemente vizuale/grafice.
 
 Elementele vizuale, atât în XCode, cât și în Adobe Experience Design, sunt reprezentate prin mulțimea de asset-uri care se pot reprezenta în mod vizual pe suprafața de design (text, imagini, butoane, interacțiuni și scene). Fiecare element vizual are specificat un comportament specific, în funcție de categoria de asseturi în care se încadrează.
 
-În acest capitol voi prezenta structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, voi preciza asocierile care se pot construi între cele două formate. Aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare.
 
 \section{Prezentare XCode}
 
@@ -67,7 +66,9 @@ Soluția propusă în acest proiect rezolvă doar controllerul generic - View Co
 
 \subsection{Structura unui fișier .storyboard}
 
-În această secțiune se va explica structura de bază a fișierului .storyboard (fișier de tip xml) și a câtorva tag-uri principale: \textbf{\textit{scene}}, \textbf{\textit{viewController}}, \textbf{\textit{view}}, \textbf{\textit{segue}}. De asemenea, se va explica modul de interacțiune între entități și modul în care acestea lucrează împreună pentru construirea interfețelor utilizator din Interface Builder.
+În această secțiune voi explica structura de bază a fișierului .storyboard (fișier de tip xml) și a câtorva tag-uri principale: \textbf{\textit{scene}}, \textbf{\textit{viewController}}, \textbf{\textit{view}}, \textbf{\textit{segue}}. De asemenea, voi explica modul de interacțiune între entități și modul în care acestea lucrează împreună pentru construirea interfețelor utilizator din Interface Builder.
+
+
 Un fișier “.storyboard” mapează elementele vizuale într-o reprezentare de tip xml. Așadar, fiecărui element vizual îi corespunde un tag cu atribute care specifică caracteristicile acestuia în mod formal. Întrucât tagurile au o reprezentare ierarhică, atributele acestora depind de tag-urile părinte. De exemplu, un tag de încadrare al unui element vizual este definit relativ la tagurile sale părinte de încadrare.
 
 În momentul în care un nou storyboard este creat, se va construi un fișier xml cu tag-ul părinte \textbf{\textit{document}} și cu o serie de atribute care conțin metainformații (figura \ref{fig:document}):
@@ -89,10 +90,10 @@ Un fișier “.storyboard” mapează elementele vizuale într-o reprezentare de
 
 Atributul \textbf{targetRuntime}  specifică sistemul de runtime în care storyboard-ul este folosit. \textbf{\textit{iOS.CocoaTouch}} specifică faptul că storyboard-ul este de tipul iOS, astfel încât scenele folosite sunt de tipul iPhone.
 
-Tag-ul \textbf{dependencies} identifică orice dependență necesară storyboard-ului, iar tag-ul copil \textbf{plugin} specifică pluginul necesar acestui storyboard - în acest caz ``com.apple.InterfaceBuilder.IBCocoaTouchPlugin". Aceste două taguri specifică metadate referitoare la aplicația dezvoltată, metadate precum vresiunea, tipul scenelor etc.
+Tag-ul \textbf{dependencies} identifică orice dependență necesară storyboard-ului, iar tag-ul copil \textbf{plugin} specifică pluginul necesar acestui storyboard ($com.apple.InterfaceBuilder.IBCocoaTouchPlugin$). Aceste două taguri specifică metadate referitoare la aplicația dezvoltată, metadate precum vresiunea, tipul scenelor etc.
 
-Tag-ul \textbf{scenes} conține toate scenele (împreună cu view controller-ele asociate) din storyboard. 
-În cadrul aplicațiilor iPhone și iPod touch, un ecran, în general, este constituit dintr-o singură scenă care ocupă întreaga suprafață a ecranului. Pe iPad sau OS X, un ecran poate fi constituit din mai multe scene, de aceea se pot adăuga mai multe fișiere storyboard, pe măsură ce complexitatea crește.
+Tag-ul \textbf{scenes} conține toate reprezentările scenelor (împreună cu view controller-ele asociate) din storyboard. 
+În cadrul aplicațiilor iPhone și iPod touch, un ecran, în general, este constituit dintr-o singură scenă care ocupă întreaga suprafață a ecranului. Pe iPad sau OS X, un ecran poate fi constituit din mai multe scene. De aceea, pe măsură ce complexitatea crește, într-un proiect XCode se pot adăuga mai multe fișiere storyboard.
 Reprezentarea xml corespunzătoare unei scene se poate observa în figura \ref{fig:scene}
 
 \begin{figure}[!htbp]
@@ -106,7 +107,6 @@ Reprezentarea xml corespunzătoare unei scene se poate observa în figura \ref{f
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IAZ-eV-Kmg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
@@ -138,9 +138,12 @@ Reprezentarea sub formă de arbore a blocurilor XML din cadrul reprezentării un
 
 Un atribut important de menționat ar fi \textbf{id}, atribut prezent în aproape toate tagurile. Atributul \textbf{id} specifică un număr de ordine unic pentru fiecare entitate din storyboard, astfel fiecare relație sau conexiune se referă la acest id.
 
-În momentul în care se adaugă o nouă scenă, se creează un tag copil \textbf{\textit{scene}} în cadrul tagului \textbf{\textit{scenes}} în storyboard. Tag-ul \textbf{\textit{point}} specifică poziția scenei (offsetul) în cadrul canvas-ului de lucru.
+În momentul în care se adaugă o nouă scenă, se creează un tag copil \textbf{\textit{scene}} în cadrul tagului \textbf{\textit{scenes}} din storyboard. Tag-ul \textbf{\textit{point}} specifică poziția scenei (offsetul) în cadrul canvas-ului de lucru.
 
 Tag-ul \textbf{viewController} reprezintă View Controller-ul principal. Reprezentarea sa xml se poate vedea în figura \ref{fig:viewController}:
+
+
+Fiecare View Controller conține o scenă principală care este reprezentată prin tag-ul \textbf{view}, așa cum se vede în figura \ref{fig:view}
 
 \begin{figure}[!htbp]
 \lstset{language=XML}
@@ -150,15 +153,11 @@ Tag-ul \textbf{viewController} reprezintă View Controller-ul principal. Repreze
 \caption{ViewController tag}\label{fig:viewController}
 \end{figure}
 
-Fiecare View Controller conține o scenă principală care este reprezentată prin tag-ul \textbf{view}, așa cum se vede în figura \ref{fig:view}
+
 
 Proprietățile unei scene sunt reprezentate, așa cum se vede în xml-ul de mai sus, prin tagurile \textbf{rect}, \textbf{color}, iar atributul \textbf{key} specifică cartacteristica pe care tag-ul curent o definește.
 
-În momentul în care adaugă view-uri copil la view-ul părinte, așa cum se vede în figura \ref{img:report-framework}, reprezentarea xml asociată va fi figura \ref{fig:view}:
-
-\labelindexref{Figure}{img:report-framework} , 
-
-\fig[scale=0.5]{src/img/views.png}{img:report-framework}{Views tag}
+În momentul în care adaugă noi elemente vizuale la view-ul părinte, reprezentarea xml asociată va fi figura \ref{fig:view}. În acest exemplu, scena va conține un element $label$ (element de tip text) și un $button$ (element interactiv - buton).
 
 \begin{figure}[!htbp]
 \lstset{language=XML}
@@ -166,12 +165,11 @@ Proprietățile unei scene sunt reprezentate, așa cum se vede în xml-ul de mai
 <view key="view" contentMode="scaleToFill" id="IAZ-eV-Kmg">
    ...
     <subviews>
-        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="gWt-Ao-P2F">
+        <label ... id="gWt-Ao-P2F">
             <rect key="frame" x="119" y="0" width="87" height="98"/>
             <color key="textColor" red="0.5" green="0.0" blue="0.31" alpha="1" colorSpace="calibratedRGB"/>
-            <nil key="highlightedColor"/>
         </label>
-        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" ... id="qJq-g4-c14">
+        <button ... id="qJq-g4-c14">
             <rect key="frame" x="75" y="86" width="46" height="24"/>
             ...
         </button>
@@ -185,10 +183,10 @@ Toate proprietățile setate pentru un UIView (element vizual), oricare ar fi el
 
 Prin intermediul unui segue (interacțiune/tranziție), se realizează, la nivel conceptual, tranziția între un view controller sau buton și alte view controllere, iar, la nivel vizual, se realizează schimbarea scenei curente. De exemplu, în momentul în care se apasă un buton de pe o scenă \textbf{\textit{x}}, se face redirecționarea către o altă scenă \textbf{\textit{y}}. 
 
-În momentul în care două view controllere se conectează cu un segue, un tag numit \textbf{connections} este creat și este inclus în interiorul tag-ului \textbf{viewController}.
+În momentul în care două view controllere se conectează cu un segue, un tag numit \textbf{connections} este creat și este inclus în interiorul tag-ului \textbf{viewController}, așa cum se poate vedea în reprezentarea xml din figura \ref{fig:segueXML}.
 
 \begin{figure}[!htbp]
-\lstset{language=XML}\label{segueXML}
+\lstset{language=XML}
 \begin{lstlisting}
  <viewController id="qJq-g4-c14" customClass="MyViewController" sceneMemberID="viewController">
                     ...
@@ -197,10 +195,10 @@ Prin intermediul unui segue (interacțiune/tranziție), se realizează, la nivel
                     </connections>
                 </viewController>
 \end{lstlisting}
-\caption{View tag}\label{fig:view}
+\caption{Segue tag}\label{fig:segueXML}
 \end{figure}
 
-Tag-ul \textbf{segue} definește atributele \textbf{destination} și \textbf{kind}. Atributul \textbf{destination} specifică \textbf{id}-ul View Controllerului către care se realizează tranziția, iar \textbf{kind} specifică tipul tranziției (show sau modal). Prin interemdiul unei tranziții ``show", noul conținut va fi prezentat într-o nouă fereastră. O tranziție de tipul ``modal" creează o relație între două view-controllere din storyboard, prin specificarea comportamentului de tranziție. View-controller-ul copil va suprapune view-controller-ul părinte în momentul în care se realizază tranziția. Un exemplu al acestui tip de segue este cazul în care avem un buton de Log In. În momentul în care se apasă butonul, se prezintă un view-controller (copil), care nu are legătură cu view-controller-ul de la care s-a realizat tranziția (părinte). 
+Tag-ul \textbf{segue} definește atributele \textbf{destination} și \textbf{kind}. Atributul \textbf{destination} specifică \textbf{id}-ul View Controllerului către care se realizează tranziția, iar \textbf{kind} specifică tipul tranziției (show sau modal). Prin interemdiul unei tranziții $show$, noul conținut va fi prezentat într-o nouă fereastră. O tranziție de tipul $modal$ creează o relație dintre două view-controllere din storyboard, prin specificarea comportamentului de tranziție. View-controller-ul copil va suprapune view-controller-ul părinte în momentul în care se realizază tranziția. Un exemplu al acestui tip de segue este cazul în care avem un buton de $Log In$. În momentul în care se apasă butonul, se prezintă un view-controller (copil), care nu are legătură cu view-controller-ul de la care s-a realizat tranziția (părinte). 
 
 View Controllerele pot avea mai multe tranziții și pot pointa către mai multe view controllere. Acest lucru este specificat prin multiple tag-uri \textbf{segue}.
 
@@ -220,7 +218,7 @@ Adobe Experience Design este un nou utilitar pentru realizarea designului și pr
 În urma realizării unei aplicații Adobe Experience Design, se creează un fișier cu extensia .xd, care va conține reprezentarea elementelor vizuale. 
 Un fișier xd este realizat prin comprimarea mai multor fișiere de metadata cu extensia “.agc”, prin realizarea operației zip. Fișierele cu extensia .agc conțin informații legate de scenele din XD în format json.
 
-Ierarhia de fișiere din cadrul unui fișier de design .xd (în urma aplicării comenzii unzip) este de forma:
+Ierarhia de fișiere din cadrul unui fișier de design .xd (în urma aplicării comenzii unzip) poate fi văzută în figura \ref{fig:ierarhie}.
 
 \begin{figure}[!htbp]
 \begin{tikzpicture}
@@ -251,7 +249,7 @@ Fișierul \textbf{metadata.xml} conține metainformații referitoare la fișieru
 
 Directorul \textbf{artwork} conține o serie de fișiere cu informații în format json despre elementele vizuale ale fiecărei scene\footnote{Se vor folosi termenii scene și artboard interschimbabil} în parte. 
 
-Directorul  \textbf{resources} conține o serie de imagini folosite în designul XD, salvate local sub numele id-ului corespunzător. De asemenea, în cadrul acestui director se află informații legate de offet-urile și dimensiunile scenelor.
+Directorul  \textbf{resources} conține o serie de imagini folosite în designul XD, salvate local sub numele id-ului corespunzător. De asemenea, în cadrul acestui director, în fișierul \textbf{graphics/graphicContent.agc} se află informații legate de offet-urile și dimensiunile scenelor.
 
 Directorul \textbf{interactions} conține informații legate de tranzițiile dintre scene.
 
@@ -259,7 +257,7 @@ Fișierul \textbf{manifest} conține metadate referitoare la ierarhia de compone
 
 Fișierul \textbf{mimetype} definește aplicația corespunzătoare XD-ului, în cazul de față - ``application/vnd.adobe.sparkler.project+dcx".
 
-Un fișier de descriere a unei scene este reprezentat printr-o serie de proprietăți:  \textbf{version} - specifică versiunea agc-ului, \textbf{resources}, respectiv \textbf{artboards} fac legătura cu restul fișierelor de descriere. Proprietatea  \textbf{children} descrie lista de elemente vizuale ale scenei, precizând, astfel, pentru fiecare entitate, caracteristicile specifice, cadranul de încadrare și offsetul față de ierarhia de elemente de care depinde (scene, grupuri).
+Un fișier de descriere a unei scene este reprezentat printr-o serie de proprietăți:  \textbf{version} - specifică versiunea agc-ului, \textbf{resources}, respectiv \textbf{artboards} fac legătura cu restul fișierelor de descriere. Proprietatea  \textbf{children} descrie lista de elemente vizuale ale scenei, precizând, astfel, pentru fiecare entitate, caracteristicile specifice: cadranul de încadrare și offsetul față de ierarhia de elemente de care depinde (scene, grupuri).
 
 \subsubsection{Formatul json}
 
@@ -269,11 +267,11 @@ Un dicționar declară programatic obiectul care realizează asocieri între che
 
 \section{Translatarea și scalarea elementelor vizuale}\label{transScal}
 
-În momentul în care se face translatarea dintre XD - XCode, este nevoie de aplicarea unor operații de scalare și de translatare ale dimensiunilor și ale punctelor <x, y> ale tuturor elementelor vizuale. Aceste operații sunt dependente de dimensiunile ``height" și ``width" ale scenelor din XD, respectiv din XCode. 
+În momentul în care se face translatarea dintre XD - XCode, este nevoie de aplicarea unor operații de scalare și de translatare ale dimensiunilor și ale punctelor $<x, y>$ ale tuturor elementelor vizuale. Aceste operații sunt dependente de dimensiunile $height$ și $width$ ale scenelor din XD, respectiv din XCode. 
 
 În XD, în mod implicit, scena default este cea de iPhone 6, cu proprietățile width=376, iar height=667, însă se pot alege diferite scene în funcție de tagetul dorit (iPhone 5/SE, iPad, Watch, Android Tablet, etc.). 
 
-În XCode, în mod implicit, scena default este o scenă de format pătratic, în care width=height=600. Similar XD-ului, se pot crea instanțe de scene pentru un target specific (iPhone 5/SE, iPad, Watch, Android Tablet, etc.). În XCode, scena default are o caracteristică specială: se poate adapta oricărui tip de target, păstrând distanțele relative dintre obiecte. Această proprietate, denumită Auto-Layout, însă, este dependentă de definirea unor constrângeri între elemente. În acest caz, în momentul în care un asset își schimbă poziția sau dimensiunea, atât el, cât și elementele vecine își vor modifica dimensiunile și pozițiile relativ la acesta. De exemplu, se poate centra o imagine orizontal intr-o scenă din storyboard. Acest comportament este definit de reprezentarea xml din figura \ref{fig:Constraints}. Pe măsură ce user-ul rotește device-ul iOS, imaginea rămâne centrată orizontal, atât în formatul landscape, cât și in formatul portret.
+În XCode, în mod implicit, scena default este o scenă de format pătratic, în care width=height=600. Similar XD-ului, se pot crea instanțe de scene pentru un target specific (iPhone 5/SE, iPad, Watch, Android Tablet, etc.). În XCode, scena default are o caracteristică specială: se poate adapta oricărui tip de target, păstrând distanțele relative dintre obiecte. Această proprietate, denumită Auto-Layout, însă, este dependentă de definirea unor constrângeri între elemente. În acest caz, în momentul în care un asset își schimbă poziția sau dimensiunea, atât el, cât și elementele vecine își vor modifica dimensiunile și pozițiile relativ la acesta. De exemplu, se poate centra o imagine orizontal într-o scenă din storyboard. Acest comportament este definit de reprezentarea xml din figura \ref{fig:Constraints}. Pe măsură ce user-ul rotește device-ul iOS, imaginea rămâne centrată orizontal, atât în formatul landscape, cât și in formatul portret.
 
 XCode-ul definește o constrângere sub forma unei relații matematice. În figura \ref{fig:Constraints}, se indică faptul că imaginea curentă va avea următoarele constrângeri: lățimea sa va fi de 254, lungimea de 414, și se va centra orizontal în cadrul scenei.  
 
@@ -292,32 +290,33 @@ XCode-ul definește o constrângere sub forma unei relații matematice. În figu
 \caption{Constraints} \label{fig:Constraints}
 \end{figure}
 
-Așadar, pentru realizarea conversiei XD-XCode, respectiv Xcode-XD, avem două variante. În primul rând, ne putem folosi de Auto Layout din cadrul XCode și de scena default. Acest lucru ar implica, așadar, inserarea unor noi nivele computațioale pentru calcularea constrângerilor, dar ar oferi posibilitatea adaptabilității aplicației pentru mai multe target-uri.
+Așadar, pentru realizarea conversiei XD - XCode, respectiv Xcode - XD, avem două variante.
+În primul rând, ne putem folosi de Auto Layout din cadrul XCode și de scena default. Acest lucru ar implica, așadar, inserarea unor noi nivele computațioale pentru calcularea constrângerilor, dar ar oferi posibilitatea adaptabilității aplicației pentru mai multe target-uri.
 Cea de-a doua variantă ar presupune construirea aplicației XCode specializate pe un target specific. 
 
 Soluția prezentată oferă suport pentru a doua variantă, eliminând astfel construirea unor constrângeri între elemente. Cu toatea acestea, soluția se poate extinde și în direcția suportului pentru Auto-Layout, prin extinderea schemei de translație - prin adăugarea unor funcții de prelucrare a constrângerilor.
 
-Pentru implementarea celei de-a doua variante, este nevoie de obținerea gradului de scalare în momentul translatării, dar și a offsetului scenelor. Valoarea de scalare (atât pentru translatarea XD-Xcode, cât și pentru XCode-XD) se poate obține prin aplicarea următoarelor formule: 
+Pentru implementarea celei de-a doua variante, este nevoie de obținerea gradului de scalare în momentul translatării, dar și a offsetului scenelor. Valoarea de scalare (atât pentru translatarea XD - Xcode, cât și pentru XCode - XD) se poate obține prin aplicarea următoarelor formule: 
 \[ xAxisScaleFactor=\frac{xAxisFinalArtboard}{xAxisInitialArtboard} \]
 \[ yAxisScaleFactor=\frac{yAxisFinalArtboard}{yAxisInitialArtboard} \]
 cu precizarea că:
- ~$xAxisScaleFactor$, ~$yAxisScaleFactor$ reprezintă valorile de scalare pe axele X, respectiv Y,  ~$xAxisInitialArtboard$și ~$yAxisInitialArtboard$ reprezintă lungimea, respectiv lățimea scenei inițiale (de la care se face translatarea), iar ~$xAxisFinalArtboard$, ~$yAxisFinalArtboard$ reprezintă lungimea, respectiv lățimea scenei finale (în care se face translatarea).
+ ~$xAxisScaleFactor$, ~$yAxisScaleFactor$ reprezintă valorile de scalare pe axele X, respectiv Y,  ~$xAxisInitialArtboard$ și ~$yAxisInitialArtboard$ reprezintă lungimea, respectiv lățimea scenei inițiale (de la care se face translatarea), iar ~$xAxisFinalArtboard$, ~$yAxisFinalArtboard$ reprezintă lungimea, respectiv lățimea scenei finale (în care se face translatarea).
 Pentru obținerea lățimii și lungimii elementelor vizuale, se aplică formulele:
 \[ width =  {initialWidth}\cdot{xAxisScaleFactor}\]
 \[ height =  {initialHeight}\cdot{yAxisScaleFactor}\]
 cu precizarea că:
-~$width$, ~$height$ reprezintă valorile finale ale lungimii, respectiv lățimii, ~$initialWidth$, ~$initialHeight$ reprezintă valorile inițiale ale lungimii, respectiv lățimii elementelor vizuale.
+~$width$, ~$height$ reprezintă valorile finale ale lungimii, respectiv lățimii, iar ~$initialWidth$, ~$initialHeight$ reprezintă valorile inițiale ale lungimii, respectiv lățimii elementelor vizuale.
 
-În Xcode, offseturile elementelor vizuale din cadrul scenelor sunt relative la elemente părinte (scena în care se află, mulțimea de grupuri de care aparțin). De exemplu, în cazul unui view cu punctul de offset <x1, y1> și cu elementul vizual $Asset1$ cu punctul de offset <$x_2$, $y_2$>, valoarea absolută a lui $Asset1$ corespunde punctului <$x_1$ + $x_2$, $y_1$ + $y_2$>. 
+În Xcode, offseturile elementelor vizuale din cadrul scenelor sunt relative la elemente părinte (scena în care se află, mulțimea de grupuri de care aparțin). De exemplu, în cazul unui view cu punctul de offset <$x_1$, $y_1$> și cu elementul vizual $Asset1$ cu punctul de offset <$x_2$, $y_2$>, valoarea absolută a lui $Asset1$ corespunde punctului <$x_1$ + $x_2$, $y_1$ + $y_2$>. 
 
 În cadrul reprezentării sub formă de agc, un element vizual este caracterizat de un offset cu valoare absolută pe suprafața de design. Pentru obținerea valorilor fiecărui asset, este nevoie de calcularea offseturilor pe baza grupurilor și a scenelor de care aparțin.
 
-Așadar pentru calcularea valorilor x (pentru fiecare element vizual $X$ ) în cazul translației XD-XCode, formulele aferente sunt:
+Așadar pentru calcularea valorilor $x$ (pentru fiecare element vizual $X$ ) în cazul translației XD-XCode, formulele aferente sunt:
         \[ startXArtboard = startXArtboard - \sum_{i = \{GRP\}} xValue_{i} \]
         \[ translatedValue = (translatedValue - {startXArtboard} \cdot{xAxisScaleFactor};\]
-cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar, iar ~$startXArtboard$ reprezintă offsetul scenei din care face parte assetul $X$, la care se scade valoarea tuturor valorilor $xValue$ corespunzătoare grupurilor din care face parte assetul $X$ ($GRP$).
+cu precizarea că valoarea corespunzătoare lui $y$ se calculează în mod similar, iar ~$startXArtboard$ reprezintă offsetul scenei din care face parte assetul $X$ la care se scade valoarea tuturor valorilor $xValue$ corespunzătoare grupurilor din care face parte assetul $X$ ($GRP$). 
 
-Calculul valorilor x, respectiv y în cazul translației XCode-Xd se calculează astfel:
+Calculul valorilor x, respectiv y în cazul translației XCode - XD se calculează astfel:
         \[ translatedValue = ({translatedValue} \cdot{xScaleFactor}) + startXArtboard; \]
 cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar.
 
@@ -1021,7 +1020,7 @@ O tehnologie folosită pentru testarea și implementarea cu ajutorului Clipboard
 
 În acest capitol voi prezenta o statistică a timpilor de rulare și voi compara schemele de translatare prezentate în capitolele anterioare (\ref{xcode2xdv1} și \ref{xcxd2schema}).
 
-Schema de translatare este reprezentată într-un format .json din considerente de performanță. Un format json poate fi deserializat cu ușurință într-un dicționar imbricat, rezultând astfel o căutare rapidă a mapării dorite. Un astfel de dicționar asigură o complexitate de O(nn), unde nn reprezintă numărul de niveluri de imbricare ale dicționarului. În această aplicație numărul de niveluri nu depășește nn = 5.  
+Schema de translatare este reprezentată într-un format .json din considerente de performanță. Un format json poate fi deserializat cu ușurință într-un dicționar imbricat, rezultând astfel o căutare rapidă a mapării dorite. Un astfel de dicționar asigură o complexitate de O(nn) pentru căutarea unei chei imbricate, unde nn reprezintă numărul de niveluri de imbricare ale dicționarului. În această aplicație numărul de niveluri nu depășește nn = 5.  
 
 În continuare, voi prezenta graficele care specifică dependența dintre asset-uri ($Assets\_processed$) și timpul de procesare al acestora ($Time\_spent$) în funcție de schema de translatare aleasă.
 
@@ -1083,7 +1082,7 @@ Schema de translatare este reprezentată într-un format .json din considerente 
 
 Se poate observa faptul că cele două scheme de translatare XD - XCode, respectiv XCode - XD au timpi similari de rulare. Acest lucru era de așteptat având în vedere că implementările se bazează pe același model de schemă de translație. Un overhead se poate observa în cazul translatării din XCode în XD din cauza etapei intermediare de transformare a xml-ului într-un format json echivalent. De asemenea, în cazul translatării XCode - XD, apare o etapă computațională în plus față de translatarea XD - XCode. Această etapă constă în găsirea căii absolute ale imaginilor care se regăsesc în aplicația curentă. 
 
-O primă variantă a aflării căii absolute ale acestor imagini a fost căutarea recursivă în directorul proiectului XCode, însă această abordare are două dezavantaje. În primul rând, există posibilitatea ca imaginile căutate să nu fie în directorul proiectului curent, iar în al doilea rând, așa cum se vede în figura \ref{fig:Tabimport} (coloana trei), timpii de căutare să fie mult mai mari decât timpul prpriu-zis de translatare. De aceea, se vor folosi informațiile din fișierul $project.pbxproj$. Acest fișier se poate regăsi în orice proiect de tipul XCode și va conține metadate legate de aplcația dezvoltată. Printre aceste metadate se află si informații cu privire la locația imaginilor folosite. Timpii de rulare pentru această metodă se regăsesc în tabelul \ref{fig:Tabimport} (coloana patru). Toți timpii de rulare din tabelul \ref{fig:Tabimport} sunt relativi la numărul de scene, respectiv numărul de proprietăți (coloanele cinci și șase). În prima coloană se specifică timpul de translatare dintr-un fișier xml (în cazul de față - storyboard-ul) într-un fișier json echivalent.
+O primă variantă a aflării căii absolute ale acestor imagini a fost căutarea recursivă în directorul proiectului XCode, însă această abordare are două dezavantaje. În primul rând, există posibilitatea ca imaginile căutate să nu fie în directorul proiectului curent, iar în al doilea rând, așa cum se vede în figura \ref{fig:Tabimport} (coloana trei), timpii de căutare să fie mult mai mari decât timpul propriu-zis de translatare. De aceea, se vor folosi informațiile din fișierul $project.pbxproj$. Acest fișier se poate regăsi în orice proiect de tipul XCode și va conține metadate legate de aplcația dezvoltată. Printre aceste metadate se află si informații cu privire la locația imaginilor folosite. Timpii de rulare pentru această metodă se regăsesc în tabelul \ref{fig:Tabimport} (coloana patru). Toți timpii de rulare din tabelul \ref{fig:Tabimport} sunt relativi la numărul de scene, respectiv numărul de proprietăți (coloanele cinci și șase). În prima coloană se specifică timpul de translatare dintr-un fișier xml (în cazul de față - storyboard-ul) într-un fișier json echivalent.
 
 \begin{figure}[!htbp]
 \centering
@@ -1103,7 +1102,7 @@ O primă variantă a aflării căii absolute ale acestor imagini a fost căutare
 \caption{Tabel Import} \label{fig:Tabimport}
 \end{figure}
 
-În figura \ref{fig:GraficSinc2} se pot observa diferențele dintre timpii de rulare a celor două metode de sincronizare. În graficul de culoare roșie se reprezintă sincronizarea XD - XCode prin generarea tuturor scenelor, independent de numărul de scene modificate. Graficul de culoare albastră specifică sincronizarea XD - XCode, dependentă de scenele modificate. Se poate observa o diferență semnificativă a timpilor de rulare în cazul în care un număr mic de scene vor fi modificate. Axa $X$ este reprezentată de numărul de scene modificate ($Modified\_scenes$), iar axa $Y$ este reprezentată de timpul de rulare corespunzător metodei de sincronizare alese ($Time\_spent$). Cele două grafice au fost generate pentru un număr de scene = 6.
+În figura \ref{fig:GraficSinc2} se pot observa diferențele dintre timpii de rulare ale celor două metode de sincronizare. În graficul de culoare roșie se reprezintă sincronizarea XD - XCode prin generarea tuturor scenelor, independent de numărul de scene modificate. Graficul de culoare albastră specifică sincronizarea XD - XCode, dependentă de scenele modificate. Se poate observa o diferență semnificativă a timpilor de rulare în cazul în care un număr mic de scene vor fi modificate. Axa $X$ este reprezentată de numărul de scene modificate ($Modified\_scenes$), iar axa $Y$ este reprezentată de timpul de rulare corespunzător metodei de sincronizare alese ($Time\_spent$). Cele două grafice au fost generate pentru un număr de scene = 6.
 
 \begin{figure}[!htbp]
 \centering
@@ -1135,7 +1134,7 @@ O primă variantă a aflării căii absolute ale acestor imagini a fost căutare
 
 \section{Comparație scheme de translatare}
 
-După cum se observă în descrierea procedeelor de translatare XCode - XD(prima variantă - \ref{xcode2xdv1} )) și XD - XCode (\ref{xcxd2schema}), cele două scheme au metode de implementare destul de diferite. 
+După cum se observă în descrierea procedeelor de translatare XCode - XD(prima variantă - \ref{xcode2xdv1}) și XD - XCode (\ref{xcxd2schema}), cele două scheme au metode de implementare destul de diferite. 
 
 Prima schemă de translatare XCode - XD se bazează pe parcurgerea fișierului de input și pe realizarea translației pe măsură ce se procesează fișierul. Pentru ficare tag întâlnit se oferă un template care va fi procesat la rândul său pe baza regulilor definte. 
 
@@ -1152,11 +1151,11 @@ Există însă un dezavantaj major. Schema de translație XCode - XD nu poate af
 \caption{Tipuri de butoane specificate prin tag-ul state} \label{fig:state}
 \end{figure}
 
-Tag-ul copil $state$ specifică faptul că butonul e fie de tip $text$, fie de tip $imagine$, în funcție de atributele prezente - $title$, respectiv $image$.
+Tag-ul copil $state$ specifică faptul că butonul este fie de tip $text$, fie de tip $imagine$, în funcție de atributele prezente - $title$, respectiv $image$.
 
 În momentul în care se ajunge la tag-ul $button$, se va construi un template json care specifică tipul - în mod default un buton de tip text. Dacă, însă, în momentul în care se ajunge la tag-ul copil $state$, iar atributul său corespuzător este $image$, template-ul trebuie înlocuit.
 
-Acest neajuns este eliminat prin schema de translație XD - XCode. Această schemă asigură obținerea tipului corect de la începutul procesării datorită modului de obținere a tuturor caracteristicilor specifice unui element vizual. 
+Acest neajuns este eliminat prin schema de translație XD - XCode. Această schemă asigură obținerea tipului corect de la începutul procesării datorită modului de obținere al tuturor caracteristicilor specifice unui element vizual. 
 Așadar, în cazul de față, această schemă de translatare ar asigura găsirea corectă a tipului assetului prin verificarea tag-ului parinte și a atributelor specifice tag-ului $state$. De aceea, pentru a afla tipul corect al butonului - de tip text sau imagine, se verifică prezența atributelor $title$ sau $image$. În cazul în care apar ambele atribute în reprezentarea agc, vor fi construite două elemente vizuale - unul de tip text și altul de tip imagine. 
 
 În principiu, neajunsul specificat în prima schemă de translatare este datorat tipului de fișier de intrare - xml - care permite procesarea unui singur tag la un moment dat. Complexitatea de procesare este de asemenea mai ridicată față de cea de-a doua schemă.
