@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  23 JUN 2016 19:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  28 JUN 2016 12:02
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1680,13 +1680,13 @@ Overfull \hbox (32.05371pt too wide) in paragraph at lines 966--967
 din reprezentarea XD în reprezentarea
  []
 
-[28] <src/img/xd.png, id=651, 818.05624pt x 698.61pt>
+[28] <src/img/xd.png, id=650, 818.05624pt x 698.61pt>
 File: src/img/xd.png Graphic file (type png)
  <use src/img/xd.png>
 Package pdftex.def Info: src/img/xd.png used on input line 1007.
 (pdftex.def)             Requested size: 165.02347pt x 140.92409pt.
 
-<src/img/xcode.png, id=652, 1244.65pt x 656.4525pt>
+<src/img/xcode.png, id=651, 1244.65pt x 656.4525pt>
 File: src/img/xcode.png Graphic file (type png)
  <use src/img/xcode.png>
 Package pdftex.def Info: src/img/xcode.png used on input line 1009.
@@ -1737,15 +1737,9 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 32.
 (./thesis.aux (./src/chapters/intro.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 32.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 32.
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: 93B2CA4FADA50BE101E0AE7646848BF8;2473.
 
-
-Package rerunfilecheck Warning: File `thesis.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `thesis.out':
-(rerunfilecheck)             Before: D8E14CD82EFA1C403CD63AC8AC95A14B;2458
-(rerunfilecheck)             After:  93B2CA4FADA50BE101E0AE7646848BF8;2473.
 
 LaTeX Warning: There were undefined references.
 
@@ -1755,55 +1749,46 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 32.
  ) 
 Here is how much of TeX's memory you used:
- 34896 strings out of 494185
- 782725 string characters out of 6156888
+ 34892 strings out of 494185
+ 782676 string characters out of 6156888
  1067599 words of memory out of 5000000
- 37177 multiletter control sequences out of 15000+600000
+ 37176 multiletter control sequences out of 15000+600000
  30039 words of font info for 70 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  62i,21n,102p,1803b,2203s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section.6.1} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{chapter.6} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.0.1} has been referenced but does not 
-exist, replaced by a fixed one
-
-{/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/opt/
-local/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</opt/local/share/texmf-t
-exlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texlive/fonts/typ
-e1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type1/pub
-lic/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmsy7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbi1
-000.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0500.pf
-b></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0600.pfb></op
-t/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0700.pfb></opt/loca
-l/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1000.pfb></opt/local/shar
-e/texmf-texlive/fonts/type1/public/cm-super/sfbx1200.pfb></opt/local/share/texm
-f-texlive/fonts/type1/public/cm-super/sfbx1440.pfb></opt/local/share/texmf-texl
-ive/fonts/type1/public/cm-super/sfbx1728.pfb></opt/local/share/texmf-texlive/fo
-nts/type1/public/cm-super/sfbx2074.pfb></opt/local/share/texmf-texlive/fonts/ty
-pe1/public/cm-super/sfbx2488.pfb></opt/local/share/texmf-texlive/fonts/type1/pu
-blic/cm-super/sfrm0500.pfb></opt/local/share/texmf-texlive/fonts/type1/public/c
-m-super/sfrm0600.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-supe
-r/sfrm0700.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm
-0800.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1000.p
-fb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1440.pfb></o
-pt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb></opt/loc
-al/share/texmf-texlive/fonts/type1/public/cm-super/sfrm2488.pfb></opt/local/sha
-re/texmf-texlive/fonts/type1/public/cm-super/sfti0500.pfb></opt/local/share/tex
-mf-texlive/fonts/type1/public/cm-super/sfti1000.pfb></opt/local/share/texmf-tex
-live/fonts/type1/urw/courier/ucrb8a.pfb></opt/local/share/texmf-texlive/fonts/t
-ype1/urw/courier/ucrr8a.pfb>
-Output written on thesis.pdf (39 pages, 4247979 bytes).
+{/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/op
+t/local/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</opt/local/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfon
+ts/cm/cmsy7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfb
+i1000.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0500.
+pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0600.pfb></
+opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx0700.pfb></opt/lo
+cal/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1000.pfb></opt/local/sh
+are/texmf-texlive/fonts/type1/public/cm-super/sfbx1200.pfb></opt/local/share/te
+xmf-texlive/fonts/type1/public/cm-super/sfbx1440.pfb></opt/local/share/texmf-te
+xlive/fonts/type1/public/cm-super/sfbx1728.pfb></opt/local/share/texmf-texlive/
+fonts/type1/public/cm-super/sfbx2074.pfb></opt/local/share/texmf-texlive/fonts/
+type1/public/cm-super/sfbx2488.pfb></opt/local/share/texmf-texlive/fonts/type1/
+public/cm-super/sfrm0500.pfb></opt/local/share/texmf-texlive/fonts/type1/public
+/cm-super/sfrm0600.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-su
+per/sfrm0700.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sf
+rm0800.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1000
+.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1440.pfb><
+/opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb></opt/l
+ocal/share/texmf-texlive/fonts/type1/public/cm-super/sfrm2488.pfb></opt/local/s
+hare/texmf-texlive/fonts/type1/public/cm-super/sfti0500.pfb></opt/local/share/t
+exmf-texlive/fonts/type1/public/cm-super/sfti1000.pfb></opt/local/share/texmf-t
+exlive/fonts/type1/urw/courier/ucrb8a.pfb></opt/local/share/texmf-texlive/fonts
+/type1/urw/courier/ucrr8a.pfb>
+Output written on thesis.pdf (39 pages, 4247878 bytes).
 PDF statistics:
- 888 PDF objects out of 1000 (max. 8388607)
- 797 compressed objects within 8 object streams
- 360 named destinations out of 1000 (max. 500000)
+ 885 PDF objects out of 1000 (max. 8388607)
+ 794 compressed objects within 8 object streams
+ 357 named destinations out of 1000 (max. 500000)
  288 words of extra memory for PDF output out of 10000 (max. 10000000)
 
