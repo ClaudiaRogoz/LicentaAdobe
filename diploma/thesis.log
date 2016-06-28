@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  27 JUN 2016 15:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_9) (preloaded format=pdflatex 2016.3.19)  28 JUN 2016 11:49
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1174,15 +1174,15 @@ r/m/n/10 ).
 [4] [5] [6]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 219.
+(hyperref)                removing `\textcommabelow' on input line 223.
 
 [7] [8]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 271.
+(hyperref)                removing `\textcommabelow' on input line 275.
 
 
-Overfull \hbox (13.24771pt too wide) in paragraph at lines 277--278
+Overfull \hbox (13.24771pt too wide) in paragraph at lines 281--282
 [][]\T1/cmr/m/n/10 Œn XCode, Ón mod im-plicit, scena de-fault este o scen† de f
 or-mat p†-tratic, Ón care width=height=600.
  []
@@ -1195,32 +1195,32 @@ Capitolul 3.
 File: src/img/SchemaText.png Graphic file (type png)
 
 <use src/img/SchemaText.png>
-Package pdftex.def Info: src/img/SchemaText.png used on input line 354.
+Package pdftex.def Info: src/img/SchemaText.png used on input line 358.
 (pdftex.def)             Requested size: 276.53244pt x 167.62584pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 361--363
+Underfull \hbox (badness 10000) in paragraph at lines 365--367
 
  []
 
 \c@mydef=\count187
 \c@myNote=\count188
 
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
+Underfull \hbox (badness 10000) in paragraph at lines 372--373
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 377--378
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
+Underfull \hbox (badness 10000) in paragraph at lines 382--383
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--384
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
 
  []
 
@@ -1240,7 +1240,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.388 ...{lstlisting}[language=json,firstnumber=1]
+l.392 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1253,28 +1253,28 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.388 ...{lstlisting}[language=json,firstnumber=1]
+l.392 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [12 <./src/img/SchemaText.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 417.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 421.
 
 
 (/opt/local/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 417.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 421.
 
-Overfull \hbox (13.35666pt too wide) in paragraph at lines 422--423
+Overfull \hbox (13.35666pt too wide) in paragraph at lines 426--427
 [][]\T1/cmr/m/n/10 Vectorul speci-fic† fap-tul c† primele n-1 sub-stringuri sun
 t chei Ón dic[]ionarul $\OML/cmm/m/it/10 generalDict$\T1/cmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 422--423
+Underfull \hbox (badness 10000) in paragraph at lines 426--427
 
  []
 
@@ -1285,7 +1285,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.427 \begin
+l.431 \begin
             {mydef} \label{invers}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1298,7 +1298,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.435 \textbf
+l.439 \textbf
              {\textit{Exemplificare afirma»õie \ref{invers}}}: Fie figura \r...
 
 Your command was ignored.
@@ -1306,7 +1306,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 435--437
+Underfull \hbox (badness 10000) in paragraph at lines 439--441
 
  []
 
@@ -1326,7 +1326,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.444 ...{lstlisting}[language=json,firstnumber=1]
+l.448 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1339,13 +1339,13 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.444 ...{lstlisting}[language=json,firstnumber=1]
+l.448 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [13]
-Overfull \hbox (8.16562pt too wide) in paragraph at lines 466--467
+Overfull \hbox (8.16562pt too wide) in paragraph at lines 470--471
 [][]\T1/cmr/m/n/10 Algoritmul ur-m†-tor va speci-fica modul de trans-latare din
 -tre Xcode []i XD, cu aju-torul dic[]ionarelor
  []
@@ -1353,25 +1353,20 @@ Overfull \hbox (8.16562pt too wide) in paragraph at lines 466--467
 [14]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 486.
+(hyperref)                removing `\textcommabelow' on input line 490.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 493.
+(hyperref)                removing `\textcommabelow' on input line 497.
 
 <src/img/segue.png, id=437, 207.77625pt x 275.0275pt>
 File: src/img/segue.png Graphic file (type png)
  <use src/img/segue.png>
-Package pdftex.def Info: src/img/segue.png used on input line 499.
+Package pdftex.def Info: src/img/segue.png used on input line 503.
 (pdftex.def)             Requested size: 103.88786pt x 137.51341pt.
 
 [15 <./src/img/segue.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 517--520
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 522--523
+Underfull \hbox (badness 10000) in paragraph at lines 521--524
 
  []
 
@@ -1386,7 +1381,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 530--531
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 535--536
+Underfull \hbox (badness 10000) in paragraph at lines 534--535
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 539--540
 
  []
 
@@ -1406,7 +1406,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.543 ...{lstlisting}[language=json,firstnumber=1]
+l.547 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1419,13 +1419,13 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.543 ...{lstlisting}[language=json,firstnumber=1]
+l.547 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Command \u invalid in math mode on input line 564.
+LaTeX Warning: Command \u invalid in math mode on input line 568.
 
 Missing character: There is no † in font cmr10!
 [17] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
@@ -1444,7 +1444,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.578 ...{lstlisting}[language=json,firstnumber=1]
+l.582 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1457,20 +1457,20 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.578 ...{lstlisting}[language=json,firstnumber=1]
+l.582 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Overfull \hbox (0.75325pt too wide) in paragraph at lines 603--605
+Overfull \hbox (0.75325pt too wide) in paragraph at lines 607--609
 \OML/cmm/m/it/10 ValueDep$\T1/cmr/m/n/10 >. $\OML/cmm/m/it/10 KeyDep$ \T1/cmr/m
 /n/10 va reprezenta dependen[]a tag-u-lui $\OML/cmm/m/it/10 Key$ \T1/cmr/m/n/10
  fa[]† de val-o-rile $\OML/cmm/m/it/10 KeyDep$\T1/cmr/m/n/10 . Map†rile
  []
 
 [18]
-Overfull \hbox (5.50867pt too wide) in paragraph at lines 616--617
+Overfull \hbox (5.50867pt too wide) in paragraph at lines 620--621
 \T1/cmr/m/n/10 Acest lu-cru va sug-era fap-tul c† $\OML/cmm/m/it/10 nume[]atrib
 ut$ \T1/cmr/m/n/10 tre-buie Ón-locuit con-form val-orii din $\OML/cmm/m/it/10 m
 odifier$\T1/cmr/m/n/10 .
@@ -1478,7 +1478,7 @@ odifier$\T1/cmr/m/n/10 .
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 625.
+(hyperref)                removing `\textcommabelow' on input line 629.
 
 [19] (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
@@ -1496,7 +1496,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.679 ...{lstlisting}[language=json,firstnumber=1]
+l.683 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1509,13 +1509,13 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.679 ...{lstlisting}[language=json,firstnumber=1]
+l.683 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Overfull \hbox (10.66501pt too wide) in paragraph at lines 706--707
+Overfull \hbox (10.66501pt too wide) in paragraph at lines 710--711
 [][]\T1/cmr/m/n/10 Numele fi[]ierului png rezul-tat Ón urma comen-zii Im-ageMag
 -ick va fi com-pus din val-oarea propriet†[]ii
  []
@@ -1536,7 +1536,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.727 ...{lstlisting}[language=json,firstnumber=1]
+l.731 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1549,7 +1549,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.727 ...{lstlisting}[language=json,firstnumber=1]
+l.731 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1570,7 +1570,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.748 ...{lstlisting}[language=json,firstnumber=1]
+l.752 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1583,7 +1583,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.748 ...{lstlisting}[language=json,firstnumber=1]
+l.752 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1591,12 +1591,12 @@ If that doesn't work, type  X <return>  to quit.
 [22]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 786.
+(hyperref)                removing `\textcommabelow' on input line 790.
 
 [23]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 798.
+(hyperref)                removing `\u' on input line 802.
 
 (/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
@@ -1614,7 +1614,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.819 ...{lstlisting}[language=json,firstnumber=1]
+l.823 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -1627,39 +1627,39 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.819 ...{lstlisting}[language=json,firstnumber=1]
+l.823 ...{lstlisting}[language=json,firstnumber=1]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 845.
+(hyperref)                removing `\u' on input line 849.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 845.
+(hyperref)                removing `\u' on input line 849.
 
 [24] [25]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 884.
+(hyperref)                removing `\u' on input line 888.
 
 [26] [27] <src/img/xdApp.png, id=665, 1144.275pt x 784.9325pt>
 File: src/img/xdApp.png Graphic file (type png)
 
 <use src/img/xdApp.png>
-Package pdftex.def Info: src/img/xdApp.png used on input line 969.
+Package pdftex.def Info: src/img/xdApp.png used on input line 973.
 (pdftex.def)             Requested size: 165.02347pt x 113.19547pt.
 
 <src/img/XcodeApp.png, id=666, 1444.39626pt x 822.07124pt>
 File: src/img/XcodeApp.png Graphic file (type png)
 
 <use src/img/XcodeApp.png>
-Package pdftex.def Info: src/img/XcodeApp.png used on input line 971.
+Package pdftex.def Info: src/img/XcodeApp.png used on input line 975.
 (pdftex.def)             Requested size: 206.28249pt x 117.39723pt.
 
-Overfull \hbox (32.05371pt too wide) in paragraph at lines 983--984
+Overfull \hbox (32.05371pt too wide) in paragraph at lines 987--988
 [][]\T1/cmr/m/n/10 XD2XCode: im-ple-menteaz† func[]ionalitatea de trans-latare 
 din reprezentarea XD Ón reprezentarea
  []
@@ -1668,10 +1668,10 @@ din reprezentarea XD Ón reprezentarea
 Capitolul 4.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1016.
+(hyperref)                removing `\textcommabelow' on input line 1020.
 
 
-Overfull \hbox (8.1233pt too wide) in paragraph at lines 1022--1023
+Overfull \hbox (8.1233pt too wide) in paragraph at lines 1026--1027
 [][]\T1/cmr/m/n/10 Œn con-tin-uare, voi prezenta graficele care speci-fic† depe
 nden[]a din-tre asset-uri ($\OML/cmm/m/it/10 Assets[]processed$\T1/cmr/m/n/10 )
 
@@ -1682,26 +1682,26 @@ nden[]a din-tre asset-uri ($\OML/cmm/m/it/10 Assets[]processed$\T1/cmr/m/n/10 )
 ] [31]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1138.
+(hyperref)                removing `\textcommabelow' on input line 1142.
 
 [32] [33]
 Capitolul 5.
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 1175.
+(hyperref)                removing `\u' on input line 1179.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\u' on input line 1175.
+(hyperref)                removing `\u' on input line 1179.
 
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\textcommabelow' on input line 1175.
+(hyperref)                removing `\textcommabelow' on input line 1179.
 
 [34
 
 ]
-Overfull \hbox (26.24576pt too wide) in paragraph at lines 1214--1215
+Overfull \hbox (26.24576pt too wide) in paragraph at lines 1218--1219
 [][]\T1/cmr/m/n/10 https://developer.apple.com/library/mac/samplecode/Clipboard
 Viewer/Introduction/Intro.html 
  []
@@ -1762,7 +1762,7 @@ exmf-texlive/fonts/type1/public/cm-super/sfti0500.pfb></opt/local/share/texmf-t
 exlive/fonts/type1/public/cm-super/sfti1000.pfb></opt/local/share/texmf-texlive
 /fonts/type1/urw/courier/ucrb8a.pfb></opt/local/share/texmf-texlive/fonts/type1
 /urw/courier/ucrr8a.pfb>
-Output written on thesis.pdf (39 pages, 3209784 bytes).
+Output written on thesis.pdf (39 pages, 3210332 bytes).
 PDF statistics:
  925 PDF objects out of 1000 (max. 8388607)
  834 compressed objects within 9 object streams

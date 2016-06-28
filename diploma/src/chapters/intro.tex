@@ -5,7 +5,7 @@
 \label{chapter:intro}
 
 \par Proiectul de față reprezintă un utilitar software destinat developerilor și designerilor de aplicații user experience. În acest sens, se dorește realizarea unei scheme de translatare ale elementelor vizuale (imagini, butoane, etc. - denumite $asset$-uri) create în două dintre cele mai complexe utilitare pentru construirea interfețelor grafice pentru iOS -  IDE-ul XCode și  Adobe Experience Design.
-\par În capitolul acesta, voi realiza o scurtă descriere a proiectului, motivația și obiectivele aplicației, iar în următoarele secțiuni voi detalia arhitectura și modul de implementare al acesteia.
+\par În capitolul acesta voi realiza o scurtă descriere a proiectului, motivația și obiectivele aplicației, iar în următoarele secțiuni voi detalia arhitectura și modul de implementare al acesteia.
 
 \section{Descrierea proiectului}
 \label{sec:proj}
@@ -19,14 +19,14 @@ Pentru implementarea acestui proiect s-a luat în considerare structura internă
 \label{sub-sec:proj-scope}
 Principalul scop al acestui proiect este construirea unei scheme de translatare între elementele vizuale corespunzătoare a două produse software destinate design-ului și prototipurilor de aplicații mobile și site-uri web. Prin intermediul soluției descrise, crearea, sincronizarea, actualizarea, dar și colaborarea între membrii unei echipe de dezvoltare de aplicații se va realiza facil, asigurându-se o automatizare a modului de lucru.
 
-Un scop secundar este găsirea unei soluții eficiente de reprezentare și de translatare între cele două formate interne specifice XCode-ului, respectiv XD-ului, pentru a fi folosit și în alte domenii de aplicații.
+Un scop secundar este găsirea unei soluții eficiente de reprezentare și de translatare între cele două formate interne specifice XCode-ului, respectiv XD-ului, pentru a fi folosită și în alte domenii de aplicații.
 
 Finalitatea acestei aplicații este crearea automată  a unei “punți” între cele două tehnologii menționate mai sus, dedicate designerilor de UX (user-experience).
 
 \subsection{Obiectivele Proiectului}
 \label{sub-sec:proj-objectives}
 
-Obiectivul principal al acestei teme este acela de translatare ale elementelor vizuale dintre un produs software dedicat dezvoltării unei aplicații (XCode) și o aplicație de design și de realizare de prototipuri (Adobe XD) \footnote{Mai multe detalii despre cele două aplicații se regăsesc în capitolul 2.}. Totodată, prin intermediul acestui proiect, dorim construirea automată a aplicației dezvoltate în XCode pe baza prototipului obținut din XD.
+Obiectivul principal al acestei teme este acela de translatare ale elementelor vizuale dintre un produs software dedicat dezvoltării unei aplicații (XCode) și o aplicație de design și de realizare de prototipuri (Adobe XD) \footnote{Mai multe detalii despre cele două aplicații se regăsesc în capitolul 2.}. Totodată, prin intermediul acestui proiect, dorim construirea automată a aplicației dezvoltate în XCode pe baza prototipului obținut în XD.
 Astfel, soluția propusă va trebui să asigure următoarele funcționalități:
 
 \begin{enumerate}
@@ -44,22 +44,22 @@ Astfel, soluția propusă se poate extinde, putând fi folosită în diferite do
 
 
 Proiectul reprezintă un model de translatare între două aplicații care va fi construit sub forma unui plug-in adus aplicației Adobe Experience Design, pentru interacțiunea cu IDE-ul XCode. 
-În acest capitol voi prezenta structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, voi preciza asocierile care se pot construi între cele două formate. Aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare. În primul rând, însă, voi defini noțiunile de elemente vizuale/grafice.
+În acest capitol voi prezenta structura și modul de reprezentare ale celor două formate specifice XCode, respectv XD. De asemenea, voi preciza asocierile care se pot construi între cele două formate. Toate aceste aspecte furnizează contextul în care soluția curentă rulează și vor ajuta la înțelegerea schemelor de translatare care urmează să fie explicate în capitolele următoare. În primul rând, însă, voi defini noțiunile de elemente vizuale/grafice.
 
 Elementele vizuale, atât în XCode, cât și în Adobe Experience Design, sunt reprezentate prin mulțimea de asset-uri care se pot reprezenta în mod vizual pe suprafața de design (text, imagini, butoane, interacțiuni și scene). Fiecare element vizual are specificat un comportament specific în funcție de categoria de asseturi din care face parte.
 
 
 \section{Prezentare XCode}
 
-XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS \cite{Aboutxcode}. XCode permite crearea de cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de framework-uri (Cocoa, Carbon, etc.). Aplicația principală a suitei este IDE-ul\footnote{Un IDE (Integrated development environment - mediu intergrat de dezvoltare) este o aplicație software care oferă o serie de utilitare pentru programatori. Un IDE conține un editor de cod sursă, compilator, debugger și este prezentat utilizatorului printr-o interfață grafică, ușor de folosit.}, numit de asemenea XCode. Suita XCode include pe lângă documentația Apple de dezvoltare și o aplicație built-in - Interface Builder, o componentă principală in dezvoltarea soluției propuse.
+XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS \cite{Aboutxcode}. XCode permite crearea de cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de framework-uri (Cocoa, Carbon, etc.). Aplicația principală a suitei este IDE-ul\footnote{Un IDE (Integrated development environment - mediu intergrat de dezvoltare) este o aplicație software care oferă o serie de utilitare pentru programatori. Un IDE conține un editor de cod sursă, compilator, debugger și este prezentat utilizatorului printr-o interfață grafică, ușor de folosit.}, numit de asemenea XCode. Suita XCode include, pe lângă documentația Apple de dezvoltare, și o aplicație built-in - Interface Builder, o componentă principală în dezvoltarea soluției propuse.
 
-Interface Builder este o aplicație de development de software pentru sistemul Apple Mac OS X, care permite dezvoltatorilor de Cocoa și Carbon să creeze interfețe grafice pentru aplicații cu ajutorul unei interfețe grafice, ușor de folosit, puse la dispoziția utilizatorului. Interfața rezultată va fi stocată într-un fișier .nib (NeXT Interface Builder), sau .xib.
+Interface Builder este o aplicație de development de software pentru sistemul Apple Mac OS X, care permite dezvoltatorilor de Cocoa și Carbon să creeze interfețe grafice pentru aplicații cu ajutorul unei interfețe grafice, ușor de folosit, puse la dispoziția utilizatorului. Interfața rezultată va fi stocată într-un fișier .storyboard sau .xib.
 
 Interface Builder oferă palete de culori, colecții de elemente vizuale - text, tabele, meniuri, butoane, etc. - necesare dezvoltatorilor de aplicații ObjC. Astfel, prin intermediul editorului Interface Builder, crearea interfeței grafice pentru utilizator se realizează ușor, fără a fi nevoie de cod. La baza managementului de elemente vizuale se află Drag \& Drop pe suprafața de lucru (canvas). 
 
-Deoarece Cocoa și Cocoa Touch sunt construite folosind modelul Model-View-Controller, interfețele utilizator se pot realiza independent de implementările lor. Aceste interfețe vor fi stocate în fișierele .nib, iar la compilare se vor crea dinamic legăturile dintre UI și implementare.
+Deoarece Cocoa și Cocoa Touch sunt construite folosind modelul Model-View-Controller, interfețele utilizator se pot realiza independent de implementările lor. Aceste interfețe vor fi stocate în fișierele .storyboard, iar la compilare se vor crea dinamic legăturile dintre UI și implementare.
 
-O aplicație iOS este compusă din multiple scene între care un utilizator navighează. Relațiile dintre aceste scene sunt definite de fișierele .storyboard \cite{StructuraXcode}, care vor descrie întregul flow al aplicației. Prin intermediul Interface Builder, storyboard-ul este actualizat conform elementelor grafice afișate, prin crearea, modificarea și realizarea tranzițiilor dintre scene.
+O aplicație iOS este compusă din multiple scene între care un utilizator navighează. Relațiile dintre aceste scene sunt definite de fișierele .storyboard \cite{StructuraXcode}, care vor descrie întregul flow al aplicației. Prin intermediul Interface Builder, storyboard-ul este actualizat conform elementelor grafice afișate prin crearea, modificarea și realizarea tranzițiilor dintre scene.
 
 Elementele vizuale reprezentate într-un storyboard pot fi controlate printr-o serie de view controllere puse la dispoziție de XCode: Table View Controller, Collection View Controller, Navigation Controller, Tab Bar Controller, Page View Controller, GLKit View Controller sau Custom View Controller. Un View Controller este o componentă specializată care se ocupă de managementul scenelor. În general, un view controller va avea asociată o scenă. 
 
@@ -89,13 +89,15 @@ Un fișier “.storyboard” mapează elementele vizuale într-o reprezentare de
 \caption{Document tag}\label{fig:document}
 \end{figure}
 
-Atributul \textbf{targetRuntime}  specifică sistemul de runtime în care storyboard-ul este folosit. \textbf{\textit{iOS.CocoaTouch}} specifică faptul că storyboard-ul este de tipul iOS, astfel încât scenele folosite sunt de tipul iPhone.
+Atributul \textbf{targetRuntime}  specifică sistemul de runtime în care storyboard-ul este folosit. \textbf{\textit{iOS.CocoaTouch}} specifică faptul că storyboard-ul este de tipul iOS astfel încât scenele folosite sunt de tipul iPhone.
 
 Tag-ul \textbf{dependencies} identifică orice dependență necesară storyboard-ului, iar tag-ul copil \textbf{plugin} specifică pluginul necesar acestui storyboard ($com.apple.InterfaceBuilder.IBCocoaTouchPlugin$). Aceste două taguri specifică metadate referitoare la aplicația dezvoltată, metadate precum vresiunea, tipul scenelor etc.
 
-Tag-ul \textbf{scenes} conține toate reprezentările scenelor (împreună cu view controller-ele asociate) din storyboard. 
+Tag-ul \textbf{scenes} conține toate reprezentările scenelor (împreună cu view controller-ele asociate) din storyboard.
+
 În cadrul aplicațiilor iPhone și iPod touch, un ecran, în general, este constituit dintr-o singură scenă care ocupă întreaga suprafață a ecranului. Pe iPad sau OS X, un ecran poate fi constituit din mai multe scene. De aceea, pe măsură ce complexitatea crește, într-un proiect XCode se pot adăuga mai multe fișiere storyboard.
-Reprezentarea xml corespunzătoare unei scene se poate observa în figura \ref{fig:scene}
+
+Reprezentarea xml corespunzătoare unei scene se poate observa în figura \ref{fig:scene}.
 
 \begin{figure}[!htbp]
 \lstset{language=XML}
@@ -158,9 +160,9 @@ Fiecare View Controller conține o scenă principală care este reprezentată pr
 
 
 
-Proprietățile unei scene sunt reprezentate, așa cum se vede în xml-ul de mai sus, prin tagurile \textbf{rect}, \textbf{color}, iar atributul \textbf{key} specifică cartacteristica pe care tag-ul curent o definește.
+Proprietățile unei scene sunt reprezentate, așa cum se vede în xml-ul de mai sus, prin tagurile \textbf{rect} (specifică dimensiunile asset-ului), \textbf{color} (culoarea asset-ului), și prin atributul \textbf{key} ( specifică cartacteristica pe care tag-ul curent o definește - de exemplu \textbf{\textit{textColor}} pentru culoarea textului, \textbf{\textit{backgroundColor}} pentru culoarea cadranului).
 
-În momentul în care adaugă noi elemente vizuale la view-ul părinte, reprezentarea xml asociată va fi figura \ref{fig:view}. În acest exemplu, scena va conține un element $label$ (element de tip text) și un $button$ (element interactiv - buton).
+În momentul în care adaugăm noi elemente vizuale la view-ul părinte, reprezentarea xml asociată va fi similară figurii \ref{fig:view}. În acest exemplu, scena va conține un element $label$ (element de tip text) și un $button$ (element interactiv - butonul - de la care se pot crea tranziții către alte scene).
 
 \begin{figure}[!htbp]
 \lstset{language=XML}
@@ -182,9 +184,9 @@ Proprietățile unei scene sunt reprezentate, așa cum se vede în xml-ul de mai
 \caption{View tag}\label{fig:view}
 \end{figure}
 
-Toate proprietățile setate pentru un UIView (element vizual), oricare ar fi el - buton, text, imagine, etc. - se translatează automat în atribute sau taguri în fișierul xml.
+Toate proprietățile setate în Interface Builder pentru un UIView (element vizual) oricare ar fi el - buton, text, imagine, etc. - se translatează automat în atribute sau taguri în fișierul xml (storyboard).
 
-Prin intermediul unui segue (interacțiune/tranziție), se realizează, la nivel conceptual, tranziția între un view controller sau buton și alte view controllere, iar, la nivel vizual, se realizează schimbarea scenei curente. De exemplu, în momentul în care se apasă un buton de pe o scenă \textbf{\textit{x}}, se face redirecționarea către o altă scenă \textbf{\textit{y}}. 
+Prin intermediul unui \textbf{segue} (interacțiune/tranziție), se realizează, la nivel conceptual, tranziția între un view controller sau buton și alte view controllere, iar, la nivel vizual, se realizează schimbarea scenei curente. De exemplu, în momentul în care se apasă un buton de pe o scenă \textbf{\textit{x}}, se face redirecționarea către o altă scenă \textbf{\textit{y}}. 
 
 În momentul în care două view controllere se conectează cu un segue, un tag numit \textbf{connections} este creat și este inclus în interiorul tag-ului \textbf{viewController}, așa cum se poate vedea în reprezentarea xml din figura \ref{fig:segueXML}.
 
@@ -201,16 +203,18 @@ Prin intermediul unui segue (interacțiune/tranziție), se realizează, la nivel
 \caption{Segue tag}\label{fig:segueXML}
 \end{figure}
 
-Tag-ul \textbf{segue} definește atributele \textbf{destination} și \textbf{kind}. Atributul \textbf{destination} specifică \textbf{id}-ul View Controllerului către care se realizează tranziția, iar \textbf{kind} specifică tipul tranziției (show sau modal). Prin interemdiul unei tranziții $show$, noul conținut va fi prezentat într-o nouă fereastră. O tranziție de tipul $modal$ creează o relație dintre două view-controllere din storyboard, prin specificarea comportamentului de tranziție. View-controller-ul copil va suprapune view-controller-ul părinte în momentul în care se realizază tranziția. Un exemplu al acestui tip de segue este cazul în care avem un buton de $Log In$. În momentul în care se apasă butonul, se prezintă un view-controller (copil), care nu are legătură cu view-controller-ul de la care s-a realizat tranziția (părinte). 
+Tag-ul \textbf{segue} definește atributele \textbf{destination} și \textbf{kind}. Atributul \textbf{destination} specifică \textbf{id}-ul View Controllerului către care se realizează tranziția, iar \textbf{kind} specifică tipul tranziției (show sau modal). Prin intermediul unei tranziții $show$, noul conținut va fi prezentat într-o nouă fereastră. O tranziție de tipul $modal$ creează o relație dintre două view-controllere din storyboard prin specificarea comportamentului de tranziție. View-controller-ul copil va suprapune view-controller-ul părinte în momentul în care se realizează tranziția. Un exemplu al acestui tip de segue este cazul în care avem un buton de $Log In$. În momentul în care se apasă butonul $Log In$, se prezintă un view-controller (copil) care suprapune view-controller-ul de la care s-a realizat tranziția (părinte). 
 
-View Controllerele pot avea mai multe tranziții și pot pointa către mai multe view controllere. Acest lucru este specificat prin multiple tag-uri \textbf{segue}.
+View Controllerele pot avea mai multe tranziții și pot face redirecționări către mai multe view controllere. Acest lucru este specificat prin multiple tag-uri \textbf{segue}.
 
 \subsubsection{Formatul xml}
 
 XML (Extensible Markup Language) este un limbaj care definește un set de reguli pentru codificarea documentelor într-un format atât human-readable, cât și machine-readable. 
 
 Scopul XML-ului este acela de furnizare de simplicitate, uzabilitate și generalitate în cadrul Internetului. XML-ul este un limbaj care este folosit în cadrul a numeroase aplicații. Acesta a stat la baza unor protocoale de comunicație, cum ar fi XMPP. De asemenea, aplicațiile pentru Microsoft .NET Framework folosesc fișiere xml de configurare. 
-În cadrul fișierului xd pe care îl vom studia în capitolul următor, metadata de configurare este stabilită tot prin limbajul xml. Schema de translatare propusă în acest proiect a fost folosită și în cadrul acestor fișiere de configurare din xd.
+
+
+În cadrul fișierului xd pe care îl vom studia în capitolul următor, metainformațiile pentru configurare sunt specificate tot prin limbajul xml. Schema de translatare propusă în acest proiect a fost folosită și în cadrul acestor fișiere de configurare din xd.
 
 \section{Prezentare Adobe Experience Design}
 
@@ -218,7 +222,7 @@ Adobe Experience Design este un nou utilitar pentru realizarea designului și pr
 
 \subsection{Structura unui fișier .xd}
 
-În urma realizării unei aplicații Adobe Experience Design, se creează un fișier cu extensia .xd, care va conține reprezentarea elementelor vizuale. 
+În urma realizării unei aplicații Adobe Experience Design, se creează un fișier cu extensia .xd care va conține reprezentarea elementelor vizuale. 
 Un fișier xd este realizat prin comprimarea mai multor fișiere de metadata cu extensia “.agc”, prin realizarea operației zip. Fișierele cu extensia .agc conțin informații legate de scenele din XD în format json.
 
 Ierarhia de fișiere din cadrul unui fișier de design .xd (în urma aplicării comenzii unzip) poate fi văzută în figura \ref{fig:ierarhie}.
@@ -245,14 +249,14 @@ Ierarhia de fișiere din cadrul unui fișier de design .xd (în urma aplicării 
 \treeentry{graphics}{2}
 \treeentry{graphicContent.agc}{3}
 \end{tikzpicture}
-\caption{Ierarhie fișiere} \label{fig:ierarhie}
+\caption{Ierarhia din cadrul unui fișier de design} \label{fig:ierarhie}
 \end{figure}
 
-Fișierul \textbf{metadata.xml} conține metainformații referitoare la fișierul .xd - data de creare, de modificare, și id-urile canvas-ului.
+Fișierul \textbf{metadata.xml} conține metainformații referitoare la fișierul .xd - data de creare, de modificare și id-urile canvas-ului.
 
 Directorul \textbf{artwork} conține o serie de fișiere cu informații în format json despre elementele vizuale ale fiecărei scene\footnote{Se vor folosi termenii scene și artboard interschimbabil} în parte. 
 
-Directorul  \textbf{resources} conține o serie de imagini folosite în designul XD, salvate local sub numele id-ului corespunzător. De asemenea, în cadrul acestui director, în fișierul \textbf{graphics/graphicContent.agc} se află informații legate de offet-urile și dimensiunile scenelor.
+Directorul \textbf{resources} conține o serie de imagini folosite în fișierul de design xd salvate local sub numele id-ului corespunzător. De asemenea, în cadrul acestui director, în fișierul \textbf{graphics/graphicContent.agc} se află informații legate de offet-urile și dimensiunile scenelor.
 
 Directorul \textbf{interactions} conține informații legate de tranzițiile dintre scene.
 
@@ -260,7 +264,7 @@ Fișierul \textbf{manifest} conține metadate referitoare la ierarhia de compone
 
 Fișierul \textbf{mimetype} definește aplicația corespunzătoare XD-ului, în cazul de față - ``application/vnd.adobe.sparkler.project+dcx".
 
-Un fișier de descriere a unei scene este reprezentat printr-o serie de proprietăți:  \textbf{version} - specifică versiunea agc-ului, \textbf{resources}, respectiv \textbf{artboards} fac legătura cu restul fișierelor de descriere. Proprietatea  \textbf{children} descrie lista de elemente vizuale ale scenei, precizând, astfel, pentru fiecare entitate, caracteristicile specifice: cadranul de încadrare și offsetul față de ierarhia de elemente de care depinde (scene, grupuri).
+Un fișier de descriere al unei scene este reprezentat printr-o serie de proprietăți:  \textbf{version} - specifică versiunea agc-ului, \textbf{resources}, respectiv \textbf{artboards} fac legătura cu restul fișierelor de descriere. Proprietatea  \textbf{children} descrie lista de elemente vizuale ale scenei, precizând, astfel, pentru fiecare entitate, caracteristicile specifice: cadranul de încadrare și offsetul față de ierarhia de elemente de care depinde (scene, grupuri).
 
 \subsubsection{Formatul json}
 
