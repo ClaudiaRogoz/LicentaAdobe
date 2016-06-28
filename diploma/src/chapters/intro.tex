@@ -51,7 +51,7 @@ Elementele vizuale, atât în XCode, cât și în Adobe Experience Design, sunt 
 
 \section{Prezentare XCode}
 
-XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS \cite{Aboutxcode}. XCode permite crearea de cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de framework-uri (Cocoa, Carbon, etc.). Aplicația principală a suitei este IDE-ul\footnote{Un IDE (Integrated development environment - mediu intergrat de dezvoltare) este o aplicație software care oferă o serie de utilitare pentru programatori. Un IDE conține un editor de cod sursă, compilator, debugger și este prezentat utilizatorului printr-o interfață grafică, ușor de folosit.}, numit de asemenea XCode. Suita XCode include, pe lângă documentația Apple de dezvoltare, și o aplicație built-in - Interface Builder, o componentă principală în dezvoltarea soluției propuse.
+XCode este o suită realizată de Apple care conține o serie de tool-uri pentru dezvoltarea de software pentru OS X, iOS, WatchOS și tvOS \cite{xcode}. XCode permite crearea de cod sursă pentru o serie de limbaje de programare (C, C++ , Objective-C, Objective-C++, etc.), dar și pentru o serie de framework-uri (Cocoa, Carbon, etc.). Aplicația principală a suitei este IDE-ul\footnote{Un IDE (Integrated development environment - mediu intergrat de dezvoltare) este o aplicație software care oferă o serie de utilitare pentru programatori. Un IDE conține un editor de cod sursă, compilator, debugger și este prezentat utilizatorului printr-o interfață grafică, ușor de folosit.}, numit de asemenea XCode. Suita XCode include, pe lângă documentația Apple de dezvoltare, și o aplicație built-in - Interface Builder, o componentă principală în dezvoltarea soluției propuse.
 
 Interface Builder este o aplicație de development de software pentru sistemul Apple Mac OS X, care permite dezvoltatorilor de Cocoa și Carbon să creeze interfețe grafice pentru aplicații cu ajutorul unei interfețe grafice, ușor de folosit, puse la dispoziția utilizatorului. Interfața rezultată va fi stocată într-un fișier .storyboard sau .xib.
 
@@ -329,13 +329,149 @@ cu precizarea că valoarea corespunzătoare lui y se calculează în mod similar
 
 Valorile ~$startXArtboard$, ~$startYArtboard$, ~$xValue$, ~$yValue$ se calculează pe baza valorilor atributelor $tx$, $ty$ ale proprietății $transform$ specifice scenelor, respectiv grupurilor.
 
-\chapter{Implementare}
+\chapter{Arhitectură și Implementare}
 
 În acest capitol voi prezenta modul de translatare dintre cele două reprezentări: xml (specific XCode) și json (specific XD). De asemenea, voi prezenta arhitectura soluției și modulele componente.
 
 Formatul json este similar xml-ului prin faptul că amandouă reprezentările descriu structuri de date și obiecte serializabile. Multiple protocoale bazate pe xml reprezintă aceleași structuri de date ca json-ul, în mod interschimbabil.
 
 Găsirea unei scheme de translatare între cele două reprezentări se rezumă, așadar, la găsirea multiplelor mapări între tag-urile și atributele xml-ului, respectiv json-ului. De asemenea, există anumite dependențe între tag-urile xml și submulțimi de proprietăți json (pe baza proprietăților respective, în momentul translatării, se decid tag-urile xml și atributele lor).
+
+\section{Arhitectură}
+
+În acestă secțiune voi oferi detalii despre arhitectură și despre modulele care alcătuiesc soluția prezentată.
+
+Aplicația este funcțională și implementează sincronizarea și translatarea directă și inversă a elementelor vizuale dintre Adobe Experience Design și XCode. 
+Realizarea proiectului a fost testată pe un sistem Mac OS X, aplicația fiind scrisă în ObjC cu ajutorul IDE-ului XCode. Pentru rularea aplicației este necesar proiectul curent \cite{repoGit} și, desigur, aplicația Adobe XD \cite{xd}.
+Intern, proiectul se folosește de utilitarul ImageMagick \cite{imageMagick} pentru conversia între un format svg și un format png.
+
+Interacțiunea cu fișierele de design XD s-a realizat în două moduri: prin intermediul Clipboardului și prin crearea ierarhiei de fișiere xd.
+
+În primă etapă, preluarea elementelor grafice din Adobe XD s-a realizat prin intermediul Clipboardului sistemului de operare. Astfel, interacțiunea cu artboardurile din XD s-a realizat prin mecanismele de copy și paste ale scenelor.
+După translatarea din format XCode în format XD rezultă un singur fișier .agc care va conține toate informațiile necesare creării fișierului de design. Conținutul acestui fișier va fi pus în Clipboard cu tipul \textbf{com.adobe.sparkler.design}. Acest conținut agc va fi apoi copiat din Clipboard prin efectuarea comenzii Cmd + V de către utilizator în fișierul xd.
+
+Flow-ul translatării XCode - XD prin intermediul Clipboardului se regăsește în figura \ref{fig:Clipboard Import}, iar al translatării XD - Xcode prin intermediul Clipboardului se regăsește în figura \ref{fig:Clipboard Export}.
+
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[node distance = 4cm, auto]
+\node [block] (init) {.storyboard};
+\node [block, right of=init] (solutie) {Soluție translatare};
+\node [block, right of=solutie] (clipboard) {Clipboard};
+\node [block, right of=clipboard] (xd) {.xd};
+\path [line] (init) -- node {input} (solutie);
+\path [line] (solutie) -- node {paste} (clipboard);
+\path [line] (clipboard) -- node {output} (xd);
+\end{tikzpicture}
+\caption{Importul prin intermediul Clipboardului} \label{fig:Clipboard Import}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[node distance = 4cm, auto]
+\node [block] (init) {.xd};
+\node [block, right of=init] (clipboard) {Clipboard};
+\node [block, right of=clipboard] (solutie) {Soluție translatare};
+\node [block, right of=solutie] (storyboard) {.storyboard};
+\path [line] (init) -- node {copy} (clipboard);
+\path [line] (clipboard) -- node {input} (solutie);
+\path [line] (solutie) -- node {output} (storyboard);
+\end{tikzpicture}
+\caption{Exportul prin intermediul Clipboardului} \label{fig:Clipboard Export}
+\end{figure}
+
+
+În a doua etapă - etapa finală - am renunțat la folosirea Clipboardului în favoarea creării fișierului xd. 
+Acest lucru a fost realizat din două motive. În primul rând, folosirea Clipboardului implică un flow mai greoi al aplicației și o interacțiune suplimentară din partea utilizatorului (overhead adus de copy și de paste). Cel de-al doilea motiv implică imposibilitatea copierii tranzițiilor prin Clipboard.
+
+Așadar, pentru preluarea informațiilor din cadrul unui fișier xd se realizează decomprimarea acestuia prin apelul comenzii \textbf{unzip}. În urma acestui apel se obține ierarhia de fișiere așa cum a fost descrisă în figura \ref{fig:ierarhie}.
+
+În urma translatării din XCode în XD, se construiește ierarhia de fișiere care va fi fi apoi comprimată în format .xd. Această comprimare se realizează prin intermediul comenzii \textbf{zip -r --no-dir-entries <design xd> <ierarhie fișiere>}. 
+
+Arhitectura acestui model de lucru se regăsește în figurile \ref{fig:Export}, \ref{fig:Import}.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[node distance = 4cm, auto]
+\node [block] (init) {.storyboard};
+\node [block, right of=init] (solutie) {Soluție translatare};
+\node [block, right of=solutie] (clipboard) {Creare ierarhie fișiere .agc};
+\node [block, right of=clipboard] (xd) {.xd};
+\path [line] (init) -- node {input} (solutie);
+\path [line] (solutie) -- node {output} (clipboard);
+\path [line] (clipboard) -- node {zip} (xd);
+\end{tikzpicture}
+\caption{Simple Import} \label{fig:Import}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[node distance = 4cm, auto]
+\node [block] (init) {.xd};
+\node [block, right of=init] (solutie) {Soluție translatare};
+\node [block, right of=solutie] (storyboard) {.storyboard};
+\path [line] (init) -- node {unzip} (solutie);
+\path [line] (solutie) -- node {output} (storyboard);
+\end{tikzpicture}
+\caption{Simple Export} \label{fig:Export}
+\end{figure}
+
+Flow-ul aplicației se poate observa în figura \ref{fig:Prezentare}. În această figură se poate observa legătura dintre o aplicație în XCode și o aplicație XD realizată prin operațiile de translatare și de sincronizare. BlackBox-ul din figură constituie soluția care implementează operațiile descrise în secțiunile \ref{xcxd2schema}, \ref{xd2xcodev1}, \ref{syncme}.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[node distance = 4cm, auto]
+\node (xd) at (0, 0) {\includegraphics[width=.40\textwidth]{src/img/xdApp.png}};
+\node (solutie) at (7, 0) {BlackBox Soluție};
+\node (xcode) at (7, -5) {\includegraphics[width=.50\textwidth]{src/img/XcodeApp.png}};
+\draw [<->](solutie) -- (xd);
+\draw [<->] (xcode) -- (solutie);
+\end{tikzpicture}
+\caption{Flow-ul aplicației (de la XD - stânga sus - la XCode - dreapta jos)} \label{fig:Prezentare}
+\end{figure}
+
+Soluția prezentată (sau BlackBox-ul prezentat în figura \ref{fig:Prezentare}) se împarte într-o serie de module care implementează diferite concepte și funcționalități:
+\begin{itemize} 
+\item Xml2Dict: realizează translatarea din formatul xml corespunzător fișierului .storyboard într-un format json. SubTagurile corespunzătoare tagurilor $scene$ și $subviews$ vor fi transformate într-un vector de scene, respectiv de elemente vizuale.
+\item Dict2Agc: primește ca input dicționarul json obținut de la modulul Xml2Dict și se folosește de o schemă de translatare XD - XCode (\ref{xcxd2schema}) pentru obținerea ierarhiei de fișiere xd;
+\item XCode2XD: implementează funcționalitatea de translatare din reprezentarea XCode în reprezentarea XD (folosind prima schemă de translatare \ref{xcode2xdv1}); la baza acestui modul se află schema de translatare xml->json;
+\item XD2XCode: implementează funcționalitatea de translatare din reprezentarea XD în reprezentarea XCode (\ref{xcxd2schema}). La baza acestui modul se află schema de translatare json->xml;
+\item XDCreator: Creează ierarhia de fișiere .agc pentru construirea unui fișier de design xd (\ref{fig:ierarhie});
+\item Sync: implementează funcționalitatea de sincronizare între XD și XCode (\ref{syncme}). Acest modul monitorizează un fișier .xd astfel încât orice modificare a acestuia să fie propagată și în proiectul XCode asociat;
+\item Helper: modul care implementează o serie de funcționalități generale necesare tuturor celorlalte module (ex. lucrul cu fișierele, crearea task-urilor pentru efectuarea de operații zip sau convert, etc.)
+\end{itemize}
+
+Aceste module și interacțiunea dintre ele este reprezentată în figura \ref{fig:Arhitectura}.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[node distance = 4cm, auto]
+\node [block] (xml2dict) {Xml2Dict};
+\node [block, right of=xml2dict] (dict2agc) {Dict2Agc};
+\node [block, right of=dict2agc] (xdcreator) {XDCreator};
+\node [block, right of=xdcreator] (xd2xcode) {XD2XCode};
+\node [block, below left=1cm and 1cm of xd2xcode] (sync) {Sync};
+\node [block, below left=1cm and 1cm of xdcreator] (helper) {Helper};
+\draw [->] (dict2agc) -- (xdcreator);
+\draw [->] (sync) -- (xd2xcode);
+\draw [->] (xml2dict) -- (dict2agc);
+\draw [<->] (xml2dict) -- (helper);
+\draw [<->] (dict2agc) -- (helper);
+\draw [<->] (xdcreator) -- (helper);
+\draw [<->] (sync) -- (helper);
+\end{tikzpicture}
+\caption{Arhitectură} \label{fig:Arhitectura}
+\end{figure}
+
+În arhitectura prezentată, modulul XCode2XD poate fi interschimbat cu modulele Xml2Dict și Dict2Agc întrucât acestea implementează aceeași funcționalitate, dar prin scheme de translatare diferite.
+
+O tehnologie folosită pentru testarea și implementarea cu ajutorului Clipboardului este Clipboard Viewer \cite{clipboard}. Această aplicație arată conținutul oricărui clipboard în funcție de tipul dorit. În cazul de față, pentru obținerea clipboardului specific aplicației Adobe XD, tipul clipboardului este reprezentat de ``com.adobe.sparkler.design".
+
+
+În următoarele secțiuni voi prezenta implementarea modulelor de translatare și de sincronizare.
+Implementarea modulului XCode2XD este explicată în secțiunea \ref{xcode2xdv1}, iar modulul XD2XCode este explicat în secțiunea \ref{xd2xcodev1}. Modulele Xml2Dict și Dict2Agc sunt prezentate în secțiunea \ref{xcxd2schema}, folosindu-se o schemă de translatare similară schemei \ref{xd2xcodev1}. Implementarea sincronizării este detaliată în secțiunea \ref{syncme}.
+
 
 \section{Translatarea din XCode în Adobe Experience Design} \label{xcode2xdv1}
 
@@ -469,7 +605,7 @@ Dicționarul invers ne va ajuta să găsim și să modificăm, pentru un anumit 
 
 Algoritmul următor va specifica modul de translatare dintre Xcode și XD, cu ajutorul dicționarelor menționate mai sus:
 
-\begin{enumerate}
+\begin{enumerate} \label{algoritm}
 \item La pornirea aplicației, schemele de translatare vor fi încărcate în memorie sub forma unor dicționare (schemele de translatare sunt stocate în fișiere separate pentru a realiza o separare între acestea și codul sursă);
 \item Se parsează fișierul storyboard asociat aplicației XCode prin folosirea clasei NSXMLParser. Pe măsură ce se parcurge fișierul, obținem numele tagului curent și un dicționar cu atributele și valorile asociate;
 \item Verificăm dacă numele tagului curent apare în dicționarul mapDict:
@@ -493,6 +629,15 @@ Un switch permite utilizatorului pornirea sau oprirea rapidă a unor opțiuni mu
 Interface Builder are un obiect de tip Switch care poate fi ușor adăugat aplicației. XD-ul, însă, nu are un element de sine stătător care să reprezinte un astfel de element vizual. Există librării care au construite anumite elemente vizuale (cum ar fi butonul, slider-ul, etc.) prin descrierea segmentelor din care este alcătuit assetul. Mulțimea acestor segmente care alcătuiesc un element vizual se numesc, în XD, $path-uri$.
 
 De aceea, pentru translatarea acestor obiecte se creează un fișier care conține template-ul obiectului respectiv din XD (descrierea path-ului). Pentru modificarea caracteristicilor (dimensiuni cadran, culoare, etc.), se folosesc schemele de translatare, similar algoritmului prezentat anterior.
+\subsection{Translatarea textului}
+
+În XCode, un asset de tip \textit{text} are o serie de caracteristici specifice: numărul maxim de linii în care trebuie să se încadreze textul, dimensiunile cadranului, tipul și dimensiunea fontului, textul efectiv. 
+
+Pentru translatarea unui asset de tip $text$, soluția preia template-ul specific tipului text din dicționarul $generalDict$. Următoarea etapă ar consta în înlocuirea caracteristicilor din template pe baza reprezentării xml a textului și prin dicționarul $mapDict$. 
+
+\subsection{Translatarea imaginilor}
+
+Translatarea imaginilor se realizează prin găsirea template-ului specific reprezentării agc al tipul $image$. De asemenea, este nevoie de găsirea căii absolute a imaginii pentru a fi înlocuită în template-ul găsit. În continuare se procedează similar algoritmului explicat în secțiunea \ref{algoritm}.
 
 \subsection{Translatarea interacțiunilor}
 
@@ -511,6 +656,7 @@ Pentru construirea interacțiunilor în XD, toate id-urile stocate în dicționa
 Mapările din \textbf{segueDict} vor fi copiate în cele din urmă în fișierul interactions.json (fișierul se poate regăsi în figura \ref{fig:ierarhie})
 
 \section{Translatarea din Adobe Experience Design în XCode}\label{xd2xcodev1}
+
 
 Exportul elementelor vizuale din Adobe XD în Xcode presupune parcurgerea fișierelor ``agc" și inspectarea elementelor acestuia. Particularizarea problemei presupune găsirea schemei de translatare de la un format de tip json la un format de tip xml. Așa cum s-a precizat în secțiunea anterioară, translatarea dintre reprezentările XD - Xcode este o mapare complexă care se bazează pe moștenire și pe aplicare de operații. 
 
@@ -815,7 +961,7 @@ Deoarece id-urile destinație pot reprezenta scene care încă nu au fost proces
 
 Pentru realizarea corectă a translatărilor din XD în XCode, trebuie luată în considerare diferența majoră între tipurile de obiecte care suportă tranziții. În Xcode, obiectele care suportă tranziții sunt: \textbf{button} sau \textbf{view}, în timp ce în XD nu există restricții de tip. De aceea, în momentul în care se realizează translatarea XCode - XD, inspectăm dicționarul \textbf{segueDict}. În momentul în care găsim un obiect cu id-ul prezent în dicționarul \textbf{segueDict}, obiectul respectiv va fi translatat într-un obiect xml de tip \textbf{button}.
 
-\section {Translatarea din XCode în XD folosind a doua schemă de translatare} \label{xcxd2schema}
+\section {Alternativă de translatare din XCode în Adobe Experience Design} \label{xcxd2schema}
 
 Translatarea XCode - XD folosind prima schemă de translatare, descrisă în secțiunea \ref{xcode2xdv1}, are o serie de neajunsuri. Principalul dezavantaj ar fi faptul că tipul unui obiect se poate afla în urma parcurgerii și a translatătării mai multor taguri și subtaguri. În momentul în care se descoperă un atribut care conduce către modificarea tipului curent, se va regenera template-ul json corespunzător noului tip.  
 Un dezavantaj secundar ar fi folosirea a două scheme separate de translatare pentru import și pentru export.
@@ -833,7 +979,7 @@ Spre deosebire de translatarea XD - XCode, în schema de față, $subtags$ va co
 
 Cu ajutorul atributului $saveId$ se salvează id-ul elementului curent pentru a putea fi folosit pentru generarea interacțiunilor XD.
 
-Figura \ref{fig:Schema2} specifică modul de reprezentare al schemei de translatare XCode-XD, pe baza proprietăților explicate mai sus.
+Figura \ref{fig:Schema2} specifică modul de reprezentare al schemei de translatare XCode - XD, pe baza proprietăților explicate mai sus.
 
 \begin{figure}[!htbp]
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -862,7 +1008,7 @@ Figura \ref{fig:Schema2} specifică modul de reprezentare al schemei de translat
 
 Algoritmul XCode - XD din această secțiune va fi similar cu algoritmul de translatare XD - XCode (din secțiunea \ref{xd2xcodev1}), cu diferența că acesta va fi extins conform specificațiilor de mai sus.
 
-\section{Sincronizarea scenelor între cele două reprezentări} \label{syncme}
+\section{Sincronizarea scenelor din Adobe } \label{syncme}
 
 Sincronizarea se referă la modul în care elementele vizuale vor fi updatate în momentul în care se realizează o modificare în proiectul XD sau în proiectul XCode.
 Voi incepe cu prezentarea sincronizării de la XD la Xcode, sincronizarea inversă urmând să fie implementată ulterior.
@@ -885,12 +1031,12 @@ Scenele nemodificate sunt reprezentate prin scenele (reprezentate în format agc
 Algoritmul de sincronizare rulează implicit în momentul în care se realizează translatarea din XCode în Adobe Experience Design. Pașii acestui algoritm sunt:
 
 \begin{itemize}  
-\item Se creează translatarea XCode - XD prin conversia fișierului xml în format json. De asemenea, se construiește un vector cu n+1 offseturi, în care primele n valori reprezintă offseturile tag-urilor $scene$ din cadrul fișierului .storyboard, iar ultimul offset, al n+1-lea, va reprezenta offsetul ultimului tag $/scene$. Ultimul offset este necesar pentru obținerea dimensiunii ultimei scene. 
+\item Se creează translatarea XCode - XD prin conversia fișierului xml în format json. De asemenea, se construiește un vector cu n+1 offseturi în care primele n valori reprezintă offseturile tag-urilor $scene$ din cadrul fișierului .storyboard, iar ultimul offset, al n+1-lea, va reprezenta offsetul ultimului tag $/scene$. Ultimul offset este necesar pentru obținerea dimensiunii ultimei scene. 
 Pentru înlocuirea scenelor modificate este necesară obținerea offseturilor și ale dimensiunilor acestora în cadrul fișierului storyboard. Dimensiunea unei scene este calculată prin aplicarea următoarei formule:
 \[offsetList[sceneNo + 1] - offsetList[sceneNo]\]
 unde ~$offsetList$ reprezintă lista de offseturi, iar ~$sceneNo$ numărul scenei curente. Se salvează sha-ul fiecărei scene translatate într-un dicționar numit $shaDict$;
 
-\item Începe monitorizarea fișierului de design .xd. În momentul în care se realizează salvarea fișierului xd, se realizează decompresia acestuia și se parcurge lista de fișiere din cadrul directorului $artworks$. Se obțin valorile sha ale fiecărui fișier care conține reprezentările scenelor (/artowks/artboard-artboard<$sceneNo$>/greaphicContent.agc conform \ref{fig:ierarhie}); 
+\item Începe monitorizarea fișierului de design .xd. În momentul în care se realizează salvarea fișierului xd, se realizează decompresia acestuia și se parcurge lista de fișiere din cadrul directorului $artworks$. Se obțin valorile sha ale fiecărui fișier care conține reprezentările scenelor (/artowks/artboard-artboard<$sceneNo$>/graphicContent.agc conform \ref{fig:ierarhie}); 
 \item Se verifică apartenența fiecărui sha în lista de sha-uri presalvate ( în $shaDict$). Apar două situații:
     \begin{itemize}  
     \item Sha-ul se află în $shaDict$. În acest caz, scena curentă nu a fost modificată și reprezentarea în xml va fi aceeași;
@@ -901,136 +1047,6 @@ unde ~$offsetList$ reprezintă lista de offseturi, iar ~$sceneNo$ numărul scene
 \end{itemize}
 
 
-\section{Arhitectură}
-
-În acestă secțiune voi oferi detalii despre arhitectură și despre modulele care alcătuiesc soluția prezentată.
-
-Aplicația este funcțională și implementează sincronizarea și translatarea directă și inversă a elementelor vizuale dintre Adobe Experience Design și XCode. 
-Realizarea proiectului a fost testată pe un sistem Mac OS X, aplicația fiind scrisă în ObjC cu ajutorul IDE-ului XCode. Pentru rularea aplicației este necesar proiectul curent \cite{repoGit} și, desigur, aplicația Adobe XD \cite{xd}.
-Intern, proiectul se folosește de utilitarul ImageMagick \cite{imageMagick} pentru conversia între un format svg și un format png.
-
-Interacțiunea cu fișierele de design XD s-a realizat în două moduri: prin intermediul Clipboardului și prin crearea ierarhiei de fișiere xd.
-
-În primă etapă, preluarea elementelor grafice din Adobe XD s-a realizat prin intermediul Clipboardului sistemului de operare. Astfel, interacțiunea cu artboardurile din XD s-a realizat prin mecanismele de copy și paste ale scenelor.
-După translatarea din format XCode în format XD rezultă un singur fișier .agc care va conține toate informațiile necesare creării fișierului de design. Conținutul acestui fișier va fi pus în Clipboard cu tipul \textbf{com.adobe.sparkler.design}. Acest conținut agc va fi apoi copiat din Clipboard prin efectuarea comenzii Cmd + V de către utilizator în fișierul xd.
-
-Flow-ul translatării XCode - XD prin intermediul Clipboardului se regăsește în figura \ref{fig:Clipboard Import}, iar al translatării XD - Xcode prin intermediul Clipboardului se regăsește în figura \ref{fig:Clipboard Export}.
-
-
-\begin{figure}[!htbp]
-\centering
-\begin{tikzpicture}[node distance = 4cm, auto]
-\node [block] (init) {.storyboard};
-\node [block, right of=init] (solutie) {Soluție translatare};
-\node [block, right of=solutie] (clipboard) {Clipboard};
-\node [block, right of=clipboard] (xd) {.xd};
-\path [line] (init) -- node {input} (solutie);
-\path [line] (solutie) -- node {paste} (clipboard);
-\path [line] (clipboard) -- node {output} (xd);
-\end{tikzpicture}
-\caption{Clipboard Import} \label{fig:Clipboard Import}
-\end{figure}
-
-\begin{figure}[!htbp]
-\centering
-\begin{tikzpicture}[node distance = 4cm, auto]
-\node [block] (init) {.xd};
-\node [block, right of=init] (clipboard) {Clipboard};
-\node [block, right of=clipboard] (solutie) {Soluție translatare};
-\node [block, right of=solutie] (storyboard) {.storyboard};
-\path [line] (init) -- node {copy} (clipboard);
-\path [line] (clipboard) -- node {input} (solutie);
-\path [line] (solutie) -- node {output} (storyboard);
-\end{tikzpicture}
-\caption{Clipboard Export} \label{fig:Clipboard Export}
-\end{figure}
-
-
-În a doua etapă - etapa finală - am renunțat la folosirea Clipboardului în favoarea creării fișierului xd. 
-Acest lucru a fost realizat din două motive: În primul rând, folosirea Clipboardului implica un flow mai greoi al aplicației și o interacțiune suplimentară din partea utilizatorului (overhead adus de copy și de paste). Cel de-al doilea motiv implică imposibilitatea copierii tranzițiilor prin Clipboard.
-
-Așadar, pentru preluarea informațiilor din cadrul unui fișier xd, se realizează decomprimarea acestuia prin apelul comenzii \textbf{unzip}. În urma acestui apel, se obține ierarhia de fișiere așa cum a fost descrisă în figura \ref{fig:ierarhie}.
-
-În urma translatării din XCode în XD, se construiește ierarhia de fișiere care va fi fi apoi comprimată în format .xd. Această comprimare se realizează prin intermediul comenzii \textbf{zip -r --no-dir-entries <design xd> <ierarhie fișiere>}. 
-
-Arhitectura acestui model de lucru se regăsește în figurile \ref{fig:Export}, \ref{fig:Import}.
-
-\begin{figure}[!htbp]
-\centering
-\begin{tikzpicture}[node distance = 4cm, auto]
-\node [block] (init) {.storyboard};
-\node [block, right of=init] (solutie) {Soluție translatare};
-\node [block, right of=solutie] (clipboard) {Creare ierarhie fișiere .agc};
-\node [block, right of=clipboard] (xd) {.xd};
-\path [line] (init) -- node {input} (solutie);
-\path [line] (solutie) -- node {output} (clipboard);
-\path [line] (clipboard) -- node {zip} (xd);
-\end{tikzpicture}
-\caption{Simple Import} \label{fig:Import}
-\end{figure}
-
-\begin{figure}[!htbp]
-\centering
-\begin{tikzpicture}[node distance = 4cm, auto]
-\node [block] (init) {.xd};
-\node [block, right of=init] (solutie) {Soluție translatare};
-\node [block, right of=solutie] (storyboard) {.storyboard};
-\path [line] (init) -- node {unzip} (solutie);
-\path [line] (solutie) -- node {output} (storyboard);
-\end{tikzpicture}
-\caption{Simple Export} \label{fig:Export}
-\end{figure}
-
-Flow-ul aplicației se poate observa în figura \ref{fig:Prezentare}. În această figură se poate observa legătura dintre o aplicație în XCode și o aplicație XD realizată prin operațiile de translatare și de sincronizare. BlackBox-ul din figură constituie soluția care implementează operațiile descrise în secțiunile \ref{xcxd2schema}, \ref{xd2xcodev1}, \ref{syncme}.
-
-\begin{figure}[!htbp]
-\centering
-\begin{tikzpicture}[node distance = 4cm, auto]
-\node (xd) at (0, 0) {\includegraphics[width=.40\textwidth]{src/img/xdApp.png}};
-\node (solutie) at (7, 0) {BlackBox Soluție};
-\node (xcode) at (7, -5) {\includegraphics[width=.50\textwidth]{src/img/XcodeApp.png}};
-\draw [<->](solutie) -- (xd);
-\draw [<->] (xcode) -- (solutie);
-\end{tikzpicture}
-\caption{Flow-ul aplicației (de la XD - stânga sus - la XCode - dreapta jos)} \label{fig:Prezentare}
-\end{figure}
-
-Soluția prezentată (sau BlackBox-ul prezentat în figura \ref{fig:Prezentare}) se împarte într-o serie de module care implementează diferite concepte și funcționalități:
-\begin{itemize} 
-\item Xml2Dict: realizează translatarea din formatul xml corespunzător fișierului .storyboard într-un format json. SubTagurile corespunzătoare tagurilor $scene$ și $subviews$ vor fi transformate într-un vector de scene, respectiv de elemente vizuale.
-\item Dict2Agc: primește ca input dicționarul json obținut de la modulul Xml2Dict și se folosește de o schemă de translatare XD - XCode (\ref{xcxd2schema}) pentru obținerea ierarhiei de fișiere xd;
-\item XCode2XD: implementează funcționalitatea de translatare din reprezentarea XCode în reprezentarea XD (folosind prima schemă de translatare \ref{xcode2xdv1}); la baza acestui modul se află schema de translatare xml->json;
-\item XD2XCode: implementează funcționalitatea de translatare din reprezentarea XD în reprezentarea XCode (\ref{xcxd2schema}). La baza acestui modul se află schema de translatare json->xml;
-\item XDCreator: Creează ierarhia de fișiere .agc pentru construirea unui fișier de design xd (\ref{fig:ierarhie});
-\item Sync: implementează funcționalitatea de sincronizare între XD și XCode (\ref{syncme}). Acest modul monitorizează un fișier .xd astfel încât, orice modificare a acestuia să fie propagată și în proiectul XCode asociat;
-\item Helper: modul care implementează o serie de funcționalități generale necesare tuturor celorlalte module (ex. lucrul cu fișierele, crearea task-urilor pentru efectuarea de operații zip sau convert, etc.)
-\end{itemize}
-
-Aceste module și interacțiunea dintre ele este reprezentată în figura \ref{fig:Arhitectura}.
-
-\begin{figure}[!htbp]
-\centering
-\begin{tikzpicture}[node distance = 4cm, auto]
-\node [block] (xml2dict) {Xml2Dict};
-\node [block, right of=xml2dict] (dict2agc) {Dict2Agc};
-\node [block, right of=dict2agc] (xdcreator) {XDCreator};
-\node [block, right of=xdcreator] (xd2xcode) {XD2XCode};
-\node [block, below left=1cm and 1cm of xd2xcode] (sync) {Sync};
-\node [block, below left=1cm and 1cm of xdcreator] (helper) {Helper};
-\draw [->] (dict2agc) -- (xdcreator);
-\draw [->] (sync) -- (xd2xcode);
-\draw [->] (xml2dict) -- (dict2agc);
-\draw [<->] (xml2dict) -- (helper);
-\draw [<->] (dict2agc) -- (helper);
-\draw [<->] (xdcreator) -- (helper);
-\draw [<->] (sync) -- (helper);
-\end{tikzpicture}
-\caption{Arhitectură} \label{fig:Arhitectura}
-\end{figure}
-
-În arhitectura prezentată, modulul XCode2XD poate fi interschimbat cu modulele Xml2Dict și Dict2Agc, întrucât acestea implementează aceeași funcționalitate, dar prin scheme de translatare diferite.
-
-O tehnologie folosită pentru testarea și implementarea cu ajutorului Clipboardului este Clipboard Viewer \cite{clipboard}. Această aplicație arată conținutul oricărui clipboard, în funcție de tipul dorit. În cazul de față, pentru obținerea clipboardului specific aplicației Adobe XD, tipul clipboardului este reprezentat de ``com.adobe.sparkler.design".
 
 
 \chapter{Evaluare și Testare}
@@ -1228,27 +1244,25 @@ Scalable Vector Graphics (SVG) 1.1 (Second Edition). W3C.
 ECMA-262 (ISO/IEC 16262), ECMAScript® Language Specification, 3rd edition (December 1999)
 
 \bibitem{imageMagick}
-http://www.imagemagick.org
+Utilitarul ImageMagick folosit pentru translatarea din svg în png (http://www.imagemagick.org)
 
 \bibitem{clipboard}
-https://developer.apple.com/library/mac/samplecode/ClipboardViewer/Introduction/Intro.html
+Utilitarul ClipboardViewer (https://developer.apple.com/library/mac/samplecode/ClipboardViewer/Introduction/Intro.html)
 
 \bibitem{repoGit}
-https://github.com/ClaudiaRogoz/LicentaAdobe
+Codul sursă pentru soluția prezentată (https://github.com/ClaudiaRogoz/LicentaAdobe)
 
 \bibitem{lib}
-https://developer.apple.com/library/mac/navigation/
+Biblioteca de dezvoltare Mac (https://developer.apple.com/library/mac/navigation/)
 
 \bibitem{xd}
-http://www.adobe.com/products/experience-design.html
+Utilitarul Adobe Experience Design (http://www.adobe.com/products/experience-design.html)
 
 \bibitem{xcode}
-https://developer.apple.com/xcode/
-
-\bibitem{Aboutxcode}
-https://en.wikipedia.org/wiki/Xcode
+Suita XCode (https://developer.apple.com/xcode/)
 
 \bibitem{StructuraXcode}
-http://fileformats.archiveteam.org/wiki/Xcode_Project
+Structura unei aplicații XCode (http://fileformats.archiveteam.org/wiki/Xcode_Project)
+
 \end{thebibliography}
 
