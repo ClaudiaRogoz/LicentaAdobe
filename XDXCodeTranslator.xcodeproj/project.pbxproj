@@ -262,7 +262,7 @@
 				C98A7C011CBE4EDD0071E791 /* TestFiles */,
 				C98A7C001CBE4DD10071E791 /* TranslationsSchemas */,
 				C98A7BFF1CBE4DB70071E791 /* AgcResources */,
-				C99186C71C8B664A0071A25F /* XMLParser */,
+				C99186C71C8B664A0071A25F /* XDXCodeTranslator */,
 				C99186DE1C8B664A0071A25F /* XMLParserTests */,
 				C99186E91C8B664A0071A25F /* XMLParserUITests */,
 				C99186C61C8B664A0071A25F /* Products */,
@@ -279,7 +279,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C99186C71C8B664A0071A25F /* XMLParser */ = {
+		C99186C71C8B664A0071A25F /* XDXCodeTranslator */ = {
 			isa = PBXGroup;
 			children = (
 				C99186F81C8B66760071A25F /* XCode2XD.h */,
@@ -308,6 +308,7 @@
 				C900D2DC1D08B5260065F54F /* Dict2Agc.h */,
 				C900D2DD1D08B58E0065F54F /* Dict2Agc.m */,
 			);
+			name = XDXCodeTranslator;
 			path = XMLParser;
 			sourceTree = "<group>";
 		};
