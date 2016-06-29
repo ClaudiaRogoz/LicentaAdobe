@@ -99,11 +99,11 @@ const NSString *xmlEndScene = @"</scene";
     return [NSString stringWithFormat:@"%@%d", ART_SCENE, i];
 }
 
--(NSDictionary *) getArtboardNo:(int)i forDict:(NSDictionary *)dict{
+-(NSDictionary *) getArtboardNo:(int)i forDict:(NSDictionary *)dict {
     return [dict objectForKey:[self artboardHeader:i]];
 }
 
--(void) mergeDict:(NSDictionary **)dict withHeaderDict:(NSDictionary *) header artboardNo:(int) i{
+-(void) mergeDict:(NSDictionary **)dict withHeaderDict:(NSDictionary *) header artboardNo:(int) i {
 
     id tempDict = *dict;
     NSMutableDictionary *artboardInfo = [[NSMutableDictionary alloc] init];
@@ -111,8 +111,7 @@ const NSString *xmlEndScene = @"</scene";
     [tempDict setObject:artboardInfo forKey:ARTBOARDS];
 }
 
-+(NSString*) computeSha1:(NSString*)input
-{
++(NSString*) computeSha1:(NSString*)input {
     const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:input.length];
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
@@ -129,8 +128,6 @@ const NSString *xmlEndScene = @"</scene";
     NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
     NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
     NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-    //NSLog(@"Writing to %@", [self xmlPath]);
-    //[xmlData writeToFile:@"/Users/crogoz/Desktop/here.xml" atomically:YES];
     if ([self xmlPath])
         [xmlData writeToFile:[self xmlPath] atomically:YES];
 }
@@ -138,7 +135,6 @@ const NSString *xmlEndScene = @"</scene";
 - (void) updateXmlFile {
     
     NSString *finalXml = xmlHeader;
-    //NSLog(@"Updating... %@", xmlHeader);
     unsigned long offset = 0;
     for (int i= 0; i < [arrayOfScenes count]; i++) {
         offset = [finalXml length];
@@ -167,13 +163,10 @@ const NSString *xmlEndScene = @"</scene";
     
     NSString *resource = [filesInit lastObject];
     [filesInit removeLastObject];
-    //NSLog(@"Resource = %@", resource);
     NSMutableDictionary *jsonHeader = [[self serializeFromPath:resource] objectForKey:ARTBOARDS];
-    //NSLog(@"JsonHeader= %@", jsonHeader);
     NSError *error;
     NSStringEncoding encoding;
     int currentScene = 0;
-    //NSLog(@"hashArtboards = %@", hashArtboards);
     for (id newArtboards in filesInit) {
         /*compute hash & find hash entry in hashArtboards */
         /*goto artboard (found in hashArtboard) & check contentsAreEqual */
@@ -187,20 +180,16 @@ const NSString *xmlEndScene = @"</scene";
             long nextArtOffset = [[offsetArtboards objectAtIndex:nr + 1]longValue];
             NSString *substr = [xmlContent substringWithRange:NSMakeRange(prevArtOffset, nextArtOffset - prevArtOffset)];
             [arrayOfScenes addObject:substr];
-            //[arrayOfScenes insertObject:substr atIndex:nr];
             [tempHash setObject:[NSNumber numberWithInt:nr] forKey:jsonHash];
-            //NSLog(@"Artboard %d remains the same!", nr);
             continue;
         }
         
         NSMutableDictionary *jsonDict = [self serializeFromPath:newArtboards];
-        NSLog(@"NO :( %d", currentScene );
         [self mergeDict:&jsonDict withHeaderDict:[self getArtboardNo:currentScene forDict:jsonHeader] artboardNo:currentScene - 1];
         NSString *xcodeString = [XD2XCode generateXmlForTag:jsonDict xdPath:[self xdPath] xmlPath:[self xmlDir] sceneNo:currentScene];
         [arrayOfScenes addObject:xcodeString];
         [tempHash setObject:[NSNumber numberWithInt:currentScene - 1] forKey:jsonHash];
     }
-    //NSLog(@"temphash = %@", tempHash);
 }
 
 
@@ -216,7 +205,7 @@ const NSString *xmlEndScene = @"</scene";
     
     NSError *error;
     NSURL *directoryURLI = [NSURL fileURLWithPath:unzipped_xd];
-    NSString *pathToArtboardAgc = [unzipped_xd stringByAppendingPathComponent: GRAPHIC_CONTENT ];
+    NSString *pathToArtboardAgc = [unzipped_xd stringByAppendingPathComponent: GRAPHIC_CONTENT];
     NSString *jsonString = [[NSString alloc] initWithContentsOfFile:pathToArtboardAgc encoding:NSUTF8StringEncoding error:NULL];
     NSMutableDictionary *jsonArtboards = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
     jsonArtboards = [jsonArtboards objectForKey:ARTBOARDS];

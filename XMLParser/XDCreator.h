@@ -15,10 +15,9 @@
 
 @interface XDCreator : NSObject {
 
+    /* ids used in mimetype */
     NSString *docId;
-
     NSString *instId;
-
     NSString *artboardNumber;
 }
 

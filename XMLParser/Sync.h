@@ -57,14 +57,62 @@
 @property NSString *xmlDir;
 @property NSString *xdPath;
 
-+ (void) startSync:(NSString *) path withXcode:(NSString *) xmlPath offsetList:(NSMutableArray *)offset shaList:(NSMutableDictionary *)shaList;
-/**
- *  sync algorithm; monitors a file given as parameter
- *  PARAMS:
- *      path:   the path for the xd file
- **/
-- (void) monitorXDFile:(NSString*)path with:(NSString *)xmlPath;
++(NSString*) computeSha1:(NSString*)input;
 
+/* starts synchronization; reads the sha & the offset dictionaries; */
++ (void) startSync:(NSString *) path withXcode:(NSString *) xmlPath offsetList:(NSMutableArray *)offset shaList:(NSMutableDictionary *)shaList;
+
+/*  sync algorithm; monitors a file given as parameter */
+- (void) monitorXDFile;
+
+/* gets all the "graphicContent.agc" files within an xd file */
+- (void) findChangesForPath:(NSString *)unzipped_xd;
+
+- (BOOL) isResourcesPath:(NSString*) path;
+
+/* checks the scenes; if a scene is modified (its sha is not in the shaList), 
+ * we generate the new xml representation  */
+- (void) processArtboardPairs:(NSMutableArray *)filesInit agcinfo:(NSMutableDictionary *) jsonArtboards;
+
+/* writes a dictionary to thye corresponding agc file */
+- (void) replacePrevArtboard:(NSMutableDictionary *)newArtboards no:(int)nr;
+
+/* creates the whole xml file; computes the sha & the new offsets*/
+- (void) updateXmlFile;
+
+/* writes a string to a file */
+- (void) writeXmlString:(NSString*) xmlString;
+
+/* creates the artboards dictionary */
+- (void) mergeDict:(NSDictionary **)dict withHeaderDict:(NSDictionary *) header artboardNo:(int) i;
+
+/* returns the dictionary that describes a scene */
+- (NSDictionary *) getArtboardNo:(int)i forDict:(NSDictionary *)dict;
+
+/* returns an artboard name */
+- (NSString *) artboardHeader:(int) i;
+
+/* checks whether the current url represents a scene */
+- (BOOL) isArtboard:(NSURL *)urlF;
+
+/* returns a dictionary representation for the json found in "filePath"*/
+- (NSMutableDictionary *) serializeFromPath:(NSString *)filePath;
+
+/* given a dictionary "dict" and a string (x1.x2. ... .xn) where x1, x2, ... , xn are keys in "dict"
+ * returns the value corresponding to the last key (xn) in the dictionary
+ **/
+- (id) gotoAttribute:(NSMutableDictionary *) dict rules:(NSString *) rule;
+
+/* calls unzip command for the xd file */
+- (void) unzipXD:(NSString *)path atPath:(NSString*) unzipped_xd;
+
+/* returns the main project's directory */
+- (NSString *) getProjHomePath;
+
+/* init method */
+- (void) initSync:(NSString*) xmlFile shaList:(NSMutableDictionary *) shaList offsetList:(NSMutableArray *)offset;
+
+- (id)initWithError:(NSError **)error;
 @end
 
 #endif /* Sync_h */

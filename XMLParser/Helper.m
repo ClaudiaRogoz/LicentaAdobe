@@ -72,7 +72,6 @@
     
     /* get file path from the pbxproj file */
     NSError *error;
-    NSLog(@"FInd %@ in %@", name, directory);
     NSString *rootPath = [directory  stringByDeletingLastPathComponent];
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil];
     NSString *xcodeProj = [[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.xcodeproj'"]] firstObject];
@@ -80,7 +79,6 @@
     dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil];
     NSString *pbxProj = [[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pbxproj'"]] firstObject];
     NSString *projPath = [rootPath stringByAppendingPathComponent:pbxProj];
-    NSLog(@"Prob = %@", projPath);
     NSString *str = [NSString stringWithContentsOfFile:projPath encoding:NSUTF8StringEncoding error:&error];\
     NSString *searchPath = [NSString stringWithFormat:@"%@%@%@", PBXPROJ_IMAGE_NAME, name, PBXPROJ_IMAGE_PATH];
     NSRange searchRange = NSMakeRange(0,str.length);
@@ -96,16 +94,12 @@
         unsigned long length = [searchPath length] + imagePath.location;
         NSRange endPath = [str rangeOfString:DELIMITER options:0 range:NSMakeRange(length, [str length] - length)];
         path = [str substringWithRange:NSMakeRange(length, endPath.location - length)];
-        NSLog(@"Path = %@", path);
         /*the path is relative to the pbxproj file => transform to absolute path*/
         while ([path hasPrefix:PREV_PATH]) {
             path = [path substringFromIndex:[PREV_PATH length]];
-            NSLog(@"New Patgh = %@", path);
             directory = [directory stringByDeletingLastPathComponent];
         }
-    
         path = [directory stringByAppendingPathComponent:path];
-        NSLog(@"Found = %@", path);
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             return path;
         }
@@ -113,37 +107,9 @@
     return path;
 }
 
-+ (NSString *)findFile:(NSString *)name inPath:(NSString *) initPath
-{
-    //NSFileManager *fileManager = [NSFileManager defaultManager];
++ (NSString *)findFile:(NSString *)name inPath:(NSString *) initPath {
     NSString *directory = initPath;
     return [self getImagePath:name inDirectory:directory];
-    /*NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *directory = initPath;
-    NSURL *directoryURL = [NSURL fileURLWithPath:directory];
-    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
-    NSDirectoryEnumerator *enumerator = [fileManager
-                                         enumeratorAtURL:directoryURL
-                                         includingPropertiesForKeys:keys
-                                         options:0
-                                         errorHandler:^(NSURL *url, NSError *error) {
-                                             // Handle the error.
-                                             // Return YES if the enumeration should continue after the error.
-                                             return YES;
-                                         }];
-    for (NSURL *url in enumerator) {
-        NSError *error;
-        NSNumber *isDirectory = nil;
-        if (! [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
-            // handle error
-        }
-        else if (! [isDirectory boolValue]) {
-            if ([[[url path] lastPathComponent] isEqualToString:name])
-                return [url path];
-        }
-    }*/
-    /* get file path from the pbxproj file */
-    
 }
 
 + (void) addShaForString:(NSString *)jsonString artboardNo:(int)nr hash:(NSMutableDictionary *) hashArtboards {
@@ -171,11 +137,6 @@
             [self addShaForString:jsonString artboardNo:sha hash:hashArtboards];
         }
     }
-}
-
-+ (BOOL) checkPathExists:(NSString *) absolutePath {
-    
-    return [[NSFileManager defaultManager] fileExistsAtPath:absolutePath];
 }
 
 + (BOOL) fileExists:(NSString *) pathForFile {

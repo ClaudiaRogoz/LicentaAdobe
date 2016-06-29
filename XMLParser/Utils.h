@@ -193,9 +193,6 @@ void export(char *xdPath, char *xmlPath) {
 }
 
 void synch(char *XDPath, char *XMLPath) {
-    NSString * xdPath= [NSString stringWithFormat:@"%s", XDPath];
-    NSString * xmlPath= [NSString stringWithFormat:@"%s", XMLPath];
-    //[Sync startSync:xdPath withXcode:xmlPath];
 }
 
 #endif /* Utils_h */

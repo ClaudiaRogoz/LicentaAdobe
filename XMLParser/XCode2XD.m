@@ -529,7 +529,6 @@
     int textSize = [tempValue intValue];
     NSFont *font = [NSFont systemFontOfSize:textSize];
     [attributes setObject:[NSNumber numberWithInt:textSize] forKey:SAVED_POINTSIZE];
-    //NSLog(@"Text = %@", text);
     
     if ([text isKindOfClass:[NSNumber class]]) {
         NSNumber *nr = [NSNumber numberWithInt:[text intValue]];

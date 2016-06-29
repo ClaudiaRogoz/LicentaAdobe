@@ -59,9 +59,7 @@
 
 -(id) getXDForXmlObject:(NSMutableDictionary *) xmlDict {
         return [self processWholeXmlFromAgc:xmlDict];
-    
 }
-
 
 -(void) getDict:(id *)values fromConditions:(NSArray*)goToAgc {
     
@@ -73,7 +71,6 @@
                 id frame = [nodeValue objectForKey:FRAME];
                 widthArtboard = [[frame objectForKey:WIDTH] intValue];
                 heightArtboard = [[frame objectForKey:HEIGHT] intValue];
-                NSLog(@"Width = %d height = %d", widthArtboard, heightArtboard);
             }
         } else if ([*values isKindOfClass:[NSArray class]]){
             //eg. color.$key=backgroundColor
@@ -177,25 +174,20 @@
     float translatedValue = initValue;
     float xScaleFactor = ((float)WIDTH_XD_ARTBOARD_IPH6/widthArtboard);
     float yScaleFactor = (float)HEIGHT_XD_ARTBOARD_IPH6/heightArtboard;
-;
     float widthScaleFactor = xScaleFactor;
     float heightScalefactor = yScaleFactor;
-    if (scale ) {
-    }
     if ([key isEqualToString:TX]) {
         translatedValue = translatedValue * xScaleFactor;
         translatedValue = translatedValue + startXArtboard;
-        
     } else if ([key isEqualToString:TY]) {
         translatedValue = translatedValue * yScaleFactor;
         translatedValue = translatedValue + startYArtboard;
-        
     } else if ([key isEqualToString:WIDTH]) {
         translatedValue = initValue * widthScaleFactor;
     } else if ([key isEqualToString:HEIGHT]) {
         translatedValue = initValue * heightScalefactor;
     }
-    return translatedValue;
+    return MAX(1, translatedValue);
 }
 
 - (void) computeHrefProperty:(NSMutableDictionary *) dictValue value:(id) tvalue key:(id)key intoDict:(NSMutableDictionary**) objDict{
@@ -228,7 +220,6 @@
     
     if (![value hasPrefix:TOTRANSFORM]) {
         [*objDict setValue:value forKey:key]; /* no need for transformation */
-        
     } else if ([dictValue objectForKey:[[Helper splitVariable:value] objectAtIndex:0]]) {
         id tvalue = [[Helper splitVariable:value] objectAtIndex:0];
         if ([self isOfTypeSize:key]) {
@@ -277,7 +268,6 @@
         return;
     }
     [*objDict setObject:value forKey:key];
-
 }
 
 -(void) mergeDictionaries:(NSMutableDictionary **)objDict withDict:(NSMutableDictionary *)dictValue
@@ -742,7 +732,6 @@
     [XDCreator releaseStorage:[self xdPath]];
     CFTimeInterval elapsedTime = CACurrentMediaTime() ;
     NSLog(@"[Creation XD] Time elapsed: %f", elapsedTime - startTime);
-    NSLog(@"ImageProcess = %f", imageFind);
     return shaList;
 }
 

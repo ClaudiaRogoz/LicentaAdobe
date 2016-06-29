@@ -1,7 +1,5 @@
 #import "Xml2Dict.h"
 
-NSString *const kXMLReaderTextNodeKey = @"text";
-
 @interface Xml2Dict (Internal)
 
 - (id)initWithError:(NSError **)error;
@@ -12,8 +10,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 @implementation Xml2Dict
 
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)error
-{
++ (NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)error {
     Xml2Dict *reader = [[Xml2Dict alloc] initWithError:error];
     NSString *xmlContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSMutableArray *arrayOffset = [Helper getAllOccurencesOf:SCENE_TAG in:xmlContent];
@@ -23,48 +20,32 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     [arrayOffset addObject:[Helper getLastOccurencesOf:XMLSCENESF in:xmlContent fromOffset:[lastId longValue]]];
     [rootDictionary setValue:arrayOffset forKey:SCENE_TAG];
     [rootDictionary setValue:homeArtboard forKey:HOME_ARTBOARD];
-    NSLog(@"homeArtboard = %@", homeArtboard);
     return rootDictionary;
 }
 
-+ (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)error
-{
++ (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)error {
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     return [Xml2Dict dictionaryForXMLData:data error:error];
 }
 
-- (id)initWithError:(NSError **)error
-{
-    offset = 0;
+- (id)initWithError:(NSError **)error {
     return self;
 }
 
-- (void)dealloc
-{
-
+- (void)dealloc {
 }
 
-- (NSDictionary *)objectWithData:(NSData *)data
-{
-
-    
+- (NSDictionary *)objectWithData:(NSData *)data {
     dictionaryStack = [[NSMutableArray alloc] init];
     textInProgress = [[NSMutableString alloc] init];
-
     [dictionaryStack addObject:[NSMutableDictionary dictionary]];
-    
-    // Parse the XML
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
     parser.delegate = self;
     BOOL success = [parser parse];
-    
-
-    if (success)
-    {
+    if (success) {
         NSDictionary *resultDict = [dictionaryStack objectAtIndex:0];
         return resultDict;
     }
-    
     return nil;
 }
 
@@ -72,8 +53,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     return homeArtboard;
 }
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
-{
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
 
     id parentDict = [dictionaryStack lastObject];
     id childDict;
@@ -112,20 +92,16 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     [dictionaryStack addObject:childDict];
 }
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-{
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     NSMutableDictionary *dict = [dictionaryStack lastObject];
-
     if ([textInProgress length] > 0) {
-        [dict setObject:textInProgress forKey:@"text"];
+        [dict setObject:textInProgress forKey:TEXT];
         textInProgress = [[NSMutableString alloc] init];
     }
-
     [dictionaryStack removeLastObject];
 }
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     NSString *newString;
     if (string != nil) /* we have a string tag (multiline label)*/ {
         newString = [string stringByReplacingOccurrencesOfString:@"  " withString:@""];
@@ -135,13 +111,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         if ([newString length]) {
             [textInProgress appendString:string];
         }
-        
     }
-
 }
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
-{
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
 
 
 }

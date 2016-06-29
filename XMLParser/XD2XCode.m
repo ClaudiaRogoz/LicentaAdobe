@@ -20,7 +20,6 @@
 
 + (void) readTemplateUsingXML:(NSString *)xdPath writeTo:(NSString*)outXmlPath {
     NSError *error;
-    NSLog(@"AHAAA");
     NSMutableDictionary *agcTemplate = [[NSMutableDictionary alloc] init];
     NSString *xmlPath = [[outXmlPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
@@ -32,7 +31,7 @@
     [gen getXmlForAgcObject:agcTemplate];
 }
 
-+(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath sceneNo:(int) currentScene{
++(NSString *) generateXmlForTag:(NSDictionary*)agcDict xdPath:(NSString *)xdPath xmlPath:(NSString *)xmlPath sceneNo:(int) currentScene {
     NSError *error;
     XD2XCode *gen = [[XD2XCode alloc] initWithError:&error];
     [gen setXdPath:xdPath];
@@ -117,7 +116,7 @@
     NSString *mainBundle = [self getProjHomePath];
     NSString *unzipped_xd = [mainBundle stringByAppendingPathComponent:XD_EXPORT_PATH];
     NSLog(@"Removing %@ ....", unzipped_xd);
-    NSLog(@"%hhd", [[NSFileManager defaultManager] removeItemAtPath:unzipped_xd error:nil]);
+    [[NSFileManager defaultManager] removeItemAtPath:unzipped_xd error:nil];
 }
 
 -(NSString *) getProjHomePath {
@@ -201,12 +200,9 @@
     agcToXmlTemplate = [defDict mutableCopy];
     translationDict = [ruleDict mutableCopy];
     resourcesDict = [[NSMutableString alloc] init];
-    scaleImage = [[NSMutableArray alloc] init];
-    inheritanceColor = [[NSMutableArray alloc] init];
     uuidMap = [[NSMutableDictionary alloc] init];
     uuidViewMap = [[NSMutableDictionary alloc] init];
     uniqueList = [[NSMutableDictionary alloc] init];
-    scaleNo = 0;
     transformObjects = [[NSMutableDictionary alloc] init];
     transformObjects[SIZE] = [[NSMutableDictionary alloc] init];
     transformObjects[SIZE][XARTBOARD] = [NSNumber numberWithInt:1];
@@ -263,7 +259,6 @@
     id interactions = [interactionsDict objectForKey:INTERACTIONS];
     NSString *uuid = [self getUniqueString];
     id agcId = [agcDict objectForKey:ID];
-    
     if (agcId != nil) {
         [uuidMap setObject:uuid forKey:agcId];
     }
@@ -415,7 +410,7 @@
         NSArray *listImages = [initValue componentsSeparatedByString:@" "];
         NSString *href = [self computeAgcTag:[listImages objectAtIndex:0] dict:agcDict];
         NSString *idImg = [self computeAgcTag:[listImages objectAtIndex:1]dict:agcDict];
-        if ([Helper checkPathExists:href])
+        if ([Helper fileExists:href])
             return href;
         return [[unzipped_xd stringByAppendingPathComponent:idImg] stringByAppendingPathExtension:PNG];
     } else {
@@ -426,8 +421,8 @@
 }
 
 -(NSArray *) splitVariable:(NSString*) varName {
-    if ([varName hasPrefix:@"$"]) {
-        return [[varName substringFromIndex:1] componentsSeparatedByString:@"."];
+    if ([varName hasPrefix:TOTRANSFORM]) {
+        return [[varName substringFromIndex:1] componentsSeparatedByString:DOT];
     }
     return [NSArray arrayWithObjects:varName, nil];
 }
@@ -578,7 +573,7 @@
     } else if ([key isEqualToString:HEIGHT]) {
         translatedValue = initValue * heightScalefactor;
     }
-    return translatedValue;
+    return MAX(1, translatedValue);
 }
 
 - (CGRect) computeTextFrame:(NSString *) label usingFontSize:(int) fontSize fontName:(NSString *)fontName fontMask:(NSUInteger) mask {
@@ -970,9 +965,7 @@
             nodeValue = [*values objectForKey:key];
         }
         *values = nodeValue;
-       
     }
-    
 }
 
 -(void) copyDict:(NSDictionary*) defaultType toDict:(NSMutableDictionary **) genericDict {
@@ -1203,7 +1196,7 @@
     return [self processTemplateDict:&viewDict agcDict:agcDict finalDict:finalDict ofType:VIEW];
 }
 
-/* in caser of whole file translation => extend with header and footer */
+/* in case of whole file translation => extend with header and footer */
 -(NSString *) surroundWithHeader:(NSString *) header footer:(NSString *) footer string:(NSString *)str {
     return [NSString stringWithFormat:@"%@\n%@\n%@", header, str, footer];
 }
@@ -1360,7 +1353,7 @@
     NSData *data = [xmlString dataUsingEncoding:NSUTF8StringEncoding];
     NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData:data options:NSXMLDocumentTidyXML error:&err];
     NSData* xmlData = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-    [xmlData writeToFile:@"/Users/crogoz/Desktop/here.xml" atomically:YES];
+    //[xmlData writeToFile:@"/Users/crogoz/Desktop/here.xml" atomically:YES];
     if ([self outXmlPath])
         [xmlData writeToFile:[self outXmlPath] atomically:YES];
 }
@@ -1370,8 +1363,7 @@
     return [values sortedArrayUsingFunction:comparatorFunction context:nil];
 }
 
-NSInteger comparatorFunction(id num1, id num2, void *context)
-{
+NSInteger comparatorFunction(id num1, id num2, void *context) {
     num1 = [num1 substringFromIndex:[NODE length]];
     num2 = [num2 substringFromIndex:[NODE length]];
     int v1 = [num1 intValue];
@@ -1393,14 +1385,13 @@ NSInteger comparatorFunction(id num1, id num2, void *context)
     return newString;
 }
 
--(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject{
+-(NSString*) getXmlForAgcObject:(NSDictionary*)typeAgcObject {
     NSMutableString *xmlGen = [NSMutableString stringWithFormat:@""];
     NSMutableString *finalString;
     NSDictionary *dict;
     NSMutableString *stringFooter = [NSMutableString stringWithFormat:XMLSCENESF];
     NSString *initialArtboard, *resources, *xmlHeader, *xmlFile;
     BOOL setInitial = false;
-    //sceneOffset = XML_SCENE_X;
     int artboardsNo;
     // it was given the whole dictionary to process => goto @"content"; type = "view"
     artboardsNo = (int)[[typeAgcObject objectForKey:ARTBOARDS] count];

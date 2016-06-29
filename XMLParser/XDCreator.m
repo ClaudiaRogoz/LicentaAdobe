@@ -22,12 +22,10 @@
 }
 
 - (NSString *) generateUniqueId {
-    
     return [[NSUUID UUID] UUIDString];
 }
 
 - (int) getRangeofString:(NSString *) search inString:(NSString *) init  offset:(int) offset {
-    
     NSRange range = [init rangeOfString:search
                                 options:0
                                   range:NSMakeRange(offset, [init length]- offset)];
@@ -63,7 +61,6 @@
     NSString *timeStamp = [self createTimeStamp];
     NSString *template = [[NSBundle mainBundle] pathForResource:META_TEMPLATE ofType:XML];
     NSString *metaInfo = [NSString stringWithContentsOfFile:template encoding:NSUTF8StringEncoding error:NULL];
-
     metaInfo = [self replaceString:timeStamp inString:metaInfo usingSearchArray:modifyDates lastObject:false];
     metaInfo = [self replaceString:documentID inString:metaInfo usingSearchArray:uniqIds lastObject:false];
     metaInfo = [self replaceString:instanceID inString:metaInfo usingSearchArray:instanceIds  lastObject:false];
@@ -72,7 +69,6 @@
 }
 
 - (BOOL) isSize:(NSString *) key {
-
     return [key isEqualToString:HEIGHT] || [key isEqualToString:WIDTH]
             || [key isEqualToString:XARTBOARD] || [key isEqualToString:YARTBOARD];
 
@@ -81,7 +77,6 @@
 - (void) processTemplate:(id*)template usingArtboards:(NSMutableDictionary *) dict {
 
     NSError *error;
-
     if ([*template isKindOfClass:[NSDictionary class]]) {
         NSArray *allKeys = [*template allKeys];
         if ([*template objectForKey:ORDER]) {
